@@ -1,5 +1,6 @@
 import './App.css';
 import Header from './components/header';
+import Buscador from './components/buscador';
 
 function App() {
   return (
@@ -7,6 +8,7 @@ function App() {
     //los componentes en el div
     <div className="App">
       <Header />
+      <Buscador />
       <Footer />
       <TarjetaObjetivo />
       <TarjetaMacros />
