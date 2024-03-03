@@ -1,7 +1,7 @@
 import React from 'react';
 import './tarjetaEjercicio.css';
 
-const TarjetaEjercicio = ({ exercise, bodyPartChoosen, limite}) => {
+const TarjetaEjercicio = ({ exercise, bodyPartChoosen, limite, name}) => {
   const getColorForBodyPart = (part) => {
     switch (part) {
       case 'waist':
@@ -29,7 +29,12 @@ const TarjetaEjercicio = ({ exercise, bodyPartChoosen, limite}) => {
     }
   };
 
-  const filteredExercises = exercise.filter(item => item.bodyPart === bodyPartChoosen).slice(0, limite);;
+  let filteredExercises = exercise;
+
+  if (!name) {
+    filteredExercises = exercise.filter(item => item.bodyPart === bodyPartChoosen).slice(0, limite);
+  }
+
 
   return (
     <div className="excercise-row">
