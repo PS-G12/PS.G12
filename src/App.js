@@ -1,21 +1,15 @@
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
-import Header from './components/header';
-import Buscador from './components/buscador';
+import Rutinas from './pages/rutinas';
 
 function App() {
   return (
-    //Esto es simplemente para que se vea como quederon los componentes, en caso de necesitarlo, se pueden cargar/quitar
-    //los componentes en el div
-    <div className="App">
-      <Header />
-      <Buscador />
-      <Footer />
-      <TarjetaObjetivo />
-      <TarjetaMacros />
-      <IngestaAgua />
-      <GraficaPeso />
-      <GraficaPulsasiones />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/rutinas" element={<Rutinas />} />
+      </Routes>
+    </Router>
   );
 }
 

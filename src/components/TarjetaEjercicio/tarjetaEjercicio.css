@@ -1,0 +1,43 @@
+.excercise-card {
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .excercise-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .excercise-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .excercise-card h2 {
+    margin-top: 12px;
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .body-parts {
+    margin-top: 8px;
+  }
+  
+  .body-part-tag {
+    display: inline-block;
+    padding: 4px 8px;
+    margin-right: 4px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 8px;
+    font-size: 14px;
+  }
+
+  
+  
+  
