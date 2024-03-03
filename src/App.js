@@ -1,6 +1,6 @@
 import './App.css';
-import Header from './components/header';
-import Buscador from './components/buscador';
+import Header from './components/Header/header';
+import Buscador from './components/Buscador/buscador';
 
 function App() {
   return (
@@ -9,12 +9,12 @@ function App() {
     <div className="App">
       <Header />
       <Buscador />
-      <Footer />
+{/*       <Footer />
       <TarjetaObjetivo />
       <TarjetaMacros />
       <IngestaAgua />
       <GraficaPeso />
-      <GraficaPulsasiones />
+      <GraficaPulsasiones /> */}
     </div>
   );
 }
