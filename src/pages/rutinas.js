@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import Header from '../components/Header/header';
+import Buscador from '../components/Buscador/buscador';
 import TarjetaEjercicio from '../components/TarjetaEjercicio/tarjetaEjercicio';
 import exerciseData from '../api/exercise_data.json'; 
+import './rutinas.css'; // Importa el archivo de estilos CSS
 
 const ExercisePage = () => {
   const [exerciseDataState, setExerciseDataState] = useState(null);
@@ -9,11 +12,30 @@ const ExercisePage = () => {
     setExerciseDataState(exerciseData);
   }, []); 
 
+  const bodyParts = [
+    'chest',
+    'lower legs',
+    'lower arms',
+    'neck',
+    'shoulders',
+    'upper arms',
+    'upper legs',
+    'waist',
+    'back',
+    'cardio'
+  ];
+
   return (
     <div className="exercise-page">
-      <h1>Exercise Details</h1>
-      {/* Paso 4: Renderizar la tarjeta de ejercicio si los datos están disponibles */}
-      {exerciseDataState && <TarjetaEjercicio exercise={exerciseDataState} />}
+      <Header />
+      <Buscador />
+      
+      {bodyParts.map(bodyPart => (
+        <div key={bodyPart} className={`${bodyPart}-excercises`}>
+          <h1>Ejercicios de {bodyPart}</h1>
+          {exerciseDataState && <TarjetaEjercicio exercise={exerciseDataState} bodyPartChoosen={bodyPart} limite={5} />}
+        </div>
+      ))}
     </div>
   );
 };
