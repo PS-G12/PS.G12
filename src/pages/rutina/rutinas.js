@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import Header from '../components/Header/header';
-import Buscador from '../components/Buscador/buscador';
-import TarjetaEjercicio from '../components/TarjetaEjercicio/tarjetaEjercicio';
-import exerciseData from '../api/exercise_data.json'; 
-import './rutinas.css'; // Importa el archivo de estilos CSS
+import Header from '../../components/Header/header';
+import Buscador from '../../components/Buscador/buscador';
+import TarjetaEjercicio from '../../components/TarjetaEjercicio/tarjetaEjercicio';
+import exerciseData from '../../api/exercise_data.json'; 
+import './rutinas.css'; 
 
 const ExercisePage = () => {
   const [exerciseDataState, setExerciseDataState] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredExercises, setFilteredExercises] = useState([]);
 
   useEffect(() => {
     setExerciseDataState(exerciseData);
@@ -25,10 +27,26 @@ const ExercisePage = () => {
     'cardio'
   ];
 
+
+  useEffect(() => {
+    if (exerciseDataState) {
+
+      const filtered = exerciseDataState.filter(exercise =>
+        exercise.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+      );
+
+      setFilteredExercises(filtered);
+    }
+  }, [searchTerm, exerciseDataState]);
+
+  const handleSearch = (term) => {
+    setSearchTerm(term);
+  };
+
   return (
     <div className="exercise-page">
       <Header />
-      <Buscador />
+      <Buscador onSearch={handleSearch} />
       
       {bodyParts.map(bodyPart => (
         <div key={bodyPart} className={`${bodyPart}-excercises`}>

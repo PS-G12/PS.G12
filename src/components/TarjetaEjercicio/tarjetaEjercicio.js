@@ -1,7 +1,9 @@
 import React from 'react';
 import './tarjetaEjercicio.css';
+import { useNavigate } from 'react-router-dom';
 
-const TarjetaEjercicio = ({ exercise, bodyPartChoosen, limite}) => {
+const TarjetaEjercicio = ({ exercise, bodyPartChoosen, limite, name}) => {
+  const navigate = useNavigate();
   const getColorForBodyPart = (part) => {
     switch (part) {
       case 'waist':
@@ -29,18 +31,33 @@ const TarjetaEjercicio = ({ exercise, bodyPartChoosen, limite}) => {
     }
   };
 
-  const filteredExercises = exercise.filter(item => item.bodyPart === bodyPartChoosen).slice(0, limite);;
+  let filteredExercises = exercise;
+
+  if (!name) {
+    filteredExercises = exercise.filter(item => item.bodyPart === bodyPartChoosen).slice(0, limite);
+  }
+
+  const openExerciseWindow = (exercise) => {
+    const serializedExercise = JSON.stringify(exercise);
+    navigate({
+      pathname: '/exercise',
+      hash: `#${encodeURIComponent(serializedExercise)}`
+      
+    });
+  };
 
   return (
     <div className="excercise-row">
       {filteredExercises.map((exercise, index) => (
-        <div className="excercise-card" key={index}>
-          <img src={require(`../../gifs/${exercise.id}.gif`)} alt={exercise.name} />
-          <div className="body-parts">
-            <span className="body-part-tag" style={{ backgroundColor: getColorForBodyPart(exercise.bodyPart) }}>{exercise.bodyPart}</span>
+        <a className="exercise-link" key={index} onClick={() => openExerciseWindow(exercise)}>
+          <div className="excercise-card">
+            <img src={require(`../../gifs/${exercise.id}.gif`)} alt={exercise.name} />
+            <div className="body-parts">
+              <span className="body-part-tag" style={{ backgroundColor: getColorForBodyPart(exercise.bodyPart) }}>{exercise.bodyPart}</span>
+            </div>
+            <h2>{exercise.name}</h2>
           </div>
-          <h2>{exercise.name}</h2>
-        </div>
+        </a>
       ))}
     </div>
   );

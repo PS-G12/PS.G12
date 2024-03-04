@@ -22,7 +22,7 @@
 .back-excercises .excercise-row,
 .cardio-excercises .excercise-row {
   display: flex;
-  justify-content: center; /* Centra los elementos horizontalmente */
+  justify-content: center; 
 }
 
 
