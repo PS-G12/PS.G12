@@ -31,12 +31,17 @@ const ExercisePage = () => {
             <img src={require(`../../images/equipment/${exercise.equipment}.png`)} alt={exercise.equipment} />
             <p><span>{exercise.equipment.toUpperCase()}</span></p>
           </div>
+          <div className="targets">
+            <img src={require(`../../images/targets/${exercise.target}.png`)} alt={exercise.target} />
+            <p><span>{exercise.target.toUpperCase()}</span></p>
+          </div>
         </div>
-        <p><strong>Target:</strong> <span>{exercise.target}</span></p>
+
+
         <p><strong>Secondary Muscles:</strong> <span>{exercise.secondaryMuscles.join(', ')}</span></p>
         
         <div className="instructions">
-          <h3>Instructions:</h3>
+          <h2>Instructions:</h2>
           <ul>
             {exercise.instructions.map((instruction, index) => (
               <li key={index}>{instruction}</li>
