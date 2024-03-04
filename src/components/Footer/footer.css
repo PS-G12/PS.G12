@@ -29,4 +29,6 @@
 .copyR{
     color: white;
     font-weight: bold;
+    text-align: center;
+    margin-top: -1px;
 }

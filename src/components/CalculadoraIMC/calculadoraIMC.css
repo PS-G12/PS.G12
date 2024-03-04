@@ -97,40 +97,58 @@
 .calcular{
     position: absolute;
     top: 54%;
-    left: 43%;
+    left: 44%;
     background-color: #23A6F0;
     color: white;
-    width: 100px;
-    height: 30px;
+    width: 106px;
+    height: 35px;
     border-radius: 5px;
     font-weight: bold;
     border-color: #23A6F0;
+}
+
+.calcular:hover{
+    background-color: #0066EE;
 }
 
 .cacular-pred{
     position: absolute;
-    top: 82%;
-    left: 29%;
+    top: 81%;
+    left: 27%;
     background-color: #23A6F0;
     color: white;
-    width: 310px;
-    height: 30px;
+    width: 355px;
+    height: 35px;
     border-radius: 5px;
     font-weight: bold;
     border-color: #23A6F0;
 }
 
+.cacular-pred:hover{
+    background-color: #0066EE;
+}
+
 .calc-macros{
     position: absolute;
-    top: 94%;
+    top: 91%;
     right: 1%;
-    background-color: white;
+    background: white;
     color: #23A6F0;
-    width: 210px;
-    height: 30px;
+    width: 229px;
+    height: 38px;
     border-radius: 5px;
     font-weight: bold;
-    border-color: #23A6F0;
+    border: 2px solid #23A6F0
+}
+
+.calc-macros:hover{
+    background-color: rgb(240, 237, 237);
+}
+
+.resultado-IMC{
+    text-align: center;
+    font-weight: bolder;
+    font-size: larger;
 }
 
 .icon-altura{
@@ -154,7 +172,7 @@
 .icon-play{
     position: absolute;
     z-index: 9999;
-    top: 95%;
+    bottom: 3%;
     left: 96%;
     color: #23A6F0;
 }
