@@ -12,8 +12,9 @@ function App() {
           <Route path="/rutinas" element={<Rutinas />} />
         </Routes>
       </Router>
-      <CalculoIMCPage /> //Esto se puede quitar
+      <CalculoIMCPage />
     </div>
+    //Lo de <CalculoIMCPage/> se puede quitar sin problema, era para ver como quedaba
   );
 }
 
