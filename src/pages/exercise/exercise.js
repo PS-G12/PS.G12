@@ -19,9 +19,19 @@ const ExercisePage = () => {
           <h1><span>{exercise.name}</span></h1>
           <img src={require(`../../gifs/${exercise.id}.gif`)} alt={exercise.name} />
         </div>
-        
-        <p><strong>Body Part:</strong> <span>{exercise.bodyPart}</span></p>
-        <p><strong>Equipment:</strong> <span>{exercise.equipment}</span></p>
+
+        <div className="separator"></div>
+
+        <div className="images">
+          <div className="body-part">
+            <img src={require(`../../images/bodyParts/${exercise.bodyPart}.png`)} alt={exercise.bodyPart} />
+            <p><span>{exercise.bodyPart.toUpperCase()}</span></p>
+          </div>
+          <div className="equipment">
+            <img src={require(`../../images/equipment/${exercise.equipment}.png`)} alt={exercise.equipment} />
+            <p><span>{exercise.equipment.toUpperCase()}</span></p>
+          </div>
+        </div>
         <p><strong>Target:</strong> <span>{exercise.target}</span></p>
         <p><strong>Secondary Muscles:</strong> <span>{exercise.secondaryMuscles.join(', ')}</span></p>
         
