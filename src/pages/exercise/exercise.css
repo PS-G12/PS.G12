@@ -15,6 +15,7 @@
   width: 90%;
 }
 
+
 .img-name {
   text-align: center;
   margin-bottom: 30px;
@@ -22,7 +23,7 @@
 
 .img-name h1 {
   font-size: 32px;
-  margin-bottom: 10px;
+  margin-bottom: 50px;
   color: #333333;
 }
 
@@ -31,6 +32,7 @@
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
+
 
 
 .images {
@@ -48,48 +50,18 @@
 }
 
 .body-part img {
-  max-width: 50%;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
-
-.equipment {
-  margin-top: 30px;
-  text-align: center;
-}
-
-.equipment p {
-  margin-bottom: 10px;
-  color: #666666;
-}
-
-.equipment img {
-  max-width: 50%;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
-
-.targets {
-  margin-top: 30px;
-  text-align: center;
-}
-
-.targets p {
-  margin-bottom: 10px;
-  color: #666666;
-}
-
-.targets img {
-  max-width: 50%;
+  max-width: 70%;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 .instructions {
   margin-top: 30px;
+  width: 90%;
+  margin-left: 5%;
 }
 
-.instructions h3 {
+.instructions h2 {
   font-size: 24px;
   margin-bottom: 20px;
   color: #333333;
@@ -116,4 +88,5 @@
 .separator {
   border-top: 1px solid #4a90e2; 
   margin-top: 30px;
+  margin-bottom: 30px;
 }

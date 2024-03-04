@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import './exercise.css'; 
+import BodyPart from '../../components/BodyPart/bodyPart';
 
 const ExercisePage = () => {
     const location = useLocation();
@@ -16,30 +17,11 @@ const ExercisePage = () => {
 
       <div className="exercise-details">
         <div className="img-name">
-          <h1><span>{exercise.name}</span></h1>
+          <h1><span>{exercise.name.toUpperCase()}</span></h1>
           <img src={require(`../../gifs/${exercise.id}.gif`)} alt={exercise.name} />
         </div>
 
         <div className="separator"></div>
-
-        <div className="images">
-          <div className="body-part">
-            <img src={require(`../../images/bodyParts/${exercise.bodyPart}.png`)} alt={exercise.bodyPart} />
-            <p><span>{exercise.bodyPart.toUpperCase()}</span></p>
-          </div>
-          <div className="equipment">
-            <img src={require(`../../images/equipment/${exercise.equipment}.png`)} alt={exercise.equipment} />
-            <p><span>{exercise.equipment.toUpperCase()}</span></p>
-          </div>
-          <div className="targets">
-            <img src={require(`../../images/targets/${exercise.target}.png`)} alt={exercise.target} />
-            <p><span>{exercise.target.toUpperCase()}</span></p>
-          </div>
-        </div>
-
-
-        <p><strong>Secondary Muscles:</strong> <span>{exercise.secondaryMuscles.join(', ')}</span></p>
-        
         <div className="instructions">
           <h2>Instructions:</h2>
           <ul>
@@ -48,6 +30,16 @@ const ExercisePage = () => {
             ))}
           </ul>
         </div>
+        <div className="separator"></div>
+
+        <div className="images">
+          <BodyPart label="BodyPart" imageName={`bodyParts/${exercise.bodyPart}`} altText={exercise.bodyPart} />
+          <BodyPart label="Equipment" imageName={`equipment/${exercise.equipment}`} altText={exercise.equipment} />
+          <BodyPart label="Targets" imageName={`targets/${exercise.target}`} altText={exercise.target} />
+        </div>
+
+        <div className="separator"></div>
+        
       </div>
     </div>
   );
