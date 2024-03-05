@@ -48,7 +48,7 @@
 }
 
 .introducir-altura .altura .info-altura{
-    position: fixed;
+    position: absolute;
     left: 46%;
     bottom: 61%;
 }
@@ -66,6 +66,7 @@
     position: absolute;
     top: 44%;
     left: 33%;
+    display: flex;
 }
 
 .introducir-peso .peso .info-peso{

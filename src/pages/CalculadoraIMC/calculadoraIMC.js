@@ -52,7 +52,7 @@ function CalculadoraIMC(){
 
     return (
         <div className="contenedor-IMC">
-            <p>ÍDICE DE MASA CORPORAL (IMC)</p>
+            <p>ÍNDICE DE MASA CORPORAL (IMC)</p>
             <div className="intro">
                 <span className="dato1">Calcule su IMC</span>
                 <span className="dato2">Elija un sistema de medida:</span>

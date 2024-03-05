@@ -4,7 +4,8 @@ import './App.css';
 import Rutinas from './pages/rutina/rutinas';
 import SearchResultsPage from './pages/resultadosBusqueda/resultadosBusqueda';
 import ExercisePage from './pages/exercise/exercise';
-import CalculoIMCPage from './pages/imc';
+import CalculoIMCPage from './pages/imc/imc';
+import CalculadoraMacros from './pages/CalculadoraMacros/calculadoraMacros';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/resultados" element={<SearchResultsPage />} /> 
         <Route path="/exercise" element={<ExercisePage />} />
         <Route path="/calculoIMC" element={<CalculoIMCPage />} />
+        <Route path="/calculoMacros" element={<CalculadoraMacros />} />
       </Routes>
     </Router>
 
