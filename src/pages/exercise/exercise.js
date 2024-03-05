@@ -33,9 +33,9 @@ const ExercisePage = () => {
         <div className="separator"></div>
 
         <div className="images">
-          <BodyPart label="Parte del Cuerpo" imageName={`bodyParts/${exercise.bodyPart}`} altText={exercise.bodyPart} />
-          <BodyPart label="Equipo" imageName={`equipment/${exercise.equipment}`} altText={exercise.equipment} />
-          <BodyPart label="Objetivo" imageName={`targets/${exercise.target}`} altText={exercise.target} />
+          <BodyPart label="Parte del Cuerpo" src={exercise.bodyPart} imageName={`bodyParts/${exercise.bodyPart}`} altText={exercise.bodyPart} />
+          <BodyPart label="Equipo" src={exercise.equipment} imageName={`equipment/${exercise.equipment}`} altText={exercise.equipment} />
+          <BodyPart label="Objetivo" src={exercise.target} imageName={`targets/${exercise.target}`} altText={exercise.target} />
         </div>
 
         <div className="separator"></div>
