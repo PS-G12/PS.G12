@@ -23,7 +23,7 @@ const ExercisePage = () => {
 
         <div className="separator"></div>
         <div className="instructions">
-          <h2>Instructions:</h2>
+          <h2>Instrucciones:</h2>
           <ul>
             {exercise.instructions.map((instruction, index) => (
               <li key={index}>{instruction}</li>
@@ -33,9 +33,9 @@ const ExercisePage = () => {
         <div className="separator"></div>
 
         <div className="images">
-          <BodyPart label="BodyPart" imageName={`bodyParts/${exercise.bodyPart}`} altText={exercise.bodyPart} />
-          <BodyPart label="Equipment" imageName={`equipment/${exercise.equipment}`} altText={exercise.equipment} />
-          <BodyPart label="Targets" imageName={`targets/${exercise.target}`} altText={exercise.target} />
+          <BodyPart label="Parte del Cuerpo" imageName={`bodyParts/${exercise.bodyPart}`} altText={exercise.bodyPart} />
+          <BodyPart label="Equipo" imageName={`equipment/${exercise.equipment}`} altText={exercise.equipment} />
+          <BodyPart label="Objetivo" imageName={`targets/${exercise.target}`} altText={exercise.target} />
         </div>
 
         <div className="separator"></div>

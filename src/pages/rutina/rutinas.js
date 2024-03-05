@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header/header';
 import Buscador from '../../components/Buscador/buscador';
 import TarjetaEjercicio from '../../components/TarjetaEjercicio/tarjetaEjercicio';
-import exerciseData from '../../api/exercise_data.json'; 
+import exerciseData from '../../api/exercise_data_es.json'; 
 import './rutinas.css'; 
 
 const ExercisePage = () => {
@@ -15,15 +15,15 @@ const ExercisePage = () => {
   }, []); 
 
   const bodyParts = [
-    'chest',
-    'lower legs',
-    'lower arms',
-    'neck',
-    'shoulders',
-    'upper arms',
-    'upper legs',
-    'waist',
-    'back',
+    'pecho',
+    'piernas inferiores',
+    'brazos inferiores',
+    'cuello',
+    'hombros',
+    'brazos superiores',
+    'piernas superiores',
+    'cintura',
+    'espalda',
     'cardio'
   ];
 

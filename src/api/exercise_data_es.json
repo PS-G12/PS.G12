@@ -1,0 +1,2711 @@
+[
+    {
+        "bodyPart": "pecho",
+        "equipment": "peso corporal",
+        "gifUrl": "https://v2.exercisedb.io/image/8QnTwpNOHGKMpF",
+        "id": "3294",
+        "name": "flexión de arquero",
+        "target": "pectorales",
+        "secondaryMuscles": ["tríceps", "hombros", "núcleo"],
+        "instructions": [
+            "Comienza en una posición de flexión con las manos ligeramente más anchas que el ancho de los hombros.",
+            "Extiende un brazo recto hacia fuera, paralelo al suelo.",
+            "Baja tu cuerpo doblando los codos, manteniendo la espalda recta y el núcleo comprometido.",
+            "Empuja hacia arriba hasta la posición inicial.",
+            "Repite en el otro lado, extendiendo el brazo opuesto hacia fuera.",
+            "Continúa alternando lados según el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "pecho",
+        "equipment": "máquina de palanca",
+        "gifUrl": "https://v2.exercisedb.io/image/OxgOz-AGJ7Ggb6",
+        "id": "0009",
+        "name": "flexión de pecho asistida (arrodillado)",
+        "target": "pectorales",
+        "secondaryMuscles": ["tríceps", "hombros"],
+        "instructions": [
+            "Ajusta la máquina a la altura deseada y asegura tus rodillas en la almohadilla.",
+            "Agarra los mangos con las palmas hacia abajo y los brazos completamente extendidos.",
+            "Baja tu cuerpo doblando los codos hasta que tus brazos superiores estén paralelos al suelo.",
+            "Pausa por un momento, luego empújate hacia arriba hasta la posición inicial.",
+            "Repite según el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "pecho",
+        "equipment": "asistido",
+        "gifUrl": "https://v2.exercisedb.io/image/Lzk2GjoLCUobvH",
+        "id": "1716",
+        "name": "estiramiento asistido del pectoral mayor sentado con pelota de estabilidad",
+        "target": "pectorales",
+        "secondaryMuscles": ["hombros", "tríceps"],
+        "instructions": [
+            "Siéntate en una pelota de estabilidad con los pies planos en el suelo y la espalda recta.",
+            "Sostén una pelota de estabilidad con ambas manos y extiende los brazos rectos frente a ti.",
+            "Baja lentamente la pelota de estabilidad hacia tu pecho, sintiendo un estiramiento en tus músculos pectorales.",
+            "Mantén el estiramiento durante unos segundos, luego vuelve lentamente a la posición inicial.",
+            "Repite según el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "pecho",
+        "equipment": "máquina de palanca",
+        "gifUrl": "https://v2.exercisedb.io/image/ahKf6VL5qAm7U-",
+        "id": "2364",
+        "name": "flexión de pecho ancha asistida (arrodillado)",
+        "target": "pectorales",
+        "secondaryMuscles": ["tríceps", "hombros"],
+        "instructions": [
+            "Ajusta la máquina a la altura deseada y asegura tus rodillas en la almohadilla.",
+            "Agarra los mangos con un agarre amplio y mantén los codos ligeramente flexionados.",
+            "Baja tu cuerpo doblando los codos hasta que tus brazos superiores estén paralelos al suelo.",
+            "Empújate hacia arriba hasta la posición inicial extendiendo tus brazos.",
+            "Repite según el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "pecho",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/CBKQor0A6iEZq-",
+        "id": "1254",
+        "name": "press de banca con banda",
+        "target": "pectorales",
+        "secondaryMuscles": ["tríceps", "hombros"],
+        "instructions": [
+            "Acuéstate en un banco con los pies planos en el suelo y la espalda pegada al banco.",
+            "Agarra los mangos de la banda con un agarre supino, ligeramente más ancho que el ancho de los hombros.",
+            "Extiende completamente los brazos, alejando las bandas de tu pecho.",
+            "Baja lentamente las bandas hacia tu pecho, manteniendo los codos a un ángulo de 90 grados.",
+            "Repite según el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "pecho",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/ZGGdCY2PUAYwpI",
+        "id": "0989",
+        "name": "press de pecho con banda y giro de un brazo",
+        "target": "pectorales",
+        "secondaryMuscles": ["hombros", "tríceps"],
+        "instructions": [
+            "Une la banda a un punto de anclaje resistente a la altura del pecho.",
+            "Párate de lado al punto de anclaje y agarra la banda con una mano.",
+            "Aleja del punto de anclaje para crear tensión en la banda.",
+            "Coloca los pies separados al ancho de los hombros y flexiona ligeramente las rodillas.",
+            "Lleva la mano que sostiene la banda a través de tu cuerpo, hacia el hombro opuesto.",
+            "Manteniendo la tensión en la banda, empuja la mano hacia adelante y lejos de tu cuerpo, extendiendo el brazo.",
+            "Vuelve lentamente a la posición inicial y repite según el número deseado de repeticiones.",
+            "Cambia de lado y repite el ejercicio con la otra mano."
+        ]
+    },
+    {
+        "bodyPart": "pecho",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/gVgd-Y707iVNwi",
+        "id": "0025",
+        "name": "press de banca con barra",
+        "target": "pectorales",
+        "secondaryMuscles": ["tríceps", "hombros"],
+        "instructions": [
+            "Acuéstate en un banco con los pies planos en el suelo y la espalda pegada al banco.",
+            "Agarra la barra con un agarre supino ligeramente más ancho que el ancho de los hombros.",
+            "Levanta la barra del soporte y mantenla directamente sobre tu pecho con los brazos completamente extendidos.",
+            "Baja la barra lentamente hacia tu pecho, manteniendo los codos pegados al cuerpo.",
+            "Haz una pausa por un momento cuando la barra toque tu pecho.",
+            "Empuja la barra hacia arriba a la posición inicial extendiendo tus brazos.",
+            "Repite según el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "pecho",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/vt6laQV0rAQL98",
+        "id": "0033",
+        "name": "press de banca declinado con barra",
+        "target": "pectorales",
+        "secondaryMuscles": ["tríceps", "hombros"],
+        "instructions": [
+            "Acuéstate en un banco declinado con los pies asegurados y la cabeza más baja que las caderas.",
+            "Agarra la barra con un agarre supino ligeramente más ancho que el ancho de los hombros.",
+            "Levanta la barra del soporte y bajala lentamente hacia tu pecho, manteniendo los codos pegados al cuerpo.",
+            "Haz una pausa por un momento en la parte inferior, luego empuja la barra hacia arriba a la posición inicial.",
+            "Repite según el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "pecho",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/0jQk8SvHKDMBaM",
+        "id": "1255",
+        "name": "pullover declinado con barra",
+        "target": "pectorales",
+        "secondaryMuscles": ["tríceps", "hombros"],
+        "instructions": [
+            "Acuéstate en un banco declinado con la cabeza más baja que las caderas y los pies asegurados.",
+            "Sostén la barra con un agarre pronado (palmas hacia afuera) y las manos ligeramente más anchas que el ancho de los hombros.",
+            "Extiende los brazos sobre tu pecho, manteniendo una ligera flexión en los codos.",
+            "Baja la barra en un movimiento en arco detrás de tu cabeza, sintiendo un estiramiento en el pecho y los hombros.",
+            "Haz una pausa por un momento, luego vuelve la barra a la posición inicial invirtiendo el movimiento.",
+            "Repite según el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "pecho",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/nZIirUMgIU4ISR",
+        "id": "0036",
+        "name": "press declinado con barra y agarre ancho",
+        "target": "pectorales",
+        "secondaryMuscles": ["tríceps", "hombros"],
+        "instructions": [
+            "Acuéstate en un banco declinado con los pies asegurados y la cabeza más baja que las caderas.",
+            "Agarra la barra con un agarre amplio, ligeramente más ancho que el ancho de los hombros.",
+            "Baja la barra hacia tu pecho, manteniendo los codos hacia afuera.",
+            "Empuja la barra hacia arriba a la posición inicial, extendiendo completamente los brazos.",
+            "Repite según el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "pecho",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/HP6w31oLLdO6uf",
+        "id": "0040",
+        "name": "levantamiento frontal y pullover con barra",
+        "target": "pectorales",
+        "secondaryMuscles": ["deltoides", "tríceps"],
+        "instructions": [
+            "Párate con los pies separados al ancho de los hombros y sostén una barra con un agarre supino, las palmas hacia abajo.",
+            "Mantén los brazos rectos y levanta la barra frente a ti hasta que alcance la altura del hombro.",
+            "Haz una pausa por un momento en la parte superior, luego baja la barra lentamente a la posición inicial.",
+            "A continuación, baja la barra detrás de tu cabeza, manteniendo los brazos rectos.",
+            "Haz una pausa por un momento en la parte inferior, luego levanta la barra de nuevo a la altura del hombro.",
+            "Repite según el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "pecho",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/GyyPRPCBhmYhQ4",
+        "id": "0045",
+        "name": "press guillotina con barra",
+        "target": "pectorales",
+        "secondaryMuscles": ["hombros", "tríceps"],
+        "instructions": [
+            "Acuéstate en un banco con los pies planos en el suelo y la espalda pegada al banco.",
+            "Agarra la barra con un agarre supino, ligeramente más ancho que el ancho de los hombros.",
+            "Baja lentamente la barra hacia tu cuello, manteniendo los codos hacia afuera.",
+            "Haz una pausa por un momento cuando la barra esté justo encima de tu cuello.",
+            "Empuja la barra hacia arriba a la posición inicial, extendiendo completamente los brazos.",
+            "Repite según el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "pecho",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/0fsD2N81RQ4jOG",
+        "id": "0047",
+        "name": "press inclinado con barra",
+        "target": "pectorales",
+        "secondaryMuscles": ["hombros", "tríceps"],
+        "instructions": [
+            "Coloca un banco inclinado a un ángulo de 45 grados.",
+            "Acuéstate en el banco con los pies planos en el suelo.",
+            "Agarra la barra con un agarre supino ligeramente más ancho que el ancho de los hombros.",
+            "Levanta la barra del soporte y bájala lentamente hacia tu pecho, manteniendo los codos a un ángulo de 45 grados.",
+            "Haz una pausa por un momento en la parte inferior, luego empuja la barra hacia arriba a la posición inicial.",
+            "Repite según el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "pecho",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/2MqB1VAbojtgGc",
+        "id": "0050",
+        "name": "elevación lateral con barra inclinada",
+        "target": "serrato anterior",
+        "secondaryMuscles": ["deltoides", "trapecio"],
+        "instructions": [
+            "Coloca un banco inclinado a un ángulo de 45 grados.",
+            "Siéntate en el banco con la espalda apoyada en el cojín y los pies planos en el suelo.",
+            "Sujeta una barra con un agarre supino, ligeramente más ancho que el ancho de los hombros.",
+            "Levanta la barra hasta la altura de los hombros, manteniendo los codos ligeramente flexionados.",
+            "Sube la barra lentamente por encima de la cabeza, extendiendo completamente los brazos.",
+            "Haz una pausa por un momento en la parte superior, luego baja lentamente la barra de nuevo a la altura de los hombros.",
+            "Repite según el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "pecho",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/1ut0iNtkXQK5ni",
+        "id": "1256",
+        "name": "press declinado con barra y agarre inverso",
+        "target": "pectorales",
+        "secondaryMuscles": ["tríceps", "hombros"],
+        "instructions": [
+            "Acuéstate en un banco declinado con los pies asegurados y la cabeza más baja que las caderas.",
+            "Agarra la barra con un agarre inverso, ligeramente más ancho que el ancho de los hombros.",
+            "Levanta la barra del soporte y bájala lentamente hacia tu pecho, manteniendo los codos pegados al cuerpo.",
+            "Haz una pausa por un momento en la parte inferior, luego empuja la barra hacia arriba a la posición inicial.",
+            "Repite según el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "pecho",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/NDosnohVrPjmh1",
+        "id": "1257",
+        "name": "press inclinado con barra y agarre inverso",
+        "target": "pectorales",
+        "secondaryMuscles": ["tríceps", "hombros"],
+        "instructions": [
+            "Coloca un banco inclinado a un ángulo de 45 grados.",
+            "Acuéstate en el banco con los pies planos en el suelo.",
+            "Agarra la barra con un agarre inverso, las manos ligeramente más anchas que el ancho de los hombros.",
+            "Levanta la barra del soporte y bájala lentamente hacia tu pecho, manteniendo los codos pegados al cuerpo.",
+            "Haz una pausa por un momento cuando la barra toque tu pecho.",
+            "Empuja la barra hacia arriba a la posición inicial, extendiendo completamente los brazos.",
+            "Repite según el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "pecho",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/rODEaARgUsx2r8",
+        "id": "0122",
+        "name": "press de banca ancho con barra",
+        "target": "pectorales",
+        "secondaryMuscles": ["hombros", "tríceps"],
+        "instructions": [
+            "Acuéstate en un banco con los pies planos en el suelo y la espalda pegada al banco.",
+            "Agarra la barra con un agarre amplio, ligeramente más ancho que el ancho de los hombros.",
+            "Levanta la barra del soporte y mantenla directamente sobre tu pecho con los brazos completamente extendidos.",
+            "Baja la barra lentamente hacia tu pecho, manteniendo los codos hacia afuera.",
+            "Haz una pausa por un momento cuando la barra toque tu pecho.",
+            "Empuja la barra hacia arriba a la posición inicial, extendiendo completamente los brazos.",
+            "Repite según el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "pecho",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/8LBTWzSb3jDWLh",
+        "id": "0138",
+        "name": "pull-over con barra",
+        "target": "pectorales",
+        "secondaryMuscles": ["dorsales", "hombros"],
+        "instructions": [
+            "Acuéstate en un banco con los hombros cerca del borde y los pies planos en el suelo.",
+            "Sujeta una barra con un agarre supino, ligeramente más ancho que el ancho de los hombros.",
+            "Mantén los brazos extendidos y baja la barra detrás de tu cabeza hasta que sientas un estiramiento en el pecho.",
+            "Haz una pausa por un momento, luego levanta la barra de nuevo a la posición inicial.",
+            "Repite según el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "piernas inferiores",
+        "equipment": "peso corporal",
+        "gifUrl": "https://v2.exercisedb.io/image/rKAJFD7F6fn2-c",
+        "id": "1368",
+        "name": "círculos de tobillo",
+        "target": "gemelos",
+        "secondaryMuscles": ["estabilizadores del tobillo"],
+        "instructions": [
+            "Siéntate en el suelo con las piernas extendidas frente a ti.",
+            "Levanta una pierna del suelo y gira tu tobillo en un movimiento circular.",
+            "Realiza el número deseado de círculos en una dirección, luego cambia a la otra dirección."
+        ]
+    },
+    {
+        "bodyPart": "piernas inferiores",
+        "equipment": "asistido",
+        "gifUrl": "https://v2.exercisedb.io/image/atUESsKNqjim6U",
+        "id": "1708",
+        "name": "estiramiento asistido acostado de gemelos",
+        "target": "gemelos",
+        "secondaryMuscles": ["isquiotibiales"],
+        "instructions": [
+            "Acuéstate boca arriba con las piernas extendidas.",
+            "Flexiona una rodilla y coloca el pie apoyado en el suelo.",
+            "Usa tus manos o una toalla para jalar suavemente tus dedos hacia tu cuerpo, sintiendo un estiramiento en tu gemelo.",
+            "Mantén el estiramiento durante 20-30 segundos.",
+            "Libera el estiramiento y repite en la otra pierna."
+        ]
+    },
+    {
+        "bodyPart": "piernas inferiores",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/-5H-zfczFRZDaA",
+        "id": "0999",
+        "name": "elevación de gemelos de una pierna con banda",
+        "target": "gemelos",
+        "secondaryMuscles": ["tobillos", "pies"],
+        "instructions": [
+            "Párate con los pies separados a la altura de las caderas y coloca la banda alrededor de la bola de tu pie izquierdo.",
+            "Sujétate a un objeto estable para mantener el equilibrio si es necesario.",
+            "Levanta lentamente el talón izquierdo del suelo, llevando tu peso corporal hacia la bola del pie.",
+            "Haz una pausa por un momento en la parte superior, luego baja lentamente el talón izquierdo de nuevo a la posición inicial.",
+            "Repite el número deseado de repeticiones, luego cambia a la pierna derecha."
+        ]
+    },
+    {
+        "bodyPart": "piernas inferiores",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/74ZpAxZWk1MHjC",
+        "id": "1000",
+        "name": "elevación de gemelos de una pierna en reversa con banda",
+        "target": "gemelos",
+        "secondaryMuscles": ["isquiotibiales", "glúteos"],
+        "instructions": [
+            "Párate con los pies separados a la altura de las caderas y coloca la banda alrededor de la bola de tu pie.",
+            "Sujétate a un objeto estable para mantener el equilibrio.",
+            "Levanta lentamente el talón del suelo, llevando tu peso corporal hacia la bola del pie.",
+            "Haz una pausa por un momento en la parte superior, luego baja lentamente el talón de nuevo a la posición inicial.",
+            "Repite el número deseado de repeticiones, luego cambia a la otra pierna."
+        ]
+    },
+    {
+        "bodyPart": "piernas inferiores",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/HmfjByD1vtNIu-",
+        "id": "1369",
+        "name": "elevación de gemelos de dos piernas con banda (banda debajo de ambas piernas) v. 2",
+        "target": "gemelos",
+        "secondaryMuscles": ["tobillos", "pies"],
+        "instructions": [
+            "Párate con los pies separados a la anchura de los hombros y coloca una banda de resistencia debajo de ambos pies.",
+            "Sujeta los extremos de la banda con tus manos para mantener la estabilidad.",
+            "Levanta los talones del suelo lo más alto posible, usando tus gemelos.",
+            "Haz una pausa por un momento en la parte superior, luego baja lentamente los talones de nuevo a la posición inicial.",
+            "Repite el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "piernas inferiores",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/mcgHiAoApnpgMj",
+        "id": "1370",
+        "name": "elevación de gemelos en el suelo con barra",
+        "target": "gemelos",
+        "secondaryMuscles": ["isquiotibiales"],
+        "instructions": [
+            "Coloca una barra en el suelo frente a ti.",
+            "Párate con las puntas de los pies en el borde de la barra, con los talones colgando.",
+            "Sujétate a un objeto estable para mantener el equilibrio si es necesario.",
+            "Levanta los talones lo más alto posible, usando tus gemelos para levantar tu cuerpo.",
+            "Haz una pausa por un momento en la parte superior, luego baja lentamente los talones de nuevo a la posición inicial.",
+            "Repite el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "piernas inferiores",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/rVIV3FyKPdwkkC",
+        "id": "0088",
+        "name": "elevación de gemelos sentado con barra",
+        "target": "gemelos",
+        "secondaryMuscles": ["isquiotibiales", "cuádriceps"],
+        "instructions": [
+            "Siéntate en un banco con los pies apoyados en el suelo y una barra descansando en tus muslos.",
+            "Coloca las puntas de tus pies en una plataforma elevada, como un bloque o escalón.",
+            "Posiciona la barra a lo largo de tus muslos y sujétala firmemente con las manos.",
+            "Manteniendo la espalda recta y el núcleo comprometido, levanta los talones del suelo extendiendo tus tobillos.",
+            "Haz una pausa por un momento en la parte superior, luego baja lentamente los talones de nuevo a la posición inicial.",
+            "Repite el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "piernas inferiores",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/C6Jwsx9-ugfSHP",
+        "id": "1371",
+        "name": "elevación de gemelos sentado con barra",
+        "target": "gemelos",
+        "secondaryMuscles": ["isquiotibiales"],
+        "instructions": [
+            "Siéntate en un banco con los pies apoyados en el suelo y una barra descansando en tus muslos.",
+            "Coloca las puntas de tus pies en una plataforma elevada, como un bloque o escalón.",
+            "Baja los talones lo más posible, sintiendo un estiramiento en tus gemelos.",
+            "Levanta los talones lo más alto posible, contrayendo tus gemelos.",
+            "Repite el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "piernas inferiores",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/Qg-URDb8gvIyAw",
+        "id": "1372",
+        "name": "elevación de gemelos de pie con barra",
+        "target": "gemelos",
+        "secondaryMuscles": ["isquiotibiales", "glúteos"],
+        "instructions": [
+            "Párate con los pies separados a la anchura de los hombros y coloca una barra sobre la parte superior de tu espalda.",
+            "Levanta los talones del suelo lo más alto posible, usando solo tus dedos de los pies.",
+            "Haz una pausa por un momento en la parte superior, luego baja lentamente los talones de nuevo a la posición inicial.",
+            "Repite el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "piernas inferiores",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/CAx2ys2xmHXqQg",
+        "id": "0108",
+        "name": "elevación de gemelos de pie con barra en una pierna",
+        "target": "gemelos",
+        "secondaryMuscles": ["isquiotibiales", "glúteos"],
+        "instructions": [
+            "Párate con los pies separados a la anchura de los hombros y coloca una barra sobre la parte superior de tu espalda.",
+            "Levanta los talones del suelo lo más alto posible, usando tus gemelos.",
+            "Haz una pausa por un momento en la parte superior, luego baja lentamente los talones de nuevo a la posición inicial.",
+            "Repite el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "piernas inferiores",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/0Veu-FwF4sr4dK",
+        "id": "0111",
+        "name": "elevación de gemelos de pie con balanceo de pierna con barra",
+        "target": "gemelos",
+        "secondaryMuscles": ["isquiotibiales", "cuádriceps"],
+        "instructions": [
+            "Párate con los pies separados a la anchura de los hombros y sostén una barra sobre la parte superior de tu espalda.",
+            "Levanta los talones del suelo lo más alto posible, balanceándote en la punta de los pies.",
+            "Baja lentamente los talones de nuevo a la posición inicial.",
+            "Repite el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "piernas inferiores",
+        "equipment": "peso corporal",
+        "gifUrl": "https://v2.exercisedb.io/image/m4z4jHZk00e-vi",
+        "id": "1373",
+        "name": "elevación de gemelos de pie con peso corporal",
+        "target": "gemelos",
+        "secondaryMuscles": ["tobillos", "pies"],
+        "instructions": [
+            "Párate con los pies separados a la anchura de los hombros, con los dedos de los pies apuntando hacia adelante.",
+            "Coloca tus manos en una pared o superficie estable para mantener el equilibrio.",
+            "Levanta lentamente los talones del suelo, llevando tu peso corporal hacia las puntas de los pies.",
+            "Haz una pausa por un momento en la parte superior, luego baja lentamente los talones de nuevo a la posición inicial.",
+            "Repite el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "piernas inferiores",
+        "equipment": "peso corporal",
+        "gifUrl": "https://v2.exercisedb.io/image/I-52XUlLLPSgRo",
+        "id": "1374",
+        "name": "salto a caja con estabilización de una pierna hacia abajo",
+        "target": "gemelos",
+        "secondaryMuscles": ["cuádriceps", "isquiotibiales", "glúteos"],
+        "instructions": [
+            "Párate frente a una caja o plataforma con los pies separados a la anchura de los hombros.",
+            "Flexiona las rodillas y salta sobre la caja, aterrizando suavemente con un pie en la caja y el otro pie colgando del borde.",
+            "Estabilízate en la caja con el pie que está sobre ella, manteniendo el otro pie en el aire.",
+            "Mantén esta posición durante unos segundos, contrayendo los músculos de la pantorrilla para mantener el equilibrio.",
+            "Baja lentamente con el pie que está en la caja, volviendo a la posición inicial.",
+            "Repite el ejercicio con la otra pierna."
+        ]
+    },
+    {
+        "bodyPart": "piernas inferiores",
+        "equipment": "cable",
+        "gifUrl": "https://v2.exercisedb.io/image/vk9i8jmMEcfEJZ",
+        "id": "1375",
+        "name": "elevación de gemelos de pie con cable",
+        "target": "gemelos",
+        "secondaryMuscles": ["isquiotibiales", "glúteos"],
+        "instructions": [
+            "Párate frente a una máquina de cables con los pies separados a la anchura de los hombros.",
+            "Agarra las manijas de la máquina de cables o sujeta una correa de tobillo alrededor de tus tobillos.",
+            "Levanta los talones del suelo extendiendo tus tobillos lo más alto posible.",
+            "Haz una pausa por un momento en la parte superior, luego baja lentamente los talones de nuevo a la posición inicial.",
+            "Repite el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "piernas inferiores",
+        "equipment": "cable",
+        "gifUrl": "https://v2.exercisedb.io/image/n9S7T9av9Rq6sC",
+        "id": "1376",
+        "name": "elevación de gemelos de pie con cable de una pierna",
+        "target": "gemelos",
+        "secondaryMuscles": ["tobillos", "pies"],
+        "instructions": [
+            "Párate frente a una máquina de cables con los pies separados a la anchura de los hombros.",
+            "Agarra la máquina de cables para obtener soporte.",
+            "Levanta una pierna del suelo y mantén el equilibrio en la otra pierna.",
+            "Levanta lentamente el talón del suelo, llevando tu cuerpo hacia arriba sobre tus dedos de los pies.",
+            "Haz una pausa por un momento en la parte superior, luego baja lentamente el talón de nuevo a la posición inicial.",
+            "Repite el número deseado de repeticiones, luego cambia de pierna."
+        ]
+    },
+    {
+        "bodyPart": "piernas inferiores",
+        "equipment": "peso corporal",
+        "gifUrl": "https://v2.exercisedb.io/image/RqFZNZtcGBsAYv",
+        "id": "1407",
+        "name": "estiramiento de gemelos con manos contra la pared",
+        "target": "gemelos",
+        "secondaryMuscles": ["isquiotibiales"],
+        "instructions": [
+            "Párate frente a una pared con los pies separados a la anchura de las caderas.",
+            "Coloca tus manos contra la pared a la altura de los hombros.",
+            "Da un paso atrás con un pie, manteniendo el talón en el suelo y la pierna recta.",
+            "Flexiona ligeramente la rodilla delantera e inclínate hacia adelante, sintiendo un estiramiento en tu gemelo.",
+            "Mantén el estiramiento durante 20-30 segundos.",
+            "Cambia de pierna y repite el estiramiento."
+        ]
+    },
+    {
+        "bodyPart": "piernas inferiores",
+        "equipment": "peso corporal",
+        "gifUrl": "https://v2.exercisedb.io/image/sQfnjgcQUO3y9S",
+        "id": "1377",
+        "name": "estiramiento de gemelos con manos contra la pared",
+        "target": "gemelos",
+        "secondaryMuscles": ["isquiotibiales"],
+        "instructions": [
+            "Párate frente a una pared con los pies separados a la anchura de las caderas.",
+            "Coloca tus manos contra la pared a la altura de los hombros.",
+            "Da un paso atrás con el pie derecho, manteniendo el talón en el suelo y la pierna recta.",
+            "Flexiona la rodilla izquierda y inclínate hacia adelante, manteniendo la pierna trasera recta y el talón en el suelo.",
+            "Mantén el estiramiento durante 20-30 segundos.",
+            "Cambia de pierna y repite el estiramiento."
+        ]
+    },
+    {
+        "bodyPart": "piernas inferiores",
+        "equipment": "cuerda",
+        "gifUrl": "https://v2.exercisedb.io/image/H9pvSjbBv-OYId",
+        "id": "1378",
+        "name": "estiramiento de gemelos con cuerda",
+        "target": "gemelos",
+        "secondaryMuscles": ["isquiotibiales"],
+        "instructions": [
+            "Párate frente a una pared u objeto resistente con los pies separados a la anchura de las caderas.",
+            "Sostén los extremos de la cuerda en cada mano y coloca el centro de la cuerda alrededor de la bola de tu pie derecho.",
+            "Da un paso atrás con el pie izquierdo, manteniendo el talón en el suelo y la pierna recta.",
+            "Inclínate hacia adelante, manteniendo la espalda recta, y tira suavemente de la cuerda para estirar tu gemelo.",
+            "Mantén el estiramiento durante 20-30 segundos, luego suelta.",
+            "Repite en la otra pierna."
+        ]
+    },
+    {
+        "bodyPart": "piernas inferiores",
+        "equipment": "peso corporal",
+        "gifUrl": "https://v2.exercisedb.io/image/IIsniIfUGk9WAa",
+        "id": "0257",
+        "name": "círculos de rodilla",
+        "target": "gemelos",
+        "secondaryMuscles": ["isquiotibiales", "cuádriceps"],
+        "instructions": [
+            "Párate con los pies separados a la anchura de los hombros y las manos en las caderas.",
+            "Flexiona ligeramente las rodillas y levanta los talones del suelo, balanceándote en la punta de los pies.",
+            "Manteniendo las rodillas flexionadas, gira las rodillas en un movimiento circular, primero en sentido horario y luego en sentido antihorario.",
+            "Realiza el movimiento durante el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "piernas inferiores",
+        "equipment": "peso corporal",
+        "gifUrl": "https://v2.exercisedb.io/image/nVShNwKdO8ZHGI",
+        "id": "0284",
+        "name": "elevación de gemelos estilo 'burro'",
+        "target": "gemelos",
+        "secondaryMuscles": ["isquiotibiales", "glúteos"],
+        "instructions": [
+            "Párate con los dedos de los pies en una superficie elevada, como un escalón o bloque.",
+            "Coloca tus manos en un soporte estable, como una barra o banco.",
+            "Levanta los talones lo más alto posible, manteniendo las piernas rectas.",
+            "Haz una pausa por un momento en la parte superior, luego baja lentamente los talones de nuevo a la posición inicial.",
+            "Repite el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "brazos inferiores",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/euDxKTzieC87wB",
+        "id": "0994",
+        "name": "curl de muñeca inverso con banda",
+        "target": "antebrazos",
+        "secondaryMuscles": ["antebrazos"],
+        "instructions": [
+            "Siéntate en un banco o silla con los pies apoyados en el suelo.",
+            "Sujeta la banda con un agarre supino, palmas hacia abajo, y enróllala alrededor de tus dedos.",
+            "Apoya los antebrazos en tus muslos, con las muñecas colgando.",
+            "Levanta lentamente las muñecas hacia arriba, apretando los antebrazos.",
+            "Haz una pausa por un momento en la parte superior, luego baja lentamente las muñecas de nuevo a la posición inicial."
+        ]
+    },
+    {
+        "bodyPart": "brazos inferiores",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/owcxuh1M4pMW-i",
+        "id": "1016",
+        "name": "curl de muñeca con banda",
+        "target": "antebrazos",
+        "secondaryMuscles": ["bíceps", "tríceps"],
+        "instructions": [
+            "Siéntate en un banco o silla con los pies apoyados en el suelo.",
+            "Sujeta la banda con ambas manos, palmas hacia arriba, y apoya tus antebrazos en tus muslos.",
+            "Levanta lentamente las muñecas hacia arriba, apretando los antebrazos.",
+            "Haz una pausa por un momento en la parte superior, luego baja lentamente las muñecas de nuevo a la posición inicial."
+        ]
+    },
+    {
+        "bodyPart": "brazos inferiores",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/MI8UanVaDyzog0",
+        "id": "1411",
+        "name": "curl de muñeca con barra hacia abajo sobre un banco",
+        "target": "antebrazos",
+        "secondaryMuscles": ["bíceps", "braquial"],
+        "instructions": [
+            "Siéntate en un banco con los pies apoyados en el suelo y los antebrazos apoyados en tus muslos, palmas hacia abajo.",
+            "Sujeta una barra con un agarre supino, manos separadas al ancho de los hombros.",
+            "Baja la barra hacia el suelo flexionando las muñecas, manteniendo los antebrazos estacionarios.",
+            "Haz una pausa por un momento en la parte inferior, luego levanta lentamente la barra hacia arriba extendiendo las muñecas.",
+            "Repite el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "brazos inferiores",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/9OERNAfZdfr6II",
+        "id": "1412",
+        "name": "curl de muñeca con barra hacia arriba sobre un banco",
+        "target": "antebrazos",
+        "secondaryMuscles": ["bíceps", "hombros"],
+        "instructions": [
+            "Siéntate en un banco con los pies apoyados en el suelo y sostén una barra con un agarre subanario, palmas hacia arriba.",
+            "Apoya los antebrazos en el banco, permitiendo que las muñecas cuelguen del borde.",
+            "Manteniendo los antebrazos estacionarios, exhala y levanta las muñecas hacia arriba tanto como sea posible.",
+            "Mantén la posición contraída durante una breve pausa, luego inhala y baja lentamente la barra de nuevo a la posición inicial.",
+            "Repite el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "brazos inferiores",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/LW7pRLRuf7t7nf",
+        "id": "0079",
+        "name": "curl de muñeca inverso con barra v. 2",
+        "target": "antebrazos",
+        "secondaryMuscles": ["bíceps", "braquial"],
+        "instructions": [
+            "Siéntate en un banco con los pies apoyados en el suelo y las rodillas dobladas.",
+            "Sujeta una barra con un agarre supino, palmas hacia abajo, y tus manos separadas al ancho de los hombros.",
+            "Apoya los antebrazos en tus muslos, permitiendo que las muñecas cuelguen del borde.",
+            "Manteniendo los antebrazos estacionarios, exhala y levanta las muñecas hacia arriba tanto como sea posible.",
+            "Mantén la posición contraída durante una breve pausa, luego inhala y baja lentamente la barra de nuevo a la posición inicial.",
+            "Repite el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "brazos inferiores",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/tgY36cDQ5bzlYf",
+        "id": "0082",
+        "name": "curl de muñeca inverso con barra",
+        "target": "antebrazos",
+        "secondaryMuscles": ["bíceps", "braquial"],
+        "instructions": [
+            "Siéntate en un banco con los pies apoyados en el suelo y sostén una barra con un agarre supino, palmas hacia abajo.",
+            "Apoya los antebrazos en tus muslos, permitiendo que las muñecas cuelguen del borde.",
+            "Levanta lentamente las muñecas hacia arriba, acercando la barra a tu cuerpo.",
+            "Haz una pausa por un momento en la parte superior, luego baja lentamente la barra de nuevo a la posición inicial.",
+            "Repite el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "brazos inferiores",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/-yoYJjgSdQJXcm",
+        "id": "0104",
+        "name": "curl de muñeca de pie hacia atrás con barra",
+        "target": "antebrazos",
+        "secondaryMuscles": ["bíceps", "hombros"],
+        "instructions": [
+            "Párate derecho con los pies separados al ancho de los hombros y sostén una barra con un agarre supino.",
+            "Apoya la barra en la parte posterior de tus manos con las palmas hacia abajo y los dedos apuntando hacia tu cuerpo.",
+            "Manteniendo los brazos estacionarios, exhala y levanta las muñecas hacia arriba tanto como sea posible.",
+            "Mantén la posición contraída durante una breve pausa, luego inhala y baja lentamente la barra de nuevo a la posición inicial.",
+            "Repite el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "brazos inferiores",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/ndSf275oyVVoYf",
+        "id": "0126",
+        "name": "curl de muñeca con barra",
+        "target": "antebrazos",
+        "secondaryMuscles": ["bíceps", "braquial"],
+        "instructions": [
+            "Siéntate en un banco con los pies apoyados en el suelo y los antebrazos apoyados en tus muslos, sosteniendo una barra con un agarre supino.",
+            "Deja que la barra ruede hacia tus dedos, manteniendo las muñecas rectas.",
+            "Levanta lentamente la barra hacia arriba hacia tus antebrazos flexionando tus muñecas.",
+            "Haz una pausa por un momento en la parte superior, luego baja lentamente la barra de nuevo a la posición inicial.",
+            "Repite el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "brazos inferiores",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/F8ARnK-LMXX2by",
+        "id": "0125",
+        "name": "curl de muñeca v. 2 con barra",
+        "target": "antebrazos",
+        "secondaryMuscles": ["bíceps", "braquial"],
+        "instructions": [
+            "Siéntate en un banco con los pies apoyados en el suelo y las rodillas dobladas.",
+            "Sujeta una barra con un agarre supino, palmas hacia arriba, y tus manos separadas al ancho de los hombros.",
+            "Apoya los antebrazos en tus muslos, permitiendo que las muñecas cuelguen del borde.",
+            "Levanta lentamente las muñecas hacia arriba, acercando la barra a tus antebrazos.",
+            "Haz una pausa por un momento en la parte superior, luego baja lentamente la barra de nuevo a la posición inicial.",
+            "Repite el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "brazos inferiores",
+        "equipment": "cable",
+        "gifUrl": "https://v2.exercisedb.io/image/JOZ5nYRzgEfxuY",
+        "id": "0210",
+        "name": "curl de muñeca inverso con cable",
+        "target": "antebrazos",
+        "secondaryMuscles": ["antebrazos", "muñecas"],
+        "instructions": [
+            "Conecta un cable a una polea baja y siéntate en un banco frente a la máquina de cables.",
+            "Agarra el mango del cable con un agarre supino, palmas hacia abajo.",
+            "Apoya los antebrazos en tus muslos, con las muñecas colgando del borde.",
+            "Manteniendo los antebrazos estacionarios, exhala y levanta las muñecas hacia arriba tanto como sea posible.",
+            "Haz una pausa por un momento en la parte superior, luego inhala y baja lentamente las muñecas de nuevo a la posición inicial.",
+            "Repite el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "brazos inferiores",
+        "equipment": "cable",
+        "gifUrl": "https://v2.exercisedb.io/image/GErqW0tvxFRQI2",
+        "id": "0224",
+        "name": "curl de muñeca de pie hacia atrás con cable",
+        "target": "antebrazos",
+        "secondaryMuscles": ["bíceps", "braquial"],
+        "instructions": [
+            "Párate frente a una máquina de cables con los pies separados al ancho de los hombros.",
+            "Sujeta el mango del cable con un agarre supino, palmas hacia abajo.",
+            "Mantén los brazos rectos y los codos cerca de los costados.",
+            "Levanta lentamente las muñecas hacia arriba, acercando el mango del cable hacia tu cuerpo.",
+            "Haz una pausa por un momento en la parte superior, luego baja lentamente el mango del cable de nuevo a la posición inicial.",
+            "Repite el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "brazos inferiores",
+        "equipment": "cable",
+        "gifUrl": "https://v2.exercisedb.io/image/todSEkxO57HNCb",
+        "id": "0247",
+        "name": "curl de muñeca con cable",
+        "target": "antebrazos",
+        "secondaryMuscles": ["bíceps", "braquial"],
+        "instructions": [
+            "Conecta una barra recta a una máquina de cables de polea baja.",
+            "Párate frente a la máquina con los pies separados al ancho de los hombros.",
+            "Agarra la barra con un agarre supino, palmas hacia arriba, y tus manos separadas al ancho de los hombros.",
+            "Apoya los antebrazos en un banco o almohadilla, con las muñecas colgando del borde.",
+            "Manteniendo los antebrazos estacionarios, exhala y levanta las muñecas hacia arriba tanto como sea posible.",
+            "Haz una pausa por un momento en la parte superior, luego inhala y baja lentamente la barra de nuevo a la posición inicial.",
+            "Repite el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "brazos inferiores",
+        "equipment": "mancuerna",
+        "gifUrl": "https://v2.exercisedb.io/image/xawu1huf02zFoN",
+        "id": "1437",
+        "name": "curl de dedos con mancuerna",
+        "target": "antebrazos",
+        "secondaryMuscles": ["flexores de muñeca", "extensores de muñeca"],
+        "instructions": [
+            "Siéntate en un banco o silla con los pies apoyados en el suelo y la espalda recta.",
+            "Sujeta una mancuerna en una mano con un agarre supino, apoyando tu antebrazo en tu muslo, palma hacia arriba.",
+            "Deja que la mancuerna ruede hasta tus dedos, luego enróscala hacia arriba flexionando tus dedos.",
+            "Repite el número deseado de repeticiones y luego cambia a la otra mano."
+        ]
+    },
+    {
+        "bodyPart": "brazos inferiores",
+        "equipment": "mancuerna",
+        "gifUrl": "https://v2.exercisedb.io/image/oLLWbDrVCIqN48",
+        "id": "0347",
+        "name": "pronación acostado con mancuerna",
+        "target": "antebrazos",
+        "secondaryMuscles": ["bíceps", "hombros"],
+        "instructions": [
+            "Acuéstate boca abajo en un banco con los brazos extendidos hacia abajo, sosteniendo una mancuerna en cada mano.",
+            "Rota tus palmas para que estén hacia arriba.",
+            "Manteniendo los brazos estacionarios, exhala y riza las mancuernas mientras rotas las palmas hacia abajo.",
+            "Inhala y baja lentamente las mancuernas de nuevo a la posición inicial.",
+            "Repite el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "brazos inferiores",
+        "equipment": "mancuerna",
+        "gifUrl": "https://v2.exercisedb.io/image/kXmgb5mTg-dzIV",
+        "id": "2705",
+        "name": "pronación acostado con mancuerna en el suelo",
+        "target": "antebrazos",
+        "secondaryMuscles": ["bíceps", "tríceps"],
+        "instructions": [
+            "Acuéstate boca abajo en el suelo con las piernas extendidas y los brazos a los lados, sosteniendo una mancuerna en cada mano.",
+            "Rota tus palmas para que estén hacia arriba, manteniendo los codos cerca de los costados.",
+            "Levanta lentamente las mancuernas del suelo contrayendo tus antebrazos.",
+            "Continúa levantando hasta que tus antebrazos estén completamente contraídos y las mancuernas estén a la altura de los hombros.",
+            "Mantén por un momento, luego baja lentamente las mancuernas de nuevo a la posición inicial.",
+            "Repite el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "brazos inferiores",
+        "equipment": "mancuerna",
+        "gifUrl": "https://v2.exercisedb.io/image/-sidZoY1iTaJKz",
+        "id": "0349",
+        "name": "supinación acostado con mancuerna",
+        "target": "antebrazos",
+        "secondaryMuscles": ["bíceps", "hombros"],
+        "instructions": [
+            "Acuéstate boca arriba en un banco con los pies apoyados en el suelo.",
+            "Sujeta una mancuerna en cada mano con las palmas hacia arriba y los brazos totalmente extendidos.",
+            "Manteniendo los brazos estacionarios, riza las mancuernas hacia tus hombros contrayendo tus antebrazos.",
+            "Haz una pausa por un momento en la parte superior, luego baja lentamente las mancuernas de nuevo a la posición inicial.",
+            "Repite el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "brazos inferiores",
+        "equipment": "mancuerna",
+        "gifUrl": "https://v2.exercisedb.io/image/y2fA9Veg03J82A",
+        "id": "2706",
+        "name": "supinación acostado con mancuerna en el suelo",
+        "target": "antebrazos",
+        "secondaryMuscles": ["bíceps", "hombros"],
+        "instructions": [
+            "Acuéstate boca arriba en el suelo con las piernas extendidas y los brazos a los lados, sosteniendo una mancuerna en cada mano.",
+            "Rota las palmas hacia arriba, manteniendo los codos cerca de los costados.",
+            "Riza lentamente las mancuernas hacia tus hombros, apretando tus antebrazos.",
+            "Haz una pausa por un momento en la parte superior, luego baja lentamente las mancuernas de nuevo a la posición inicial.",
+            "Repite el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "brazos inferiores",
+        "equipment": "mancuerna",
+        "gifUrl": "https://v2.exercisedb.io/image/uTEWWjMM2sX0nM",
+        "id": "0358",
+        "name": "curl de muñeca inverso de pie con una mancuerna",
+        "target": "antebrazos",
+        "secondaryMuscles": ["extensores de muñeca"],
+        "instructions": [
+            "Siéntate en un banco o silla con los pies apoyados en el suelo.",
+            "Sujeta una mancuerna en una mano con un agarre supino, palma hacia abajo.",
+            "Apoya tu antebrazo en tu muslo con la mancuerna colgando.",
+            "Levanta lentamente las muñecas hacia arriba, apretando los antebrazos.",
+            "Haz una pausa por un momento en la parte superior, luego baja lentamente las muñecas de nuevo a la posición inicial.",
+            "Repite el número deseado de repeticiones y luego cambia de mano."
+        ]
+    },
+    {
+        "bodyPart": "brazos inferiores",
+        "equipment": "mancuerna",
+        "gifUrl": "https://v2.exercisedb.io/image/KUYDqCjqayabvf",
+        "id": "0361",
+        "name": "curl de muñeca de pie con una mancuerna",
+        "target": "antebrazos",
+        "secondaryMuscles": ["bíceps", "hombros"],
+        "instructions": [
+            "Siéntate en un banco o silla con los pies apoyados en el suelo.",
+            "Sujeta una mancuerna en una mano con un agarre supino, palma hacia arriba.",
+            "Apoya tu antebrazo en tu muslo con la mancuerna colgando.",
+            "Levanta lentamente las muñecas hacia arriba, apretando los antebrazos.",
+            "Haz una pausa por un momento en la parte superior, luego baja lentamente las muñecas de nuevo a la posición inicial.",
+            "Repite el número deseado de repeticiones y luego cambia de mano."
+        ]
+    },
+    {
+        "bodyPart": "cuello",
+        "equipment": "peso corporal",
+        "gifUrl": "https://v2.exercisedb.io/image/4pKHOuomoSA14L",
+        "id": "1403",
+        "name": "estiramiento lateral del cuello",
+        "target": "elevador de la escápula",
+        "secondaryMuscles": ["trapecio", "esternocleidomastoideo"],
+        "instructions": [
+            "Párate o siéntate erguido con los hombros relajados.",
+            "Inclina la cabeza hacia un lado, llevando la oreja hacia el hombro.",
+            "Mantén el estiramiento durante 15-30 segundos.",
+            "Repite en el otro lado.",
+            "Realiza 2-4 series en cada lado."
+        ]
+    },
+    {
+        "bodyPart": "cuello",
+        "equipment": "peso corporal",
+        "gifUrl": "https://v2.exercisedb.io/image/A8CsyL-BSGpAiZ",
+        "id": "0716",
+        "name": "estiramiento lateral del cuello con presión",
+        "target": "elevador de la escápula",
+        "secondaryMuscles": ["trapecio", "esternocleidomastoideo"],
+        "instructions": [
+            "Párate o siéntate erguido con los hombros relajados.",
+            "Inclina la cabeza hacia la derecha, llevando la oreja derecha hacia el hombro derecho.",
+            "Coloca la mano derecha en el lado izquierdo de tu cabeza y aplica suavemente presión para aumentar el estiramiento.",
+            "Mantén el estiramiento durante 15-30 segundos.",
+            "Repite en el otro lado, inclinando la cabeza hacia la izquierda y aplicando presión con la mano izquierda.",
+            "Repite el estiramiento 2-3 veces en cada lado."
+        ]
+    },
+    {
+        "bodyPart": "hombros",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/OrAkaxtlaZOF3J",
+        "id": "0977",
+        "name": "elevación lateral frontal con banda",
+        "target": "deltoides",
+        "secondaryMuscles": ["trapecio", "espalda alta"],
+        "instructions": [
+            "Párate con los pies separados al ancho de los hombros y sostén la banda frente a tus muslos con las palmas hacia abajo.",
+            "Mantén los brazos rectos y levanta la banda hacia adelante hasta que los brazos estén paralelos al suelo.",
+            "Haz una pausa en la parte superior y luego baja lentamente la banda a la posición inicial.",
+            "Repite para el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "hombros",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/ccHLfImTclCccY",
+        "id": "0978",
+        "name": "elevación frontal con banda",
+        "target": "deltoides",
+        "secondaryMuscles": ["tríceps", "espalda alta"],
+        "instructions": [
+            "Párate con los pies separados al ancho de los hombros y sostén la banda frente a tus muslos con las palmas hacia abajo.",
+            "Mantén los brazos rectos y levántalos lentamente hacia adelante hasta que estén paralelos al suelo.",
+            "Haz una pausa en la parte superior y luego baja lentamente los brazos a la posición inicial.",
+            "Repite para el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "hombros",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/yW94UYZPQmBxna",
+        "id": "0993",
+        "name": "vuelo inverso con banda",
+        "target": "deltoides",
+        "secondaryMuscles": ["espalda alta", "trapecio"],
+        "instructions": [
+            "Fija la banda a un objeto estacionario a la altura del pecho.",
+            "Párate con los pies separados al ancho de los hombros y sostén la banda con ambas manos frente a ti.",
+            "Mantén los brazos rectos y levántalos hacia los lados hasta que estén paralelos al suelo.",
+            "Aprieta las escápulas juntas en la parte superior del movimiento.",
+            "Baja lentamente los brazos de nuevo a la posición inicial.",
+            "Repite para el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "hombros",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/IYTbw0nKZDrXjG",
+        "id": "0997",
+        "name": "press de hombros con banda",
+        "target": "deltoides",
+        "secondaryMuscles": ["tríceps", "espalda alta"],
+        "instructions": [
+            "Párate con los pies separados al ancho de los hombros y coloca la banda debajo de tus pies.",
+            "Sostén la banda con las palmas hacia adelante y levanta las manos hasta la altura de los hombros, con los codos flexionados.",
+            "Presiona la banda hacia arriba, extendiendo completamente los brazos.",
+            "Haz una pausa en la parte superior y luego baja lentamente la banda a la altura de los hombros.",
+            "Repite para el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "hombros",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/YLqYfi-bcsdIqF",
+        "id": "1022",
+        "name": "remo de deltoides traseros de pie con banda",
+        "target": "deltoides",
+        "secondaryMuscles": ["trapecio", "rhomboide", "bíceps"],
+        "instructions": [
+            "Párate con los pies separados al ancho de los hombros y coloca la banda debajo de tus pies.",
+            "Sujeta los mangos de la banda con las palmas mirándose entre sí y los brazos extendidos hacia adelante.",
+            "Flexiona ligeramente las rodillas e inclínate hacia adelante desde las caderas, manteniendo la espalda recta.",
+            "Tira de la banda hacia tu pecho, apretando las escápulas juntas.",
+            "Haz una pausa en la parte superior y luego libera lentamente la tensión y vuelve a la posición inicial.",
+            "Repite para el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "hombros",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/aLgkTgMKzJ8nH1",
+        "id": "1012",
+        "name": "press de hombros con banda y torsión",
+        "target": "deltoides",
+        "secondaryMuscles": ["tríceps", "espalda alta"],
+        "instructions": [
+            "Párate con los pies separados al ancho de los hombros y coloca la banda debajo de tus pies.",
+            "Sostén los mangos de la banda a la altura de los hombros con las palmas mirando hacia adelante.",
+            "Contrae el core y presiona la banda hacia arriba, extendiendo completamente los brazos.",
+            "Mientras presionas, gira el torso hacia un lado, manteniendo las caderas estables.",
+            "Haz una pausa en la parte superior y luego vuelve a la posición inicial.",
+            "Repite el press y la torsión en el lado opuesto.",
+            "Continúa alternando lados para el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "hombros",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/X4zplGsD-uXlbG",
+        "id": "1017",
+        "name": "elevación en Y con banda",
+        "target": "deltoides",
+        "secondaryMuscles": ["trapecio", "rhomboide"],
+        "instructions": [
+            "Párate con los pies separados al ancho de los hombros y sostén la banda frente a tus muslos con las palmas mirándose entre sí.",
+            "Mantén los brazos rectos y levántalos hacia arriba y hacia los lados, formando una forma de 'Y' con tu cuerpo.",
+            "Aprieta las escápulas juntas en la parte superior del movimiento.",
+            "Baja lentamente los brazos de nuevo a la posición inicial.",
+            "Repite para el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "hombros",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/7jnAVxnasyQGhB",
+        "id": "0041",
+        "name": "elevación frontal con barra",
+        "target": "deltoides",
+        "secondaryMuscles": ["bíceps", "tríceps"],
+        "instructions": [
+            "Párate con los pies separados al ancho de los hombros y sostén una barra frente a tus muslos con un agarre por encima de la mano.",
+            "Mantén los brazos rectos y levanta la barra hacia adelante y hacia arriba hasta que llegue al nivel de los hombros.",
+            "Haz una pausa en la parte superior y luego baja lentamente la barra a la posición inicial.",
+            "Repite para el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "hombros",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/SHnuNhGr78JyhZ",
+        "id": "0067",
+        "name": "arranque de un brazo con barra",
+        "target": "deltoides",
+        "secondaryMuscles": ["trapecio", "antebrazos", "core"],
+        "instructions": [
+            "Párate con los pies separados al ancho de los hombros, con los dedos de los pies ligeramente hacia afuera.",
+            "Sostén la barra con un agarre por encima de la mano, con las manos ligeramente más anchas que el ancho de los hombros.",
+            "Flexiona las rodillas y baja las caderas en una posición de sentadilla, manteniendo la espalda recta y el pecho hacia arriba.",
+            "Extiende explosivamente las caderas, las rodillas y los tobillos, llevando la barra hacia arriba.",
+            "Cuando la barra alcance el nivel del pecho, tira hacia arriba con el brazo, manteniéndolo cerca de tu cuerpo.",
+            "Gira el codo debajo de la barra y extiende el brazo completamente por encima de la cabeza, bloqueando el codo.",
+            "Baja la barra lentamente a la posición inicial de manera controlada.",
+            "Repite para el número deseado de repeticiones y luego cambia de brazo."
+        ]
+    },
+    {
+        "bodyPart": "hombros",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/0rTZXnmBjTWKmw",
+        "id": "0075",
+        "name": "elevación trasera de deltoides con barra",
+        "target": "deltoides",
+        "secondaryMuscles": ["trapecio", "rhomboide"],
+        "instructions": [
+            "Párate con los pies separados al ancho de los hombros y sostén una barra con un agarre por encima de la mano, con las palmas hacia abajo.",
+            "Flexiona ligeramente las rodillas e inclínate hacia adelante desde las caderas, manteniendo la espalda recta.",
+            "Levanta la barra hacia los lados, manteniendo los brazos rectos, hasta que estén paralelos al suelo.",
+            "Haz una pausa en la parte superior y luego baja lentamente la barra de nuevo a la posición inicial.",
+            "Repite para el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "hombros",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/-q71f69kIIuol-",
+        "id": "0076",
+        "name": "remo de deltoides traseros con barra",
+        "target": "deltoides",
+        "secondaryMuscles": ["trapecio", "rhomboide", "bíceps"],
+        "instructions": [
+            "Párate con los pies separados al ancho de los hombros y las rodillas ligeramente flexionadas.",
+            "Sostén una barra con un agarre por encima de la mano, con las manos ligeramente más anchas que el ancho de los hombros.",
+            "Inclínate hacia adelante desde las caderas, manteniendo la espalda recta y el pecho hacia arriba.",
+            "Tira de la barra hacia tu pecho, apretando las escápulas juntas.",
+            "Haz una pausa en la parte superior y luego baja lentamente la barra de nuevo a la posición inicial.",
+            "Repite para el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "hombros",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/d6GBfxfU6LmsT4",
+        "id": "0086",
+        "name": "press militar sentado detrás de la cabeza con barra",
+        "target": "deltoides",
+        "secondaryMuscles": ["tríceps", "espalda alta"],
+        "instructions": [
+            "Siéntate en un banco con la espalda recta y los pies apoyados en el suelo.",
+            "Sostén la barra con un agarre por encima de la mano, ligeramente más ancho que el ancho de los hombros.",
+            "Levanta la barra del soporte y llévala a la altura de los hombros, detrás de la cabeza.",
+            "Presiona la barra hacia arriba hasta que los brazos estén completamente extendidos.",
+            "Baja la barra lentamente de nuevo a la posición inicial.",
+            "Repite para el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "hombros",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/9Bv1mP55e70ojC",
+        "id": "0087",
+        "name": "press de Bradford Rocky sentado con barra",
+        "target": "deltoides",
+        "secondaryMuscles": ["tríceps", "espalda alta"],
+        "instructions": [
+            "Siéntate en un banco con la espalda recta y los pies apoyados en el suelo.",
+            "Sostén la barra con un agarre por encima de la mano, ligeramente más ancho que el ancho de los hombros.",
+            "Levanta la barra a la altura de los hombros, manteniendo los codos ligeramente flexionados y apuntando hacia adelante.",
+            "Presiona la barra hacia arriba, extendiendo completamente los brazos.",
+            "Baja la barra de nuevo a la altura de los hombros y repite para el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "hombros",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/rekFdXHUzCPGOG",
+        "id": "0091",
+        "name": "press militar sentado con barra",
+        "target": "deltoides",
+        "secondaryMuscles": ["tríceps", "espalda alta"],
+        "instructions": [
+            "Siéntate en un banco con la espalda recta y los pies apoyados en el suelo.",
+            "Sostén la barra con un agarre por encima de la mano, ligeramente más ancho que el ancho de los hombros.",
+            "Levanta la barra del soporte y llévala a la altura de los hombros, con los codos flexionados y las palmas hacia adelante.",
+            "Presiona la barra hacia arriba extendiendo completamente los brazos.",
+            "Haz una pausa en la parte superior y luego baja lentamente la barra de nuevo a la altura de los hombros.",
+            "Repite para el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "hombros",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/vt27UtawkZw2uE",
+        "id": "0100",
+        "name": "esquiador con barra",
+        "target": "deltoides",
+        "secondaryMuscles": ["tríceps", "core"],
+        "instructions": [
+            "Párate con los pies separados al ancho de los hombros y sostén una barra frente a tus muslos con un agarre por encima de la mano.",
+            "Flexiona ligeramente las rodillas e inclínate hacia adelante desde las caderas, manteniendo la espalda recta y el pecho hacia arriba.",
+            "Levanta la barra hacia tus hombros mientras saltas ligeramente.",
+            "Alcanza la parte superior del movimiento, revierte rápidamente el movimiento y baja la barra de nuevo a la posición inicial.",
+            "Repite para el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "hombros",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/TvOgGg98u-uFrm",
+        "id": "0105",
+        "name": "press de Bradford de pie con barra",
+        "target": "deltoides",
+        "secondaryMuscles": ["tríceps", "espalda alta"],
+        "instructions": [
+            "Párate con los pies separados al ancho de los hombros y sostén la barra frente a tus hombros con un agarre por encima de la mano.",
+            "Presiona la barra hacia arriba extendiendo completamente los brazos.",
+            "Baja la barra de nuevo a la posición inicial.",
+            "Repite para el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "hombros",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/r2gSEvJKwNPBuq",
+        "id": "1456",
+        "name": "press militar de pie con barra agarre cerrado",
+        "target": "deltoides",
+        "secondaryMuscles": ["tríceps", "espalda alta"],
+        "instructions": [
+            "Párate con los pies separados al ancho de los hombros y sostén la barra con un agarre por encima de la mano, con las manos colocadas ligeramente más cerca que el ancho de los hombros.",
+            "Presiona la barra hacia arriba extendiendo completamente los brazos.",
+            "Haz una pausa en la parte superior y luego baja lentamente la barra de nuevo a la posición inicial.",
+            "Repite para el número deseado de repeticiones."
+        ]
+    },
+    {
+        "bodyPart": "brazos superiores",
+        "equipment": "asistido",
+        "gifUrl": "https://v2.exercisedb.io/image/lukITIRSPm39Vm",
+        "id": "0018",
+        "name": "extensión de tríceps de pie asistido (con toalla)",
+        "target": "tríceps",
+        "secondaryMuscles": ["hombros"],
+        "instructions": [
+          "Párate con los pies separados al ancho de los hombros y sostén una toalla con ambas manos detrás de la cabeza.",
+          "Mantén los codos cerca de tus orejas y tus brazos superiores estacionarios."
+        ]
+      },
+      {
+        "bodyPart": "brazos superiores",
+        "equipment": "máquina de palanca",
+        "gifUrl": "https://v2.exercisedb.io/image/fVeeqRDIoz6Bg4",
+        "id": "0019",
+        "name": "flexión de tríceps asistida (de rodillas)",
+        "target": "tríceps",
+        "secondaryMuscles": ["pecho", "hombros"],
+        "instructions": [
+          "Ajusta la máquina a tu peso y altura deseada.",
+          "Arrodíllate en la almohadilla frente a la máquina, con las manos agarrando las manijas.",
+          "Baja tu cuerpo doblando los codos, manteniendo la espalda recta y cerca de la máquina.",
+          "Pausa por un momento en la posición inferior, luego empújate hacia arriba hasta la posición inicial.",
+          "Repite para el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "brazos superiores",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/23aGBPlBsCjwTC",
+        "id": "0968",
+        "name": "curl de bíceps alternado con banda",
+        "target": "bíceps",
+        "secondaryMuscles": ["antebrazos"],
+        "instructions": [
+          "Párate con los pies separados al ancho de los hombros y sostén la banda con un agarre supino, las palmas hacia arriba.",
+          "Mantén los codos cerca de los costados y riza lentamente un brazo hacia el hombro, apretando el bíceps en la parte superior.",
+          "Baja el brazo de nuevo a la posición inicial y repite con el otro brazo.",
+          "Continúa alternando los brazos para el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "brazos superiores",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/-30cb0Jpz0PlO-",
+        "id": "0975",
+        "name": "flexión de tríceps con agarre cerrado con banda",
+        "target": "tríceps",
+        "secondaryMuscles": ["pecho", "hombros"],
+        "instructions": [
+          "Coloca una banda alrededor de tus brazos superiores, justo por encima de los codos.",
+          "Adopta una posición de flexión con las manos directamente debajo de los hombros y tu cuerpo en línea recta desde la cabeza hasta los talones.",
+          "Dobla los codos y baja el pecho hacia el suelo, manteniendo los codos cerca de los costados.",
+          "Empuja con las palmas para extender los brazos y volver a la posición inicial.",
+          "Repite para el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "brazos superiores",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/vgrkSCP3uDljVh",
+        "id": "0976",
+        "name": "curl de concentración con banda",
+        "target": "bíceps",
+        "secondaryMuscles": ["antebrazos"],
+        "instructions": [
+          "Siéntate en un banco o silla con las piernas separadas y los pies apoyados en el suelo.",
+          "Sostén un extremo de la banda en tu mano y pisa el otro extremo con el pie del mismo lado.",
+          "Inclínate ligeramente hacia adelante y apoya tu codo en el interior del muslo, justo encima de la rodilla.",
+          "Con la palma hacia arriba, riza lentamente la mano hacia el hombro, manteniendo el brazo superior estacionario.",
+          "Haz una pausa por un momento en la parte superior, luego baja lentamente la mano de nuevo a la posición inicial.",
+          "Repite para el número deseado de repeticiones, luego cambia de lado."
+        ]
+      },
+      {
+        "bodyPart": "brazos superiores",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/70rUOTmDinZzmh",
+        "id": "0986",
+        "name": "curl de bíceps con banda por encima de la cabeza con un brazo",
+        "target": "bíceps",
+        "secondaryMuscles": ["antebrazos", "hombros"],
+        "instructions": [
+          "Párate con los pies separados al ancho de los hombros y coloca un extremo de la banda debajo de tu pie.",
+          "Sostén el otro extremo de la banda con el brazo completamente extendido sobre la cabeza, con la palma hacia adelante.",
+          "Manteniendo el brazo superior estacionario, riza el antebrazo hacia el hombro, apretando el bíceps.",
+          "Haz una pausa por un momento en la parte superior, luego baja lentamente el antebrazo de nuevo a la posición inicial.",
+          "Repite para el número deseado de repeticiones, luego cambia de brazo."
+        ]
+      },
+      {
+        "bodyPart": "brazos superiores",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/HJu-WKONVswy8t",
+        "id": "0998",
+        "name": "extensión de tríceps lateral con banda",
+        "target": "tríceps",
+        "secondaryMuscles": ["hombros"],
+        "instructions": [
+          "Párate con los pies separados al ancho de los hombros y sostén la banda con ambas manos, las palmas hacia abajo.",
+          "Extiende los brazos rectos hacia los lados, manteniéndolos paralelos al suelo.",
+          "Dobla lentamente los codos y acerca las manos a los hombros, manteniendo los brazos superiores quietos.",
+          "Haz una pausa por un momento, luego extiende lentamente los brazos de nuevo a la posición inicial.",
+          "Repite para el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "brazos superiores",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/QpAGy3w0sptBhO",
+        "id": "0023",
+        "name": "curl alterno de bíceps con barra",
+        "target": "bíceps",
+        "secondaryMuscles": ["antebrazos"],
+        "instructions": [
+          "Párate derecho con los pies separados al ancho de los hombros y sostén una barra en cada mano, las palmas hacia adelante.",
+          "Mantén los brazos superiores quietos y exhala mientras rizas las pesas, contrayendo los bíceps.",
+          "Continúa levantando las barras hasta que tus bíceps estén completamente contraídos y las barras estén a la altura de los hombros.",
+          "Mantén la posición contraída por un breve momento mientras aprietas los bíceps.",
+          "Inhala mientras comienzas lentamente a bajar las barras de nuevo a la posición inicial.",
+          "Repite para el número deseado de repeticiones, alternando los brazos."
+        ]
+      },
+      {
+        "bodyPart": "brazos superiores",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/b4Lv6bXPM0blNX",
+        "id": "2407",
+        "name": "curl de bíceps con barra (con arm blaster)",
+        "target": "bíceps",
+        "secondaryMuscles": ["antebrazos"],
+        "instructions": [
+          "Párate derecho con los pies separados al ancho de los hombros y sostén una barra con un agarre supino, las palmas hacia arriba.",
+          "Coloca tus brazos superiores contra el arm blaster, manteniendo los codos cerca de tu torso.",
+          "Mantén los brazos superiores quietos, exhala y riza las pesas mientras contraes tus bíceps.",
+          "Continúa levantando la barra hasta que tus bíceps estén completamente contraídos y la barra esté a la altura de los hombros.",
+          "Mantén la posición contraída por un breve momento mientras aprietas los bíceps.",
+          "Inhala y comienza lentamente a bajar la barra de nuevo a la posición inicial.",
+          "Repite para el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "brazos superiores",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/BZn9MCsTmnGWor",
+        "id": "0030",
+        "name": "press de banca con agarre cerrado con barra",
+        "target": "tríceps",
+        "secondaryMuscles": ["pecho", "hombros"],
+        "instructions": [
+          "Acuéstate boca arriba en un banco con los pies apoyados en el suelo y la espalda pegada al banco.",
+          "Agarra la barra con un agarre cerrado, ligeramente más estrecho que el ancho de los hombros.",
+          "Desengancha la barra y bájala lentamente hacia tu pecho, manteniendo los codos cerca del cuerpo.",
+          "Haz una pausa por un momento cuando la barra toque tu pecho.",
+          "Empuja la barra hacia arriba hasta la posición inicial, extendiendo completamente los brazos.",
+          "Repite para el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "brazos superiores",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/zpQWSuRHWcBifb",
+        "id": "0031",
+        "name": "curl de bíceps con barra",
+        "target": "bíceps",
+        "secondaryMuscles": ["antebrazos"],
+        "instructions": [
+          "Párate derecho con los pies separados al ancho de los hombros y sostén una barra con un agarre supino, las palmas hacia adelante.",
+          "Mantén los codos cerca de tu torso y exhala mientras rizas las pesas, contrayendo los bíceps.",
+          "Continúa levantando la barra hasta que tus bíceps estén completamente contraídos y la barra esté a la altura de los hombros.",
+          "Mantén la posición contraída por un breve momento mientras aprietas los bíceps.",
+          "Inhala mientras comienzas lentamente a bajar la barra de nuevo a la posición inicial.",
+          "Repite para el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "brazos superiores",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/OdpYGmV9ndyZuY",
+        "id": "0035",
+        "name": "extensión de tríceps declinada con agarre cerrado con barra hasta la frente",
+        "target": "tríceps",
+        "secondaryMuscles": ["pecho", "hombros"],
+        "instructions": [
+          "Acuéstate en un banco declinado con la cabeza más baja que los pies y sostén una barra con un agarre cerrado.",
+          "Baja la barra hacia tu frente doblando los codos, manteniendo los brazos superiores quietos.",
+          "Haz una pausa por un momento, luego extiende los brazos para presionar la barra hacia arriba hasta la posición inicial.",
+          "Repite para el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "brazos superiores",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/D8I2L7YmL0X7i9",
+        "id": "0038",
+        "name": "curl de bíceps con barra arrastrado",
+        "target": "bíceps",
+        "secondaryMuscles": ["antebrazos"],
+        "instructions": [
+          "Párate con los pies separados al ancho de los hombros y sostén una barra con un agarre supino, las palmas hacia arriba.",
+          "Deja que la barra cuelgue a la longitud del brazo frente a tus muslos.",
+          "Manteniendo los brazos superiores estacionarios, riza la barra hacia el pecho contrayendo tus bíceps.",
+          "Haz una pausa por un momento en la parte superior, luego baja lentamente la barra de nuevo a la posición inicial.",
+          "Repite para el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "brazos superiores",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/PNA39P2DwR1VwJ",
+        "id": "1719",
+        "name": "press de banca inclinado con agarre cerrado con barra",
+        "target": "tríceps",
+        "secondaryMuscles": ["pecho", "hombros"],
+        "instructions": [
+          "Configura un banco inclinado a un ángulo de 45 grados.",
+          "Acuéstate en el banco con los pies planos en el suelo.",
+          "Agarra la barra con un agarre cerrado, ligeramente más estrecho que el ancho de los hombros.",
+          "Desengancha la barra y bájala lentamente hacia tu pecho, manteniendo los codos cerca del cuerpo.",
+          "Haz una pausa por un momento cuando la barra toque tu pecho.",
+          "Empuja la barra hacia arriba hasta la posición inicial, extendiendo completamente los brazos.",
+          "Repite para el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "brazos superiores",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/6IGw7i8KpL7ztm",
+        "id": "0048",
+        "name": "press de banca invertido con agarre inverso en barra inclinada",
+        "target": "tríceps",
+        "secondaryMuscles": ["pecho", "hombros"],
+        "instructions": [
+          "Configura un banco inclinado a un ángulo de 45 grados.",
+          "Acuéstate en el banco y agarra la barra con un agarre inverso, las manos ligeramente más anchas que el ancho de los hombros.",
+          "Desengancha la barra y bájala hacia tu pecho superior, manteniendo los codos pegados.",
+          "Haz una pausa por un momento en la parte inferior, luego empuja la barra hacia arriba hasta la posición inicial.",
+          "Repite para el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "brazos superiores",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/UfWbNPIRoYIRMi",
+        "id": "0052",
+        "name": "press de banca JM con barra",
+        "target": "tríceps",
+        "secondaryMuscles": ["pecho", "hombros"],
+        "instructions": [
+          "Acuéstate boca abajo en un banco con los pies planos en el suelo y la espalda apoyada en el banco.",
+          "Agarra la barra con un agarre pronado, ligeramente más ancho que el ancho de los hombros.",
+          "Baja la barra hacia tu pecho, manteniendo los codos pegados cerca de tu cuerpo.",
+          "Empuja la barra hacia arriba hasta la posición inicial, extendiendo completamente los brazos.",
+          "Repite para el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "brazos superiores",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/wTC1ooscNwVNY1",
+        "id": "1720",
+        "name": "extensión de tríceps acostado con barra detrás de la cabeza",
+        "target": "tríceps",
+        "secondaryMuscles": ["hombros"],
+        "instructions": [
+          "Acuéstate boca abajo en un banco con los pies planos en el suelo y la cabeza en el extremo del banco.",
+          "Sostén una barra con un agarre supino, las manos separadas al ancho de los hombros, y extiende los brazos rectos sobre el pecho.",
+          "Manteniendo los brazos superiores estacionarios, baja lentamente la barra detrás de la cabeza doblando los codos.",
+          "Haz una pausa por un momento, luego extiende los brazos hacia arriba hasta la posición inicial.",
+          "Repite para el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "brazos superiores",
+        "equipment": "barra",
+        "gifUrl": "https://v2.exercisedb.io/image/LaDc3-zOt3C-8x",
+        "id": "0055",
+        "name": "extensión de tríceps acostado con press de barra cerrado",
+        "target": "tríceps",
+        "secondaryMuscles": ["pecho", "hombros"],
+        "instructions": [
+          "Acuéstate boca abajo en un banco con los pies planos en el suelo y la espalda apoyada en el banco.",
+          "Agarra la barra con un agarre cerrado, las manos separadas al ancho de los hombros, las palmas hacia tus pies.",
+          "Levanta la barra del soporte y sostenla directamente sobre tu pecho con los brazos completamente extendidos.",
+          "Baja la barra lentamente hacia tu pecho, manteniendo los codos cerca del cuerpo.",
+          "Haz una pausa por un momento cuando la barra toque tu pecho, luego empújala hacia arriba hasta la posición inicial.",
+          "Repite para el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "piernas superiores",
+        "equipment": "peso corporal",
+        "gifUrl": "https://v2.exercisedb.io/image/9k4E5EaozPGuEb",
+        "id": "1512",
+        "name": "Estiramiento de cuádriceps en posición de cuadrupedia",
+        "target": "cuádriceps",
+        "secondaryMuscles": ["isquiotibiales", "glúteos"],
+        "instructions": [
+          "Comienza en posición de cuadrupedia con las manos directamente debajo de los hombros y las rodillas directamente debajo de las caderas.",
+          "Extiende una pierna recta hacia atrás, manteniendo la rodilla doblada y el pie flexionado.",
+          "Baja lentamente las caderas hacia el suelo, sintiendo un estiramiento en los cuádriceps.",
+          "Mantén esta posición durante 20-30 segundos.",
+          "Cambia de pierna y repite el estiramiento en el otro lado."
+        ]
+      },
+      {
+        "bodyPart": "piernas superiores",
+        "equipment": "peso corporal",
+        "gifUrl": "https://v2.exercisedb.io/image/jO01aoZIqAOkzV",
+        "id": "3214",
+        "name": "Estiramiento de brazos separados tocando los dedos de los pies (hombre)",
+        "target": "glúteos",
+        "secondaryMuscles": ["isquiotibiales", "cuádriceps", "gemelos"],
+        "instructions": [
+          "Párate con los pies separados al ancho de los hombros y los brazos extendidos hacia los lados.",
+          "Manteniendo las piernas rectas, inclínate hacia adelante desde la cintura y alcanza hacia abajo hacia los dedos de los pies con la mano derecha.",
+          "Mientras te inclinas hacia abajo, levanta simultáneamente la pierna izquierda recta hacia arriba detrás de ti, manteniendo el equilibrio.",
+          "Vuelve a la posición inicial y repite el movimiento con la mano izquierda alcanzando hacia los dedos de los pies y la pierna derecha levantándose detrás de ti.",
+          "Continúa alternando los lados para el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "piernas superiores",
+        "equipment": "asistido",
+        "gifUrl": "https://v2.exercisedb.io/image/i3wB6PMUAS2TG7",
+        "id": "1709",
+        "name": "Estiramiento de glúteos acostado asistido",
+        "target": "glúteos",
+        "secondaryMuscles": ["isquiotibiales"],
+        "instructions": [
+          "Acuéstate boca arriba con las piernas extendidas.",
+          "Dobla la rodilla derecha y coloca el tobillo derecho en el muslo izquierdo, justo encima de la rodilla.",
+          "Agarra el muslo izquierdo con ambas manos y tira suavemente hacia el pecho.",
+          "Mantén el estiramiento durante 20-30 segundos.",
+          "Libera y repite en el otro lado."
+        ]
+      },
+      {
+        "bodyPart": "piernas superiores",
+        "equipment": "asistido",
+        "gifUrl": "https://v2.exercisedb.io/image/uREVdPyXGWjUo9",
+        "id": "1710",
+        "name": "Estiramiento asistido de glúteos y piriforme acostado",
+        "target": "glúteos",
+        "secondaryMuscles": ["isquiotibiales"],
+        "instructions": [
+          "Acuéstate boca arriba con las piernas extendidas.",
+          "Dobla la rodilla derecha y coloca el tobillo derecho en el muslo izquierdo, justo encima de la rodilla.",
+          "Agarra el muslo izquierdo con ambas manos y tira suavemente hacia el pecho.",
+          "Mantén el estiramiento durante 20-30 segundos.",
+          "Libera el estiramiento y repite en el otro lado."
+        ]
+      },
+      {
+        "bodyPart": "piernas superiores",
+        "equipment": "asistido",
+        "gifUrl": "https://v2.exercisedb.io/image/UixCW5tCPMOYqE",
+        "id": "0016",
+        "name": "Estiramiento asistido de los isquiotibiales en prono",
+        "target": "isquiotibiales",
+        "secondaryMuscles": ["glúteos", "espalda baja"],
+        "instructions": [
+          "Acuéstate boca abajo sobre una colchoneta o banco con las piernas completamente extendidas.",
+          "Pídele a un compañero o usa una banda de resistencia para sujetar tus tobillos.",
+          "Engancha los isquiotibiales y levanta las piernas hacia los glúteos, manteniendo las rodillas rectas.",
+          "Haz una pausa por un momento en la parte superior, luego baja lentamente las piernas de nuevo a la posición inicial.",
+          "Repite el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "piernas superiores",
+        "equipment": "asistido",
+        "gifUrl": "https://v2.exercisedb.io/image/dGYgLUADFtMXfe",
+        "id": "1713",
+        "name": "Estiramiento asistido de los cuádriceps en prono acostado",
+        "target": "cuádriceps",
+        "secondaryMuscles": ["isquiotibiales", "glúteos"],
+        "instructions": [
+          "Acuéstate boca abajo en el suelo con las piernas extendidas.",
+          "Dobla la rodilla izquierda y extiende la mano izquierda hacia atrás para agarrar el pie o el tobillo izquierdo.",
+          "Tira suavemente del pie izquierdo hacia los glúteos, sintiendo un estiramiento en el cuádriceps izquierdo.",
+          "Mantén el estiramiento durante 20-30 segundos, luego suelta.",
+          "Repite con la pierna derecha."
+        ]
+      },
+      {
+        "bodyPart": "piernas superiores",
+        "equipment": "asistido",
+        "gifUrl": "https://v2.exercisedb.io/image/vkLV0cwzHCYc6P",
+        "id": "1712",
+        "name": "Estiramiento asistido de aductores en decúbito lateral",
+        "target": "aductores",
+        "secondaryMuscles": ["isquiotibiales", "glúteos"],
+        "instructions": [
+          "Acuéstate de lado con las piernas rectas y apiladas una encima de la otra.",
+          "Dobla ligeramente la pierna inferior para mantener la estabilidad.",
+          "Coloca el pie superior en una superficie estable, como un banco o un escalón.",
+          "Manteniendo la pierna superior recta, bájala lentamente hacia el suelo, sintiendo un estiramiento en la parte interna del muslo.",
+          "Mantén el estiramiento durante 20-30 segundos.",
+          "Vuelve a la posición inicial y repite en el otro lado."
+        ]
+      },
+      {
+        "bodyPart": "piernas superiores",
+        "equipment": "peso corporal",
+        "gifUrl": "https://v2.exercisedb.io/image/6k27ntrX4ehUZv",
+        "id": "1473",
+        "name": "Salto hacia atrás",
+        "target": "cuádriceps",
+        "secondaryMuscles": ["isquiotibiales", "glúteos", "gemelos"],
+        "instructions": [
+          "Párate con los pies separados al ancho de los hombros.",
+          "Flexiona ligeramente las rodillas y salta hacia atrás, empujando con ambos pies.",
+          "Aterriza suavemente en la parte delantera de los pies, flexionando las rodillas para absorber el impacto.",
+          "Repite el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "piernas superiores",
+        "equipment": "peso corporal",
+        "gifUrl": "https://v2.exercisedb.io/image/EJO-CbVHxXhDGM",
+        "id": "0020",
+        "name": "Tabla de equilibrio",
+        "target": "cuádriceps",
+        "secondaryMuscles": ["gemelos", "isquiotibiales", "glúteos"],
+        "instructions": [
+          "Coloca la tabla de equilibrio en una superficie plana.",
+          "Pisa la tabla de equilibrio con un pie, asegurándote de que esté centrada.",
+          "Transfiere lentamente tu peso al pie en la tabla de equilibrio, manteniendo el núcleo comprometido.",
+          "Mantén el equilibrio y la estabilidad mientras sostienes la posición durante el tiempo deseado.",
+          "Repite el ejercicio con el otro pie."
+        ]
+      },
+      {
+        "bodyPart": "piernas superiores",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/w92ZIEXHIbmdBM",
+        "id": "0980",
+        "name": "Extensión de cadera inclinada con banda",
+        "target": "glúteos",
+        "secondaryMuscles": ["isquiotibiales", "espalda baja"],
+        "instructions": [
+          "Fija la banda a un punto de anclaje resistente a la altura del tobillo.",
+          "Párate mirando hacia el punto de anclaje con los pies separados al ancho de los hombros.",
+          "Da un paso atrás para crear tensión en la banda, manteniendo las rodillas ligeramente flexionadas.",
+          "Inclínate en las caderas y inclínate hacia adelante, manteniendo la columna vertebral neutra.",
+          "Extiende la pierna derecha hacia atrás, apretando los glúteos en la parte superior.",
+          "Baja la pierna derecha y repite con la pierna izquierda.",
+          "Continúa alternando las piernas para el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "piernas superiores",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/fl0v7RYSg58M2v",
+        "id": "1408",
+        "name": "Levantamiento de cadera con banda",
+        "target": "glúteos",
+        "secondaryMuscles": ["isquiotibiales", "cuádriceps"],
+        "instructions": [
+          "Acuéstate boca arriba con las rodillas dobladas y los pies apoyados en el suelo.",
+          "Coloca una banda de resistencia justo encima de las rodillas.",
+          "Activa los glúteos y los músculos centrales.",
+          "Presiona los talones en el suelo y levanta las caderas del suelo, apretando los glúteos en la parte superior.",
+          "Haz una pausa por un momento en la parte superior, luego baja lentamente las caderas de nuevo a la posición inicial.",
+          "Repite el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "piernas superiores",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/ycP51yV4J86tPe",
+        "id": "0984",
+        "name": "Rotación interna de cadera acostada con banda",
+        "target": "glúteos",
+        "secondaryMuscles": ["isquiotibiales", "cuádriceps"],
+        "instructions": [
+          "Acuéstate boca arriba con las piernas extendidas y una banda de resistencia sujeta alrededor de los pies.",
+          "Dobla las rodillas y llévalas hacia el pecho, manteniendo los pies juntos.",
+          "Gira lentamente las rodillas hacia afuera, alejándolas una de la otra, manteniendo los pies juntos.",
+          "Haz una pausa por un momento al final de la rotación, luego regresa lentamente a la posición inicial.",
+          "Repite el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "piernas superiores",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/jDwlvXFwhViA-p",
+        "id": "0987",
+        "name": "Sentadilla dividida de una sola pierna con banda de un brazo",
+        "target": "cuádriceps",
+        "secondaryMuscles": ["glúteos", "isquiotibiales"],
+        "instructions": [
+          "Párate con los pies separados al ancho de las caderas y coloca una banda de resistencia alrededor de los tobillos.",
+          "Extiende una pierna hacia adelante y apoya la parte superior del pie en un banco o escalón detrás de ti.",
+          "Sujeta un soporte con una mano para mantener el equilibrio.",
+          "Dobla la pierna que sostiene y baja el cuerpo hacia una posición de sentadilla, manteniendo la rodilla alineada con los dedos de los pies.",
+          "Empuja a través del talón para volver a la posición inicial.",
+          "Repite el número deseado de repeticiones, luego cambia de pierna."
+        ]
+      },
+      {
+        "bodyPart": "piernas superiores",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/W4n6tR7xjcRMTo",
+        "id": "0991",
+        "name": "Estiramiento de glúteos con banda",
+        "target": "glúteos",
+        "secondaryMuscles": ["isquiotibiales", "espalda baja"],
+        "instructions": [
+          "Fija una banda de resistencia a un punto de anclaje resistente a la altura del suelo.",
+          "Párate mirando hacia el punto de anclaje con los pies separados al ancho de los hombros.",
+          "Da un paso adelante para crear tensión en la banda, manteniendo las rodillas ligeramente flexionadas.",
+          "Inclínate en las caderas y empuja los glúteos hacia atrás, manteniendo una ligera flexión en las rodillas.",
+          "Baja el torso hasta que esté paralelo al suelo, sintiendo un estiramiento en los isquiotibiales.",
+          "Empuja las caderas hacia adelante y aprieta los glúteos para volver a la posición inicial.",
+          "Repite el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "piernas superiores",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/CEu1dEo2svfdjB",
+        "id": "0996",
+        "name": "Rotación interna de cadera sentado con banda",
+        "target": "glúteos",
+        "secondaryMuscles": ["isquiotibiales", "cuádriceps"],
+        "instructions": [
+          "Siéntate en una silla o banco con la espalda recta y los pies apoyados en el suelo.",
+          "Coloca una banda de resistencia alrededor de los muslos, justo por encima de las rodillas.",
+          "Mantén las rodillas dobladas en un ángulo de 90 grados y los pies separados al ancho de las caderas.",
+          "Activa los glúteos y gira lentamente las rodillas hacia afuera, empujando contra la resistencia de la banda.",
+          "Haz una pausa por un momento al final del movimiento, luego regresa lentamente a la posición inicial.",
+          "Repite el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "piernas superiores",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/MK86FbeLVN1Sat",
+        "id": "1001",
+        "name": "Sentadilla dividida de una sola pierna con banda",
+        "target": "cuádriceps",
+        "secondaryMuscles": ["glúteos", "isquiotibiales"],
+        "instructions": [
+          "Párate con los pies separados al ancho de las caderas y coloca una banda de resistencia alrededor de los tobillos.",
+          "Da un gran paso adelante con el pie derecho y un paso más pequeño hacia atrás con el pie izquierdo.",
+          "Dobla las rodillas y baja el cuerpo hasta que el muslo derecho esté paralelo al suelo, manteniendo la rodilla izquierda ligeramente por encima del suelo.",
+          "Empuja a través del talón derecho para volver a la posición inicial.",
+          "Repite en el otro lado."
+        ]
+      },
+      {
+        "bodyPart": "piernas superiores",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/Bk5Y08Jdfd1E2B",
+        "id": "1004",
+        "name": "Sentadilla con banda",
+        "target": "glúteos",
+        "secondaryMuscles": ["cuádriceps", "isquiotibiales", "gemelos"],
+        "instructions": [
+          "Párate con los pies separados al ancho de los hombros y coloca una banda de resistencia alrededor de los muslos, justo por encima de las rodillas.",
+          "Baja las caderas hacia atrás y hacia abajo en una sentadilla, manteniendo las rodillas alineadas con los dedos de los pies.",
+          "Mantén el pecho levantado y la espalda plana.",
+          "Empuja a través de los talones para volver a la posición inicial, apretando los glúteos en la parte superior.",
+          "Repite el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "piernas superiores",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/hP8ECrJv9ilz5I",
+        "id": "1008",
+        "name": "Estocadas laterales con banda",
+        "target": "glúteos",
+        "secondaryMuscles": ["cuádriceps", "isquiotibiales"],
+        "instructions": [
+          "Coloca una banda de resistencia alrededor de los tobillos y ponte de pie con los pies separados al ancho de las caderas.",
+          "Da un paso lateral hacia la derecha, manteniendo la tensión en la banda.",
+          "Baja las caderas hacia atrás y hacia abajo en una estocada lateral, doblando la rodilla derecha y manteniendo la izquierda recta.",
+          "Empuja a través del talón derecho para volver a la posición inicial.",
+          "Repite en el otro lado."
+        ]
+      },
+      {
+        "bodyPart": "piernas superiores",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/Ri1XSD9SrkH-hO",
+        "id": "1012",
+        "name": "Patadas de burro con banda",
+        "target": "glúteos",
+        "secondaryMuscles": ["isquiotibiales"],
+        "instructions": [
+          "Ponte a cuatro patas con las manos debajo de los hombros y las rodillas debajo de las caderas.",
+          "Envuelve una banda de resistencia alrededor de los muslos, justo por encima de las rodillas.",
+          "Mantén la pierna derecha doblada en un ángulo de 90 grados y levántala hacia arriba, manteniendo la rodilla doblada.",
+          "Haz una pausa por un momento en la parte superior, luego baja la pierna de nuevo a la posición inicial.",
+          "Repite el número deseado de repeticiones en un lado antes de cambiar de pierna."
+        ]
+      },
+      {
+        "bodyPart": "piernas superiores",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/B3Og7fWFY20MKw",
+        "id": "1017",
+        "name": "Estiramiento de isquiotibiales con banda",
+        "target": "isquiotibiales",
+        "secondaryMuscles": ["glúteos"],
+        "instructions": [
+          "Acuéstate boca arriba con las piernas extendidas y una banda de resistencia sujeta alrededor del pie derecho.",
+          "Levanta la pierna derecha hacia arriba, manteniendo la rodilla ligeramente flexionada, hasta que sientas un estiramiento en los isquiotibiales.",
+          "Mantén el estiramiento durante 20-30 segundos, luego cambia de pierna."
+        ]
+      },
+      {
+        "bodyPart": "piernas superiores",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/mG5cUMdR2yPYoF",
+        "id": "1020",
+        "name": "Estiramiento de glúteos de pie con banda",
+        "target": "glúteos",
+        "secondaryMuscles": ["isquiotibiales"],
+        "instructions": [
+          "Párate con los pies separados al ancho de las caderas y una banda de resistencia alrededor de los tobillos.",
+          "Cruza la pierna derecha detrás de la izquierda y dobla ambas rodillas ligeramente.",
+          "Inclínate hacia adelante desde las caderas mientras empujas las caderas hacia atrás, manteniendo la espalda plana.",
+          "Mantén el estiramiento durante 20-30 segundos, luego cambia de pierna."
+        ]
+      },
+      {
+        "bodyPart": "cintura",
+        "equipment": "peso corporal",
+        "gifUrl": "https://v2.exercisedb.io/image/rWCXaZqPl6Wv43",
+        "id": "0001",
+        "name": "Abdominales a 3/4",
+        "target": "abdominales",
+        "secondaryMuscles": ["flexores de cadera", "espalda baja"],
+        "instructions": [
+          "Acuéstate boca arriba con las rodillas dobladas y los pies apoyados en el suelo.",
+          "Coloca las manos detrás de la cabeza con los codos hacia afuera.",
+          "Contrayendo los abdominales, levanta lentamente la parte superior del cuerpo del suelo, enrollándote hacia adelante hasta que tu torso esté en un ángulo de 45 grados.",
+          "Haz una pausa por un momento en la parte superior, luego baja lentamente la parte superior del cuerpo de nuevo a la posición inicial.",
+          "Repite el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "cintura",
+        "equipment": "peso corporal",
+        "gifUrl": "https://v2.exercisedb.io/image/z2PJLGWHna3gPQ",
+        "id": "0002",
+        "name": "Flexión lateral a 45°",
+        "target": "abdominales",
+        "secondaryMuscles": ["oblicuos"],
+        "instructions": [
+          "Párate con los pies separados al ancho de los hombros y los brazos extendidos hacia abajo a los lados.",
+          "Manteniendo la espalda recta y los abdominales contraídos, inclina lentamente el torso hacia un lado, bajando la mano hacia la rodilla.",
+          "Haz una pausa por un momento en la parte inferior, luego vuelve lentamente a la posición inicial.",
+          "Repite en el otro lado.",
+          "Continúa alternando los lados durante el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "cintura",
+        "equipment": "peso corporal",
+        "gifUrl": "https://v2.exercisedb.io/image/Q0thJRTz0dcQaj",
+        "id": "0003",
+        "name": "Bicicleta de aire",
+        "target": "abdominales",
+        "secondaryMuscles": ["flexores de cadera"],
+        "instructions": [
+          "Acuéstate boca arriba con las manos colocadas detrás de la cabeza.",
+          "Levanta las piernas del suelo y dobla las rodillas en un ángulo de 90 grados.",
+          "Lleva el codo derecho hacia la rodilla izquierda mientras estiras la pierna derecha.",
+          "Vuelve a la posición inicial y repite el movimiento en el lado opuesto, llevando el codo izquierdo hacia la rodilla derecha mientras estiras la pierna izquierda.",
+          "Continúa alternando los lados en un movimiento de pedaleo durante el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "cintura",
+        "equipment": "peso corporal",
+        "gifUrl": "https://v2.exercisedb.io/image/Oj1FevCI1N3p1A",
+        "id": "0006",
+        "name": "Toques alternos de talón",
+        "target": "abdominales",
+        "secondaryMuscles": ["oblicuos"],
+        "instructions": [
+          "Acuéstate boca arriba con las rodillas dobladas y los pies apoyados en el suelo.",
+          "Extiende los brazos hacia afuera, paralelos al suelo.",
+          "Contrayendo los abdominales, levanta los hombros del suelo y lleva la mano derecha hacia el talón derecho.",
+          "Vuelve a la posición inicial y repite en el lado izquierdo, llevando la mano izquierda hacia el talón izquierdo.",
+          "Continúa alternando los lados durante el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "cintura",
+        "equipment": "asistido",
+        "gifUrl": "https://v2.exercisedb.io/image/NVbIS45rp3aLb9",
+        "id": "2355",
+        "name": "Elevación de rodillas colgado con brazos extendidos y rodillas dobladas",
+        "target": "abdominales",
+        "secondaryMuscles": ["hombros", "espalda"],
+        "instructions": [
+          "Cuelga de una barra de dominadas con los brazos completamente extendidos y las rodillas dobladas en un ángulo de 90 grados.",
+          "Contrae tu core y levanta las rodillas hacia el pecho, acercándolas lo más posible a los codos.",
+          "Baja lentamente las piernas a la posición inicial.",
+          "Repite el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "cintura",
+        "equipment": "asistido",
+        "gifUrl": "https://v2.exercisedb.io/image/2AYzH2gGqboLJZ",
+        "id": "2333",
+        "name": "Elevación de piernas rectas colgado con brazos extendidos",
+        "target": "abdominales",
+        "secondaryMuscles": ["hombros", "espalda"],
+        "instructions": [
+          "Cuelga de una barra de dominadas con los brazos completamente extendidos y las piernas colgando hacia abajo.",
+          "Contrae tu core y levanta las piernas hacia adelante hasta que estén paralelas al suelo.",
+          "Mantén la posición durante un momento en la parte superior, luego baja lentamente las piernas a la posición inicial.",
+          "Repite el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "cintura",
+        "equipment": "peso corporal",
+        "gifUrl": "https://v2.exercisedb.io/image/jvFMGd-QQdU0Vk",
+        "id": "3204",
+        "name": "Abdominales completos con brazos extendidos sobre la cabeza (hombre)",
+        "target": "abdominales",
+        "secondaryMuscles": ["flexores de cadera", "espalda baja"],
+        "instructions": [
+          "Acuéstate boca arriba con las rodillas dobladas y los pies apoyados en el suelo.",
+          "Extiende los brazos por encima de la cabeza, manteniéndolos rectos.",
+          "Contrayendo los abdominales, levanta lentamente la parte superior del cuerpo del suelo, enrollándote hacia adelante hasta que tu torso esté erguido.",
+          "Haz una pausa por un momento en la parte superior, luego baja lentamente la parte superior del cuerpo de nuevo a la posición inicial.",
+          "Repite el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "cintura",
+        "equipment": "asistido",
+        "gifUrl": "https://v2.exercisedb.io/image/IbxEKcF42cxtCa",
+        "id": "0011",
+        "name": "Elevación de rodillas colgado asistido",
+        "target": "abdominales",
+        "secondaryMuscles": ["flexores de cadera"],
+        "instructions": [
+          "Cuelga de una barra de dominadas con los brazos completamente extendidos y las palmas mirando hacia afuera.",
+          "Contrae los músculos de tu core y levanta las rodillas hacia el pecho, doblando las caderas y las rodillas.",
+          "Haz una pausa por un momento en la parte superior del movimiento, apretando tus abdominales.",
+          "Baja lentamente las piernas de nuevo a la posición inicial.",
+          "Repite el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "cintura",
+        "equipment": "asistido",
+        "gifUrl": "https://v2.exercisedb.io/image/MBghKvJ9nvsl9C",
+        "id": "0010",
+        "name": "Elevación de rodillas colgado asistido con lanzamiento hacia abajo",
+        "target": "abdominales",
+        "secondaryMuscles": ["flexores de cadera", "espalda baja"],
+        "instructions": [
+          "Cuelga de una barra de dominadas con los brazos completamente extendidos y las palmas mirando hacia afuera.",
+          "Contrae tu core y levanta las rodillas hacia el pecho, manteniendo las piernas juntas.",
+          "Una vez que las rodillas estén a la altura del pecho, lanza explosivamente las piernas hacia abajo hacia el suelo, extendiéndolas completamente.",
+          "Permite que las piernas se balanceen hacia arriba y repite el movimiento el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "cintura",
+        "equipment": "asistido",
+        "gifUrl": "https://v2.exercisedb.io/image/l2zpUuZPoDiLWd",
+        "id": "0012",
+        "name": "Elevación de piernas acostado asistido con lanzamiento lateral hacia abajo",
+        "target": "abdominales",
+        "secondaryMuscles": ["flexores de cadera", "oblicuos"],
+        "instructions": [
+          "Acuéstate boca arriba con las piernas extendidas y los brazos a los lados del cuerpo.",
+          "Coloca las manos debajo de los glúteos para obtener soporte.",
+          "Contrae los abdominales y levanta las piernas del suelo, manteniéndolas rectas.",
+          "Mientras mantienes las piernas juntas, llévalas hacia un lado hasta que estén a unos centímetros del suelo.",
+          "Haz una pausa por un momento, luego levanta las piernas de nuevo a la posición inicial.",
+          "Repite el movimiento hacia el otro lado.",
+          "Continúa alternando los lados durante el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "cintura",
+        "equipment": "asistido",
+        "gifUrl": "https://v2.exercisedb.io/image/-Ka-eN0zI9LePC",
+        "id": "0013",
+        "name": "Elevación de piernas acostado asistido con lanzamiento hacia abajo",
+        "target": "abdominales",
+        "secondaryMuscles": ["flexores de cadera", "cuádriceps"],
+        "instructions": [
+          "Acuéstate boca arriba con las piernas extendidas y los brazos a los lados del cuerpo.",
+          "Coloca las manos debajo de los glúteos para obtener soporte.",
+          "Contrae el core y levanta las piernas del suelo, manteniéndolas rectas.",
+          "Levanta las piernas hasta que estén perpendiculares al suelo.",
+          "Baja lentamente las piernas de nuevo a la posición inicial.",
+          "Simultáneamente, lanza las piernas hacia abajo hacia el suelo, manteniéndolas rectas.",
+          "Levanta las piernas de nuevo a la posición inicial.",
+          "Repite el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "cintura",
+        "equipment": "balón medicinal",
+        "gifUrl": "https://v2.exercisedb.io/image/qE2CBdXqZ-1l9t",
+        "id": "0014",
+        "name": "Giro ruso asistido con movimiento",
+        "target": "abdominales",
+        "secondaryMuscles": ["oblicuos", "espalda baja"],
+        "instructions": [
+          "Siéntate en el suelo con las rodillas dobladas y los pies apoyados en el suelo.",
+          "Sostén el balón medicinal con ambas manos frente a tu pecho.",
+          "Inclínate ligeramente hacia atrás, contrayendo los abdominales y manteniendo la espalda recta.",
+          "Gira lentamente el torso hacia la derecha, llevando el balón medicinal hacia el lado derecho de tu cuerpo.",
+          "Haz una pausa por un momento, luego gira el torso hacia la izquierda, llevando el balón medicinal hacia el lado izquierdo de tu cuerpo.",
+          "Continúa alternando los lados durante el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "cintura",
+        "equipment": "asistido",
+        "gifUrl": "https://v2.exercisedb.io/image/qD8Kd88zMYIUP4",
+        "id": "1714",
+        "name": "Estiramiento asistido de recto femoral en prono",
+        "target": "abdominales",
+        "secondaryMuscles": ["cuádriceps"],
+        "instructions": [
+          "Acuéstate boca abajo en el suelo con las piernas extendidas.",
+          "Dobla la rodilla derecha y alcanza con la mano derecha para agarrar el pie o el tobillo derecho.",
+          "Tira suavemente del pie o el tobillo derecho hacia los glúteos, sintiendo un estiramiento en la parte frontal del muslo derecho.",
+          "Mantén el estiramiento durante 20-30 segundos.",
+          "Suelta y repite en el otro lado."
+        ]
+      },
+      {
+        "bodyPart": "cintura",
+        "equipment": "asistido",
+        "gifUrl": "https://v2.exercisedb.io/image/G65w9MJFKpmgrs",
+        "id": "1758",
+        "name": "Abdominales asistidos",
+        "target": "abdominales",
+        "secondaryMuscles": ["flexores de cadera"],
+        "instructions": [
+          "Siéntate en el borde de un banco o haz que alguien te sujete los pies.",
+          "Acuéstate boca abajo con las rodillas dobladas y los pies apoyados en el suelo.",
+          "Coloca las manos detrás de la cabeza con los codos hacia afuera.",
+          "Contrayendo los abdominales, levanta lentamente la parte superior del cuerpo del suelo, enrollándote hacia adelante hasta que tu torso esté en un ángulo de 45 grados.",
+          "Haz una pausa por un momento en la parte superior, luego baja lentamente la parte superior del cuerpo de nuevo a la posición inicial.",
+          "Repite el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "cintura",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/yKUsBis3nPFtIB",
+        "id": "0969",
+        "name": "V-Up alternado con banda",
+        "target": "abdominales",
+        "secondaryMuscles": ["flexores de cadera"],
+        "instructions": [
+          "Acuéstate boca arriba con las piernas estiradas y los brazos extendidos sobre la cabeza, sosteniendo la banda.",
+          "Contrae los abdominales y levanta las piernas y la parte superior del cuerpo del suelo simultáneamente, alcanzando las manos hacia los pies.",
+          "Al bajar las piernas y la parte superior del cuerpo, cambia la posición de las piernas, cruzando una sobre la otra.",
+          "Repite el movimiento, alternando la posición de las piernas en cada repetición.",
+          "Continúa durante el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "cintura",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/t8bJ5xAzYxXAhZ",
+        "id": "0971",
+        "name": "Rodillo abdominal asistido con banda",
+        "target": "abdominales",
+        "secondaryMuscles": ["espalda baja"],
+        "instructions": [
+          "Arrodíllate en el suelo y agarra los mangos de la banda con ambas manos, con las palmas hacia abajo.",
+          "Coloca la banda en el suelo frente a ti y posiciona tus manos a la anchura de los hombros.",
+          "Contrae tu core y rueda lentamente hacia adelante, extendiendo tu cuerpo lo más que puedas mientras mantienes el control.",
+          "Haz una pausa por un momento en el punto más alejado, luego rueda lentamente hacia atrás hacia tus rodillas para volver a la posición inicial.",
+          "Repite el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "cintura",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/drUu6IJ7qfCo7w",
+        "id": "0972",
+        "name": "Bicicleta de suelo asistida con banda",
+        "target": "abdominales",
+        "secondaryMuscles": ["flexores de cadera", "oblicuos"],
+        "instructions": [
+          "Acuéstate boca arriba con las manos detrás de la cabeza y las rodillas dobladas.",
+          "Levanta los pies del suelo y lleva la rodilla derecha hacia el pecho mientras giras el torso para llevar el codo izquierdo hacia la rodilla derecha.",
+          "Estira la pierna derecha mientras llevas la rodilla izquierda hacia el pecho y giras el torso para llevar el codo derecho hacia la rodilla izquierda.",
+          "Continúa alternando el movimiento de torsión, como si estuvieras pedaleando en una bicicleta, manteniendo los abdominales contraídos durante todo el movimiento.",
+          "Repite el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "cintura",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/DSVmXalOXeN2qJ",
+        "id": "0979",
+        "name": "Presión de Pallof horizontal con banda",
+        "target": "abdominales",
+        "secondaryMuscles": ["oblicuos", "glúteos"],
+        "instructions": [
+          "Fija la banda a un punto de anclaje resistente a la altura de la cintura.",
+          "Párate perpendicular al punto de anclaje con los pies separados al ancho de los hombros.",
+          "Agarra el mango de la banda con ambas manos y retrocede del punto de anclaje para crear tensión en la banda.",
+          "Lleva las manos hacia el pecho, manteniendo los codos doblados y cerca del cuerpo.",
+          "Contrae el core y mantén una postura estable.",
+          "Extiende los brazos rectos frente a ti, empujando la banda hacia afuera desde tu cuerpo.",
+          "Mantén la posición extendida durante unos segundos, concentrándote en mantener la tensión en el core.",
+          "Lleva lentamente las manos de nuevo al pecho, resistiendo el tirón de la banda.",
+          "Repite el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "cintura",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/YzolTmiJMsPG9M",
+        "id": "0981",
+        "name": "Sit-Up en cuchillo con banda",
+        "target": "abdominales",
+        "secondaryMuscles": ["flexores de cadera"],
+        "instructions": [
+          "Acuéstate boca arriba con las piernas estiradas y los brazos extendidos sobre la cabeza, sosteniendo la banda.",
+          "Contrae los abdominales y levanta las piernas y la parte superior del cuerpo del suelo simultáneamente, alcanzando las manos hacia los pies.",
+          "Al mismo tiempo, levanta las piernas del suelo hacia arriba y hacia afuera, manteniéndolas rectas.",
+          "Al bajar las piernas y la parte superior del cuerpo, baja las piernas hacia el suelo y lleva los brazos y la parte superior del cuerpo hacia atrás, manteniendo los brazos extendidos sobre la cabeza.",
+          "Repite el movimiento, llevando las piernas y los brazos hacia arriba y hacia el centro en cada repetición.",
+          "Continúa durante el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "espalda",
+        "equipment": "cable",
+        "gifUrl": "https://v2.exercisedb.io/image/oqVoE1-8zpr5-I",
+        "id": "0007",
+        "name": "jalón lateral alternado",
+        "target": "dorsales",
+        "secondaryMuscles": ["bíceps", "romboides"],
+        "instructions": [
+          "Siéntate en la máquina de cable con la espalda recta y los pies apoyados en el suelo.",
+          "Agarra las manijas con un agarre supino, ligeramente más ancho que el ancho de los hombros.",
+          "Inclínate ligeramente hacia atrás y jala las manijas hacia tu pecho, apretando los omóplatos juntos.",
+          "Pausa por un momento en la parte más alta del movimiento, luego suelta lentamente las manijas hasta la posición inicial.",
+          "Repite para el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "espalda",
+        "equipment": "peso corporal",
+        "gifUrl": "https://v2.exercisedb.io/image/wbOWxMi2scWl7O",
+        "id": "3293",
+        "name": "jalón de arquero",
+        "target": "dorsales",
+        "secondaryMuscles": ["bíceps", "antebrazos"],
+        "instructions": [
+          "Comienza colgando de una barra de dominadas con un agarre supino, ligeramente más ancho que el ancho de los hombros.",
+          "Contrae el abdomen y jala las escápulas hacia abajo y hacia atrás.",
+          "Mientras te jales hacia arriba, dobla un brazo y lleva el codo hacia tu costado, mientras mantienes el otro brazo recto.",
+          "Continúa jalando hasta que tu barbilla esté por encima de la barra y tu brazo doblado esté completamente flexionado.",
+          "Baja lentamente hasta la posición inicial con control, extendiendo el brazo doblado y repitiendo el movimiento en el otro lado.",
+          "Alterna los lados con cada repetición."
+        ]
+      },
+      {
+        "bodyPart": "espalda",
+        "equipment": "máquina de palanca",
+        "gifUrl": "https://v2.exercisedb.io/image/MC2yaPzgAFI3LT",
+        "id": "0015",
+        "name": "jalón asistido en paralelas",
+        "target": "dorsales",
+        "secondaryMuscles": ["bíceps", "antebrazos"],
+        "instructions": [
+          "Ajusta la máquina a tu peso y altura deseada.",
+          "Coloca las manos en las barras paralelas con un agarre cerrado, las palmas mirándose.",
+          "Cuelga de las barras con los brazos completamente extendidos y los pies fuera del suelo.",
+          "Contrae los músculos de la espalda y jala tu cuerpo hacia las barras, manteniendo los codos cerca del cuerpo.",
+          "Continúa jalando hasta que tu barbilla esté por encima de las barras.",
+          "Pausa por un momento en la parte más alta del movimiento, luego baja lentamente tu cuerpo hasta la posición inicial.",
+          "Repite para el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "espalda",
+        "equipment": "máquina de palanca",
+        "gifUrl": "https://v2.exercisedb.io/image/5fqpVpeehrRy9K",
+        "id": "0017",
+        "name": "jalón asistido",
+        "target": "dorsales",
+        "secondaryMuscles": ["bíceps", "antebrazos"],
+        "instructions": [
+          "Ajusta la máquina a tu peso y altura deseada.",
+          "Agarra las manijas con un agarre supino, ligeramente más ancho que el ancho de los hombros.",
+          "Cuelga con los brazos completamente extendidos y los pies fuera del suelo.",
+          "Contrae los músculos de la espalda y jala tu cuerpo hacia las manijas, manteniendo los codos cerca del cuerpo.",
+          "Continúa jalando hasta que tu barbilla esté por encima de las manijas.",
+          "Pausa por un momento en la parte más alta del movimiento, luego baja lentamente tu cuerpo hasta la posición inicial.",
+          "Repite para el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "espalda",
+        "equipment": "máquina de palanca",
+        "gifUrl": "https://v2.exercisedb.io/image/McqFY8zi-ZVCfC",
+        "id": "1431",
+        "name": "jalón asistido en posición de pie",
+        "target": "dorsales",
+        "secondaryMuscles": ["bíceps", "antebrazos"],
+        "instructions": [
+          "Ajusta la máquina al nivel de asistencia deseado.",
+          "Párate en la plataforma para los pies y agarra las manijas con un agarre supino, ligeramente más ancho que el ancho de los hombros.",
+          "Mantén el pecho erguido y los hombros hacia atrás, contrae el abdomen y flexiona ligeramente las rodillas.",
+          "Jala tu cuerpo hacia arriba flexionando los codos y llevándolos hacia los lados.",
+          "Continúa jalando hasta que tu barbilla esté por encima de la barra.",
+          "Pausa por un momento en la parte más alta del movimiento, luego baja lentamente tu cuerpo hasta la posición inicial.",
+          "Repite para el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "espalda",
+        "equipment": "pelota de estabilidad",
+        "gifUrl": "https://v2.exercisedb.io/image/HzhUE6ixOiIDUe",
+        "id": "1314",
+        "name": "extensión de espalda en pelota de ejercicio",
+        "target": "columna vertebral",
+        "secondaryMuscles": ["glúteos", "isquiotibiales"],
+        "instructions": [
+          "Coloca la pelota de estabilidad en el suelo y acuéstate boca abajo sobre ella, con las caderas apoyadas en la pelota y los pies contra una pared u otra superficie estable.",
+          "Coloca las manos detrás de la cabeza o cruzadas sobre el pecho.",
+          "Contrae el abdomen y levanta lentamente la parte superior del cuerpo de la pelota, extendiendo la espalda hasta que tu cuerpo forme una línea recta desde la cabeza hasta los talones.",
+          "Pausa por un momento en la parte superior, luego baja lentamente la parte superior del cuerpo hasta la posición inicial.",
+          "Repite para el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "espalda",
+        "equipment": "peso corporal",
+        "gifUrl": "https://v2.exercisedb.io/image/YNipw6flkjYkYu",
+        "id": "3297",
+        "name": "palanca de espalda",
+        "target": "parte superior de la espalda",
+        "secondaryMuscles": ["bíceps", "antebrazos", "core"],
+        "instructions": [
+          "Comienza colgando de una barra de dominadas con un agarre supino, las manos ligeramente más anchas que el ancho de los hombros.",
+          "Contrae el abdomen y jala las escápulas hacia abajo y hacia atrás.",
+          "Flexiona las rodillas y llévalas hacia el pecho.",
+          "Levanta lentamente las piernas, manteniéndolas rectas, hasta que tu cuerpo esté paralelo al suelo.",
+          "Mantén esta posición durante unos segundos, luego baja lentamente las piernas hasta la posición inicial.",
+          "Repite para el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "espalda",
+        "equipment": "peso corporal",
+        "gifUrl": "https://v2.exercisedb.io/image/FBkqSRKaJ7Fat7",
+        "id": "1405",
+        "name": "estiramiento del pectoral de espalda",
+        "target": "dorsales",
+        "secondaryMuscles": ["hombros", "pecho"],
+        "instructions": [
+          "Párate derecho con los pies separados al ancho de los hombros.",
+          "Extiende los brazos rectos hacia adelante, paralelos al suelo.",
+          "Cruza los brazos frente a tu cuerpo, con el brazo derecho sobre el brazo izquierdo.",
+          "Entrelaza los dedos y gira las palmas hacia afuera del cuerpo.",
+          "Levanta lentamente los brazos hacia arriba y hacia afuera del cuerpo, sintiendo un estiramiento en la espalda y el pecho.",
+          "Mantén el estiramiento durante 15-30 segundos, luego suelta.",
+          "Repite en el lado opuesto."
+        ]
+      },
+      {
+        "bodyPart": "espalda",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/KygHit-8Wpc1Tv",
+        "id": "0970",
+        "name": "jalón asistido con banda",
+        "target": "dorsales",
+        "secondaryMuscles": ["bíceps", "antebrazos"],
+        "instructions": [
+          "Sujeta la banda a una barra de dominadas o a un punto de anclaje resistente.",
+          "Párate sobre la banda y agarra la barra con las palmas hacia afuera, las manos ligeramente más anchas que el ancho de los hombros.",
+          "Cuelga con los brazos completamente extendidos, manteniendo el abdomen contraído y los hombros hacia abajo y hacia atrás.",
+          "Jala tu cuerpo hacia arriba hacia la barra apretando los omóplatos juntos y llevando los codos hacia abajo hacia las caderas.",
+          "Continúa jalando hasta que tu barbilla esté por encima de la barra, luego baja lentamente tu cuerpo hasta la posición inicial.",
+          "Repite para el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "espalda",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/ncbT3xNH3rsiJS",
+        "id": "0974",
+        "name": "pulldown de banda con agarre cerrado",
+        "target": "dorsales",
+        "secondaryMuscles": ["bíceps", "antebrazos"],
+        "instructions": [
+          "Sujeta la banda a un punto de anclaje alto, como una barra de dominadas o una viga resistente.",
+          "Párate frente al punto de anclaje y agarra la banda con un agarre supino, las manos separadas al ancho de los hombros.",
+          "Da un paso hacia atrás para crear tensión en la banda, manteniendo los pies separados al ancho de las caderas.",
+          "Contrae el abdomen y mantén la espalda recta mientras jalas la banda hacia tu pecho, apretando los omóplatos juntos.",
+          "Pausa por un momento en la parte más baja del movimiento, luego suelta lentamente la banda hasta la posición inicial.",
+          "Repite para el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "espalda",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/Ys1IqpBbeJMNkt",
+        "id": "3117",
+        "name": "pulldown de banda con agarre cerrado fijo",
+        "target": "dorsales",
+        "secondaryMuscles": ["bíceps", "antebrazos"],
+        "instructions": [
+          "Sujeta la banda a un punto fijo por encima de ti, como una barra de dominadas o una viga resistente.",
+          "Siéntate en un banco o silla frente a la banda, con los pies apoyados en el suelo y las rodillas flexionadas.",
+          "Agarra la banda con un agarre cerrado, las palmas mirando hacia ti.",
+          "Mantén la espalda recta y contrae el abdomen.",
+          "Jala la banda hacia tu pecho, apretando los omóplatos juntos.",
+          "Pausa por un momento en la parte más baja del movimiento, sintiendo la contracción en los dorsales.",
+          "Suelta lentamente la banda hasta la posición inicial, manteniendo el control durante todo el movimiento.",
+          "Repite para el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "espalda",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/R9eFPW0452aMKm",
+        "id": "3116",
+        "name": "pulldown de banda con agarre supino fijo",
+        "target": "dorsales",
+        "secondaryMuscles": ["bíceps", "romboides", "deltoides traseros"],
+        "instructions": [
+          "Sujeta la banda a un punto de anclaje resistente sobre tu cabeza.",
+          "Párate frente al punto de anclaje con los pies separados al ancho de los hombros.",
+          "Agarra la banda con un agarre supino, las manos ligeramente más anchas que el ancho de los hombros.",
+          "Da un paso atrás para crear tensión en la banda, manteniendo los brazos completamente extendidos.",
+          "Contrae el abdomen y aprieta los omóplatos juntos.",
+          "Jala la banda hacia tu pecho, liderando con los codos.",
+          "Pausa por un momento en la parte más baja del movimiento, sintiendo la contracción en los dorsales.",
+          "Suelta lentamente la tensión en la banda y regresa a la posición inicial.",
+          "Repite para el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "espalda",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/4I2NxYwzDkQAe2",
+        "id": "0983",
+        "name": "pulldown de banda de un brazo arrodillado",
+        "target": "dorsales",
+        "secondaryMuscles": ["bíceps", "romboides"],
+        "instructions": [
+          "Sujeta la banda a un punto de anclaje resistente sobre tu cabeza.",
+          "Arrodíllate y sujeta la banda con una mano, con la palma hacia abajo.",
+          "Extiende el brazo completamente por encima de la cabeza, manteniendo el codo ligeramente flexionado.",
+          "Contrae los músculos de la espalda y jala la banda hacia tu costado, llevando el codo hacia tus costillas.",
+          "Pausa por un momento en la parte más baja, luego suelta lentamente la tensión y regresa a la posición inicial.",
+          "Repite para el número deseado de repeticiones, luego cambia de lado."
+        ]
+      },
+      {
+        "bodyPart": "espalda",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/Jgwrme4XZ6shh8",
+        "id": "0988",
+        "name": "remo de un brazo con banda en posición baja",
+        "target": "parte superior de la espalda",
+        "secondaryMuscles": ["bíceps", "hombros"],
+        "instructions": [
+          "Sujeta la banda a un punto de anclaje estable a la altura de la cintura.",
+          "Párate frente al punto de anclaje con los pies separados al ancho de los hombros.",
+          "Sujeta la banda con una mano, con la palma hacia adentro, y da un paso atrás para crear tensión en la banda.",
+          "Flexiona ligeramente las rodillas e inclínate hacia adelante desde las caderas, manteniendo la espalda recta.",
+          "Jala la banda hacia tu cintura, apretando los omóplatos juntos.",
+          "Pausa por un momento en la parte superior del movimiento, luego suelta lentamente la banda hasta la posición inicial.",
+          "Repite para el número deseado de repeticiones, luego cambia de lado."
+        ]
+      },
+      {
+        "bodyPart": "espalda",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/RBjjrxh3WEIju4",
+        "id": "1018",
+        "name": "encogimiento de hombros con banda",
+        "target": "trapecios",
+        "secondaryMuscles": ["hombros"],
+        "instructions": [
+          "Párate con los pies separados al ancho de los hombros y coloca la banda debajo de tus pies, sosteniendo los extremos con las manos.",
+          "Mantén los brazos rectos y relajados, y deja que la banda cuelgue frente a tus muslos.",
+          "Contrae los trapecios encogiendo los hombros hacia arriba, levantando la banda lo más alto posible.",
+          "Mantén la contracción por un momento, luego baja lentamente los hombros hasta la posición inicial.",
+          "Repite para el número deseado de repeticiones."
+        ]
+      },
+      {
+        "bodyPart": "espalda",
+        "equipment": "banda",
+        "gifUrl": "https://v2.exercisedb.io/image/qReR-g2QrBfv8O",
+        "id": "1010",
+        "name": "peso muerto de piernas rectas con banda",
+        "target": "columna vertebral",
+        "secondaryMuscles": ["isquiotibiales", "glúteos"],
+        "instructions": [
+          "Párate con los pies separados al ancho de los hombros y coloca la banda alrededor de tus pies.",
+          "Sujeta la banda con ambas manos, con las palmas hacia tu cuerpo, y mantén los brazos rectos.",
+          "Contrae el abdomen y mantén una ligera flexión en las rodillas.",
+          "Inclínate lentamente hacia adelante desde las caderas, manteniendo la espalda recta y el pecho levantado.",
+          "Baja la banda hacia el suelo manteniendo las piernas rectas.",
+          "Pausa por un momento en la parte inferior, luego contrae los glúteos e isquiotibiales para volver a la posición inicial.",
+          "Repite para el número deseado de repeticiones."
+        ]
+      },
+      {
+        "name": "Saltos a horcajadas (hombres)",
+        "bodyPart": "cardio",
+        "equipment": "peso corporal",
+        "gifUrl": "https://v2.exercisedb.io/image/0K3TT7NrIs9OIi",
+        "id": "3220",
+        "target": "sistema cardiovascular",
+        "secondaryMuscles": ["cuádriceps", "isquiotibiales", "gemelos"],
+        "instructions": [
+          "Ponte de pie con los pies separados al ancho de los hombros.",
+          "Dobla las rodillas y baja tu cuerpo en una posición de sentadilla.",
+          "Salta explosivamente hacia arriba, extendiendo las piernas y los brazos.",
+          "Mientras estás en el aire, separa las piernas y lleva los brazos hacia los lados.",
+          "Aterriza suavemente con los pies separados al ancho de los hombros, doblando las rodillas para absorber el impacto.",
+          "Repite el número deseado de repeticiones."
+        ]
+      },
+      {
+        "name": "Paso de ida y vuelta",
+        "bodyPart": "cardio",
+        "equipment": "peso corporal",
+        "gifUrl": "https://v2.exercisedb.io/image/7jshMMKKKggBVv",
+        "id": "3672",
+        "target": "sistema cardiovascular",
+        "secondaryMuscles": ["cuádriceps", "isquiotibiales", "glúteos", "gemelos"],
+        "instructions": [
+          "Ponte de pie con los pies separados al ancho de los hombros.",
+          "Da un paso adelante con tu pie derecho, doblando la rodilla y bajando tu cuerpo en una posición de estocada.",
+          "Empuja con tu pie derecho y retrocede a la posición inicial.",
+          "Repite el movimiento con tu pie izquierdo, alternando las piernas con cada paso.",
+          "Continúa moviéndote hacia adelante y hacia atrás, manteniendo un ritmo constante.",
+          "Repite durante la duración deseada o el número de repeticiones."
+        ]
+      },
+      {
+        "name": "Caminata de oso",
+        "bodyPart": "cardio",
+        "equipment": "peso corporal",
+        "gifUrl": "https://v2.exercisedb.io/image/Slhe3Cqn3pRyfb",
+        "id": "3360",
+        "target": "sistema cardiovascular",
+        "secondaryMuscles": ["núcleo", "hombros", "tríceps"],
+        "instructions": [
+          "Comienza a cuatro patas con las manos directamente debajo de los hombros y las rodillas directamente debajo de las caderas.",
+          "Levanta ligeramente las rodillas del suelo, manteniendo la espalda plana y el núcleo comprometido.",
+          "Mueve tu mano derecha y tu pie izquierdo hacia adelante simultáneamente, seguido de tu mano izquierda y tu pie derecho.",
+          "Continúa avanzando a gatas, alternando los movimientos de tus manos y pies.",
+          "Mantén un ritmo constante y mantén tu núcleo apretado durante todo el ejercicio.",
+          "Continúa durante la distancia o el tiempo deseado."
+        ]
+      },
+      {
+        "name": "Burpee",
+        "bodyPart": "cardio",
+        "equipment": "peso corporal",
+        "gifUrl": "https://v2.exercisedb.io/image/hEM7Ra9eMipQyA",
+        "id": "1160",
+        "target": "sistema cardiovascular",
+        "secondaryMuscles": ["cuádriceps", "isquiotibiales", "gemelos", "hombros", "pecho"],
+        "instructions": [
+          "Comienza en posición de pie con los pies separados al ancho de los hombros.",
+          "Baja tu cuerpo en una posición de sentadilla doblando las rodillas y colocando las manos en el suelo frente a ti.",
+          "Patea tus pies hacia atrás en una posición de flexión.",
+          "Realiza una flexión de brazos, manteniendo tu cuerpo en línea recta.",
+          "Salta tus pies de vuelta a la posición de sentadilla.",
+          "Salta explosivamente, alcanzando tus brazos por encima de tu cabeza.",
+          "Aterriza suavemente e inmediatamente vuelve a bajar en una posición de sentadilla para comenzar la siguiente repetición."
+        ]
+      },
+      {
+        "name": "Entrenador de ciclismo de cross",
+        "bodyPart": "cardio",
+        "equipment": "máquina de palanca",
+        "gifUrl": "https://v2.exercisedb.io/image/zh5x1zIWFsslpo",
+        "id": "2331",
+        "target": "sistema cardiovascular",
+        "secondaryMuscles": ["cuádriceps", "isquiotibiales", "glúteos"],
+        "instructions": [
+          "Ajusta la altura del asiento y colócate en el entrenador de ciclismo de cross.",
+          "Coloca tus pies en los pedales y agarra el manillar.",
+          "Comienza a pedalear en un movimiento suave y controlado.",
+          "Mantén un ritmo constante y aumenta la resistencia si lo deseas.",
+          "Continúa pedaleando durante la duración deseada de tu entrenamiento cardiovascular."
+        ]
+      },
+      {
+        "name": "Burpee con mancuernas",
+        "bodyPart": "cardio",
+        "equipment": "mancuernas",
+        "gifUrl": "https://v2.exercisedb.io/image/QM3tmZ-yxNQKnR",
+        "id": "1201",
+        "target": "sistema cardiovascular",
+        "secondaryMuscles": ["cuádriceps", "isquiotibiales", "gemelos", "hombros", "tríceps", "núcleo"],
+        "instructions": [
+          "Comienza en posición de pie con los pies separados al ancho de los hombros y una mancuerna en cada mano.",
+          "Baja tu cuerpo en una posición de sentadilla, colocando las mancuernas en el suelo frente a ti.",
+          "Patea tus pies hacia atrás en una posición de flexión, manteniendo tu cuerpo en línea recta.",
+          "Realiza una flexión de brazos, doblando los codos y bajando el pecho hacia el suelo.",
+          "Salta tus pies hacia adelante, aterrizando en una posición de sentadilla.",
+          "Levántate explosivamente, levantando las mancuernas del suelo y llevándolas a tus hombros.",
+          "Presiona las mancuernas hacia arriba, extendiendo completamente los brazos.",
+          "Baja las mancuernas de nuevo a tus hombros y repite toda la secuencia para el número deseado de repeticiones."
+        ]
+      },
+      {
+        "name": "Flexiones de rodilla a medias (hombres)",
+        "bodyPart": "cardio",
+        "equipment": "peso corporal",
+        "gifUrl": "https://v2.exercisedb.io/image/7fltIz7UpwXkJY",
+        "id": "3221",
+        "target": "sistema cardiovascular",
+        "secondaryMuscles": ["cuádriceps", "isquiotibiales", "glúteos"],
+        "instructions": [
+          "Ponte de pie con los pies separados al ancho de los hombros.",
+          "Dobla las rodillas y baja tu cuerpo como si te estuvieras sentando en una silla.",
+          "Mantén el pecho levantado y el peso en los talones.",
+          "Pausa por un momento en la parte inferior, luego empuja a través de los talones para volver a la posición inicial.",
+          "Repite el número deseado de repeticiones."
+        ]
+      },
+      {
+        "name": "Saltos de rodilla alta contra la pared",
+        "bodyPart": "cardio",
+        "equipment": "peso corporal",
+        "gifUrl": "https://v2.exercisedb.io/image/-7KdlrUCIcUbyv",
+        "id": "3636",
+        "target": "sistema cardiovascular",
+        "secondaryMuscles": ["cuádriceps", "isquiotibiales", "glúteos", "gemelos"],
+        "instructions": [
+          "Ponte frente a una pared con los pies separados a la anchura de las caderas.",
+          "Coloca las manos en la pared para obtener apoyo.",
+          "Activa tu núcleo y levanta la rodilla derecha hacia el pecho, manteniendo el pie izquierdo en el suelo.",
+          "Cambia rápidamente de pierna, levantando la rodilla izquierda hacia el pecho y bajando el pie derecho de nuevo al suelo.",
+          "Continúa alternando las piernas en un movimiento de correr, levantando las rodillas lo más alto posible.",
+          "Mantén un ritmo rápido y mantén la parte superior del cuerpo estable durante todo el ejercicio.",
+          "Repite durante la duración o el número deseado de repeticiones."
+        ]
+      },
+      {
+        "name": "Burpee con salto",
+        "bodyPart": "cardio",
+        "equipment": "peso corporal",
+        "gifUrl": "https://v2.exercisedb.io/image/da7EAAH09h2Zat",
+        "id": "0501",
+        "target": "sistema cardiovascular",
+        "secondaryMuscles": ["cuádriceps", "isquiotibiales", "gemelos", "hombros", "tríceps", "núcleo"],
+        "instructions": [
+          "Comienza en posición de pie con los pies separados al ancho de los hombros.",
+          "Baja tu cuerpo en una posición de sentadilla, colocando las manos en el suelo frente a ti.",
+          "Patea tus pies hacia atrás, aterrizando en una posición de flexión.",
+          "Realiza una flexión de brazos, bajando el pecho hacia el suelo y luego empujando hacia arriba.",
+          "Salta tus pies hacia adelante, aterrizando en una posición de sentadilla.",
+          "Salta explosivamente, alcanzando tus brazos por encima de tu cabeza.",
+          "Aterriza suavemente e inmediatamente vuelve a bajar en una posición de sentadilla para comenzar la siguiente repetición."
+        ]
+      },
+      {
+        "name": "Salto de tijera (hombres)",
+        "bodyPart": "cardio",
+        "equipment": "peso corporal",
+        "gifUrl": "https://v2.exercisedb.io/image/99KLL8k6ui7OZR",
+        "id": "3224",
+        "target": "sistema cardiovascular",
+        "secondaryMuscles": ["cuádriceps", "gemelos"],
+        "instructions": [
+          "Ponte de pie con los pies juntos y los brazos a los lados.",
+          "Salta, separando los pies y levantando los brazos por encima de la cabeza.",
+          "Al aterrizar, vuelve rápidamente a la posición inicial.",
+          "Repite el número deseado de repeticiones."
+        ]
+      },
+      {
+        "name": "Saltos de sentadilla parcial (hombres)",
+        "bodyPart": "cardio",
+        "equipment": "peso corporal",
+        "gifUrl": "https://v2.exercisedb.io/image/-s-1b0Xn7NkG1bh",
+        "id": "3222",
+        "target": "sistema cardiovascular",
+        "secondaryMuscles": ["cuádriceps", "isquiotibiales", "gemelos"],
+        "instructions": [
+          "Ponte de pie con los pies separados al ancho de los hombros.",
+          "Dobla las rodillas y baja tu cuerpo en una posición de sentadilla.",
+          "Salta explosivamente, extendiendo tus caderas y rodillas mientras balanceas los brazos para obtener impulso.",
+          "Aterriza suavemente en las puntas de los pies e inmediatamente continúa con la siguiente repetición.",
+          "Repite el número deseado de repeticiones."
+        ]
+      },
+      {
+        "name": "Carrera de zancadas cortas",
+        "bodyPart": "cardio",
+        "equipment": "peso corporal",
+        "gifUrl": "https://v2.exercisedb.io/image/LgB1nVRG-WdN3T",
+        "id": "3656",
+        "target": "sistema cardiovascular",
+        "secondaryMuscles": ["cuádriceps", "isquiotibiales", "gemelos"],
+        "instructions": [
+          "Encuentra un espacio abierto o una cinta de correr para realizar el ejercicio.",
+          "Ponte erguido con los pies separados a la anchura de las caderas.",
+          "Comienza a correr en el lugar, levantando las rodillas hacia arriba y moviendo los brazos.",
+          "Después de unos segundos, comienza a dar zancadas cortas hacia adelante, manteniendo un ritmo rápido.",
+          "Continúa corriendo con zancadas cortas durante la duración o distancia deseada."
+        ]
+      },
+      {
+        "name": "Saltos de patinador",
+        "bodyPart": "cardio",
+        "equipment": "peso corporal",
+        "gifUrl": "https://v2.exercisedb.io/image/7bITyzxqWxyI6d",
+        "id": "3361",
+        "target": "sistema cardiovascular",
+        "secondaryMuscles": ["cuádriceps", "isquiotibiales", "glúteos", "gemelos"],
+        "instructions": [
+          "Ponte de pie con los pies separados al ancho de los hombros.",
+          "Dobla ligeramente las rodillas y salta hacia la derecha, aterrizando en tu pie derecho.",
+          "Al aterrizar, lleva la pierna izquierda detrás de la derecha y toca el suelo con los dedos del pie izquierdo.",
+          "Salta inmediatamente hacia la izquierda, aterrizando en tu pie izquierdo.",
+          "Al aterrizar, lleva la pierna derecha detrás de la izquierda y toca el suelo con los dedos del pie derecho.",
+          "Continúa alternando los lados, saltando y tocando el suelo con cada pierna.",
+          "Repite el número deseado de repeticiones."
+        ]
+      },
+      {
+        "name": "Paso de esquí",
+        "bodyPart": "cardio",
+        "equipment": "peso corporal",
+        "gifUrl": "https://v2.exercisedb.io/image/E3anDIGJvgSuRn",
+        "id": "3671",
+        "target": "sistema cardiovascular",
+        "secondaryMuscles": ["cuádriceps", "isquiotibiales", "glúteos", "gemelos"],
+        "instructions": [
+          "Ponte de pie con los pies separados al ancho de los hombros.",
+          "Dobla ligeramente las rodillas y mantén la espalda recta.",
+          "Salta hacia la derecha, aterrizando en tu pie derecho mientras llevas la pierna izquierda detrás de la derecha.",
+          "Salta inmediatamente hacia la izquierda, aterrizando en tu pie izquierdo mientras llevas la pierna derecha detrás de la izquierda.",
+          "Continúa alternando los saltos de un lado a otro, imitando un movimiento de esquí.",
+          "Repite el número deseado de repeticiones."
+        ]
+      }
+]
