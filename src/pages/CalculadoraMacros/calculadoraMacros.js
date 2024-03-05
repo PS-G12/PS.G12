@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import './calculadoraMacros.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMale, faWeightScale, faPlay } from '@fortawesome/free-solid-svg-icons'
+import {faFire, faCheese, faBreadSlice, faFish, faPlay } from '@fortawesome/free-solid-svg-icons'
+import Header from '../../components/Header/header';
 
 function CalculadoraMacros(){
     const  [altura, setAltura] = useState("");
@@ -57,12 +58,11 @@ function CalculadoraMacros(){
 
     return (
         <div className="contenedor-macros">
+            {/* <Header /> */}
             <p>MACRONUTRIENTES Y CALORÍAS</p>
             <div className="intro">
                 <span className="dato1">Calcule los macronutrientes necesarios que debe consumir, dependiendo de su estatura, peso y objetivos.</span>
                 <span className="dato2">Elija un sistema de medida:</span>
-            </div>
-            <form>
                 <div className="seleccion-medida">
                     <label>
                         Sistema anglosajón
@@ -73,67 +73,86 @@ function CalculadoraMacros(){
                         <input type="checkbox" defaultChecked value="metrico" onChange={seleccionSistema}></input>
                     </label>
                 </div>
-    
-                <div className="introducir-edad">
-                    <form className="edad">
-                        <label className="info-edad">{"Edad:"}</label>
-                        <input type="text" placeholder="Edad" className="input-edad" value={edad} onChange={LeerEdad} required></input>
-                    </form>
+            </div>
+            <form>
+                <div className="fila1">
+                    <div className="introducir-edad">
+                        <form className="edad">
+                            <label className="info-edad">{"Edad:"}</label>
+                            <input type="text" placeholder="Edad" className="input-edad" value={edad} onChange={LeerEdad} required></input>
+                        </form>
+                    </div>
+        
+                    <div className="introducir-genero">
+                        <form className="genero">
+                            <label htmlFor="info-genero">{"Género:"}</label>
+                            <select id="info-genero" className="info-genero">
+                                <option value="hombre">Hombre</option> 
+                                <option value="mujer">Mujer</option>
+                            </select>
+                        </form>
+                    </div>
+                    <div className="input-altura">
+                        <form className="altura">
+                            <label className="info-altura">{sistema === "anglosajon" ? "Estatura (ft):" : "Estatura (cm):"}</label>
+                            <input type="text" placeholder="Estatura" className="input-altura" value={altura} onChange={LeerAltura} required></input>
+                        </form>
+                    </div>
+        
+                    <div className="input-peso">
+                        <form className="peso">
+                            <label className="info-peso">{sistema === "anglosajon" ? "Peso (lbs):" : "Peso (kg):"}</label>
+                            <input type="text" placeholder="Peso" className="input-peso" value={peso} onChange={LeerPeso} required></input>
+                        </form>
+                    </div>
                 </div>
-    
-                <div className="introducir-genero">
-                    <form className="genero">
-                        <label htmlFor="info-genero">{"Género:"}</label>
-                        <select id="info-genero" className="info-genero">
-                            <option value="hombre">Hombre</option> 
-                            <option value="mujer">Mujer</option>
-                        </select>
-                    </form>
+                <div className="fila2">
+                    <div className="introducir-actividad">
+                        <form className="actividad">
+                            <label htmlFor="actividad-fisica">Actividad física actual:</label>
+                            <select id="actividad-fisica" className="input-actividad">
+                                <option value="sedentario">Sedentario</option> 
+                                <option value="moderado">Moderado</option>
+                                <option value="intensa">Intensa</option>
+                            </select>
+                        </form>
+                    </div>
+        
+                    <div className="introducir-meta">
+                        <label className="info-meta">{"Meta:"}</label>
+                        <ul>
+                            <li><input type="radio" id="perder-peso" name="meta" value="perder-peso" /><label htmlFor="perder-peso">Perder peso</label></li>
+                            <li><input type="radio" id="mantener" name="meta" value="mantener" /><label htmlFor="mantener">Mantener</label></li>
+                            <li><input type="radio" id="ganar-peso" name="meta" value="ganar-peso" /><label htmlFor="ganar-peso">Ganar peso</label></li>
+                        </ul>
+                    </div>
                 </div>
-
-                <FontAwesomeIcon icon={faMale} className="icon-altura"/>
-                <div className="introducir-altura">
-                    <form className="altura">
-                        <label className="info-altura">{sistema === "anglosajon" ? "Estatura (ft):" : "Estatura (cm):"}</label>
-                        <input type="text" placeholder="Estatura" className="input-altura" value={altura} onChange={LeerAltura} required></input>
-                    </form>
-                </div>
-    
-                <FontAwesomeIcon icon={faWeightScale} className="icon-peso"/>
-                <div className="introducir-peso">
-                    <form className="peso">
-                        <label className="info-peso">{sistema === "anglosajon" ? "Peso (lbs):" : "Peso (kg):"}</label>
-                        <input type="text" placeholder="Peso" className="input-peso" value={peso} onChange={LeerPeso} required></input>
-                    </form>
-                </div>
-    
-                <div className="introducir-actividad">
-                    <form className="actividad">
-                        <label htmlFor="actividad-fisica">Actividad física actual:</label>
-                        <select id="actividad-fisica" className="input-actividad">
-                            <option value="sedentario">Sedentario</option> 
-                            <option value="moderado">Moderado</option>
-                            <option value="intensa">Intensa</option>
-                        </select>
-                    </form>
-                </div>
-    
-                <div className="introducir-meta">
-                    <span>Meta:</span>
-                    <ul>
-                        <li><input type="radio" id="perder-peso" name="meta" value="perder-peso" /><label htmlFor="perder-peso">Perder peso</label></li>
-                        <li><input type="radio" id="mantener" name="meta" value="mantener" /><label htmlFor="mantener">Mantener</label></li>
-                        <li><input type="radio" id="ganar-peso" name="meta" value="ganar-peso" /><label htmlFor="ganar-peso">Ganar peso</label></li>
-                    </ul>
-                </div>
-    
                 <button className="calcular" onClick={IMC}>Calcular</button>
                 <div className="resultado-calculo">
                     <span>Los macronutrientes necesarios son:</span>
-                    <div className="resultado-macros">{resultadoIMC}</div>
+                    <div className="contenedor-recuadros">
+                        <div className="recuadro">
+                            <FontAwesomeIcon icon={faFire} className="icon-calorias" />
+                            <h3>Calorías</h3>
+                            <p className="info" id="calorias-info">x calorias por día</p>
+                        </div>
+                        <div className="recuadro">
+                            <FontAwesomeIcon icon={faBreadSlice} className="icon-carbos" />
+                            <h3>Carbohidratos</h3>
+                            <p className="info" id="carbohidratos-info">x gramos por día</p>
+                        </div>
+                        <div className="recuadro">
+                            <FontAwesomeIcon icon={faFish} className="icon-proteinas" />
+                            <h3>Proteínas</h3>
+                            <p className="info" id="proteinas-info">x gramos por día</p>
+                        </div>
+                        <div className="recuadro">
+                            <FontAwesomeIcon icon={faCheese} className="icon-grasas" />
+                            <h3>Grasas</h3>
+                            <p className="info" id="grasas-info">x gramos por día</p>
+                        </div>
+                    </div>
                 </div>
-    
-                <button className="cacular-pred">Calcular con mis datos predeterminados</button>
                 <FontAwesomeIcon icon={faPlay} className="icon-play"/>
                 <button className="calc-macros">Calculadora de IMC</button>
             </form>

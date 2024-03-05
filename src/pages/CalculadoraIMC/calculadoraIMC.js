@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import './calculadoraIMC.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMale, faWeightScale, faPlay } from '@fortawesome/free-solid-svg-icons'
+import Header from '../../components/Header/header';
 
 function CalculadoraIMC(){
     const  [altura, setAltura] = useState("");
@@ -51,7 +52,9 @@ function CalculadoraIMC(){
     };
 
     return (
+        
         <div className="contenedor-IMC">
+            <Header />
             <p>ÍNDICE DE MASA CORPORAL (IMC)</p>
             <div className="intro">
                 <span className="dato1">Calcule su IMC</span>
