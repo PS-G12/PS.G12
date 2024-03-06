@@ -50,7 +50,7 @@ const ExercisePage = () => {
       
       {bodyParts.map(bodyPart => (
         <div key={bodyPart} className={`${bodyPart}-excercises`}>
-          <h1>Ejercicios de {bodyPart}</h1>
+          <h1>{bodyPart.toUpperCase()} EXERCISES</h1>
           {exerciseDataState && <TarjetaEjercicio exercise={exerciseDataState} bodyPartChoosen={bodyPart} limite={5} />}
         </div>
       ))}
