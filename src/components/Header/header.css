@@ -45,7 +45,7 @@
 }
 
 .nav-links li {
-    margin: 2px 40px;
+    margin: 2px 20px; /* Espacio entre elementos en pantallas grandes */
 }
 
 .nav-links li a {
@@ -55,4 +55,11 @@
 
 .nav-links li a:hover {
     text-decoration: none;
+}
+
+/* Media Query para pantallas más pequeñas */
+@media screen and (max-width: 768px) {
+    .nav-links li {
+        margin: 2px 10px;
+    }
 }

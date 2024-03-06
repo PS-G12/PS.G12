@@ -48,4 +48,15 @@ input {
     background: #0066EE;
     margin-top: 1%;
     font-size: 16px;
-  }
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    background: #004499;
+    color: #fff;
+    transform: scale(0.98); 
+}
+
+button:active {
+    transform: scale(1);
+}
