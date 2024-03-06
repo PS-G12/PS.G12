@@ -1,15 +1,19 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './exercise.css'; 
 import BodyPart from '../../components/BodyPart/bodyPart';
 
 const ExercisePage = () => {
     const location = useLocation();
+    const navigate = useNavigate();
     const hash = location.hash.substring(1); 
     const decodedHash = decodeURIComponent(hash);
     const exercise = JSON.parse(decodedHash);
 
 
+    const handleGoBack = () => {
+      navigate(-1);
+    };
   
 
   return (
@@ -39,6 +43,10 @@ const ExercisePage = () => {
         </div>
 
         <div className="separator"></div>
+
+        <div className="button-container">
+          <button onClick={handleGoBack}>Volver</button>
+        </div>
         
       </div>
     </div>
