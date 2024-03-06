@@ -1,25 +1,25 @@
-.pecho-excercises, 
-.piernas.inferiores-excercises, 
-.brazos.inferiores-excercises, 
-.cuello-excercises, 
-.hombros-excercises, 
-.brazos.superiores-excercises, 
-.piernas.superiores-excercises, 
-.cintura-excercises, 
-.espalda-excercises, 
+.chest-excercises, 
+.lower.legs-excercises, 
+.lower.arms-excercises, 
+.neck-excercises, 
+.shoulders-excercises, 
+.upper.arms-excercises, 
+.upper.legs-excercises, 
+.waist-excercises, 
+.back-excercises, 
 .cardio-excercises {
   text-align: center;
 }
 
-.pecho-excercises .excercise-row,
-.piernas.inferiores-excercises .excercise-row,
-.brazos.inferiores-excercises .excercise-row,
-.cuello-excercises .excercise-row,
-.hombros-excercises .excercise-row,
-.brazos.superiores-excercises .excercise-row,
-.piernas.superiores-excercises .excercise-row,
-.cintura-excercises .excercise-row,
-.espalda-excercises .excercise-row,
+.chest-excercises .excercise-row,
+.lower.legs-excercises .excercise-row,
+.lower.arms-excercises .excercise-row,
+.neck-excercises .excercise-row,
+.shoulders-excercises .excercise-row,
+.upper.arms-excercises .excercise-row,
+.upper.legs-excercises .excercise-row,
+.waist-excercises .excercise-row,
+.back-excercises .excercise-row,
 .cardio-excercises .excercise-row {
   display: flex;
   justify-content: center; 

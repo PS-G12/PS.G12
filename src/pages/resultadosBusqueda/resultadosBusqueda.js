@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
-import exerciseData from '../../api/exercise_data_es.json'; 
+import exerciseData from '../../api/exercise_data_en.json'; 
 import TarjetaEjercicio from '../../components/TarjetaEjercicio/tarjetaEjercicio';
 import './resultadosBusqueda.css'; 
 import Buscador from '../../components/Buscador/buscador';

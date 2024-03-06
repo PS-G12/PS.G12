@@ -6,23 +6,23 @@ const TarjetaEjercicio = ({ exercise, bodyPartChoosen, limite, name}) => {
   const navigate = useNavigate();
   const getColorForBodyPart = (part) => {
     switch (part) {
-      case 'cintura':
+      case 'waist':
         return '#ff6347'; // Rojo
-      case 'pecho':
+      case 'chest':
         return '#6495ED'; // Azul acero
-      case 'piernas inferiores':
+      case 'lower legs':
         return '#8A2BE2'; // Azul violeta oscuro
-      case 'brazos inferiores':
+      case 'lower arms':
         return '#FFD700'; // Dorado
-      case 'cuello':
+      case 'neck':
         return '#00BFFF'; // Azul turquesa
-      case 'hombros':
+      case 'shoulders':
         return '#FFA07A'; // Salmón claro
-      case 'brazos superiores':
+      case 'upper arms':
         return '#FF69B4'; // Rosa claro
-      case 'piernas superiores':
+      case 'upper legs':
         return '#4682B4'; // Azul acero
-      case 'espalda':
+      case 'back':
         return '#228B22'; // Verde bosque
       case 'cardio':
         return '#FF4500'; // Naranja rojizo
