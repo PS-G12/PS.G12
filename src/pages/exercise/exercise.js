@@ -27,7 +27,7 @@ const ExercisePage = () => {
 
         <div className="separator"></div>
         <div className="instructions">
-          <h2>Instrucciones:</h2>
+          <h2>Instructions:</h2>
           <ul>
             {exercise.instructions.map((instruction, index) => (
               <li key={index}>{instruction}</li>
@@ -37,15 +37,15 @@ const ExercisePage = () => {
         <div className="separator"></div>
 
         <div className="images">
-          <BodyPart label="Parte del Cuerpo" src={exercise.bodyPart} imageName={`bodyParts/${exercise.bodyPart}`} altText={exercise.bodyPart} />
-          <BodyPart label="Equipo" src={exercise.equipment} imageName={`equipment/${exercise.equipment}`} altText={exercise.equipment} />
-          <BodyPart label="Objetivo" src={exercise.target} imageName={`targets/${exercise.target}`} altText={exercise.target} />
+          <BodyPart label="Body Part" src={exercise.bodyPart} imageName={`bodyParts/${exercise.bodyPart}`} altText={exercise.bodyPart} />
+          <BodyPart label="Equipment" src={exercise.equipment} imageName={`equipment/${exercise.equipment}`} altText={exercise.equipment} />
+          <BodyPart label="Target" src={exercise.target} imageName={`targets/${exercise.target}`} altText={exercise.target} />
         </div>
 
         <div className="separator"></div>
 
         <div className="button-container">
-          <button onClick={handleGoBack}>Volver</button>
+          <button onClick={handleGoBack}>Go Back</button>
         </div>
         
       </div>

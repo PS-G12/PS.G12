@@ -22,7 +22,7 @@ function Buscador() {
       <input
         type="text"
         className="search-input"
-        placeholder="Realizar búsqueda..."
+        placeholder="Search..."
         value={searchValue}
         onChange={handleChange}
       />
