@@ -14,10 +14,10 @@ function Header() {
       <nav className="navbar">
         <div className="logo"></div>
         <ul className="nav-links">
-          <li className={isActive("/") ? "active" : ""}><a href="/"><FontAwesomeIcon icon={faChartLine} /> INICIO</a></li>
-          <li className={isActive("/buscarAlimento") || isActive("/registroComidas") ? "active" : ""}><a href="/registroComidas"><FontAwesomeIcon icon={faUtensils} /> ALIMENTOS</a></li>
-          <li className={isActive("/rutinas") ? "active" : ""}><a href="/rutinas"><FontAwesomeIcon icon={faDumbbell} /> EJERCICIOS</a></li>
-          <li className={isActive("/calculoIMC") ? "active" : ""}><a href="/calculadora"><FontAwesomeIcon icon={faCalculator} /> CALCULADORA</a></li>
+          <li className={isActive("/") ? "active" : ""}><a href="/"><FontAwesomeIcon icon={faChartLine} /> HOME</a></li>
+          <li className={isActive("/buscarAlimento") || isActive("/buscarAlimento") ? "active" : ""}><a href="/buscarAlimento"><FontAwesomeIcon icon={faUtensils} /> FOOD</a></li>
+          <li className={isActive("/rutinas") ? "active" : ""}><a href="/rutinas"><FontAwesomeIcon icon={faDumbbell} /> EXCERSICE</a></li>
+          <li className={isActive("/calculoIMC") ? "active" : ""}><a href="/calculoIMC"><FontAwesomeIcon icon={faCalculator} /> CALCULATOR</a></li>
         </ul>
       </nav>
     </header>

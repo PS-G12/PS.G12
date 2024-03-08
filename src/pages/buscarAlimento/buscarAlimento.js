@@ -11,10 +11,10 @@ const FoodSearch = () => {
   const [quantity, setQuantity] = useState(100);
   const [savedMessage, setSavedMessage] = useState("");
 
-  // Obtener la ubicación (location) del router
+  
   const location = useLocation();
 
-  // Extraer el parámetro 'tipo' de la URL
+  
   const tipo = new URLSearchParams(location.search).get("tipo");
   console.log(tipo);
 
@@ -38,35 +38,35 @@ const FoodSearch = () => {
   };
 
   const handleAddToMeal = () => {
-    // Verifica si se ha seleccionado un alimento
+    
     if (!selectedItem) {
       console.error("No se ha seleccionado ningún alimento.");
       return;
     }
 
-    // Crear un objeto que represente el alimento con sus detalles y tipo de comida
+    
     const nuevoAlimento = {
       tipoComida: tipo,
       nombre: selectedItem.name,
       calorias: selectedItem.calories,
       cantidad: quantity,
-      // Agrega otras propiedades según sea necesario
+      
     };
 
-    // Obtén los alimentos existentes del localStorage
+    
     const alimentosGuardados =
       JSON.parse(localStorage.getItem("alimentos")) || [];
 
-    // Agrega el nuevo alimento a la lista
+    
     const nuevosAlimentos = [...alimentosGuardados, nuevoAlimento];
 
-    // Almacena la lista actualizada en localStorage
+    
     localStorage.setItem("alimentos", JSON.stringify(nuevosAlimentos));
 
-    // Muestra el mensaje de éxito
+    
     setSavedMessage("Alimento guardado correctamente.");
 
-    // Reinicia los estados para la próxima búsqueda
+    
     setSearchQuery("");
     setSearchResult(null);
     setSelectedItem(null);

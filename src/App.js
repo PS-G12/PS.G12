@@ -6,7 +6,6 @@ import Inicio from './pages/inicio/inicio';
 import SearchResultsPage from './pages/resultadosBusqueda/resultadosBusqueda';
 import ExercisePage from './pages/exercise/exercise';
 import FoodSearch from './pages/buscarAlimento/buscarAlimento';
-import RegistroComidas from './pages/registroComidas/registroComidas';
 import CalculoIMCPage from './pages/imc';
 
 function App() {
@@ -19,7 +18,6 @@ function App() {
         <Route path="/exercise" element={<ExercisePage />} />
         <Route path="/calculoIMC" element={<CalculoIMCPage />} />
         <Route path="/buscarAlimento" element={<FoodSearch />} />
-        <Route path="/registroComidas" element={<RegistroComidas />} />
       </Routes>
     </Router>
 
