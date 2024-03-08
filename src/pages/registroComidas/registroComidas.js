@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import Header from "../../components/Header/header";
+import "./registroComida.css";
 
 const ListadoComidas = () => {
   const [desayuno, setDesayuno] = useState([]);
@@ -14,10 +15,18 @@ const ListadoComidas = () => {
     console.log("Prueba los alimentos");
 
     // Filtra los alimentos por tipo de comida
-    const desayunoData = storedAlimentos.filter((alimento) => alimento.tipoComida === "desayuno");
-    const almuerzoData = storedAlimentos.filter((alimento) => alimento.tipoComida === "almuerzo");
-    const cenaData = storedAlimentos.filter((alimento) => alimento.tipoComida === "cena");
-    const aperitivosData = storedAlimentos.filter((alimento) => alimento.tipoComida === "aperitivos");
+    const desayunoData = storedAlimentos.filter(
+      (alimento) => alimento.tipoComida === "desayuno"
+    );
+    const almuerzoData = storedAlimentos.filter(
+      (alimento) => alimento.tipoComida === "almuerzo"
+    );
+    const cenaData = storedAlimentos.filter(
+      (alimento) => alimento.tipoComida === "cena"
+    );
+    const aperitivosData = storedAlimentos.filter(
+      (alimento) => alimento.tipoComida === "aperitivos"
+    );
 
     setDesayuno(desayunoData);
     setAlmuerzo(almuerzoData);
@@ -28,7 +37,7 @@ const ListadoComidas = () => {
   // Función para mostrar comidas en la lista
   const mostrarComidasEnLista = (tipo, lista) => {
     return (
-      <div>
+      <div className={`listado-${tipo.toLowerCase()}`} id="listado-items">
         <h2>{tipo}</h2>
         <ul>
           {lista.map((comida, index) => (
@@ -37,20 +46,27 @@ const ListadoComidas = () => {
             </li>
           ))}
         </ul>
-        <Link to={`/buscarAlimento?tipo=${tipo.toLowerCase()}`}>
-          <button>Añadir Alimento</button>
-        </Link>
+        <button
+          onClick={() =>
+            (window.location.href = `/buscarAlimento?tipo=${tipo.toLowerCase()}`)
+          }
+        >
+          Añadir Alimento
+        </button>
       </div>
     );
   };
 
   return (
-    <div>
-      <h1>Listado de Comidas</h1>
-      {mostrarComidasEnLista("Desayuno", desayuno)}
-      {mostrarComidasEnLista("Almuerzo", almuerzo)}
-      {mostrarComidasEnLista("Cena", cena)}
-      {mostrarComidasEnLista("Aperitivos", aperitivos)}
+    <div className="registro-container">
+      <Header />
+      <h1 id="listado-h1">Listado de Comidas</h1>
+      <div className="registro-box">
+        {mostrarComidasEnLista("Desayuno", desayuno)}
+        {mostrarComidasEnLista("Almuerzo", almuerzo)}
+        {mostrarComidasEnLista("Cena", cena)}
+        {mostrarComidasEnLista("Aperitivos", aperitivos)}
+      </div>
     </div>
   );
 };

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import fetchFood from "../../api/fetchFood.js";
 import Header from "../../components/Header/header";
+import { Link, useLocation } from "react-router-dom";
 import "./buscarAlimento.css";
-import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 const FoodSearch = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -10,11 +10,15 @@ const FoodSearch = () => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [quantity, setQuantity] = useState(100);
   const [savedMessage, setSavedMessage] = useState("");
-  const navigate = useNavigate();
+
+  // Obtener la ubicación (location) del router
   const location = useLocation();
 
-  const tipo = location.pathname.split('/').pop();
-  const handleSearch = () => {
+  // Extraer el parámetro 'tipo' de la URL
+  const tipo = new URLSearchParams(location.search).get("tipo");
+  console.log(tipo);
+
+  const handleSearch = (props) => {
     fetchFood(searchQuery)
       .then((result) => {
         console.log('El resultado para la búsqueda "' + searchQuery + '" es:');
@@ -50,7 +54,8 @@ const FoodSearch = () => {
     };
 
     // Obtén los alimentos existentes del localStorage
-    const alimentosGuardados = JSON.parse(localStorage.getItem("alimentos")) || [];
+    const alimentosGuardados =
+      JSON.parse(localStorage.getItem("alimentos")) || [];
 
     // Agrega el nuevo alimento a la lista
     const nuevosAlimentos = [...alimentosGuardados, nuevoAlimento];
@@ -67,8 +72,6 @@ const FoodSearch = () => {
     setSelectedItem(null);
     setQuantity(100);
   };
-
-  
 
   return (
     <div className="buscarAlimento-box">
