@@ -9,7 +9,7 @@ function Header() {
       <nav className="navbar">
         <div className="logo"></div>
         <ul className="nav-links">
-            <li><a href="/"><FontAwesomeIcon icon={faChartLine} /> INICIO</a></li>
+            <li><a href="/inicio"><FontAwesomeIcon icon={faChartLine} /> INICIO</a></li>
             <li><a href="/alimentos"><FontAwesomeIcon icon={faUtensils} /> ALIMENTOS</a></li>
             <li><a href="/rutinas"><FontAwesomeIcon icon={faDumbbell} /> EJERCICIOS</a></li>
             <li><a href="/calculadora"><FontAwesomeIcon icon={faCalculator} /> CALCULADORA</a></li>
