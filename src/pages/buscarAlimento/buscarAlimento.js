@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import fetchFood from "../../api/fetchFood.js";
 import Header from "../../components/Header/header";
+import { Link, useLocation } from "react-router-dom";
 import "./buscarAlimento.css";
-import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 const FoodSearch = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -10,11 +10,15 @@ const FoodSearch = () => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [quantity, setQuantity] = useState(100);
   const [savedMessage, setSavedMessage] = useState("");
-  const navigate = useNavigate();
+
+  
   const location = useLocation();
 
-  const tipo = location.pathname.split('/').pop();
-  const handleSearch = () => {
+  
+  const tipo = new URLSearchParams(location.search).get("tipo");
+  console.log(tipo);
+
+  const handleSearch = (props) => {
     fetchFood(searchQuery)
       .then((result) => {
         console.log('El resultado para la búsqueda "' + searchQuery + '" es:');
@@ -34,41 +38,40 @@ const FoodSearch = () => {
   };
 
   const handleAddToMeal = () => {
-    // Verifica si se ha seleccionado un alimento
+    
     if (!selectedItem) {
       console.error("No se ha seleccionado ningún alimento.");
       return;
     }
 
-    // Crear un objeto que represente el alimento con sus detalles y tipo de comida
+    
     const nuevoAlimento = {
       tipoComida: tipo,
       nombre: selectedItem.name,
       calorias: selectedItem.calories,
       cantidad: quantity,
-      // Agrega otras propiedades según sea necesario
+      
     };
 
-    // Obtén los alimentos existentes del localStorage
-    const alimentosGuardados = JSON.parse(localStorage.getItem("alimentos")) || [];
+    
+    const alimentosGuardados =
+      JSON.parse(localStorage.getItem("alimentos")) || [];
 
-    // Agrega el nuevo alimento a la lista
+    
     const nuevosAlimentos = [...alimentosGuardados, nuevoAlimento];
 
-    // Almacena la lista actualizada en localStorage
+    
     localStorage.setItem("alimentos", JSON.stringify(nuevosAlimentos));
 
-    // Muestra el mensaje de éxito
+    
     setSavedMessage("Alimento guardado correctamente.");
 
-    // Reinicia los estados para la próxima búsqueda
+    
     setSearchQuery("");
     setSearchResult(null);
     setSelectedItem(null);
     setQuantity(100);
   };
-
-  
 
   return (
     <div className="buscarAlimento-box">
