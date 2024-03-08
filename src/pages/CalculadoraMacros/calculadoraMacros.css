@@ -2,6 +2,7 @@
     background-color: white;
     position: fixed;
     width: 60%;
+    margin-top: 1%;
     height: 90%;
     left: 20%;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -14,30 +15,45 @@
 }
 
 .intro{
+    display: grid;
+    
+}
+
+.dato1 .seleccion-medidas{
+    position: relative;
     text-align: center;
 }
 
-.intro .dato1{
-    display: block;
-}
+
 
 .fila1{
     display: flex;
     margin-top: 10%;
     padding: auto;
+    width: 100%;
+    justify-content: center;
+}
+
+.introducir-edad, .introducir-genero, .input-altura, .input-peso{
+    margin-right: 10px;
+}
+
+.info-edad, .info-genero, .info-altura, .info-peso{
+    margin-right: 5px;
 }
 
 .fila2{
     display: flex;
     margin-top: 2%;
     padding: auto;
+    width: 100%;
+    justify-content: center;
 }
 
+
 .introducir-actividad{
-    margin-left: 2%;
     width: 330px;
-    margin-top: 1%;
-    
+    margin-top: 2%;
 }
 
 .input-actividad{
@@ -47,7 +63,7 @@
 .introducir-meta {
     display: flex;
     align-items: center; 
-    width: 300px;
+    width: 50%;
 }
 
 .introducir-meta ul {
@@ -74,22 +90,15 @@
 
 }
 
-
-.resultado-calculo{
-    position: absolute;
-    left: 25%;
-    top: 67%;
-}
-
-
-.calcular{
+.calcularMacros{
+    position: relative;
     background-color: #23A6F0;
     color: white;
     width: 106px;
     height: 35px;
+    margin-top: 3%;
     border-radius: 5px;
     font-weight: bold;
-    top: 45%;
     border-color: #23A6F0;
 }
 
@@ -121,21 +130,21 @@
 }
 
 
-.icon-play{
-    position: absolute;
+.icon-playIMC{
     z-index: 9999;
-    bottom: 3%;
-    left: 96%;
+    margin-left: 5%;
     color: #23A6F0;
 }
 
-.resultado-calculo{
-    left: 11%;
-    top: 53%;
+.resultado-calculoMacros{
+    width: 100%;
+    position: relative;
+    margin-top: 4%;
 }
 
 .contenedor-recuadros {
     display: flex;
+    justify-content: center;
 }
 
 .recuadro {
@@ -145,11 +154,16 @@
     margin-right: 5%;
     width: 150px;
     height: 110px;
+    border: 2px solid #23A6F0
 }
 
 .recuadro i {
     font-size: 24px;
-    
+    color: #23A6F0;
+}
+
+.resultado-label{
+    margin-bottom: 10px;
 }
 
 .info {
@@ -157,6 +171,22 @@
     margin-top: 5px;
 }
 
-/* .icon-grasas .icon-proteinas .icon-carbos .icon-calorias{
-    font-size: x-large;
-} */
+.icon-calorias{
+    scale: 2;
+    color: #ee4a09;
+}
+
+.icon-grasas{
+    scale: 2;
+    color: #c8bf0c;
+} 
+
+.icon-proteinas{
+    scale: 2;
+    color: #808080;
+}
+
+.icon-carbos{
+    scale: 2;
+    color: #edb45e;
+}

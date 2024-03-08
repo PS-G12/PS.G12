@@ -63,7 +63,7 @@ function CalculadoraMacros(){
             <div className="intro">
                 <span className="dato1">Calcule los macronutrientes necesarios que debe consumir, dependiendo de su estatura, peso y objetivos.</span>
                 <span className="dato2">Elija un sistema de medida:</span>
-                <div className="seleccion-medida">
+                <div className="seleccion-medidas">
                     <label>
                         Sistema anglosajón
                         <input type="checkbox" value="anglosajon" onChange={seleccionSistema}></input>
@@ -85,7 +85,7 @@ function CalculadoraMacros(){
         
                     <div className="introducir-genero">
                         <form className="genero">
-                            <label htmlFor="info-genero">{"Género:"}</label>
+                            <label className="info-genero">{"Género:"}</label>
                             <select id="info-genero" className="info-genero">
                                 <option value="hombre">Hombre</option> 
                                 <option value="mujer">Mujer</option>
@@ -127,9 +127,9 @@ function CalculadoraMacros(){
                         </ul>
                     </div>
                 </div>
-                <button className="calcular" onClick={IMC}>Calcular</button>
-                <div className="resultado-calculo">
-                    <span>Los macronutrientes necesarios son:</span>
+                <button className="calcularMacros" onClick={IMC}>Calcular</button>
+                <div className="resultado-calculoMacros">
+                    <div className="resultado-label">Los macronutrientes necesarios son:</div>
                     <div className="contenedor-recuadros">
                         <div className="recuadro">
                             <FontAwesomeIcon icon={faFire} className="icon-calorias" />
@@ -153,8 +153,8 @@ function CalculadoraMacros(){
                         </div>
                     </div>
                 </div>
-                <FontAwesomeIcon icon={faPlay} className="icon-play"/>
-                <button className="calc-macros">Calculadora de IMC</button>
+                
+                <button className="calc-macros">Calculadora de IMC<FontAwesomeIcon icon={faPlay} className="icon-playIMC"/></button>
             </form>
         </div>
     );
