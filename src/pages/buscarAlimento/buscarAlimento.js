@@ -164,7 +164,7 @@ const BuscarAlimento = () => {
         <h1 id="list-h1">Meal Log List</h1>
         {showMeals(meal)}
       </div>
-      <button onClick={handleClearAll}>Clear All</button>
+      <button className="button-clear-all" onClick={handleClearAll}>Clear All</button>
       <Footer />
     </div>
   );

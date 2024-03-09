@@ -36,6 +36,11 @@ function CalculadoraIMC() {
       return;
     }
 
+    if (isNaN(altura) || isNaN(peso) || altura <= 0 || peso <= 0) {
+      alert("Por favor, ingrese valores válidos para altura y peso.");
+      return;
+    }
+
     if (sistema === "anglosajon") {
       const alturaUser = parseFloat(altura.replace(",", "."));
       const pesoUser = parseFloat(peso.replace(",", "."));
@@ -127,7 +132,7 @@ function CalculadoraIMC() {
           </div>
         </div>
         <button className="calcular-button" onClick={IMC}>
-          Calcular
+          Calculate
         </button>
         <div className="resultado-calculo">
           <span>

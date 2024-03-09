@@ -199,11 +199,13 @@
 }
 
 .resultado-calculo{
-    margin-top: 3%;
+    margin-top: 2%;
 }
 
 .resultado-container {
-    margin-top: 37px;
-    display: flex;
-    justify-content: flex-end;
+  position: fixed;
+  top: 73%;
+  right: 30%;
+  display: flex;
+  justify-content: flex-end;
 }
