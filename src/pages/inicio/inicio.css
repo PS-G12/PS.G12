@@ -1,0 +1,13 @@
+.cards{
+  display: flex;
+}
+.cards .container-tarjeta{
+  margin-left: 15%;
+  margin-top: 5%;
+}
+
+.cards .macros-container{
+  margin-left: 15%;
+  margin-top: 5%;
+}
+

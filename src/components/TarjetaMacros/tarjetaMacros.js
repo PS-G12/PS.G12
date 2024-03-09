@@ -2,45 +2,38 @@ import React from "react";
 import './tarjetaMacros.css'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 
-function TarjetaMacros(){
+function MacroCircularProgressBar({ label, value, max, color }) {
+    const porcentaje = (value / max) * 100;
+    const texto = `${value}/${max}g`;
+
     return (
-        <div className="contenedor">
-            <div className="carbo">
-                <p>Carbohidratos</p>
-                <CircularProgressbar className="cCarbo" value={60} text='81/165g' styles={buildStyles({ 
+        <div className={`macro${label}`}>
+            <p className={`label${label}`}>{label}</p> {/* Añadido */}
+            <CircularProgressbar
+                className={`c${label}`}
+                value={porcentaje}
+                text={texto}
+                styles={buildStyles({
                     textSize: '12px',
                     pathTransitionDuration: 0.5,
-                    pathColor: '#0066EE',
+                    pathColor: color,
                     textColor: 'black',
                     trailColor: '#d6d6d6',
                     backgroundColor: '#3e98c7',
-                    strokeLinecap: 'butt', 
-                    verticalAlingn: 'middle'})}/>
-            </div>
-            <div className="grasas">
-                <p>Grasas</p>
-                <CircularProgressbar className="cGrasas" value={85} text='50/65g' styles={buildStyles({ 
-                    textSize: '12px',
-                    pathTransitionDuration: 0.5,
-                    pathColor: '#EEBD0E',
-                    textColor: 'black',
-                    trailColor: '#d6d6d6',
-                    backgroundColor: '#3e98c7',
-                    strokeLinecap: 'butt', 
-                    verticalAlingn: 'middle'})}/>
-            </div>
-            <div className="prote">
-                <p>Proteínas</p>
-                <CircularProgressbar className="cProte" value={35} text='32/85g' styles={buildStyles({ 
-                    textSize: '12px',
-                    pathTransitionDuration: 0.5,
-                    pathColor: '#179D7D',
-                    textColor: 'black',
-                    trailColor: '#d6d6d6',
-                    backgroundColor: '#3e98c7',
-                    strokeLinecap: 'butt', 
-                    verticalAlingn: 'middle'})}/>
-            </div>
+                    strokeLinecap: 'butt',
+                    verticalAlingn: 'middle'
+                })}
+            />
+        </div>
+    );
+}
+
+function TarjetaMacros({value, max, value2, max2, value3, max3}) {
+    return (
+        <div className="macros-container">
+            <MacroCircularProgressBar label="Carbohidratos" value={value} max={max} color="#0066EE" />
+            <MacroCircularProgressBar label="Grasas" value={value2} max={max2} color="#EEBD0E" />
+            <MacroCircularProgressBar label="Proteínas" value={value3} max={max3} color="#179D7D" />
         </div>
     );
 }
