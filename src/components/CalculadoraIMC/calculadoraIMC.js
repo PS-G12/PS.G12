@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import "./calculadoraIMC.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faMale,
-  faWeight,
-  faPlay,
-} from "@fortawesome/free-solid-svg-icons";
+import { faMale, faWeight, faPlay } from "@fortawesome/free-solid-svg-icons";
 
 function CalculadoraIMC() {
   const [altura, setAltura] = useState("");
@@ -58,72 +54,71 @@ function CalculadoraIMC() {
   return (
     <div className="calculadora-IMC">
       <div className="contenedor-IMC">
-        <p>ÍDICE DE MASA CORPORAL (IMC)</p>
-        <span className="dato1">Calcule su IMC</span>
+        <p>BODY MASS INDEX (BMI)</p>
+        <span className="dato1">Calculate your BMI</span>
         <form className="input-sistema">
-          <span className="dato2">Elija un sistema de medida:</span>
+          <span className="dato2">Choose a measurement system:</span>
           <div className="seleccion-medida">
-  <div className="checkbox-wrapper-18">
-    <div className="round">
-      <input
-        type="checkbox"
-        id="checkbox-18"
-        value="anglosajon"
-        onChange={seleccionSistema}
-        checked={sistema === "anglosajon"}
-      />
-      <label htmlFor="checkbox-18"></label>
-      <p>Sistema anglosajón</p>
-    </div>
-  </div>
+            <div className="checkbox-wrapper-18">
+              <div className="round">
+                <input
+                  type="checkbox"
+                  id="checkbox-18"
+                  value="anglosajon"
+                  onChange={seleccionSistema}
+                  checked={sistema === "anglosajon"}
+                />
+                <label htmlFor="checkbox-18"></label>
+                <p>Imperial System</p>
+              </div>
+            </div>
 
-  <div className="checkbox-wrapper-18">
-    <div className="round">
-      <input
-        type="checkbox"
-        id="checkbox-18_1"
-        value="metrico"
-        onChange={seleccionSistema}
-        checked={sistema === "metrico"}
-      />
-      <label htmlFor="checkbox-18_1"></label>
-      <p>Sistema métrico</p>
-    </div>
-  </div>
-</div>
-
+            <div className="checkbox-wrapper-18">
+              <div className="round">
+                <input
+                  type="checkbox"
+                  id="checkbox-18_1"
+                  value="metrico"
+                  onChange={seleccionSistema}
+                  checked={sistema === "metrico"}
+                />
+                <label htmlFor="checkbox-18_1"></label>
+                <p>Metric System</p>
+              </div>
+            </div>
+          </div>
         </form>
-          <div className="introducir-altura">
-            <form className="altura">
-              <label className="info-altura">
-                {sistema === "anglosajon"
-                  ? "ESTATURA (en pies):"
-                  : "ESTATURA (en cm):"}
-              </label>
-            </form>
-              <FontAwesomeIcon icon={faMale} className="icon-altura" />
-            <input
-              type="text"
-              placeholder="Estatura"
-              className="input-altura"
-              value={altura}
-              onChange={LeerAltura}
-              required
-            ></input>
+        <div className="introducir-altura">
+          <form className="altura">
+            <label className="info-altura">
+              {sistema === "anglosajon"
+                ? "HEIGHT (in feet):"
+                : "HEIGHT (in cm):"}
+            </label>
+          </form>
+          <FontAwesomeIcon icon={faMale} className="icon-altura" />
+          <input
+            type="text"
+            placeholder="Height"
+            className="input-altura"
+            value={altura}
+            onChange={LeerAltura}
+            required
+          ></input>
         </div>
         <div className="texto-peso">
           <div className="introducir-peso">
             <form className="peso">
               <label className="info-peso">
                 {sistema === "anglosajon"
-                  ? "PESO (en libras):"
-                  : "PESO (en kilogramos):"}
+                  ? "Weight (in pounds):"
+                  : "WEIGHT (in kilograms):"}
               </label>
             </form>
             <FontAwesomeIcon icon={faWeight} className="icon-peso" />
             <input
               type="text"
-              placeholder="Peso"
+              placeholder="Weight"
               className="input-peso"
               value={peso}
               onChange={LeerPeso}
@@ -135,14 +130,19 @@ function CalculadoraIMC() {
           Calcular
         </button>
         <div className="resultado-calculo">
-          <span>El IMC correspondiente a la estatura y peso indicados es:</span>
+          <span>
+            The BMI corresponding to the indicated height and weight is:
+          </span>
           <div className="resultado-IMC">{resultadoIMC}</div>
         </div>
         <button className="calcular-button">
-          Calcular con mis datos predeterminados
+          Calculate with my default data
         </button>
         <div className="resultado-container">
-          <button className="calc-macros">Calculadora de macros <FontAwesomeIcon icon={faPlay} className="icon-play" /></button>
+          <button className="calc-macros">
+            Macros Calculator
+            <FontAwesomeIcon icon={faPlay} className="icon-play" />
+          </button>
         </div>
       </div>
     </div>
