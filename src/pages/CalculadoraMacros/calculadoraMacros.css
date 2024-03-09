@@ -1,9 +1,8 @@
 .contenedor-macros{
     background-color: white;
-    position: fixed;
+    position: relative;
     width: 60%;
-    margin-top: 1%;
-    height: 90%;
+    height: 630px;
     left: 20%;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     text-align: center;
@@ -13,6 +12,7 @@
 .contenedor-macros p{
     text-align: center;
     font-weight: bold;
+    margin-top: 1%;
 }
 
 .intro{
@@ -164,6 +164,10 @@
 .recuadro i {
     font-size: 24px;
     color: #23A6F0;
+}
+
+.recuadro p{
+    margin-top: 10%;
 }
 
 .resultado-label{
