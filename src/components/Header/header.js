@@ -15,8 +15,14 @@ function Header() {
         <ul className="nav-links">
           <li className={isActive("/") ? "active" : ""}><a href="/"><FontAwesomeIcon icon={faChartLine} /> HOME</a></li>
           <li className={isActive("/buscarAlimento") || isActive("/buscarAlimento") ? "active" : ""}><a href="/buscarAlimento"><FontAwesomeIcon icon={faUtensils} /> FOOD</a></li>
-          <li className={isActive("/rutinas") ? "active" : ""}><a href="/rutinas"><FontAwesomeIcon icon={faDumbbell} /> EXCERSICE</a></li>
-          <li className={isActive("/calculoIMC") ? "active" : ""}><a href="/calculoIMC"><FontAwesomeIcon icon={faCalculator} /> CALCULATOR</a></li>
+          <li className={isActive("/rutinas") ? "active" : ""}><a href="/rutinas"><FontAwesomeIcon icon={faDumbbell} /> EXERCISE</a></li>
+          <li className="dropdown">
+            <a href='#'><FontAwesomeIcon icon={faCalculator} /> CALCULATORS</a>
+            <ul className='submenu'>
+              <li className={isActive("/calculoIMC") ? "active" : ""}><a href='/calculoIMC' className='calc'>CALCULATOR BMI</a></li>
+              <li className={isActive("/calculoMacros") ? "active" : ""}><a href='/calculoMacros' className='calc'>MACROS CALCULATOR</a></li>
+            </ul>
+          </li>
         </ul>
       </nav>
     </header>
