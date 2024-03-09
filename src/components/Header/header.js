@@ -5,7 +5,6 @@ import { faChartLine, faUtensils, faDumbbell, faCalculator } from '@fortawesome/
 
 function Header() {
   const currentPath = window.location.pathname;
-  console.log(currentPath);
 
   const isActive = (path) => currentPath === path;
 

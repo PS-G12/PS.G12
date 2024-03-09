@@ -1,27 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import fetchFood from "../../api/fetchFood.js";
 import Header from "../../components/Header/header";
-import { Link, useLocation } from "react-router-dom";
+import Footer from "../../components/Footer/footer";
+import TarjetaAlimento from "../../components/TarjetaAlimento/tarjetaAlimento";
 import "./buscarAlimento.css";
 
-const FoodSearch = () => {
+const BuscarAlimento = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResult, setSearchResult] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
   const [quantity, setQuantity] = useState(100);
   const [savedMessage, setSavedMessage] = useState("");
+  const [meal, setMeal] = useState([]);
 
-  
-  const location = useLocation();
-
-  
-  const tipo = new URLSearchParams(location.search).get("tipo");
-  console.log(tipo);
-
-  const handleSearch = (props) => {
+  const handleSearch = () => {
     fetchFood(searchQuery)
       .then((result) => {
-        console.log('El resultado para la búsqueda "' + searchQuery + '" es:');
         console.log(result);
         setSearchResult(result);
         setSelectedItem(null);
@@ -38,64 +32,89 @@ const FoodSearch = () => {
   };
 
   const handleAddToMeal = () => {
-    
     if (!selectedItem) {
-      console.error("No se ha seleccionado ningún alimento.");
+      console.error("No food selected.");
       return;
     }
 
-    
-    const nuevoAlimento = {
-      tipoComida: tipo,
-      nombre: selectedItem.name,
-      calorias: selectedItem.calories,
-      cantidad: quantity,
-      
+    const newFood = {
+      name: selectedItem.name,
+      calories: selectedItem.calories,
+      serving_size_g: selectedItem.serving_size_g,
+      fat_total_g: selectedItem.fat_total_g || 0,
+      fat_saturated_g: selectedItem.fat_saturated_g || 0,
+      protein_g: selectedItem.protein_g || 0,
+      sodium_mg: selectedItem.sodium_mg || 0,
+      potassium_mg: selectedItem.potassium_mg || 0,
+      cholesterol_mg: selectedItem.cholesterol_mg || 0,
+      carbohydrates_total_g: selectedItem.carbohydrates_total_g || 0,
+      fiber_g: selectedItem.fiber_g || 0,
+      sugar_g: selectedItem.sugar_g || 0,
+      quantity: quantity,
     };
 
-    
-    const alimentosGuardados =
-      JSON.parse(localStorage.getItem("alimentos")) || [];
+    const storedFoods = JSON.parse(localStorage.getItem("foods")) || [];
 
-    
-    const nuevosAlimentos = [...alimentosGuardados, nuevoAlimento];
+    const newFoods = [...storedFoods, newFood];
 
-    
-    localStorage.setItem("alimentos", JSON.stringify(nuevosAlimentos));
+    localStorage.setItem("foods", JSON.stringify(newFoods));
 
-    
-    setSavedMessage("Alimento guardado correctamente.");
+    setSavedMessage("Food saved successfully.");
 
-    
     setSearchQuery("");
     setSearchResult(null);
     setSelectedItem(null);
     setQuantity(100);
+    setMeal(newFoods);
   };
 
+  const handleCardClick = (item) => {
+    setSelectedItem(item);
+  };
+
+  const handleClearAll = () => {
+    localStorage.removeItem("foods");
+    setMeal([]);
+  };
+
+  const showMeals = (list) => {
+    return (
+      <div className="mealLog-box">
+        {list.map((food, index) => (
+          <TarjetaAlimento key={index} food={food} onCardClick={handleCardClick} />
+        ))}
+      </div>
+    );
+  };
+
+  useEffect(() => {
+    const storedFoods = JSON.parse(localStorage.getItem("foods")) || [];
+    setMeal(storedFoods);
+  }, []);
+
   return (
-    <div className="buscarAlimento-box">
+    <div className="foodSearch-box">
       <Header />
-      <h1>Añadir alimento a {tipo}</h1>
+      <h1>Add Food</h1>
       <div className="searchbar-container">
         <input
           type="text"
-          placeholder="Introduce la búsqueda"
+          placeholder="Enter your search"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        <button onClick={handleSearch}>Buscar</button>
+        <button onClick={handleSearch}>Search</button>
       </div>
 
       <div className="search-result">
-        {searchResult ? (
+        {searchResult && (
           <div className="result-container">
             <div className="table-container">
               <table>
                 <thead>
                   <tr>
-                    <th>Nombre</th>
-                    <th>Calorías</th>
+                    <th>Name</th>
+                    <th>Calories</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -115,40 +134,40 @@ const FoodSearch = () => {
 
             {selectedItem && (
               <div className="details-container">
-                <h2>Detalles de {selectedItem.name}:</h2>
+                <h2>Details of {selectedItem.name}:</h2>
                 <p>
-                  <strong>Calorías:</strong> {selectedItem.calories}
+                  <strong>Calories:</strong> {selectedItem.calories}
                 </p>
                 <p>
-                  <strong>Tamaño de porción:</strong>{" "}
-                  {selectedItem.serving_size_g} g
+                  <strong>Serving Size:</strong> {selectedItem.serving_size_g} g
                 </p>
                 <p>
-                  Cantidad:{" "}
+                  Quantity:{" "}
                   <input
                     type="number"
                     value={quantity}
                     onChange={(e) => setQuantity(e.target.value)}
                   />{" "}
-                  gramos
+                  grams
                 </p>
-                <button onClick={handleAddToMeal}>Añadir al desayuno</button>
+                <button onClick={handleAddToMeal}>Add to Meal Log</button>
                 {savedMessage && <p>{savedMessage}</p>}
               </div>
             )}
 
-            {searchResult.items.length === 0 && (
-              <p>No se encontraron resultados.</p>
-            )}
+            {searchResult.items.length === 0 && <p>No results found.</p>}
           </div>
-        ) : null}
+        )}
       </div>
 
-      <Link to="/registroComidas">
-        <button>Ir a Registro de Comidas</button>
-      </Link>
+      <div className="mealLog-container">
+        <h1 id="list-h1">Meal Log List</h1>
+        {showMeals(meal)}
+      </div>
+      <button onClick={handleClearAll}>Clear All</button>
+      <Footer />
     </div>
   );
 };
 
-export default FoodSearch;
+export default BuscarAlimento;
