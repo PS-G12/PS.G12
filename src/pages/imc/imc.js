@@ -1,7 +1,7 @@
 import React from "react";
-import Header from "../components/Header/header";
-import Footer from "../components/Footer/footer"
-import CalculadoraIMC from "../components/CalculadoraIMC/calculadoraIMC";
+import Header from "../../components/Header/header";
+import Footer from "../../components/Footer/footer"
+import CalculadoraIMC from "../CalculadoraIMC/calculadoraIMC";
 
 const CalculoIMCPage = () => {
     return (
