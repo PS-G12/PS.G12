@@ -140,9 +140,9 @@ function CalculadoraIMC() {
           </span>
           <div className="resultado-IMC">{resultadoIMC}</div>
         </div>
-        <button className="calcular-button">
+        {/* <button className="calcular-button">
           Calculate with my default data
-        </button>
+        </button> Técnicamente, esto es del siguiente spirnt, creo*/}
         <div className="resultado-container">
           <button className="calc-macros">
             Macros Calculator
