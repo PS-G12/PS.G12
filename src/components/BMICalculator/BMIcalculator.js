@@ -26,7 +26,7 @@ function BMICalculator() {
     setWeight(event.target.value);
   };
 
-  const seleccionSystem = (event) => {
+  const typeOfSystem = (event) => {
     setSystem(event.target.value);
   };
 
@@ -70,7 +70,7 @@ function BMICalculator() {
                   type="checkbox"
                   id="checkbox-18"
                   value="imperial"
-                  onChange={seleccionSystem}
+                  onChange={typeOfSystem}
                   checked={system === "imperial"}
                 />
                 <label htmlFor="checkbox-18"></label>
@@ -84,7 +84,7 @@ function BMICalculator() {
                   type="checkbox"
                   id="checkbox-18_1"
                   value="metric"
-                  onChange={seleccionSystem}
+                  onChange={typeOfSystem}
                   checked={system === "metric"}
                 />
                 <label htmlFor="checkbox-18_1"></label>
