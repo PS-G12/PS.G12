@@ -1,6 +1,6 @@
 import React from "react";
 import { useSpring, animated } from "react-spring";
-import "./tarjetaAlimento.css";
+import "./foodCard.css";
 
 function capitalizedCase(str) {
   if (typeof str !== "string" || str.length === 0) {
@@ -9,7 +9,7 @@ function capitalizedCase(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-const TarjetaAlimento = ({ food, onCardClick }) => {
+const FoodCard = ({ food, onCardClick }) => {
   const [isExpanded, setIsExpanded] = React.useState(false);
 
   const cardAnimation = useSpring({
@@ -80,4 +80,4 @@ const TarjetaAlimento = ({ food, onCardClick }) => {
   );
 };
 
-export default TarjetaAlimento;
+export default FoodCard;

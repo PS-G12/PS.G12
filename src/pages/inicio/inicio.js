@@ -1,11 +1,11 @@
 
 
 import Header from '../../components/Header/header';
-import IngestaAgua from '../../components/IngestaAgua/ingestaAgua';
-import GraficaPulsasiones from '../../components/GraficaPulsaciones/graficaPulsasiones';
-import GraficaPeso from '../../components/GraficaPeso/graficaPeso';
+/* import IngestaAgua from '../../components/WaterConsumption/waterConsumption';
+import GraficaPulsasiones from '../../components/PulseGraph/pulseGraph';
+import WeightGraph from '../../components/WeightGraph/weightGraph'; */
 import TarjetaObjetivo from '../../components/TarjetaObjetivo/tarjetaObjetivo';
-import TarjetaMacros from '../../components/TarjetaMacros/tarjetaMacros';
+import TarjetaMacros from '../../components/TarjetaMacros/macrosCard';
 import './inicio.css'
 
 const indexPage = () => {

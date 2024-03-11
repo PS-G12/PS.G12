@@ -1,15 +1,15 @@
-.contenedor-pulsasiones{
+.weight-container{
     background-color: white;
     position: fixed;
     width: 500px;
     height: 300px;
     top: 50%;
-    left: 60%;
+    left: 14%;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     text-align: justify;
 }
 
-.contenedor-pulsasiones p{
+.weight-container p{
     font-weight: bold;
     font-size: 16px;
     position: absolute;
@@ -17,14 +17,14 @@
     left: 4%;
 }
 
-.contenedor-pulsasiones span{
+.weight-container span{
     font-size: 11px;
     position: absolute;
     top: 12%;
     left: 4%;
 }
 
-.icon-cora{
+.weight-icon{
     position: absolute;
     left: 25%;
     top: 7%;
@@ -32,7 +32,7 @@
     height: 2em;
 }
 
-.icon-graficaPul{
+.graph-icon{
     position: absolute;
     left: 40%;
     top: 30%;
