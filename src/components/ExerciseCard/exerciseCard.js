@@ -1,5 +1,5 @@
 import React from 'react';
-import './tarjetaEjercicio.css';
+import './exerciseCard.css';
 import { useNavigate } from 'react-router-dom';
 
 const TarjetaEjercicio = ({ exercise, bodyPartChoosen, name, limite}) => {
