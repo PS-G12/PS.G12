@@ -47,7 +47,6 @@ const ExercisePage = () => {
     <div className="exercise-page">
       <Header />
       <Buscador onSearch={handleSearch} />
-      
       {bodyParts.map(bodyPart => (
         <div key={bodyPart} className={`${bodyPart}-excercises`}>
           <h1>{bodyPart.toUpperCase()} EXERCISES</h1>
