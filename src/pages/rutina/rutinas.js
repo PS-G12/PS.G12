@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header/header';
 import Buscador from '../../components/Buscador/buscador';
-import TarjetaEjercicio from '../../components/TarjetaEjercicio/tarjetaEjercicio';
+import TarjetaEjercicio from '../../components/ExerciseCard/exerciseCard';
 import exerciseData from '../../api/exercise_data_en.json'; 
 import './rutinas.css'; 
 

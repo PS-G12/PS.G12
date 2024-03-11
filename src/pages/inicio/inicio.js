@@ -5,7 +5,7 @@ import Header from '../../components/Header/header';
 import GraficaPulsasiones from '../../components/PulseGraph/pulseGraph';
 import WeightGraph from '../../components/WeightGraph/weightGraph'; */
 import TarjetaObjetivo from '../../components/TarjetaObjetivo/tarjetaObjetivo';
-import TarjetaMacros from '../../components/TarjetaMacros/macrosCard';
+import TarjetaMacros from '../../components/MacrosCard/macrosCard';
 import './inicio.css'
 
 const indexPage = () => {

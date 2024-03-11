@@ -78,7 +78,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import exerciseData from '../../api/exercise_data_en.json';
-import TarjetaEjercicio from '../../components/TarjetaEjercicio/tarjetaEjercicio';
+import TarjetaEjercicio from '../../components/ExerciseCard/exerciseCard';
 import './resultadosBusqueda.css';
 import Buscador from '../../components/Buscador/buscador';
 import Header from '../../components/Header/header';
