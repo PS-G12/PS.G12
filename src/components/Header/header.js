@@ -19,7 +19,7 @@ function Header() {
           <li className="dropdown">
             <a href='#'><FontAwesomeIcon icon={faCalculator} /> CALCULATORS</a>
             <ul className='submenu'>
-              <li className={isActive("/calculoIMC") ? "active" : ""}><a href='/calculoIMC' className='calc'>CALCULATOR BMI</a></li>
+              <li className={isActive("/BMIcalculation") ? "active" : ""}><a href='/BMIcalculation' className='calc'>CALCULATOR BMI</a></li>
               <li className={isActive("/calculoMacros") ? "active" : ""}><a href='/calculoMacros' className='calc'>MACROS CALCULATOR</a></li>
             </ul>
           </li>
