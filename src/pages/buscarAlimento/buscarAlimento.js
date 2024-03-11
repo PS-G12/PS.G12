@@ -3,6 +3,7 @@ import fetchFood from "../../api/fetchFood.js";
 import Header from "../../components/Header/header";
 import { Link, useLocation } from "react-router-dom";
 import "./buscarAlimento.css";
+import AñadirAlimento from '../../components/AñadirAlimento/añadirAlimento';
 
 const FoodSearch = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -13,7 +14,6 @@ const FoodSearch = () => {
 
   
   const location = useLocation();
-
   
   const tipo = new URLSearchParams(location.search).get("tipo");
   console.log(tipo);
@@ -143,10 +143,8 @@ const FoodSearch = () => {
           </div>
         ) : null}
       </div>
-
-      <Link to="/registroComidas">
-        <button>Ir a Registro de Comidas</button>
-      </Link>
+  
+      <AñadirAlimento />
     </div>
   );
 };
