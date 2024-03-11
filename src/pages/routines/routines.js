@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header/header';
-import Buscador from '../../components/Buscador/buscador';
-import TarjetaEjercicio from '../../components/ExerciseCard/exerciseCard';
+import SearchBar from '../../components/SearchBar/searchBar';
+import ExerciseCard from '../../components/ExerciseCard/exerciseCard';
 import exerciseData from '../../api/exercise_data_en.json'; 
-import './rutinas.css'; 
+import './routines.css'; 
 
 const ExercisePage = () => {
   const [exerciseDataState, setExerciseDataState] = useState(null);
@@ -46,11 +46,11 @@ const ExercisePage = () => {
   return (
     <div className="exercise-page">
       <Header />
-      <Buscador onSearch={handleSearch} />
+      <SearchBar onSearch={handleSearch} />
       {bodyParts.map(bodyPart => (
         <div key={bodyPart} className={`${bodyPart}-excercises`}>
           <h1>{bodyPart.toUpperCase()} EXERCISES</h1>
-          {exerciseDataState && <TarjetaEjercicio exercise={exerciseDataState} bodyPartChoosen={bodyPart} limite={5} />}
+          {exerciseDataState && <ExerciseCard exercise={exerciseDataState} bodyPartChoosen={bodyPart} limite={5} />}
         </div>
       ))}
     </div>
