@@ -1,53 +1,54 @@
 @import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
 
-.calculadora-IMC {
-  margin-top: 6%;
+.BMI-calculator {
+  margin-top: 1%;
   display: flex;
   justify-content: center;
 }
 
-.contenedor-IMC {
+.BMI-container {
   background-color: white;
   width: 40%;
-  height: 700px;
+  height: 650px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   text-align: center;
   padding: 1%;
 }
 
-.contenedor-IMC label {
+.BMI-container label {
   font-size: 120%;
 }
 
-.introducir-altura,
-.introducir-peso {
+.height-input,
+.weight-input {
   text-align: center;
 }
-.dato1 {
+
+.data1 {
   font-size: 25px;
 }
 
-.dato2 {
+.data2 {
   font-size: 20px;
   margin-bottom: 6%;
 }
 
-.contenedor-IMC p {
+.BMI-container p {
   font-size: 31px;
   padding-bottom: 1%;
   margin: 0;
   font-family: "Rubik", sans-serif;
 }
 
-.info-altura, .info-peso {
-    font-family: "Rubik", sans-serif;
+.height-info, .weight-info {
+  font-family: "Rubik", sans-serif;
 }
 
-.input-sistema {
+.system-input {
   margin: 4%;
 }
 
-.seleccion-medida {
+.measurement-selection {
   text-align: justify;
   color: #737373;
   font-size: 17px;
@@ -55,7 +56,7 @@
   flex-direction: column;
 }
 
-.seleccion-medida label {
+.measurement-selection label {
   text-align: center;
 }
 
@@ -75,17 +76,17 @@
 }
 
 .texto-peso, .introducir-altura{
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
-.texto-peso input,
-.introducir-altura input {
+.weight-text input,
+.height-input input {
   border: 1px solid #ccc;
   padding: 8px;
 }
 
-.texto-peso svg,
-.introducir-altura svg {
+.weight-text svg,
+.height-input svg {
   color: #737373;
   position: relative;
   left: 30px;
@@ -132,7 +133,7 @@
   opacity: 1;
 }
 
-.calcular-button {
+.button-calculator {
   background-color: #23a6f0;
   color: white;
   width: fit-content;
@@ -142,25 +143,11 @@
   margin: 2%;
 }
 
-.calcular-button:hover {
+.button-calculator:hover {
   background-color: #0066ee;
 }
 
-.cacular-pred {
-  background-color: #23a6f0;
-  color: white;
-  width: 355px;
-  height: 35px;
-  border-radius: 5px;
-  font-weight: bold;
-  border-color: #23a6f0;
-}
-
-.cacular-pred:hover {
-  background-color: #0066ee;
-}
-
-.calc-macros {
+.macros-calculator {
   display: flex;
   right: 1%;
   background: white;
@@ -172,37 +159,37 @@
   border: 2px solid #23a6f0;
 }
 
-.calc-macros:hover {
+.macros-calculator:hover {
   background-color: rgb(240, 237, 237);
 }
 
-.resultado-IMC {
+.result-BMI {
   text-align: center;
   font-weight: bolder;
   font-size: larger;
 }
 
-.icon-altura {
+.height-icon {
   width: 1.5em;
   height: 1.5em;
 }
 
-.icon-peso {
+.weight-icon {
   width: 1.5em;
   height: 1.5em;
 }
 
-.icon-play {
+.play-icon {
   z-index: 9999;
   color: #23a6f0;
   margin-left: 10px;
 }
 
-.resultado-calculo{
-    margin-top: 2%;
+.result-calc{
+  margin-top: 2%;
 }
 
-.resultado-container {
+.result-container {
   position: fixed;
   top: 73%;
   right: 30%;

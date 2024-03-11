@@ -1,18 +1,18 @@
 import React from "react";
-import './tarjetaMacros.css'
+import './macrosCard.css'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 
 function MacroCircularProgressBar({ label, value, max, color }) {
-    const porcentaje = (value / max) * 100;
-    const texto = `${value}/${max}g`;
+    const percentage = (value / max) * 100;
+    const text = `${value}/${max}g`;
 
     return (
         <div className={`macro${label}`}>
             <p className={`label${label}`}>{label}</p> {/* Añadido */}
             <CircularProgressbar
                 className={`c${label}`}
-                value={porcentaje}
-                text={texto}
+                value={percentage}
+                text={text}
                 styles={buildStyles({
                     textSize: '12px',
                     pathTransitionDuration: 0.5,
@@ -28,14 +28,14 @@ function MacroCircularProgressBar({ label, value, max, color }) {
     );
 }
 
-function TarjetaMacros({value, max, value2, max2, value3, max3}) {
+function MacrosCard({value, max, value2, max2, value3, max3}) {
     return (
         <div className="macros-container">
-            <MacroCircularProgressBar label="Carbohidratos" value={value} max={max} color="#0066EE" />
-            <MacroCircularProgressBar label="Grasas" value={value2} max={max2} color="#EEBD0E" />
-            <MacroCircularProgressBar label="Proteínas" value={value3} max={max3} color="#179D7D" />
+            <MacroCircularProgressBar label="Carbs" value={value} max={max} color="#0066EE" />
+            <MacroCircularProgressBar label="Fats" value={value2} max={max2} color="#EEBD0E" />
+            <MacroCircularProgressBar label="Proteins" value={value3} max={max3} color="#179D7D" />
         </div>
     );
 }
 
-export default TarjetaMacros;
+export default MacrosCard;

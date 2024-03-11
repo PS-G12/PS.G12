@@ -1,8 +1,8 @@
 import React from 'react';
-import './tarjetaEjercicio.css';
+import './exerciseCard.css';
 import { useNavigate } from 'react-router-dom';
 
-const TarjetaEjercicio = ({ exercise, bodyPartChoosen, limite, name}) => {
+const TarjetaEjercicio = ({ exercise, bodyPartChoosen, name, limite}) => {
   const navigate = useNavigate();
   const getColorForBodyPart = (part) => {
     switch (part) {
@@ -32,6 +32,7 @@ const TarjetaEjercicio = ({ exercise, bodyPartChoosen, limite, name}) => {
   };
 
   let filteredExercises = exercise;
+  console.log(filteredExercises)
 
   if (!name) {
     filteredExercises = exercise.filter(item => item.bodyPart === bodyPartChoosen).slice(0, limite);

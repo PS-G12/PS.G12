@@ -1,4 +1,4 @@
-.contenedor-agua{
+.water-container{
     background-color: white;
     position: fixed;
     width: 200px;
@@ -9,14 +9,14 @@
     text-align: justify;
 }
 
-.contenedor-agua p{
+.water-container p{
     position: absolute;
     left: 40%;
     color: #085499;
     font-weight: bold;
 }
 
-.contenedor-agua .recomen-agua{
+.water-container .water-recomendation{
     position: absolute;
     left: 41%;
     top: 50%;
@@ -25,7 +25,7 @@
     z-index: 9999;
 }
 
-.icon-agua{
+.water-icon{
     position: absolute;
     left: 22%;
     top: 30%;

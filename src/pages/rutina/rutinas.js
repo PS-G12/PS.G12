@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header/header';
 import Buscador from '../../components/Buscador/buscador';
-import TarjetaEjercicio from '../../components/TarjetaEjercicio/tarjetaEjercicio';
+import TarjetaEjercicio from '../../components/ExerciseCard/exerciseCard';
 import exerciseData from '../../api/exercise_data_en.json'; 
 import './rutinas.css'; 
 
@@ -47,7 +47,6 @@ const ExercisePage = () => {
     <div className="exercise-page">
       <Header />
       <Buscador onSearch={handleSearch} />
-      
       {bodyParts.map(bodyPart => (
         <div key={bodyPart} className={`${bodyPart}-excercises`}>
           <h1>{bodyPart.toUpperCase()} EXERCISES</h1>

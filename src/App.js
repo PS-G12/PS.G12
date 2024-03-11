@@ -6,7 +6,7 @@ import Inicio from './pages/inicio/inicio';
 import SearchResultsPage from './pages/resultadosBusqueda/resultadosBusqueda';
 import ExercisePage from './pages/exercise/exercise';
 import FoodSearch from './pages/buscarAlimento/buscarAlimento';
-import CalculoIMCPage from './pages/imc/imc';
+import BMICalculatorPage from './pages/imc/imc';
 import CalculadoraMacros from './pages/CalculadoraMacros/calculadoraMacros';
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
         <Route path="/rutinas" element={<Rutinas />} />
         <Route path="/resultados" element={<SearchResultsPage />} /> 
         <Route path="/exercise" element={<ExercisePage />} />
-        <Route path="/calculoIMC" element={<CalculoIMCPage />} />
+        <Route path="/BMIcalculation" element={<BMICalculatorPage />} />
         <Route path="/buscarAlimento" element={<FoodSearch />} />
         <Route path="/calculoMacros" element={<CalculadoraMacros />} />
       </Routes>
