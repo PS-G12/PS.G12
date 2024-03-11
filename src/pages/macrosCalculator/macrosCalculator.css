@@ -1,4 +1,4 @@
-.contenedor-macros{
+.macros-container{
     background-color: white;
     position: relative;
     width: 60%;
@@ -9,7 +9,7 @@
     display: block;
 }
 
-.contenedor-macros p{
+.macros-container p{
     text-align: center;
     font-weight: bold;
     margin-top: 1%;
@@ -19,13 +19,13 @@
     display: grid;
 }
 
-.dato1, .dato2, .seleccion-medidas{
+.data1, .data2, .measurement-selection{
     position: relative;
     margin-bottom: 1%;
     text-align: center;
 }
 
-.fila1{
+.row1{
     display: flex;
     margin-top: 3%;
     padding: auto;
@@ -34,16 +34,16 @@
     font-family: "Rubik", sans-serif;
 }
 
-.input-edad, .info-generos, .input-altura, .input-peso{
+.age-input, .genders-info, .height-input, .weight-input{
     margin-right: 5px;
     text-align: center;
 }
 
-.info-edad, .info-genero, .info-altura, .info-peso{
+.age-info, .gender-info, .height-info, .weight-info{
     margin-right: 5px;
 }
 
-.fila2{
+.row2{
     font-family: "Rubik", sans-serif;
     display: flex;
     margin-top: 2%;
@@ -53,46 +53,46 @@
 }
 
 
-.introducir-actividad{
+.physicalActivity-input{
     width: 300px;
     margin-top: 2%;
 }
 
-.input-actividad{
+.input-physicalActivity{
     margin-left: 2%;
 }
 
-.introducir-meta {
+.goal-input {
     display: flex;
     align-items: center; 
     width: 50%;
 }
 
-.introducir-meta ul {
+.goal-input ul {
     list-style: none;
     margin: 0;
     padding: 0;
     display: flex;
 }
 
-.introducir-meta li {
+.goal-input li {
    text-align: justify;
    display: flex;
    padding: 0;
    width: 130px;
 }
 
-.introducir-meta input[type="radio"] {
+.goal-input input[type="radio"] {
     margin-right: 5px;  
     text-align: center;
 }
 
-.info-meta {
+.goal-info {
     margin: 4%;
 
 }
 
-.calcularMacros{
+.calculateMacros{
     position: relative;
     background-color: #23A6F0;
     color: white;
@@ -103,41 +103,15 @@
     border-color: #23A6F0;
 }
 
-.calcular:hover{
+.calculateMacros:hover{
     background-color: #0066EE;
 }
 
-
-.calc-imc{
-    position: absolute;
-    top: 87%;
-    right: 5%;
-    background: white;
-    color: #23A6F0;
-    width: 229px;
-    height: 38px;
-    border-radius: 5px;
-    font-weight: bold;
-    border: 2px solid #23A6F0
-}
-
-.calc-imc:hover{
-    background-color: rgb(240, 237, 237);
-}
-
-
-.seleccion-medida{
+.measurement-selection{
     margin-top: 2%;
 }
 
-
-.icon-playIMC{
-    z-index: 9999;
-    margin-left: 5%;
-    color: #23A6F0;
-}
-
-.resultado-calculoMacros{
+.result-macros{
     font-family: "Rubik", sans-serif;
     width: 100%;
     position: relative;
@@ -145,13 +119,13 @@
     
 }
 
-.contenedor-recuadros {
+.container-box {
     display: flex;
     justify-content: center;
     text-align: center;
 }
 
-.recuadro {
+.box{
     padding: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -161,16 +135,16 @@
     border: 2px solid #23A6F0
 }
 
-.recuadro i {
+.box i {
     font-size: 24px;
     color: #23A6F0;
 }
 
-.recuadro p{
+.box p{
     margin-top: 10%;
 }
 
-.resultado-label{
+.result-label{
     font-family: "Rubik", sans-serif;
     margin-bottom: 10px;
 }
@@ -180,22 +154,22 @@
     margin-top: 5px;
 }
 
-.icon-calorias{
+.calories-icon{
     scale: 2;
     color: #ee4a09;
 }
 
-.icon-grasas{
+.fats-icon{
     scale: 2;
     color: #c8bf0c;
 } 
 
-.icon-proteinas{
+.proteins-icon{
     scale: 2;
     color: #808080;
 }
 
-.icon-carbos{
+.carbs-icon{
     scale: 2;
     color: #edb45e;
 }
