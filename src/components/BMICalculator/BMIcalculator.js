@@ -144,10 +144,6 @@ function BMICalculator() {
           Calculate with my default data
         </button> Técnicamente, esto es del siguiente spirnt, creo*/}
         <div className="result-container">
-          <button className="macros-calculator">
-            Macros Calculator
-            <FontAwesomeIcon icon={faPlay} className="play-icon" />
-          </button>
         </div>
       </div>
     </div>

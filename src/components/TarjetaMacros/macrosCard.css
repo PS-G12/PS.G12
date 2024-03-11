@@ -6,58 +6,58 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-
-.cCarbohidratos{
+.cCarbs{
     width: 7em;
     height: 7em;
 
 }
 
-.labelCarbohidratos{
+.labelCarbs{
     top: 2%;
     left: 5%; 
     color: #0066EE;
     font-weight: bold;
 }
 
-.macroGrasas{
+.macroFats{
     text-align: center;
     margin-bottom: 5%;
 }
-.macroCarbohidratos{
+
+.macroCarbs{
     text-align: center;
     margin-left: 5%;
     margin-bottom: 5%;
 }
-.macroProteínas{
+
+.macroProteins{
     text-align: center;
     margin-right: 5%;
     margin-bottom: 5%;
 }
 
-
-.cGrasas{
+.cFats{
     width: 7em;
     height: 7em;
     top: 25%;
     right: 37%;
 }
 
-.labelGrasas{
+.labelFats{
     top: 2%; 
     left: 43%; 
     color: #EEBD0E;
     font-weight: bold;
 }
 
-.cProteínas{
+.cProteins{
     width: 7em;
     height: 7em;
     top: 25%;
     right: 5%;
 }
 
-.labelProteínas{
+.labelProteins{
     top: 2%; 
     left: 73%;
     color: #179D7D;
