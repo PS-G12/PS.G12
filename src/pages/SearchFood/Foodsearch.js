@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import fetchFood from "../../api/fetchFood.js";
-import Header from "../../components/Header/header";
-import Footer from "../../components/Footer/footer";
-import TarjetaAlimento from "../../components/FoodCard/foodCard.js";
-import "./buscarAlimento.css";
+import Header from "../../components/Header/header.js";
+import Footer from "../../components/Footer/footer.js";
+import FoodCard from "../../components/FoodCard/foodCard.js";
+import "./searchFood.css";
 
-const BuscarAlimento = () => {
+const SearchFood = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResult, setSearchResult] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -81,7 +81,7 @@ const BuscarAlimento = () => {
     return (
       <div className="mealLog-box">
         {list.map((food, index) => (
-          <TarjetaAlimento key={index} food={food} onCardClick={handleCardClick} />
+          <FoodCard key={index} food={food} onCardClick={handleCardClick} />
         ))}
       </div>
     );
@@ -170,4 +170,4 @@ const BuscarAlimento = () => {
   );
 };
 
-export default BuscarAlimento;
+export default SearchFood;
