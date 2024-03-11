@@ -9,3 +9,32 @@
   justify-content: center; 
 
 }
+
+.pagination {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination li {
+  margin: 0 5px;
+}
+
+.pagination button {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+}
+
+.pagination button:hover {
+  background-color: #f0f0f0;
+}
+
+.pagination .active button {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
