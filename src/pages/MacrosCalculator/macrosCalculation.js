@@ -3,7 +3,7 @@ import Header from "../../components/Header/header.js";
 import Footer from "../../components/Footer/footer.js"
 import MacrosCalculator from "../../components/macrosCalculator/macrosCalculator.js";
 
-const BMICalculationPage = () => {
+const MacrosCalculation = () => {
     return (
         <div>
             <Header />
@@ -13,4 +13,4 @@ const BMICalculationPage = () => {
     );
 }
 
-export default BMICalculationPage
+export default MacrosCalculation
