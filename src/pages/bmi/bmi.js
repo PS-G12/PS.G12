@@ -1,9 +1,9 @@
 import React from "react";
-import Header from "../../components/Header/header";
-import Footer from "../../components/Footer/footer"
+import Header from "../../components/Header/header.js";
+import Footer from "../../components/Footer/footer.js"
 import BMICalculator from "../../components/BMICalculator/BMIcalculator.js";
 
-const CalculoIMCPage = () => {
+const BMICalculationPage = () => {
     return (
         <div>
             <Header />
@@ -13,4 +13,4 @@ const CalculoIMCPage = () => {
     );
 }
 
-export default CalculoIMCPage;
+export default BMICalculationPage;

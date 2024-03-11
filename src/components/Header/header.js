@@ -15,7 +15,7 @@ function Header() {
         <ul className="nav-links">
           <li className={isActive("/") ? "active" : ""}><a href="/"><FontAwesomeIcon icon={faChartLine} /> HOME</a></li>
           <li className={isActive("/searchFood") || isActive("/searchFood") ? "active" : ""}><a href="/searchFood"><FontAwesomeIcon icon={faUtensils} /> FOOD</a></li>
-          <li className={isActive("/rutinas") ? "active" : ""}><a href="/rutinas"><FontAwesomeIcon icon={faDumbbell} /> EXERCISE</a></li>
+          <li className={isActive("/routines") ? "active" : ""}><a href="/routines"><FontAwesomeIcon icon={faDumbbell} /> EXERCISE</a></li>
           <li className="dropdown">
             <a href='#'><FontAwesomeIcon icon={faCalculator} /> CALCULATORS</a>
             <ul className='submenu'>

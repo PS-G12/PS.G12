@@ -1,4 +1,4 @@
-.macros-container{
+.macros-containercalc{
     background-color: white;
     position: relative;
     width: 60%;
@@ -9,7 +9,7 @@
     display: block;
 }
 
-.macros-container p{
+.macros-containercalc p{
     text-align: center;
     font-weight: bold;
     margin-top: 1%;
