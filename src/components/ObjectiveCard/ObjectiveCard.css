@@ -1,4 +1,4 @@
-.container-tarjeta{
+.card-containerobj{
     background-color: white;
     display: flex;
     width: 28%;
@@ -8,30 +8,25 @@
 }
 
 
-.objetivos{
+.objectives{
     width: 30%;
     margin-left: 10%;
     margin-top: 5%;
     margin-bottom: 5%;
 }
 
-.container-tarjeta span{
+.card-containerobj span{
     margin-left: 10%;
     font-size: 16px;
 }
-.container-tarjeta p{
+.card-containerobj p{
     font-weight: bold;
     margin-top: 0%;
     margin-left: 20%;
     font-size: 16px;
 }
 
-
-.icon{
-
-}
-
-.progresoCircular{
+.circularProgression{
     width: 12em;
     height: 12em;
     margin-top: 5%;

@@ -1,14 +1,14 @@
 import React from 'react';
-import './tarjetaObjetivo.css'
+import './ObjectiveCard.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFlag, faUtensils, faRunning } from '@fortawesome/free-solid-svg-icons'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 
-function TarjetaObjetivo({restantes, objetivoKcal, alimento, ejercicio, value}) {
+function ObjectiveCard({remaining, kcalObjective, food, exercise, value}) {
     return (
-        <div className='container-tarjeta'>
-            <div className='progresoCircular'>
-                <CircularProgressbar value={value} text={`${restantes} kcal restantes`} styles={buildStyles({ 
+        <div className='card-containerobj'>
+            <div className='circularProgression'>
+                <CircularProgressbar value={value} text={`${remaining} kcal remaining `} styles={buildStyles({ 
                     textSize: '10px',
                     pathTransitionDuration: 0.5,
                     pathColor: 'red',
@@ -18,25 +18,25 @@ function TarjetaObjetivo({restantes, objetivoKcal, alimento, ejercicio, value}) 
                     strokeLinecap: 'butt', 
                     verticalAlingn: 'middle'})}/>
             </div>
-            <div className='objetivos'>
+            <div className='objectives'>
                 <div className='kcal'>
                     <FontAwesomeIcon icon={faFlag} className='icon'/>
-                    <span>Objetivo Kcal</span>
-                    <p>{objetivoKcal}</p>
+                    <span>Kcal Objective</span>
+                    <p>{kcalObjective}</p>
                 </div>
-                <div className='alimento'>
+                <div className='food'>
                     <FontAwesomeIcon icon={faUtensils} className='icon'/>
-                    <span>Alimento</span>
-                    <p>{alimento}</p>
+                    <span>Food</span>
+                    <p>{food}</p>
                 </div>
-                <div className='ejercicio'>
+                <div className='exercise'>
                     <FontAwesomeIcon icon={faRunning} className='icon'/>
-                    <span>Ejercicio</span>
-                    <p>{ejercicio}</p>
+                    <span>Exercise</span>
+                    <p>{exercise}</p>
                 </div>
             </div>
         </div>
     );
 }
 
-export default TarjetaObjetivo;
+export default ObjectiveCard;
