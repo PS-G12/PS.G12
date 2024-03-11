@@ -36,7 +36,7 @@ const BuscarAlimento = () => {
       console.error("No food selected.");
       return;
     }
-
+  
     const newFood = {
       name: selectedItem.name,
       calories: selectedItem.calories,
@@ -52,50 +52,42 @@ const BuscarAlimento = () => {
       sugar_g: selectedItem.sugar_g || 0,
       quantity: quantity,
     };
-
-    const storedFoods = JSON.parse(localStorage.getItem("foods")) || [];
-
-    const newFoods = [...storedFoods, newFood];
-
-    localStorage.setItem("foods", JSON.stringify(newFoods));
-
+    localStorage.setItem("foods", JSON.stringify(newFood));
+  
     setSavedMessage("Food saved successfully.");
-
+  
     setSearchQuery("");
     setSearchResult(null);
     setSelectedItem(null);
     setQuantity(100);
-    setMeal(newFoods);
+    setMeal(newFood);
   };
-
+  
+  const showMeals = (meal) => {
+    if (meal) {
+      return (
+        <div className="mealLog-box">
+          <TarjetaAlimento key={0} food={meal} onCardClick={handleCardClick} />
+        </div>
+      );
+    } else {
+      return <p>No meals saved.</p>;
+    }
+  };
+  
   const handleCardClick = (item) => {
     setSelectedItem(item);
   };
 
-  const handleClearAll = () => {
-    localStorage.removeItem("foods");
-    setMeal([]);
-  };
-
-  const showMeals = (list) => {
-    return (
-      <div className="mealLog-box">
-        {list.map((food, index) => (
-          <TarjetaAlimento key={index} food={food} onCardClick={handleCardClick} />
-        ))}
-      </div>
-    );
-  };
-
   useEffect(() => {
-    const storedFoods = JSON.parse(localStorage.getItem("foods")) || [];
-    setMeal(storedFoods);
+    const storedFood = JSON.parse(localStorage.getItem("foods")) || [];
+    setMeal(storedFood);
   }, []);
 
   return (
     <div className="foodSearch-box">
       <Header />
-      <h1>Add Food</h1>
+      <h1>Search Food</h1>
       <div className="searchbar-container">
         <input
           type="text"
@@ -161,10 +153,32 @@ const BuscarAlimento = () => {
       </div>
 
       <div className="mealLog-container">
-        <h1 id="list-h1">Meal Log List</h1>
         {showMeals(meal)}
       </div>
-      <button className="button-clear-all" onClick={handleClearAll}>Clear All</button>
+      <div className="register-food-container">
+  <h2>Register a New Food</h2>
+  <form onSubmit={handleRegisterFood}>
+    <label>
+      Name:
+      <input
+        type="text"
+        value={newFoodName}
+        onChange={(e) => setNewFoodName(e.target.value)}
+      />
+    </label>
+    <label>
+      Calories:
+      <input
+        type="number"
+        value={newFoodCalories}
+        onChange={(e) => setNewFoodCalories(e.target.value)}
+      />
+    </label>
+    {/* Add more input fields for other food details as needed */}
+    <button type="submit">Register Food</button>
+  </form>
+</div>
+
       <Footer />
     </div>
   );
