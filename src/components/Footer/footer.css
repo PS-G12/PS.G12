@@ -11,7 +11,7 @@
     z-index: 1000;
 }
 
-.details-container{
+.footer-container{
     justify-content: center;
     align-items: center;
     margin: 0 auto;
@@ -19,7 +19,7 @@
     display: flex;
 }
 
-.details-container p{
+.footer-container p{
     margin-left: 10px;
     text-align: center;
     color: #4A93F4;

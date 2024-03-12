@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./BMIcalculator.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMale, faWeight, faPlay } from "@fortawesome/free-solid-svg-icons";
+import { faMale, faWeight } from "@fortawesome/free-solid-svg-icons";
 
 function BMICalculator() {
   const [height, setHeight] = useState("");
