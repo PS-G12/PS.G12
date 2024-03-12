@@ -37,10 +37,16 @@
 .age-input, .genders-info, .height-input, .weight-input{
     margin-right: 5px;
     text-align: center;
+    
 }
 
 .age-info, .gender-info, .height-info, .weight-info{
     margin-right: 5px;
+}
+
+.input-height, .input-age, .input-weight, .genders-info, .input-physicalActivity{
+    border: 1px solid #ccc;
+    padding: 8px;
 }
 
 .row2{
