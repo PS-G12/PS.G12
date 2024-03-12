@@ -5,7 +5,7 @@ import Rutinas from './pages/rutina/rutinas';
 import Inicio from './pages/inicio/inicio';
 import SearchResultsPage from './pages/resultadosBusqueda/resultadosBusqueda';
 import ExercisePage from './pages/exercise/exercise';
-import FoodSearch from './pages/SearchFood/Foodsearch.js'
+import FoodSearch from './pages/buscarAlimento/buscarAlimento'
 import BMICalculatorPage from './pages/imc/imc';
 import CalculadoraMacros from './pages/macrosCalculator/macrosCalculator.js';
 
