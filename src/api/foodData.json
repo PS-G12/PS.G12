@@ -32322,34 +32322,6 @@
     ]
   },
   {
-    "name": "vegetable",
-    "calories": 32.7,
-    "serving_size_g": 100,
-    "fat_total_g": 0.3,
-    "fat_saturated_g": 0.1,
-    "protein_g": 1.7,
-    "sodium_mg": 30,
-    "potassium_mg": 40,
-    "cholesterol_mg": 0,
-    "carbohydrates_total_g": 6.8,
-    "fiber_g": 3,
-    "sugar_g": 2.6
-  },
-  {
-    "name": "fajitas",
-    "calories": 202.8,
-    "serving_size_g": 100,
-    "fat_total_g": 8,
-    "fat_saturated_g": 2.5,
-    "protein_g": 13.9,
-    "sodium_mg": 257,
-    "potassium_mg": 139,
-    "cholesterol_mg": 35,
-    "carbohydrates_total_g": 18,
-    "fiber_g": 1.5,
-    "sugar_g": 1.1
-  },
-  {
     "items": [
       {
         "name": "black bean",

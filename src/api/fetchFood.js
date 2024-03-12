@@ -3,19 +3,26 @@ import jsonData from './foodData.json';
 async function fetchFood(query) {
   try {
     const searchQueryNormalized = query.trim().toLowerCase();
+    const searchWords = searchQueryNormalized.split(/\s+/); // Divide la búsqueda en palabras
+
+    const foundItems = [];
 
     for (const category of jsonData) {
       for (const item of category.items) {
-        if (item.name === searchQueryNormalized) {
-          return Promise.resolve(item);
+        if (
+          searchWords.some(
+            (searchWord) =>
+              item.name.toLowerCase().startsWith(searchWord) &&
+              !foundItems.some((foundItem) => foundItem.name === item.name)
+          )
+        ) {
+          foundItems.push(item);
         }
       }
     }
 
-    // Si no se encuentra el elemento
-    return Promise.resolve(null);
+    return Promise.resolve({ items: foundItems });
   } catch (error) {
-    // Manejar errores aquí si es necesario
     console.error("Error al buscar alimentos:", error.message);
     return Promise.reject(error);
   }
