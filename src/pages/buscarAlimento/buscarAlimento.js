@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 import "./buscarAlimento.css";
 import AñadirAlimento from "../../components/AñadirAlimento/añadirAlimento";
 import FoodCard from "../../components/FoodCard/foodCard";
+import Footer from "../../components/Footer/footer";
 
 const FoodSearch = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -53,6 +54,7 @@ const FoodSearch = () => {
       <h1>Añadir alimento a {tipo}</h1>
       <div className="searchbar-container">
         <input
+          className="form-search-input"
           type="text"
           placeholder="Introduce la búsqueda"
           value={searchQuery}
@@ -67,8 +69,8 @@ const FoodSearch = () => {
       </div>
 
       {searchResult && (
-        <div className="result-container">
-          <div className="table-container">
+        <div className="result-container-food">
+          <div className="table-container-food">
             <table>
               <thead>
                 <tr>
@@ -105,7 +107,7 @@ const FoodSearch = () => {
           {selectedItem && (
             <div className="search-result">
               {searchResult && (
-                <div className="result-container">
+                <div className="result-container-">
                   <FoodCard
                     selectedItem={selectedItem}
                     quantity={100}
@@ -129,6 +131,7 @@ const FoodSearch = () => {
       )}
 
       <AñadirAlimento />
+      <Footer />
     </div>
   );
 };

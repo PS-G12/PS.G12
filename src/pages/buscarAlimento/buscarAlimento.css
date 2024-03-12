@@ -1,41 +1,14 @@
-.buscarAlimento-box {
-    position: relative;
-    top: 50%;
-    text-align: center;
-  }
-  
-  .table-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    align-items: center;
-  }
-  
-  .table-container table {
-    width: 100%;
+.table-container-food{
+  font-family: arial, sans-serif;
     border-collapse: collapse;
-  }
-  
-  .table-container th, .table-container td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: left;
-  }
-  
-  .table-container th {
-    background-color: #f2f2f2;
-  }
-  
-  .table-container tbody tr:hover {
-    background-color: #f5f5f5;
-    cursor: pointer;
-  }
-  
-  .searchbar-container input {
-    margin-right: 10px;
-    height: 1.5rem;
-    width: 50%;
-  }
+    width: 100%;
+    justify-content: center;
+    display: flex;
+}
+.result-container-food{
+  height: 460px;
+  overflow-y: scroll;
+}
   
   .searchbar-container button {
     width: 18%;
@@ -50,7 +23,7 @@
   }
   
   .buscarAlimento-box h1 {
-    margin-top: 12%;
+    margin-top: 3%;
   }
   
   .details-container {
@@ -101,6 +74,27 @@
     font-weight: bold;
     width: 100%;
   }
+  .form-search-input{
+    font-size: 14px;
+    border-radius: 6px;
+    line-height: 1.5;
+    padding: 5px 10px;
+    transition: box-shadow 100ms ease-in, border 100ms ease-in, background-color 100ms ease-in;
+    border: 2px solid #dee1e2;
+    color: rgb(14, 14, 16);
+    background: #dee1e2;
+    margin-right: 10px;
+    height: 1.5rem;
+    width: 30%;
+  }
+  .form-search-input:hover {
+        border-color: #ccc;
+    }
+    .form-search-input:focus{
+        border-color: #5788f0;
+        background: #fff;
+    }
+    
   
 /*---------------------------------------------------------------------------*/
 
@@ -137,26 +131,29 @@
   cursor: pointer;
 }
 
-.searchbar-container input {
-  margin-right: 10px;
-  height: 1.5rem;
-  width: 50%;
-}
 
 .searchbar-container button {
-  width: 18%;
+  width: 13%;
   height: 28px;
   font-size: 15px;
   padding: 0;
 }
 
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+
 .searchbar-container {
   margin-bottom: 10px;
   margin-top: 1%;
-}
-
-.buscarAlimento-box h1 {
-  margin-top: 12%;
 }
 
 .details-container {

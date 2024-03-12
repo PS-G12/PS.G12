@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import "./añadirAlimento.css";
 
+function capitalizedCase(str) {
+  if (typeof str !== "string" || str.length === 0) {
+    return str;
+  }
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
 const AñadirAlimento = () => {
   const [foodData, setFoodData] = useState({
     name: "",
@@ -18,9 +25,11 @@ const AñadirAlimento = () => {
   });
 
   const [showForm, setShowForm] = useState(false);
+  const [showAddButton, setShowAddButton] = useState(true);
 
   const handleToggleForm = () => {
     setShowForm(!showForm);
+    setShowAddButton(!showAddButton);
   };
 
   const handleChange = (e) => {
@@ -36,9 +45,9 @@ const AñadirAlimento = () => {
     console.log("New Food Data:", foodData);
 
     // Guardar en localStorage
-    const existingData = JSON.parse(localStorage.getItem('foodData')) || [];
+    const existingData = JSON.parse(localStorage.getItem("foodData")) || [];
     const newData = [...existingData, foodData];
-    localStorage.setItem('foodData', JSON.stringify(newData));
+    localStorage.setItem("foodData", JSON.stringify(newData));
 
     // Limpiar los datos del formulario
     setFoodData({
@@ -55,26 +64,36 @@ const AñadirAlimento = () => {
       fiber_g: "",
       sugar_g: "",
     });
+
+    // Cerrar la pestaña (cambia esto según la lógica de tu aplicación)
+    handleToggleForm(); // Use handleToggleForm instead of handleChange
   };
 
   return (
     <div className="add-food">
-      <button onClick={handleToggleForm}>Add My Own Food</button>
+      {showAddButton && (
+        <button onClick={handleToggleForm}>Add My Own Food</button>
+      )}
       {showForm && (
-        <form onSubmit={handleSubmit}>
-          {Object.keys(foodData).map((param) => (
-            <div key={param}>
-              <label htmlFor={param}>{param.replace(/_/g, " ")}:</label>
-              <input
-                type="text"
-                id={param}
-                value={foodData[param]}
-                onChange={handleChange}
-                required
-              />
-            </div>
-          ))}
-          <button type="submit">Add Food</button>
+        <form onSubmit={handleSubmit} className="form-add-food">
+          <button className="close-button" onClick={handleToggleForm}>
+            X
+          </button>
+          <div className="detail-container-box">
+            {Object.keys(foodData).map((param) => (
+              <div key={param} className="form-row">
+                <label htmlFor={param}>{capitalizedCase(param)}:</label>
+                <input
+                  type="text"
+                  id={param}
+                  value={foodData[param]}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            ))}
+          </div>
+          <button type="submit" className="submit-food">Add Food</button>
         </form>
       )}
     </div>
