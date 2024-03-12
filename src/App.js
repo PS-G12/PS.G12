@@ -5,7 +5,7 @@ import Routines from './pages/routines/routines.js';
 import HomePage from './pages/homePage/homePage.js';
 import SearchResultsPage from './pages/searchResults/searchResults.js';
 import ExercisePage from './pages/exercise/exercise';
-import FoodSearch from './pages/searchFood/Foodsearch.js'
+import FoodSearch from './pages/SearchFood/Foodsearch';
 import BMICalculatorPage from './pages/bmi/bmi.js';
 import MacrosCalculator from './pages/MacrosCalculator/macrosCalculation.js';
 
