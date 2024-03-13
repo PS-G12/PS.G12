@@ -60,3 +60,8 @@ button:hover {
 button:active {
     transform: scale(1);
 }
+ .search-result{
+    position: fixed;
+    top: 40%;
+    width: 70%;
+ }

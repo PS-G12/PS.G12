@@ -3,8 +3,11 @@
   flex-direction: column;
   gap: 6%;
   margin-bottom: 5%;
-  width: 100%;
   align-items: center;
+}
+
+.food-card{
+  font-size: 1.2rem;
 }
   
 .alimento-agregar { /*No lo quito por si se usa para algo en otro componente u otra página*/
@@ -20,33 +23,31 @@
   padding: 10px;
   background-color: #fff;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
   z-index: 1000;
-}
-
-.food-card{
-  width: 35%;
-}
-.food-card:hover {
-  transform: translateY(-5px);
-}
-
-.food-info {
   display: flex;
+  justify-content: center;
 }
+
 
 .food-info p,
 h3 {
   margin: 0;
-  margin-left: 12%;
+  padding-left: 2%;
+  padding-right: 2%;
+}
+
+.food-info p{
+  display: flex;
+  align-items: center;
 }
 
 .food-info h3 {
   font-size: 1.5rem;
+  margin-right: 2%;
 }
 
 .details-container {
-  width: 97%;
+  width: 100%;
   position: relative;
   bottom: 10px;
   padding: 10px;
@@ -55,6 +56,31 @@ h3 {
   background-color: #fff;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   z-index: 1;
+}
+
+.details-container-food {
+  width: 99%;
+  position: relative;
+  bottom: 10px;
+  left: 2px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  padding-top: 3%;
+  padding-bottom: 3%;
+}
+
+.details-container-food em{
+  padding: 2.6%;
+}
+
+.result-container-food-details{
+  position: fixed;
+  width: 30%;
+  top: 40%;
+  left: 61%;
 }
 
 .expanded {

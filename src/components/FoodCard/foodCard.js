@@ -1,5 +1,4 @@
 import React from "react";
-import { useSpring, animated } from "react-spring";
 import "./foodCard.css";
 
 function capitalizedCase(str) {
@@ -9,41 +8,22 @@ function capitalizedCase(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-const FoodCard = ({ food, onCardClick }) => {
-  const [isExpanded, setIsExpanded] = React.useState(false);
-
-  const cardAnimation = useSpring({
-    transform: `scale(${isExpanded ? 1.05 : 1})`,
-    margin: isExpanded ? "20px 0" : "10px 0",
-  });
-
-  const detailsAnimation = useSpring({
-    opacity: isExpanded ? 1 : 0,
-    height: isExpanded ? "auto" : 0,
-  });
-
-  const handleClick = () => {
-    setIsExpanded(!isExpanded);
-    onCardClick(food);
-  };
+const FoodCard = ({ selectedItem: food, quantity}) => {
 
   return (
-    <animated.div
+    <div
       className="food-card"
-      style={cardAnimation}
-      onClick={handleClick}
     >
       <div className="food-info">
         <h3>{capitalizedCase(food.name)}</h3>
         <p>
-          <strong>Quantity:</strong> {food.quantity} grams
+          <strong>Quantity: </strong> {quantity} grams
         </p>
         <p>
-          <strong>Calories:</strong> {food.calories}
+          <strong>Calories: </strong> {food.calories}
         </p>
       </div>
-      {isExpanded && (
-        <animated.div className="details-container" style={detailsAnimation}>
+        <div className="details-container-food">
           <em>
             <strong>Serving Size:</strong> {food.serving_size_g} g
           </em>
@@ -74,9 +54,8 @@ const FoodCard = ({ food, onCardClick }) => {
           <em>
             <strong>Sugar:</strong> {food.sugar_g} g
           </em>
-        </animated.div>
-      )}
-    </animated.div>
+        </div>
+    </div>
   );
 };
 

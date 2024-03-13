@@ -1,0 +1,212 @@
+.table-container-food{
+  font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    justify-content: center;
+    display: flex;
+}
+
+.table-container-food {
+  width: fit-content;
+  max-height: 460px;
+  overflow-y: scroll;
+}
+.result-container-food{
+  display: flex;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+  
+  .searchbar-container button {
+    width: 18%;
+    height: 28px;
+    font-size: 15px;
+    padding: 0;
+  }
+  
+  .searchbar-container {
+    margin-bottom: 10px;
+    margin-top: 1%;
+  }
+  
+  .buscarAlimento-box {
+    text-align: center;
+  }
+  .buscarAlimento-box h1 {
+    margin-top: 3%;
+  }
+  
+  .details-container {
+    width: 40%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  }
+  
+  .food-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    width: 40%;
+  }
+
+  .food-item h3 {
+    margin-bottom: 5px;
+  }
+  
+  .food-item p {
+    margin: 5px 0;
+  }
+  
+  .food-item p {
+    text-align: left;
+    margin: 5px 0;
+  }
+  
+  .food-item p strong {
+    display: inline-block;
+    min-width: 150px;
+  }
+  
+  .food-item p span {
+    display: inline-block;
+    text-align: right;
+    min-width: 50%;
+  }
+  
+  .alimento-agregar {
+    text-align: center;
+    font-weight: bold;
+    width: 100%;
+  }
+  .form-search-input{
+    font-size: 14px;
+    border-radius: 6px;
+    line-height: 1.5;
+    padding: 5px 10px;
+    transition: box-shadow 100ms ease-in, border 100ms ease-in, background-color 100ms ease-in;
+    border: 2px solid #dee1e2;
+    color: rgb(14, 14, 16);
+    background: #dee1e2;
+    margin-right: 10px;
+    height: 1.5rem;
+    width: 30%;
+  }
+  .form-search-input:hover {
+        border-color: #ccc;
+    }
+    .form-search-input:focus{
+        border-color: #5788f0;
+        background: #fff;
+    }
+    
+  
+/*---------------------------------------------------------------------------*/
+
+.table-container-food td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+  font-size: 1.2rem;
+}
+.table-container-food th{
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+  font-size: 1.4rem;
+  text-align: center;
+  min-height: 10%;
+}
+
+.table-container-food th {
+  background-color: #f2f2f2;
+}
+
+.table-container-food tbody tr:hover {
+  background-color: #f5f5f5;
+  cursor: pointer;
+  user-select: none;
+}
+
+
+.searchbar-container button {
+  width: 8%;
+  height: 36px;
+  font-size: 15px;
+  padding: 0;
+  margin-bottom: 2%;
+}
+
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+
+.searchbar-container {
+  margin-bottom: 10px;
+  margin-top: 1%;
+}
+
+.details-container {
+  width: 40%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilos para cada food-item */
+.food-item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  width: 40%;
+}
+
+/* Estilos para los encabezados de cada tarjeta */
+.food-item h3 {
+  margin-bottom: 5px;
+}
+
+/* Estilos para las propiedades dentro de cada tarjeta */
+.food-item p {
+  margin: 5px 0;
+}
+
+.food-item p {
+  text-align: left;
+  margin: 5px 0;
+}
+
+.food-item p strong {
+  display: inline-block;
+  min-width: 150px;
+}
+
+.food-item p span {
+  display: inline-block;
+  text-align: right;
+  min-width: 50%;
+}
+
+.alimento-agregar {
+  text-align: center;
+  font-weight: bold;
+  width: 100%;
+}
