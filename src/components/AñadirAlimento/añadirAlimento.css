@@ -1,8 +1,24 @@
 .add-food {
-  margin-top: 5%;
+  margin-top: 2%;
   display: flex;
   text-align: justify;
   justify-content: center;
+}
+.form-add-food {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  box-shadow: 0 9px 15px rgba(0, 0, 0, 0.8);
+  padding: 0.5%;
+  text-align: center;
+  width: 30%;
+  border-radius: 15px ;
+}
+.form-add-food h2 {
+  margin: 0;
+  margin-bottom: 6%;
 }
 
 .close-button {
@@ -14,6 +30,8 @@
   margin: 0;
   margin-left: 90%;
   text-align: end;
+  position: relative;
+  top: 20px;
 }
 .close-button:hover {
   color: black;
@@ -23,9 +41,8 @@
 .form-add-food {
   background-color: white;
   box-shadow: 0 9px 15px rgba(0, 0, 0, 0.8);
-  padding: 1%;
   text-align: center;
-  width: 40%;
+  width: 25%;
 }
 
 .submit-food {

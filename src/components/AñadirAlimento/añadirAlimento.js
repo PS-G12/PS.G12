@@ -1,12 +1,30 @@
 import React, { useState } from "react";
 import "./añadirAlimento.css";
 
-function capitalizedCase(str) {
-  if (typeof str !== "string" || str.length === 0) {
-    return str;
+function capitalizedCase(key) {
+  // Mapea las claves a las frases deseadas
+  const conversions = {
+    name: "Name",
+    calories: "Calories",
+    serving_size_g: "Serving size (g)",
+    fat_total_g: "Fat total (g)",
+    fat_saturated_g: "Fat saturated (g)",
+    protein_g: "Protein (g)",
+    sodium_mg: "Sodium (mg)",
+    potassium_mg: "Potassium (mg)",
+    cholesterol_mg: "Cholesterol (mg)",
+    carbohydrates_total_g: "Carbohydrates total (g)",
+    fiber_g: "Fiber (g)",
+    sugar_g: "Sugar (g)"
+  };
+
+  if (key in conversions) {
+    return conversions[key];
   }
-  return str.charAt(0).toUpperCase() + str.slice(1);
+
+  return capitalizedCase(key);
 }
+
 
 const AñadirAlimento = () => {
   const [foodData, setFoodData] = useState({
@@ -81,6 +99,7 @@ const AñadirAlimento = () => {
             X
           </button>
           <div className="detail-container-box">
+          <h2>Register your food</h2>
             {Object.keys(foodData).map((param) => (
               <div key={param} className="form-row">
                 <label htmlFor={param}>{capitalizedCase(param)}:</label>

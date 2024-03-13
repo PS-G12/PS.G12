@@ -17,10 +17,10 @@ const FoodCard = ({ selectedItem: food, quantity}) => {
       <div className="food-info">
         <h3>{capitalizedCase(food.name)}</h3>
         <p>
-          <strong>Quantity:</strong> {quantity} grams
+          <strong>Quantity: </strong> {quantity} grams
         </p>
         <p>
-          <strong>Calories:</strong> {food.calories}
+          <strong>Calories: </strong> {food.calories}
         </p>
       </div>
         <div className="details-container-food">

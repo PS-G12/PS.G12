@@ -1,34 +1,25 @@
 .footer {
-    position: fixed;
-    bottom: 1%;
-    border-radius: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 1400px;
-    height: 94px;
-    background-color: #CBCBCB;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
+    background-color: #1c74e6;
+    color: #e9eef6;
+    text-align: center;
 }
 
-.details-container{
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-    text-align: center;
+.details-container-footer {
+    padding: 0.5%;
+    padding-left: 20%;
+    padding-right: 20%;
     display: flex;
-}
-
-.details-container p{
-    margin-left: 10px;
-    text-align: center;
-    color: #4A93F4;
+    justify-content: space-between;
+    font-size: 1.3rem;
     font-weight: bold;
 }
 
-.copyR{
-    color: white;
-    font-weight: bold;
-    text-align: center;
-    margin-top: -1px;
+.details-container-footer p {
+    cursor: pointer;
+    margin: 1%;
 }
