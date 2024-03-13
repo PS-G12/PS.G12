@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import fetchFood from "../../api/fetchFood.js";
-import Header from "../../components/Header/header";
+import Header from "../../components/Header/header.js";
 import { useLocation } from "react-router-dom";
-import "./buscarAlimento.css";
-import AñadirAlimento from "../../components/AñadirAlimento/añadirAlimento";
-import FoodCard from "../../components/FoodCard/foodCard";
-import Footer from "../../components/Footer/footer";
+import "./SearchFood.css";
+import AñadirAlimento from "../../components/AñadirAlimento/añadirAlimento.js";
+import FoodCard from "../../components/FoodCard/foodCard.js";
+import Footer from "../../components/Footer/footer.js";
 
 const FoodSearch = () => {
   const [searchQuery, setSearchQuery] = useState("");
