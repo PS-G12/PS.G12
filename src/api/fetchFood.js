@@ -1,31 +1,30 @@
+import jsonData from './foodData.json';
+
 async function fetchFood(query) {
-  const apiKey = "b2GaD1UR7/oiKhAhIIDz+g==CPqBrb1RharNi8wE";
-
   try {
-    const response = await fetch(
-      `https://api.calorieninjas.com/v1/nutrition?query=${encodeURIComponent(
-        query
-      )}`,
-      {
-        method: "GET",
-        headers: {
-          "X-Api-Key": apiKey,
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const searchQueryNormalized = query.trim().toLowerCase();
+    const searchWords = searchQueryNormalized.split(/\s+/); // Divide la búsqueda en palabras
 
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
+    const foundItems = [];
+
+    for (const category of jsonData) {
+      for (const item of category.items) {
+        if (
+          searchWords.some(
+            (searchWord) =>
+              item.name.toLowerCase().startsWith(searchWord) &&
+              !foundItems.some((foundItem) => foundItem.name === item.name)
+          )
+        ) {
+          foundItems.push(item);
+        }
+      }
     }
 
-    const jsonData = await response.json();
-    //console.log(JSON.stringify(jsonData));
-
-    return jsonData;
+    return Promise.resolve({ items: foundItems });
   } catch (error) {
-    console.error("Error:", error.message);
-    throw error;
+    console.error("Error al buscar alimentos:", error.message);
+    return Promise.reject(error);
   }
 }
 
