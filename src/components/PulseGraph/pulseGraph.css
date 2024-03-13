@@ -1,0 +1,41 @@
+.pulse-container{
+    background-color: white;
+    position: fixed;
+    width: 500px;
+    height: 300px;
+    top: 50%;
+    left: 60%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    text-align: justify;
+}
+
+.pulse-container p{
+    font-weight: bold;
+    font-size: 16px;
+    position: absolute;
+    top: 0%;
+    left: 4%;
+}
+
+.pulse-container span{
+    font-size: 11px;
+    position: absolute;
+    top: 12%;
+    left: 4%;
+}
+
+.heart-icon{
+    position: absolute;
+    left: 25%;
+    top: 7%;
+    width: 2em;
+    height: 2em;
+}
+
+.pulseGraph-icon{
+    position: absolute;
+    left: 40%;
+    top: 30%;
+    width: 7em;
+    height: 7em;
+}

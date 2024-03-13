@@ -1,0 +1,13 @@
+.cards{
+  display: flex;
+}
+.cards .card-containerobj{
+  margin-left: 15%;
+  margin-top: 5%;
+}
+
+.cards .macros-container{
+  margin-left: 15%;
+  margin-top: 5%;
+}
+

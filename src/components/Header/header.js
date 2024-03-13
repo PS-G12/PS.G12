@@ -14,9 +14,15 @@ function Header() {
         <div className="logo"></div>
         <ul className="nav-links">
           <li className={isActive("/") ? "active" : ""}><a href="/"><FontAwesomeIcon icon={faChartLine} /> HOME</a></li>
-          <li className={isActive("/buscarAlimento") || isActive("/buscarAlimento") ? "active" : ""}><a href="/buscarAlimento"><FontAwesomeIcon icon={faUtensils} /> FOOD</a></li>
-          <li className={isActive("/rutinas") ? "active" : ""}><a href="/rutinas"><FontAwesomeIcon icon={faDumbbell} /> EXCERSICE</a></li>
-          <li className={isActive("/calculoIMC") ? "active" : ""}><a href="/calculoIMC"><FontAwesomeIcon icon={faCalculator} /> CALCULATOR</a></li>
+          <li className={isActive("/searchFood") || isActive("/searchFood") ? "active" : ""}><a href="/searchFood"><FontAwesomeIcon icon={faUtensils} /> FOOD</a></li>
+          <li className={isActive("/routines") ? "active" : ""}><a href="/routines"><FontAwesomeIcon icon={faDumbbell} /> EXERCISE</a></li>
+          <li className="dropdown">
+            <a href='#'><FontAwesomeIcon icon={faCalculator} /> CALCULATORS</a>
+            <ul className='submenu'>
+              <li className={isActive("/BMIcalculation") ? "active" : ""}><a href='/BMIcalculation' className='calc'>CALCULATOR BMI</a></li>
+              <li className={isActive("/MacrosCalculation") ? "active" : ""}><a href='/MacrosCalculation' className='calc'>MACROS CALCULATOR</a></li>
+            </ul>
+          </li>
         </ul>
       </nav>
     </header>

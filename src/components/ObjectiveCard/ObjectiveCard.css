@@ -1,0 +1,39 @@
+.card-containerobj{
+    background-color: white;
+    display: flex;
+    width: 28%;
+    height: 10%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    text-align: justify;
+}
+
+
+.objectives{
+    width: 30%;
+    margin-left: 10%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.card-containerobj span{
+    margin-left: 10%;
+    font-size: 16px;
+}
+.card-containerobj p{
+    font-weight: bold;
+    margin-top: 0%;
+    margin-left: 20%;
+    font-size: 16px;
+}
+
+.circularProgression{
+    width: 12em;
+    height: 12em;
+    margin-top: 1.5%;
+    margin-left: 5%;
+}
+
+.CircularProgressbar-text {
+    dominant-baseline: middle;
+    text-anchor: middle;
+ }
