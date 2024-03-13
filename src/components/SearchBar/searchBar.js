@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './buscador.css';
+import './searchBar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
-function Buscador() {
+function SearchBar() {
   const [searchValue, setSearchValue] = useState('');
   const navigate = useNavigate();
 
@@ -14,7 +14,7 @@ function Buscador() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    navigate(`/resultados?busqueda=${encodeURIComponent(searchValue)}`);
+    navigate(`/results?search=${encodeURIComponent(searchValue)}`);
   };
 
   return (
@@ -33,4 +33,4 @@ function Buscador() {
   );
 }
 
-export default Buscador;
+export default SearchBar;

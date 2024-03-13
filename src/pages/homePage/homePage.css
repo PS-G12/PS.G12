@@ -1,7 +1,7 @@
 .cards{
   display: flex;
 }
-.cards .container-tarjeta{
+.cards .card-containerobj{
   margin-left: 15%;
   margin-top: 5%;
 }

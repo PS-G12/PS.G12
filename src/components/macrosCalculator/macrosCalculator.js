@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import './macrosCalculator.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faFire, faCheese, faBreadSlice, faFish, faPlay } from '@fortawesome/free-solid-svg-icons'
-import Header from '../../components/Header/header';
 
 function MacrosCalculator(){
 
@@ -120,25 +119,24 @@ function MacrosCalculator(){
         
     
         // Calcular las calorías necesarias por día
-        const calorias = BMR * physicalActivityFactor + caloriesGoal;
-        setCalories(calorias.toFixed(2));
+        const calories = BMR * physicalActivityFactor + caloriesGoal;
+        setCalories(calories.toFixed(2));
     
         // Calcular las proteínas necesarias
-        const proteinas = calorias * 0.25 / 4; // En gramos
-        setProteins(proteinas.toFixed(2));
+        const proteins = calories * 0.25 / 4; // En gramos
+        setProteins(proteins.toFixed(2));
     
         // Calcular las grasas necesarias
-        const grasas = (calorias * 0.25) / 9; // El 25% de las calorías diarias proviene de grasas
-        setFats(grasas.toFixed(2));
+        const fats = (calories * 0.25) / 9; // El 25% de las calorías diarias proviene de grasas
+        setFats(fats.toFixed(2));
     
         // Calcular los carbohidratos necesarios
-        const carbohidratos = (calorias - (proteinas * 4) - (grasas * 9)) / 4; // Los carbohidratos aportan 4 calorías por gramo
-        setCarbs(carbohidratos.toFixed(2));
+        const carbs = (calories - (proteins * 4) - (fats * 9)) / 4; // Los carbohidratos aportan 4 calorías por gramo
+        setCarbs(carbs.toFixed(2));
     };
 
     return (
-        <div className="macros-container">
-            {/* <Header />  */}
+        <div className="macros-containercalc">
             <p>MACRONUTRIENTS AND CALORIES</p>
             <div className="intro">
                 <span className="data1">Calculate the necessary macronutrients you should consume based on your height, weight, and goals.</span>
