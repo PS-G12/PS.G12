@@ -23,7 +23,7 @@ const FoodCard = ({ selectedItem: food, quantity}) => {
           <strong>Calories:</strong> {food.calories}
         </p>
       </div>
-        <div className="details-container">
+        <div className="details-container-food">
           <em>
             <strong>Serving Size:</strong> {food.serving_size_g} g
           </em>

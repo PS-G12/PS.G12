@@ -25,6 +25,7 @@ const FoodSearch = () => {
     );
 
     if (encontrado) {
+      console.log(encontrado);
       setSearchResult(encontrado);
       setSelectedItem(null);
       return;
@@ -45,6 +46,7 @@ const FoodSearch = () => {
   };
 
   const handleRowClick = (item) => {
+    console.log('El resultado para la búsqueda ' + item);
     setSelectedItem(item);
   };
 
@@ -84,7 +86,7 @@ const FoodSearch = () => {
                     <tr
                       key={index}
                       onClick={() => handleRowClick(item)}
-                      className={selectedItem === item ? "selected-row" : ""}
+                      className={selectedItem === item ? "selected-row" : index}
                     >
                       <td>{item.name}</td>
                       <td>{item.calories}</td>
@@ -105,9 +107,9 @@ const FoodSearch = () => {
           </div>
 
           {selectedItem && (
-            <div className="search-result">
+            <div className="search-result-containter">
               {searchResult && (
-                <div className="result-container-">
+                <div className="result-container-food-details">
                   <FoodCard
                     selectedItem={selectedItem}
                     quantity={100}

@@ -42,11 +42,12 @@ const AñadirAlimento = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("New Food Data:", foodData);
-
+    
     // Guardar en localStorage
-    const existingData = JSON.parse(localStorage.getItem("foodData")) || [];
-    const newData = [...existingData, foodData];
+    const existingData = JSON.parse(localStorage.getItem("foodData")) || { items: [] };
+    var newData = null;
+    if (existingData) newData = [...existingData.items, foodData]; else newData = {"items":[foodData]};
+    console.log(newData); 
     localStorage.setItem("foodData", JSON.stringify(newData));
 
     // Limpiar los datos del formulario

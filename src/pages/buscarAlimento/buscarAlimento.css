@@ -6,7 +6,7 @@
     display: flex;
 }
 .result-container-food{
-  height: 460px;
+  max-height: 460px;
   overflow-y: scroll;
 }
   
@@ -22,6 +22,9 @@
     margin-top: 1%;
   }
   
+  .buscarAlimento-box {
+    text-align: center;
+  }
   .buscarAlimento-box h1 {
     margin-top: 3%;
   }
@@ -97,13 +100,6 @@
     
   
 /*---------------------------------------------------------------------------*/
-
-.buscarAlimento-box {
-  position: relative;
-  top: 50%;
-  text-align: center;
-}
-
 .table-container {
   display: flex;
   flex-wrap: wrap;
