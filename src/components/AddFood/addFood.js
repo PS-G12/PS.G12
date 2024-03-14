@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import "./añadirAlimento.css";
+import "./addFood.css";
 
 function capitalizedCase(key) {
-  // Mapea las claves a las frases deseadas
+  //Maps the keys to the desired phrases
   const conversions = {
     name: "Name",
     calories: "Calories",
@@ -26,7 +26,7 @@ function capitalizedCase(key) {
 }
 
 
-const AñadirAlimento = () => {
+const AddFood = () => {
   const [foodData, setFoodData] = useState({
     name: "",
     calories: "",
@@ -61,14 +61,14 @@ const AñadirAlimento = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    // Guardar en localStorage
+    //Using localStorage to store food data
     const existingData = JSON.parse(localStorage.getItem("foodData")) || { items: [] };
     var newData = null;
     if (existingData) newData = [...existingData.items, foodData]; else newData = {"items":[foodData]};
     console.log(newData); 
     localStorage.setItem("foodData", JSON.stringify(newData));
 
-    // Limpiar los datos del formulario
+    //Reseting the entries of the form
     setFoodData({
       name: "",
       calories: "",
@@ -84,8 +84,8 @@ const AñadirAlimento = () => {
       sugar_g: "",
     });
 
-    // Cerrar la pestaña (cambia esto según la lógica de tu aplicación)
-    handleToggleForm(); // Use handleToggleForm instead of handleChange
+    //Closing the window
+    handleToggleForm();
   };
 
   return (
@@ -120,4 +120,4 @@ const AñadirAlimento = () => {
   );
 };
 
-export default AñadirAlimento;
+export default AddFood;

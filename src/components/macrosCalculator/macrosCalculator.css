@@ -1,181 +1,228 @@
-.macros-containercalc{
-    background-color: white;
-    position: relative;
-    width: 60%;
-    height: 630px;
-    left: 20%;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    display: block;
+.macros-containercalc {
+  background-color: white;
+  position: relative;
+  width: 60%;
+  left: 20%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  display: block;
+  padding: 1%;
 }
 
-.macros-containercalc p{
-    text-align: center;
-    font-weight: bold;
-    margin-top: 1%;
+.macros-containercalc p {
+  text-align: center;
+  font-weight: bold;
+  margin-top: 1%;
 }
 
-.intro{
-    display: grid;
+.intro {
+  display: grid;
 }
 
-.data1, .data2, .measurement-selection{
-    position: relative;
-    margin-bottom: 1%;
-    text-align: center;
+.measurement-selection {
+  text-align: justify;
+  color: #737373;
+  font-size: 17px;
+  display: flex;
+  flex-direction: column;
 }
 
-.row1{
-    display: flex;
-    margin-top: 3%;
-    padding: auto;
-    width: 100%;
-    justify-content: center;
-    font-family: "Rubik", sans-serif;
+.measurement-selection label {
+  margin-right: 1%;
+  text-align: center;
 }
 
-.age-input, .genders-info, .height-input, .weight-input{
-    margin-right: 5px;
-    text-align: center;
-    
+.measurement-selection p {
+  width: fit-content;
 }
 
-.age-info, .gender-info, .height-info, .weight-info{
-    margin-right: 5px;
+.data1,
+.data2 {
+  position: relative;
+  margin-bottom: 1%;
+  text-align: center;
 }
 
-.input-height, .input-age, .input-weight, .genders-info, .input-physicalActivity{
-    border: 1px solid #ccc;
-    padding: 8px;
+.form-macros {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.row2{
-    font-family: "Rubik", sans-serif;
-    display: flex;
-    margin-top: 2%;
-    padding: auto;
-    width: 100%;
-    justify-content: center;
+.row1 {
+  display: flex;
+  margin-top: 3%;
+  padding: auto;
+  width: 90%;
+  justify-content: center;
+  font-family: "Rubik", sans-serif;
+  align-items: flex-end;
+}
+.row1 div {
+  margin-right: 0.1%;
+  font-size: 120%;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+.row1 input,
+.row1 select {
+  width: auto;
+  text-align: center;
 }
 
-
-.physicalActivity-input{
-    width: 300px;
-    margin-top: 2%;
+.row1 div label {
+    margin-bottom: 2%;
 }
 
-.input-physicalActivity{
-    margin-left: 2%;
+.age-input,
+.genders-info,
+.height-input,
+.weight-input {
+  margin-top: 2%;
+  text-align: center;
+}
+
+.age-info,
+.gender-info,
+.height-info,
+.weight-info {
+  margin-right: 5px;
+}
+
+.input-height,
+.input-age,
+.input-weight,
+.genders-info,
+.input-physicalActivity {
+  border: 1px solid #ccc;
+  padding: 8px;
+}
+
+.row2 {
+  font-family: "Rubik", sans-serif;
+  display: flex;
+  margin-top: 2%;
+  padding: auto;
+  width: 100%;
+  justify-content: center;
+}
+
+.physicalActivity-input {
+  width: 300px;
+  margin-top: 2%;
+}
+
+.input-physicalActivity {
+  margin-left: 2%;
 }
 
 .goal-input {
-    display: flex;
-    align-items: center; 
-    width: 50%;
+  display: flex;
+  align-items: center;
+  width: 50%;
 }
 
 .goal-input ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
 }
 
 .goal-input li {
-   text-align: justify;
-   display: flex;
-   padding: 0;
-   width: 130px;
+  text-align: justify;
+  display: flex;
+  padding: 0;
+  width: 130px;
 }
 
 .goal-input input[type="radio"] {
-    margin-right: 5px;  
-    text-align: center;
+  margin-right: 5px;
+  text-align: center;
 }
 
 .goal-info {
-    margin: 4%;
-
+  margin: 4%;
 }
 
-.calculateMacros{
-    position: relative;
-    background-color: #23A6F0;
-    color: white;
-    width: 106px;
-    height: 35px;
-    border-radius: 5px;
-    font-weight: bold;
-    border-color: #23A6F0;
+.calculateMacros {
+  position: relative;
+  background-color: #23a6f0;
+  color: white;
+  width: 106px;
+  height: 35px;
+  border-radius: 5px;
+  font-weight: bold;
+  border-color: #23a6f0;
 }
 
-.calculateMacros:hover{
-    background-color: #0066EE;
+.calculateMacros:hover {
+  background-color: #0066ee;
 }
 
-.measurement-selection{
-    margin-top: 2%;
+.round {
+  width: 16%;
 }
 
-.result-macros{
-    font-family: "Rubik", sans-serif;
-    width: 100%;
-    position: relative;
-    margin-top: 2%;
-    
+.result-macros {
+  font-family: "Rubik", sans-serif;
+  width: 100%;
+  position: relative;
+  margin-top: 2%;
 }
 
 .container-box {
-    display: flex;
-    justify-content: center;
-    text-align: center;
+  display: flex;
+  justify-content: center;
+  text-align: center;
 }
 
-.box{
-    padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-right: 5%;
-    width: 150px;
-    height: 110px;
-    border: 2px solid #23A6F0
+.box {
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 5%;
+  width: 150px;
+  height: 110px;
+  border: 2px solid #23a6f0;
 }
 
 .box i {
-    font-size: 24px;
-    color: #23A6F0;
+  font-size: 24px;
+  color: #23a6f0;
 }
 
-.box p{
-    margin-top: 10%;
+.box p {
+  margin-top: 10%;
 }
 
-.result-label{
-    font-family: "Rubik", sans-serif;
-    margin-bottom: 10px;
+.result-label {
+  font-family: "Rubik", sans-serif;
+  margin-bottom: 10px;
 }
 
 .info {
-    font-size: 14px;
-    margin-top: 5px;
+  font-size: 14px;
+  margin-top: 5px;
 }
 
-.calories-icon{
-    scale: 2;
-    color: #ee4a09;
+.calories-icon {
+  scale: 2;
+  color: #ee4a09;
 }
 
-.fats-icon{
-    scale: 2;
-    color: #c8bf0c;
-} 
-
-.proteins-icon{
-    scale: 2;
-    color: #808080;
+.fats-icon {
+  scale: 2;
+  color: #c8bf0c;
 }
 
-.carbs-icon{
-    scale: 2;
-    color: #edb45e;
+.proteins-icon {
+  scale: 2;
+  color: #808080;
+}
+
+.carbs-icon {
+  scale: 2;
+  color: #edb45e;
 }
