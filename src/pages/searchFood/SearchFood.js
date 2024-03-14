@@ -16,16 +16,15 @@ const FoodSearch = () => {
   const tipo = new URLSearchParams(location.search).get("tipo");
 
   const handleSearch = () => {
-    const alimentosGuardados =
-      JSON.parse(localStorage.getItem("foodData")) || [];
-
     const searchQueryNormalized = searchQuery.trim().toLowerCase();
+
+    const alimentosGuardados =
+    JSON.parse(localStorage.getItem("foodData")) || [];
     const encontrado = alimentosGuardados.find(
-      (item) => item.name === searchQueryNormalized
+      (items) => items.name === searchQueryNormalized
     );
 
-    if (encontrado) {
-      console.log(encontrado);
+    if (encontrado && encontrado.name) {
       setSearchResult(encontrado);
       setSelectedItem(null);
       return;
@@ -33,8 +32,6 @@ const FoodSearch = () => {
 
     fetchFood(searchQuery)
       .then((result) => {
-        console.log('El resultado para la búsqueda "' + searchQuery + '" es:');
-        console.log(result);
         setSearchResult(result);
         setSelectedItem(null);
       })
@@ -46,7 +43,6 @@ const FoodSearch = () => {
   };
 
   const handleRowClick = (item) => {
-    console.log('El resultado para la búsqueda ' + item);
     setSelectedItem(item);
   };
 
@@ -93,10 +89,14 @@ const FoodSearch = () => {
                     </tr>
                   ))
                 ) : searchResult ? (
-                  <tr>
-                    <td>{searchResult.name}</td>
-                    <td>{searchResult.calories}</td>
-                  </tr>
+                  <tr
+              key={1}
+              onClick={() => handleRowClick(searchResult)}
+              className="selected-row"
+            >
+              <td>{searchResult.name}</td>
+              <td>{searchResult.calories}</td>
+            </tr>
                 ) : (
                   <tr>
                     <td colSpan="2">There were no results.</td>

@@ -26,6 +26,7 @@
   z-index: 1000;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 
@@ -39,11 +40,13 @@ h3 {
 .food-info p{
   display: flex;
   align-items: center;
+  white-space: nowrap;
 }
 
 .food-info h3 {
   font-size: 1.5rem;
   margin-right: 2%;
+  height: fit-content;
 }
 
 .details-container {
@@ -56,6 +59,11 @@ h3 {
   background-color: #fff;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   z-index: 1;
+}
+
+.food-card span{
+  font-weight: bold;
+  margin-left: 1%;
 }
 
 .details-container-food {
