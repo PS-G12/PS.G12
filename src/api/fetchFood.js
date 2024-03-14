@@ -3,7 +3,7 @@ import jsonData from './foodData.json';
 async function fetchFood(query) {
   try {
     const searchQueryNormalized = query.trim().toLowerCase();
-    const searchWords = searchQueryNormalized.split(/\s+/); // Divide la búsqueda en palabras
+    const searchWords = searchQueryNormalized.split(/\s+/); //Divides the search in words
 
     const foundItems = [];
 

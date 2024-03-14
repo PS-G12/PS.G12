@@ -3,7 +3,7 @@ import fetchFood from "../../api/fetchFood.js";
 import Header from "../../components/Header/header.js";
 import { useLocation } from "react-router-dom";
 import "./SearchFood.css";
-import AñadirAlimento from "../../components/AñadirAlimento/añadirAlimento.js";
+import AddFood from "../../components/AddFood/addFood.js";
 import FoodCard from "../../components/FoodCard/foodCard.js";
 import Footer from "../../components/Footer/footer.js";
 
@@ -51,14 +51,14 @@ const FoodSearch = () => {
   };
 
   return (
-    <div className="buscarAlimento-box">
+    <div className="searchFood-box">
       <Header />
       <h1>Añadir alimento a {tipo}</h1>
       <div className="searchbar-container">
         <input
           className="form-search-input"
           type="text"
-          placeholder="Introduce la búsqueda"
+          placeholder="Intoduce the food you're looking for"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           onKeyDown={(e) => {
@@ -76,8 +76,8 @@ const FoodSearch = () => {
             <table>
               <thead>
                 <tr>
-                  <th>Nombre</th>
-                  <th>Calorías</th>
+                  <th>Name</th>
+                  <th>Calories</th>
                 </tr>
               </thead>
               <tbody>
@@ -99,7 +99,7 @@ const FoodSearch = () => {
                   </tr>
                 ) : (
                   <tr>
-                    <td colSpan="2">No se encontraron resultados.</td>
+                    <td colSpan="2">There were no results.</td>
                   </tr>
                 )}
               </tbody>
@@ -118,7 +118,7 @@ const FoodSearch = () => {
 
                   {!searchResult.items ||
                     (searchResult.items.length === 0 && (
-                      <p>No se encontraron resultados.</p>
+                      <p>There were no results.</p>
                     ))}
                 </div>
               )}
@@ -127,12 +127,12 @@ const FoodSearch = () => {
 
           {!searchResult.items ||
             (searchResult.items.length === 0 && (
-              <p>No se encontraron resultados.</p>
+              <p>There were no results.</p>
             ))}
         </div>
       )}
 
-      <AñadirAlimento />
+      <AddFood />
       <Footer />
     </div>
   );
