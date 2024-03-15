@@ -76,7 +76,7 @@
 }
 
 .age-input,
-.genders-info,
+.input-gender,
 .height-input,
 .weight-input {
   margin-top: 2%;
@@ -84,17 +84,22 @@
 }
 
 .age-info,
-.gender-info,
+.input-gender,
 .height-info,
 .weight-info {
   margin-right: 5px;
 }
 
+.physical-activity{
+  margin-left: -30%;
+  margin-top: 6%;
+}
+
 .input-height,
 .input-age,
 .input-weight,
-.genders-info,
-.input-physicalActivity {
+.input-gender,
+.input-physical-activity {
   border: 1px solid #ccc;
   padding: 8px;
 }
@@ -108,12 +113,7 @@
   justify-content: center;
 }
 
-.physicalActivity-input {
-  width: 300px;
-  margin-top: 2%;
-}
-
-.input-physicalActivity {
+.input-physical-activity {
   margin-left: 2%;
 }
 
@@ -150,8 +150,8 @@
   position: relative;
   background-color: #23a6f0;
   color: white;
-  width: 106px;
-  height: 35px;
+  width: 115px;
+  height: 36px;
   border-radius: 5px;
   font-weight: bold;
   border-color: #23a6f0;

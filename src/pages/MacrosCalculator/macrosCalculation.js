@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../../components/Header/header.js";
 import Footer from "../../components/Footer/footer.js"
-import MacrosCalculator from "../../components/macrosCalculator/macrosCalculator.js";
+import MacrosCalculator from "../../components/MacrosCalculator/macrosCalculator.js";
 
 const MacrosCalculation = () => {
     return (

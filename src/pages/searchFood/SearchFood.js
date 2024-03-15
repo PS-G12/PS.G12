@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import fetchFood from "../../api/fetchFood.js";
 import Header from "../../components/Header/header.js";
 import { useLocation } from "react-router-dom";
-import "./SearchFood.css";
+import "./searchFood.css";
 import AddFood from "../../components/AddFood/addFood.js";
 import FoodCard from "../../components/FoodCard/foodCard.js";
 import Footer from "../../components/Footer/footer.js";
@@ -13,28 +13,25 @@ const FoodSearch = () => {
   const [selectedItem, setSelectedItem] = useState(null);
 
   const location = useLocation();
-  const tipo = new URLSearchParams(location.search).get("tipo");
+  const type = new URLSearchParams(location.search).get("type");
 
   const handleSearch = () => {
-    const alimentosGuardados =
+    const storedFood =
       JSON.parse(localStorage.getItem("foodData")) || [];
 
     const searchQueryNormalized = searchQuery.trim().toLowerCase();
-    const encontrado = alimentosGuardados.find(
+    const found = storedFood.find(
       (item) => item.name === searchQueryNormalized
     );
 
-    if (encontrado) {
-      console.log(encontrado);
-      setSearchResult(encontrado);
+    if (found) {
+      setSearchResult(found);
       setSelectedItem(null);
       return;
     }
 
     fetchFood(searchQuery)
       .then((result) => {
-        console.log('El resultado para la búsqueda "' + searchQuery + '" es:');
-        console.log(result);
         setSearchResult(result);
         setSelectedItem(null);
       })
@@ -46,14 +43,13 @@ const FoodSearch = () => {
   };
 
   const handleRowClick = (item) => {
-    console.log('El resultado para la búsqueda ' + item);
     setSelectedItem(item);
   };
 
   return (
     <div className="searchFood-box">
       <Header />
-      <h1>Añadir alimento a {tipo}</h1>
+      <h1>Add food to {type}</h1>
       <div className="searchbar-container">
         <input
           className="form-search-input"
@@ -67,7 +63,7 @@ const FoodSearch = () => {
             }
           }}
         />
-        <button onClick={handleSearch}>Buscar</button>
+        <button onClick={handleSearch}>Search</button>
       </div>
 
       {searchResult && (
@@ -113,7 +109,6 @@ const FoodSearch = () => {
                   <FoodCard
                     selectedItem={selectedItem}
                     quantity={100}
-                    // setQuantity={setQuantity}
                   />
 
                   {!searchResult.items ||

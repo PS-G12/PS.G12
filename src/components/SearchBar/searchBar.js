@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './searchBar.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
-function SearchBar() {
+const SearchBar = () => {
   const [searchValue, setSearchValue] = useState('');
   const navigate = useNavigate();
 
@@ -14,11 +14,13 @@ function SearchBar() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    navigate(`/results?search=${encodeURIComponent(searchValue)}`);
+    const encodedSearchValue = encodeURIComponent(searchValue.trim());
+    navigate(`/results?search=${encodedSearchValue}`);
+
   };
 
   return (
-    <form className="up-header" onSubmit={handleSubmit}>
+    <form className="search-form" onSubmit={handleSubmit}>
       <input
         type="text"
         className="search-input"
@@ -26,11 +28,11 @@ function SearchBar() {
         value={searchValue}
         onChange={handleChange}
       />
-      <button type="submit" className="submit">
+      <button type="submit" className="search-button">
         <FontAwesomeIcon icon={faSearch} />
       </button>
     </form>
   );
-}
+};
 
 export default SearchBar;
