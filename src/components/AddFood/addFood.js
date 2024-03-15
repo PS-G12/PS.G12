@@ -25,7 +25,6 @@ function capitalizedCase(key) {
   return capitalizedCase(key);
 }
 
-
 const AddFood = () => {
   const [foodData, setFoodData] = useState({
     name: "",
@@ -60,15 +59,19 @@ const AddFood = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    //Using localStorage to store food data
+
+    if (!foodData.name.trim() || !foodData.calories.trim()) {
+      alert("Name and calories are required fields");
+      return;
+    }
+
     const existingData = JSON.parse(localStorage.getItem("foodData"));
     var newData = null;
-    console.log(existingData);
-    if (existingData) newData = [...existingData.items, foodData]; else newData = {"items":[foodData]};
+    if (existingData) newData = { items: [...existingData.items, foodData] };
+    else newData = { items: [foodData] };
+    console.log(newData);
     localStorage.setItem("foodData", JSON.stringify(newData));
 
-    //Reseting the entries of the form
     setFoodData({
       name: "",
       calories: "",
@@ -84,7 +87,6 @@ const AddFood = () => {
       sugar_g: "",
     });
 
-    //Closing the window
     handleToggleForm();
   };
 
@@ -99,7 +101,7 @@ const AddFood = () => {
             X
           </button>
           <div className="detail-container-box">
-          <h2>Register your food</h2>
+            <h2>Register your food</h2>
             {Object.keys(foodData).map((param) => (
               <div key={param} className="form-row">
                 <label htmlFor={param}>{capitalizedCase(param)}:</label>
@@ -108,12 +110,13 @@ const AddFood = () => {
                   id={param}
                   value={foodData[param]}
                   onChange={handleChange}
-                  required
                 />
               </div>
             ))}
           </div>
-          <button type="submit" className="submit-food">Add Food</button>
+          <button type="submit" className="submit-food">
+            Add Food
+          </button>
         </form>
       )}
     </div>

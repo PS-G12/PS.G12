@@ -20,7 +20,7 @@ const FoodSearch = () => {
 
     const alimentosGuardados =
     JSON.parse(localStorage.getItem("foodData")) || [];
-    const encontrado = alimentosGuardados.find(
+    const encontrado = alimentosGuardados.items.find(
       (items) => items.name === searchQueryNormalized
     );
 
