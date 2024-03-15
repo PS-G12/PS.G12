@@ -1,5 +1,5 @@
 
-![Logo](./src/images/icons/icon-3.png)
+![Logo](./src/images/icons/icon-3-git.png)
 
 
 ## 
