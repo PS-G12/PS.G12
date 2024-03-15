@@ -54,7 +54,7 @@ const FoodSearch = () => {
         <input
           className="form-search-input"
           type="text"
-          placeholder="Intoduce the food you're looking for"
+          placeholder="Introduce the food you're looking for"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           onKeyDown={(e) => {
@@ -65,7 +65,7 @@ const FoodSearch = () => {
         />
         <button onClick={handleSearch}>Buscar</button>
       </div>
-
+  
       {searchResult && (
         <div className="result-container-food">
           <div className="table-container-food">
@@ -77,26 +77,18 @@ const FoodSearch = () => {
                 </tr>
               </thead>
               <tbody>
-                {searchResult.items ? (
+                {searchResult.items && searchResult.items.length > 0 ? (
                   searchResult.items.map((item, index) => (
                     <tr
                       key={index}
                       onClick={() => handleRowClick(item)}
                       className={selectedItem === item ? "selected-row" : index}
+                      id="tr-result"
                     >
                       <td>{item.name}</td>
                       <td>{item.calories}</td>
                     </tr>
                   ))
-                ) : searchResult ? (
-                  <tr
-              key={1}
-              onClick={() => handleRowClick(searchResult)}
-              className="selected-row"
-            >
-              <td>{searchResult.name}</td>
-              <td>{searchResult.calories}</td>
-            </tr>
                 ) : (
                   <tr>
                     <td colSpan="2">There were no results.</td>
@@ -105,37 +97,26 @@ const FoodSearch = () => {
               </tbody>
             </table>
           </div>
-
-          {selectedItem && (
-            <div className="search-result-containter">
-              {searchResult && (
-                <div className="result-container-food-details">
-                  <FoodCard
-                    selectedItem={selectedItem}
-                    quantity={100}
-                    // setQuantity={setQuantity}
-                  />
-
-                  {!searchResult.items ||
-                    (searchResult.items.length === 0 && (
-                      <p>There were no results.</p>
-                    ))}
-                </div>
-              )}
-            </div>
-          )}
-
-          {!searchResult.items ||
-            (searchResult.items.length === 0 && (
-              <p>There were no results.</p>
-            ))}
         </div>
       )}
-
+  
+      {selectedItem && (
+        <div className="search-result-container">
+          {searchResult && (
+            <div className="result-container-food-details">
+              <FoodCard
+                selectedItem={selectedItem}
+                quantity={100}
+                // setQuantity={setQuantity}
+              />
+            </div>
+          )}
+        </div>
+      )}
       <AddFood />
       <Footer />
     </div>
   );
-};
+        }  
 
 export default FoodSearch;
