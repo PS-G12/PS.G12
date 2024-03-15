@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import fetchFood from "../../api/fetchFood.js";
 import Header from "../../components/Header/header.js";
 import { useLocation } from "react-router-dom";
-import "./SearchFood.css";
+import "./searchFood.css";
 import AddFood from "../../components/AddFood/addFood.js";
 import FoodCard from "../../components/FoodCard/foodCard.js";
 import Footer from "../../components/Footer/footer.js";
@@ -18,8 +18,10 @@ const FoodSearch = () => {
   const handleSearch = () => {
     const searchQueryNormalized = searchQuery.trim().toLowerCase();
 
-    const alimentosGuardados =
-    JSON.parse(localStorage.getItem("foodData")) || [];
+    const alimentosGuardados = JSON.parse(localStorage.getItem("foodData")) || {
+      items: [],
+    };
+
     const encontrado = alimentosGuardados.items.find(
       (items) => items.name === searchQueryNormalized
     );
@@ -45,7 +47,7 @@ const FoodSearch = () => {
   const handleRowClick = (item) => {
     setSelectedItem(item);
   };
-
+  
   return (
     <div className="searchFood-box">
       <Header />
@@ -65,7 +67,7 @@ const FoodSearch = () => {
         />
         <button onClick={handleSearch}>Buscar</button>
       </div>
-  
+
       {searchResult && (
         <div className="result-container-food">
           <div className="table-container-food">
@@ -89,6 +91,15 @@ const FoodSearch = () => {
                       <td>{item.calories}</td>
                     </tr>
                   ))
+                ) : searchResult.name ? (
+                  <tr
+                    key={1}
+                    onClick={() => handleRowClick(searchResult)}
+                    className="selected-row"
+                  >
+                    <td>{searchResult.name}</td>
+                    <td>{searchResult.calories}</td>
+                  </tr>
                 ) : (
                   <tr>
                     <td colSpan="2">There were no results.</td>
@@ -99,7 +110,7 @@ const FoodSearch = () => {
           </div>
         </div>
       )}
-  
+
       {selectedItem && (
         <div className="search-result-container">
           {searchResult && (
@@ -117,6 +128,6 @@ const FoodSearch = () => {
       <Footer />
     </div>
   );
-        }  
+};
 
 export default FoodSearch;
