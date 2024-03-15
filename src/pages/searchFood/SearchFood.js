@@ -13,21 +13,22 @@ const FoodSearch = () => {
   const [selectedItem, setSelectedItem] = useState(null);
 
   const location = useLocation();
-  const tipo = new URLSearchParams(location.search).get("tipo");
+  const type = new URLSearchParams(location.search).get("type");
 
   const handleSearch = () => {
-    const searchQueryNormalized = searchQuery.trim().toLowerCase();
+    const storedFood =
+      JSON.parse(localStorage.getItem("foodData")) || [];
 
     const alimentosGuardados = JSON.parse(localStorage.getItem("foodData")) || {
       items: [],
     };
-
-    const encontrado = alimentosGuardados.items.find(
+    const searchQueryNormalized = searchQuery.trim().toLowerCase();
+    const found = alimentosGuardados.items.find(
       (items) => items.name === searchQueryNormalized
     );
 
-    if (encontrado && encontrado.name) {
-      setSearchResult(encontrado);
+    if (found) {
+      setSearchResult(found);
       setSelectedItem(null);
       return;
     }
@@ -51,7 +52,7 @@ const FoodSearch = () => {
   return (
     <div className="searchFood-box">
       <Header />
-      <h1>Añadir alimento a {tipo}</h1>
+      <h1>Add food to {type}</h1>
       <div className="searchbar-container">
         <input
           className="form-search-input"
@@ -65,7 +66,7 @@ const FoodSearch = () => {
             }
           }}
         />
-        <button onClick={handleSearch}>Buscar</button>
+        <button onClick={handleSearch}>Search</button>
       </div>
 
       {searchResult && (

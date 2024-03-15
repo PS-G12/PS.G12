@@ -12,13 +12,29 @@ const BodyPart = ({ label, imageName, altText, src}) => {
     setIsHovered(false);
   };
 
+  const imageSrc = require(`../../images/${imageName}.png`);
+
+  const styles = {
+    label: {
+      fontSize: '18px',
+      color: '#4a90e2',
+      fontWeight: 'bold',
+      margin: '10px 0'
+    },
+    text: {
+      fontSize: '18px',
+      color: 'black',
+      margin: '10px 0'
+    }
+  };
+
   return (
     <div className="body-part" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <div className={`image-container ${isHovered ? 'hovered' : ''}`}>
-        <img className="image" src={require(`../../images/${imageName}.png`)} alt={altText} />
+        <img className="image" src={imageSrc} alt={altText} />
         <div className="description">
-          <p style={{ fontSize: '18px', color: '#4a90e2', fontWeight: 'bold', margin: '10px 0' }}>{label}:</p>
-          <p style={{ fontSize: '18px', color: 'black', margin: '10px 0' }}>{src}</p>
+          <p style={styles.label}>{label}:</p>
+          <p style={styles.text}>{src}</p>
         </div>
       </div>
     </div>
