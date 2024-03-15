@@ -36,17 +36,25 @@ const BMICalculator = () => {
     setSystem(event.target.value);
   };
 
-  const calculateBMI = () => {
-    if (!height || !weight) {
-      alert("Please, fill in each field.");
-      return;
+  function validateValues(height, weight){
+    if (isNaN(height) || isNaN(weight)){
+      alert("Please, make sure that the height and weight fields are numbers.");
+      return false;
     }
+    else if (height <= 0 || weight <= 0){
+      alert("Please, introduce a greater than zero value for the height and weight fields.");
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
 
+  const calculateBMI = () => {
     const heightUser = parseFloat(height.replace(",", "."));
     const weightUser = parseFloat(weight.replace(",", "."));
 
-    if (isNaN(heightUser) || isNaN(weightUser) || heightUser <= 0 || weightUser <= 0) {
-      alert("Please, use valid values for height and weight.");
+    if (!validateValues(heightUser, weightUser)) {
       return;
     }
 
@@ -96,8 +104,8 @@ const BMICalculator = () => {
   return (
     <div className="BMI-calculator">
       <div className="BMI-container">
-        <p>BODY MASS INDEX (BMI)</p>
-        <span className="data1">Calculate your BMI</span>
+        <h1>BODY MASS INDEX (BMI)</h1>
+        <p className="data1">Calculate your BMI</p>
         <form className="system-input">
           <span className="data2">Choose a measurement system:</span>
           <div className="measurement-selection">

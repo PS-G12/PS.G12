@@ -2,37 +2,36 @@ import React from 'react';
 import './exerciseCard.css';
 import { useNavigate } from 'react-router-dom';
 
-const TarjetaEjercicio = ({ exercise, bodyPartChoosen, name, limite}) => {
+const ExerciseCard = ({ exercise, bodyPartChoosen, name, limite}) => {
   const navigate = useNavigate();
   const getColorForBodyPart = (part) => {
     switch (part) {
       case 'waist':
-        return '#ff6347'; // Rojo
+        return '#ff6347'; //Red
       case 'chest':
-        return '#6495ED'; // Azul acero
+        return '#6495ED'; //Steel blue
       case 'lower legs':
-        return '#8A2BE2'; // Azul violeta oscuro
+        return '#8A2BE2'; //Dark violet blue
       case 'lower arms':
-        return '#FFD700'; // Dorado
+        return '#FFD700'; //Gold
       case 'neck':
-        return '#00BFFF'; // Azul turquesa
+        return '#00BFFF'; //Turquoise blue
       case 'shoulders':
-        return '#FFA07A'; // Salmón claro
+        return '#FFA07A'; //Light salmon
       case 'upper arms':
-        return '#FF69B4'; // Rosa claro
+        return '#FF69B4'; //Light pink
       case 'upper legs':
-        return '#4682B4'; // Azul acero
+        return '#4682B4'; //Light blue
       case 'back':
-        return '#228B22'; // Verde bosque
+        return '#228B22'; //Forest green
       case 'cardio':
-        return '#FF4500'; // Naranja rojizo
+        return '#FF4500'; //Redish orange
       default:
-        return '#ccc'; // Gris por defecto
+        return '#ccc'; //Gray
     }
   };
 
   let filteredExercises = exercise;
-  console.log(filteredExercises)
 
   if (!name) {
     filteredExercises = exercise.filter(item => item.bodyPart === bodyPartChoosen).slice(0, limite);
@@ -64,4 +63,4 @@ const TarjetaEjercicio = ({ exercise, bodyPartChoosen, name, limite}) => {
   );
 };
 
-export default TarjetaEjercicio;
+export default ExerciseCard;

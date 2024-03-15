@@ -4,18 +4,21 @@ import './exercise.css';
 import BodyPart from '../../components/BodyPart/bodyPart';
 
 const ExercisePage = () => {
-    const location = useLocation();
-    const navigate = useNavigate();
-    const hash = location.hash.substring(1); 
-    const decodedHash = decodeURIComponent(hash);
-    const exercise = JSON.parse(decodedHash);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const hash = location.hash.substring(1); 
+  const decodedHash = decodeURIComponent(hash);
+  const exercise = JSON.parse(decodedHash);
 
 
-    const handleGoBack = () => {
-      navigate(-1);
-    };
+  const handleGoBack = () => {
+    navigate(-1);
+  };
+
+  const renderBodyPart = (label, src, imageName) => (
+    <BodyPart label={label} src={src} imageName={`${imageName}/${src}`} altText={src} />
+  );
   
-
   return (
     <div className="container">
 
@@ -37,9 +40,9 @@ const ExercisePage = () => {
         <div className="separator"></div>
 
         <div className="images">
-          <BodyPart label="Body Part" src={exercise.bodyPart} imageName={`bodyParts/${exercise.bodyPart}`} altText={exercise.bodyPart} />
-          <BodyPart label="Equipment" src={exercise.equipment} imageName={`equipment/${exercise.equipment}`} altText={exercise.equipment} />
-          <BodyPart label="Target" src={exercise.target} imageName={`targets/${exercise.target}`} altText={exercise.target} />
+          {renderBodyPart("Body Part", exercise.bodyPart, "bodyParts")}
+          {renderBodyPart("Equipment", exercise.equipment, "equipment")}
+          {renderBodyPart("Target", exercise.target, "targets")}
         </div>
 
         <div className="separator"></div>

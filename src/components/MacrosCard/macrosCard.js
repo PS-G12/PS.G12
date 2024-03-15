@@ -8,7 +8,7 @@ function MacroCircularProgressBar({ label, value, max, color }) {
 
     return (
         <div className={`macro${label}`}>
-            <p className={`label${label}`}>{label}</p> {/* Añadido */}
+            <p className={`label${label}`}>{label}</p>
             <CircularProgressbar
                 className={`c${label}`}
                 value={percentage}
