@@ -44,4 +44,4 @@ function FoodCard({ selectedItem: food, quantity }) {
   );
 }
 
-export default FoodCard;
+export default FoodCard

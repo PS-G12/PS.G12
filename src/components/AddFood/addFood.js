@@ -62,10 +62,10 @@ const AddFood = () => {
     e.preventDefault();
     
     //Using localStorage to store food data
-    const existingData = JSON.parse(localStorage.getItem("foodData")) || { items: [] };
+    const existingData = JSON.parse(localStorage.getItem("foodData"));
     var newData = null;
+    console.log(existingData);
     if (existingData) newData = [...existingData.items, foodData]; else newData = {"items":[foodData]};
-    console.log(newData); 
     localStorage.setItem("foodData", JSON.stringify(newData));
 
     //Reseting the entries of the form
