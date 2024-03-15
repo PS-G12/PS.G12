@@ -27,6 +27,6 @@ Esta demo no requiere registro. Todas las funcionalidades están diseñadas para
 - [@Acaymo Granado Sánchez](https://github.com/acaOficial)
 - [@Imanol Benito Quintero Bermúdez](https://github.com/imanolqb)
 - [@Juan Antonio Hernández Rodríguez](https://github.com/ULPGCJuan)
-- [@Santiago Santana Ramírez](https://github.com/Tiago1615)
+- [@Santiago Santana Martínez](https://github.com/Tiago1615)
 - [@Javier Dávila Rodríguez](https://github.com/javi9davi)
 
