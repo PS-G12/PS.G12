@@ -5,7 +5,7 @@
   justify-content: center;
   display: flex;
   width: 20%;
-  max-height: 460px;
+  height: 360px;
   overflow-y: scroll;
 }
 
@@ -34,7 +34,7 @@
   text-align: center;
 }
 .searchFood-box h1 {
-  margin-top: 3%;
+  margin-top: 2%;
 }
 
 .details-container {
@@ -207,4 +207,8 @@ tr:nth-child(even) {
   text-align: center;
   font-weight: bold;
   width: 100%;
+}
+
+.add-food {
+  margin: 1%;
 }

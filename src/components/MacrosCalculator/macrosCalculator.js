@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import "./macrosCalculator.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFire, faCheese, faBreadSlice, faFish } from "@fortawesome/free-solid-svg-icons";
+import {
+  faFire,
+  faCheese,
+  faBreadSlice,
+  faFish,
+} from "@fortawesome/free-solid-svg-icons";
 
 function MacrosCalculator() {
   const [system, setSystem] = useState("metric");
@@ -29,20 +34,21 @@ function MacrosCalculator() {
     setter(event.target.value);
   };
 
-  function validateValues(age, height, weight){
-    if (isNaN(age) || isNaN(height) || isNaN(weight)){
-      alert("Please, make sure that the age, height and weight fields are numbers.");
+  function validateValues(age, height, weight) {
+    if (isNaN(age) || isNaN(height) || isNaN(weight)) {
+      alert(
+        "Please, make sure that the age, height and weight fields are numbers."
+      );
       return false;
-    }
-    else if (age <= 0 || height <= 0 || weight <= 0){
-      alert("Please, introduce a greater than zero value for the age, height and weight fields.");
+    } else if (age <= 0 || height <= 0 || weight <= 0) {
+      alert(
+        "Please, introduce a greater than zero value for the age, height and weight fields."
+      );
       return false;
-    }
-    else if (Number.isInteger(age) === false){
+    } else if (Number.isInteger(age) === false) {
       alert("Please use a natural number (1-9) for the age value");
       return false;
-    }
-    else{
+    } else {
       return true;
     }
   }
@@ -58,7 +64,7 @@ function MacrosCalculator() {
     let heightUser = parseFloat(height.replace(",", "."));
     let weightUser = parseFloat(weight.replace(",", "."));
 
-    if (!validateValues(ageUser, heightUser, weightUser)){
+    if (!validateValues(ageUser, heightUser, weightUser)) {
       return;
     }
 
@@ -67,17 +73,17 @@ function MacrosCalculator() {
       weightUser = weightUser / 2.2046; // Convert pounds to kilograms
     }
 
-    const caloriesGoal = {
-      "gain-weight": 500,
-      "lose-weight": -500,
-      "maintain-weight": 0,
-    }[goal] || 0;
+    const caloriesGoal =
+      {
+        "gain-weight": 500,
+        "lose-weight": -500,
+        "maintain-weight": 0,
+      }[goal] || 0;
 
     let BMR;
     if (gender === "male") {
       BMR = 10 * weightUser + 6.25 * heightUser - 5 * age + 5;
-    }
-    else{
+    } else {
       BMR = 10 * weightUser + 6.25 * heightUser - 5 * age - 161;
     }
 
@@ -111,22 +117,30 @@ function MacrosCalculator() {
   };
 
   const renderMeasurementCheckbox = (value, text) => (
-    <div className="checkbox-wrapper-18" key={value}>
-      <div className="round">
-        <input
-          type="checkbox"
-          id={`checkbox-${value}`}
-          value={value}
-          onChange={handleCheckboxChange}
-          checked={system === value}
-        />
-        <label htmlFor={`checkbox-${value}`}></label>
-        <p>{text}</p>
+    <form className="system-input-bmi">
+      <div className="checkbox-wrapper-18" key={value}>
+        <div className="round-macro">
+          <input
+            type="checkbox"
+            id={`checkbox-${value}`}
+            value={value}
+            onChange={handleCheckboxChange}
+            checked={system === value}
+          />
+          <label htmlFor={`checkbox-${value}`}></label>
+          <p>{text}</p>
+        </div>
       </div>
-    </div>
+    </form>
   );
 
-  const inputField = ({ label, value, onChange, placeholder, type = "text" }) => (
+  const inputField = ({
+    label,
+    value,
+    onChange,
+    placeholder,
+    type = "text",
+  }) => (
     <div className={`${label.toLowerCase()}-input`}>
       <div className={label.toLowerCase()}>
         <label className={`${label.toLowerCase()}-info`}>{label}:</label>
@@ -168,7 +182,9 @@ function MacrosCalculator() {
           onChange={onChange}
         >
           {options.map((option) => (
-            <option key={option.value} value={option.value}>{option.label}</option>
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
           ))}
         </select>
       </div>
@@ -187,7 +203,7 @@ function MacrosCalculator() {
 
   return (
     <div className="macros-containercalc">
-      <p>MACRONUTRIENTS AND CALORIES</p>
+      <h1>MACRONUTRIENTS AND CALORIES</h1>
       <div className="intro">
         <span className="data1">
           Calculate the necessary macronutrients you should consume, based on:
@@ -205,7 +221,7 @@ function MacrosCalculator() {
             label: "Age",
             value: age,
             onChange: handleInputChange(setAge),
-            placeholder: "Age"
+            placeholder: "Age",
           })}
           {selectField({
             label: "Gender",
@@ -213,20 +229,20 @@ function MacrosCalculator() {
             onChange: handleSelectChange(setGender),
             options: [
               { value: "male", label: "Male" },
-              { value: "female", label: "Female" }
-            ]
+              { value: "female", label: "Female" },
+            ],
           })}
           {inputField({
             label: system === "imperial" ? "Height (ft)" : "Height (cm)",
             value: height,
             onChange: handleInputChange(setHeight),
-            placeholder: "Height"
+            placeholder: "Height",
           })}
           {inputField({
             label: system === "imperial" ? "Weight (lbs)" : "Weight (kg)",
             value: weight,
             onChange: handleInputChange(setWeight),
-            placeholder: "Weight"
+            placeholder: "Weight",
           })}
         </div>
         <div className="row2">
@@ -237,8 +253,8 @@ function MacrosCalculator() {
             options: [
               { value: "sedentary", label: "Sedentary" },
               { value: "intermediate", label: "Moderate" },
-              { value: "intense", label: "Intense" }
-            ]
+              { value: "intense", label: "Intense" },
+            ],
           })}
           <div className="goal-input">
             <label className="goal-info">{"Goal:"}</label>
@@ -249,7 +265,7 @@ function MacrosCalculator() {
                   value: "lose-weight",
                   checked: goal === "lose-weight",
                   onChange: () => setGoal("lose-weight"),
-                  label: "Lose weight"
+                  label: "Lose weight",
                 })}
               </li>
               <li>
@@ -258,7 +274,7 @@ function MacrosCalculator() {
                   value: "maintain",
                   checked: goal === "maintain",
                   onChange: () => setGoal("maintain"),
-                  label: "Keep weight"
+                  label: "Keep weight",
                 })}
               </li>
               <li>
@@ -267,7 +283,7 @@ function MacrosCalculator() {
                   value: "gain-weight",
                   checked: goal === "gain-weight",
                   onChange: () => setGoal("gain-weight"),
-                  label: "Gain weight"
+                  label: "Gain weight",
                 })}
               </li>
             </ul>
@@ -279,9 +295,24 @@ function MacrosCalculator() {
         <div className="result-macros">
           <div className="result-label">The necessary macronutrients are:</div>
           <div className="container-box">
-            {renderNutrientBox(faFire, "Calories", "calories per day", resultCalories)}
-            {renderNutrientBox(faBreadSlice, "Carbs", "grams per day", resultCarbs)}
-            {renderNutrientBox(faFish, "Proteins", "grams per day", resultProteins)}
+            {renderNutrientBox(
+              faFire,
+              "Calories",
+              "calories per day",
+              resultCalories
+            )}
+            {renderNutrientBox(
+              faBreadSlice,
+              "Carbs",
+              "grams per day",
+              resultCarbs
+            )}
+            {renderNutrientBox(
+              faFish,
+              "Proteins",
+              "grams per day",
+              resultProteins
+            )}
             {renderNutrientBox(faCheese, "Fats", "grams per day", resultFats)}
           </div>
         </div>

@@ -13,8 +13,9 @@
   box-shadow: 0 9px 15px rgba(0, 0, 0, 0.8);
   padding: 0.5%;
   text-align: center;
-  width: 30%;
   border-radius: 15px ;
+  width: 30%;
+  z-index: 2;
 }
 .form-add-food h2 {
   margin: 0;
@@ -37,12 +38,6 @@
   color: black;
   background-color: aliceblue;
   box-shadow: 0 2x 2px rgba(0, 0, 0, 0.8);
-}
-.form-add-food {
-  background-color: white;
-  box-shadow: 0 9px 15px rgba(0, 0, 0, 0.8);
-  text-align: center;
-  width: 25%;
 }
 
 .submit-food {

@@ -1,5 +1,5 @@
 .footer {
-    position: absolute;
+    position: relative;
     bottom: 0;
     left: 0;
     width: 100%;
@@ -7,6 +7,9 @@
     background-color: #1c74e6;
     color: #e9eef6;
     text-align: center;
+}
+.container-footer{
+    padding: 1%;
 }
 
 .details-container-footer {
@@ -22,4 +25,9 @@
 .details-container-footer p {
     cursor: pointer;
     margin: 1%;
+}
+
+.copyR{
+    padding-bottom: 0;
+    margin: 0;
 }

@@ -70,7 +70,7 @@ const BMICalculator = () => {
 
   const renderMeasurementCheckbox = (value, text) => (
     <div className="checkbox-wrapper-18">
-      <div className="round">
+      <div className="round-bmi">
         <input
           type="checkbox"
           id={`checkbox-${value}`}
@@ -108,7 +108,7 @@ const BMICalculator = () => {
         <p className="data1">Calculate your BMI</p>
         <form className="system-input">
           <span className="data2">Choose a measurement system:</span>
-          <div className="measurement-selection">
+          <div className="measurement-selection-bmi">
             {renderMeasurementCheckbox("imperial", "Imperial System")}
             {renderMeasurementCheckbox("metric", "Metric System")}
           </div>
