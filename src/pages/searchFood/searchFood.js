@@ -16,8 +16,7 @@ const FoodSearch = () => {
   const type = new URLSearchParams(location.search).get("type");
 
   const handleSearch = () => {
-    const storedFood =
-      JSON.parse(localStorage.getItem("foodData")) || [];
+    const storedFood = JSON.parse(localStorage.getItem("foodData")) || [];
 
     const alimentosGuardados = JSON.parse(localStorage.getItem("foodData")) || {
       items: [],
@@ -48,84 +47,88 @@ const FoodSearch = () => {
   const handleRowClick = (item) => {
     setSelectedItem(item);
   };
-  
+
   return (
     <div className="searchFood-box">
       <Header />
-      <h1>Add food to {type}</h1>
-      <div className="searchbar-container">
-        <input
-          className="form-search-input"
-          type="text"
-          placeholder="Introduce the food you're looking for"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              handleSearch();
-            }
-          }}
-        />
-        <button onClick={handleSearch}>Search</button>
-      </div>
+      <div className="searchFood-container">
+        <h1>Add food to {type}</h1>
+        <div className="searchbar-container">
+          <input
+            className="form-search-input"
+            type="text"
+            placeholder="Introduce the food you're looking for"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleSearch();
+              }
+            }}
+          />
+          <button onClick={handleSearch}>Search</button>
+        </div>
 
-      {searchResult && (
-        <div className="result-container-food">
-          <div className="table-container-food">
-            <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Calories</th>
-                </tr>
-              </thead>
-              <tbody>
-                {searchResult.items && searchResult.items.length > 0 ? (
-                  searchResult.items.map((item, index) => (
-                    <tr
-                      key={index}
-                      onClick={() => handleRowClick(item)}
-                      className={selectedItem === item ? "selected-row" : index}
-                      id="tr-result"
-                    >
-                      <td>{item.name}</td>
-                      <td>{item.calories}</td>
-                    </tr>
-                  ))
-                ) : searchResult.name ? (
-                  <tr
-                    key={1}
-                    onClick={() => handleRowClick(searchResult)}
-                    className="selected-row"
-                  >
-                    <td>{searchResult.name}</td>
-                    <td>{searchResult.calories}</td>
-                  </tr>
-                ) : (
+        {searchResult && (
+          <div className="result-container-food">
+            <div className="table-container-food">
+              <table>
+                <thead>
                   <tr>
-                    <td colSpan="2">There were no results.</td>
+                    <th>Name</th>
+                    <th>Calories</th>
                   </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      )}
-
-      {selectedItem && (
-        <div className="search-result-container">
-          {searchResult && (
-            <div className="result-container-food-details">
-              <FoodCard
-                selectedItem={selectedItem}
-                quantity={100}
-                // setQuantity={setQuantity}
-              />
+                </thead>
+                <tbody>
+                  {searchResult.items && searchResult.items.length > 0 ? (
+                    searchResult.items.map((item, index) => (
+                      <tr
+                        key={index}
+                        onClick={() => handleRowClick(item)}
+                        className={
+                          selectedItem === item ? "selected-row" : index
+                        }
+                        id="tr-result"
+                      >
+                        <td>{item.name}</td>
+                        <td>{item.calories}</td>
+                      </tr>
+                    ))
+                  ) : searchResult.name ? (
+                    <tr
+                      key={1}
+                      onClick={() => handleRowClick(searchResult)}
+                      className="selected-row"
+                    >
+                      <td>{searchResult.name}</td>
+                      <td>{searchResult.calories}</td>
+                    </tr>
+                  ) : (
+                    <tr>
+                      <td colSpan="2">There were no results.</td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
             </div>
-          )}
-        </div>
-      )}
-      <AddFood />
+          </div>
+        )}
+
+        {selectedItem && (
+          <div className="search-result-container">
+            {searchResult && (
+              <div className="result-container-food-details">
+                <FoodCard
+                  selectedItem={selectedItem}
+                  quantity={100}
+                  // setQuantity={setQuantity}
+                />
+              </div>
+            )}
+          </div>
+        )}
+        <AddFood />
+      </div>
       <Footer />
     </div>
   );

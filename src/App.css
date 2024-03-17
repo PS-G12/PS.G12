@@ -21,3 +21,9 @@
 .App-link {
   color: #61dafb;
 }
+
+.index-page, .searchFood-box, .bmi-box, .macros-box {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}

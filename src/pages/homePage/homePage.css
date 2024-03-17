@@ -1,5 +1,6 @@
 .cards{
   display: flex;
+  flex: 1;
 }
 .cards .card-containerobj{
   margin-left: 15%;
@@ -9,5 +10,6 @@
 .cards .macros-container{
   margin-left: 15%;
   margin-top: 5%;
+  height: fit-content;
 }
 

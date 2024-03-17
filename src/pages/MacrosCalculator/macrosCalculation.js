@@ -5,7 +5,7 @@ import MacrosCalculator from "../../components/MacrosCalculator/macrosCalculator
 
 const MacrosCalculation = () => {
     return (
-        <div>
+        <div className="macros-box">
             <Header />
             <MacrosCalculator />
             <Footer />

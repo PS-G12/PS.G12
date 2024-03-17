@@ -6,6 +6,7 @@ import GraficaPulsasiones from '../../components/PulseGraph/pulseGraph';
 import WeightGraph from '../../components/WeightGraph/weightGraph'; */
 import ObjectiveCard from '../../components/ObjectiveCard/ObjectiveCard';
 import MacrosCard from '../../components/MacrosCard/macrosCard';
+import Footer from '../../components/Footer/footer';
 import './homePage.css'
 
 const indexPage = () => {
@@ -22,6 +23,7 @@ const indexPage = () => {
         <IngestaAgua/>
         <GraficaPulsasiones/>
         <GraficaPeso/> */}
+      <Footer />
       </div>
     );
   };

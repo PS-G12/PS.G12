@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header/header';
 import SearchBar from '../../components/SearchBar/searchBar';
 import ExerciseCard from '../../components/ExerciseCard/exerciseCard';
-import exerciseData from '../../api/exercise_data_en.json'; 
+import exerciseData from '../../api/exercise_data_en.json';
+import Footer from '../../components/Footer/footer';
 import './routines.css'; 
 
 const ExercisePage = () => {
@@ -53,6 +54,7 @@ const ExercisePage = () => {
           {exerciseDataState && <ExerciseCard exercise={exerciseDataState} bodyPartChoosen={bodyPart} limite={5} />}
         </div>
       ))}
+      <Footer />
     </div>
   );
 };

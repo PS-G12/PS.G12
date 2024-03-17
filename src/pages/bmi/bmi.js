@@ -5,7 +5,7 @@ import BMICalculator from "../../components/BMICalculator/BMIcalculator.js";
 
 const BMICalculationPage = () => {
     return (
-        <div>
+        <div className="bmi-box">
             <Header />
             <BMICalculator />
             <Footer />

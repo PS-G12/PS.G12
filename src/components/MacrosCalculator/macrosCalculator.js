@@ -203,120 +203,124 @@ function MacrosCalculator() {
 
   return (
     <div className="macros-containercalc">
-      <h1>MACRONUTRIENTS AND CALORIES</h1>
-      <div className="intro">
-        <span className="data1">
-          Calculate the necessary macronutrients you should consume, based on:
-          your height, weight, and goals.
-        </span>
-        <span className="data2">Choose a unit of measurement:</span>
-        <div className="measurement-selection">
-          {renderMeasurementCheckbox("imperial", "Imperial System")}
-          {renderMeasurementCheckbox("metric", "Metric System")}
+      <div className="macros-boxcalc">
+        <h1>MACRONUTRIENTS AND CALORIES</h1>
+        <div className="intro">
+          <span className="data1">
+            Calculate the necessary macronutrients you should consume, based on:
+            your height, weight, and goals.
+          </span>
+          <span className="data2">Choose a unit of measurement:</span>
+          <div className="measurement-selection">
+            {renderMeasurementCheckbox("imperial", "Imperial System")}
+            {renderMeasurementCheckbox("metric", "Metric System")}
+          </div>
         </div>
+        <form className="form-macros" onSubmit={calculateMacros}>
+          <div className="row1">
+            {inputField({
+              label: "Age",
+              value: age,
+              onChange: handleInputChange(setAge),
+              placeholder: "Age",
+            })}
+            {selectField({
+              label: "Gender",
+              value: gender,
+              onChange: handleSelectChange(setGender),
+              options: [
+                { value: "male", label: "Male" },
+                { value: "female", label: "Female" },
+              ],
+            })}
+            {inputField({
+              label: system === "imperial" ? "Height (ft)" : "Height (cm)",
+              value: height,
+              onChange: handleInputChange(setHeight),
+              placeholder: "Height",
+            })}
+            {inputField({
+              label: system === "imperial" ? "Weight (lbs)" : "Weight (kg)",
+              value: weight,
+              onChange: handleInputChange(setWeight),
+              placeholder: "Weight",
+            })}
+          </div>
+          <div className="row2">
+            {selectField({
+              label: "Physical-Activity",
+              value: physicalActivity,
+              onChange: handleSelectChange(setPhysicalActivity),
+              options: [
+                { value: "sedentary", label: "Sedentary" },
+                { value: "intermediate", label: "Moderate" },
+                { value: "intense", label: "Intense" },
+              ],
+            })}
+            <div className="goal-input">
+              <label className="goal-info">{"Goal:"}</label>
+              <ul>
+                <li>
+                  {radioButton({
+                    id: "lose-weight",
+                    value: "lose-weight",
+                    checked: goal === "lose-weight",
+                    onChange: () => setGoal("lose-weight"),
+                    label: "Lose weight",
+                  })}
+                </li>
+                <li>
+                  {radioButton({
+                    id: "maintain",
+                    value: "maintain",
+                    checked: goal === "maintain",
+                    onChange: () => setGoal("maintain"),
+                    label: "Keep weight",
+                  })}
+                </li>
+                <li>
+                  {radioButton({
+                    id: "gain-weight",
+                    value: "gain-weight",
+                    checked: goal === "gain-weight",
+                    onChange: () => setGoal("gain-weight"),
+                    label: "Gain weight",
+                  })}
+                </li>
+              </ul>
+            </div>
+          </div>
+          <button type="submit" className="calculateMacros">
+            Calculate
+          </button>
+          <div className="result-macros">
+            <div className="result-label">
+              The necessary macronutrients are:
+            </div>
+            <div className="container-box">
+              {renderNutrientBox(
+                faFire,
+                "Calories",
+                "calories per day",
+                resultCalories
+              )}
+              {renderNutrientBox(
+                faBreadSlice,
+                "Carbs",
+                "grams per day",
+                resultCarbs
+              )}
+              {renderNutrientBox(
+                faFish,
+                "Proteins",
+                "grams per day",
+                resultProteins
+              )}
+              {renderNutrientBox(faCheese, "Fats", "grams per day", resultFats)}
+            </div>
+          </div>
+        </form>
       </div>
-      <form className="form-macros" onSubmit={calculateMacros}>
-        <div className="row1">
-          {inputField({
-            label: "Age",
-            value: age,
-            onChange: handleInputChange(setAge),
-            placeholder: "Age",
-          })}
-          {selectField({
-            label: "Gender",
-            value: gender,
-            onChange: handleSelectChange(setGender),
-            options: [
-              { value: "male", label: "Male" },
-              { value: "female", label: "Female" },
-            ],
-          })}
-          {inputField({
-            label: system === "imperial" ? "Height (ft)" : "Height (cm)",
-            value: height,
-            onChange: handleInputChange(setHeight),
-            placeholder: "Height",
-          })}
-          {inputField({
-            label: system === "imperial" ? "Weight (lbs)" : "Weight (kg)",
-            value: weight,
-            onChange: handleInputChange(setWeight),
-            placeholder: "Weight",
-          })}
-        </div>
-        <div className="row2">
-          {selectField({
-            label: "Physical-Activity",
-            value: physicalActivity,
-            onChange: handleSelectChange(setPhysicalActivity),
-            options: [
-              { value: "sedentary", label: "Sedentary" },
-              { value: "intermediate", label: "Moderate" },
-              { value: "intense", label: "Intense" },
-            ],
-          })}
-          <div className="goal-input">
-            <label className="goal-info">{"Goal:"}</label>
-            <ul>
-              <li>
-                {radioButton({
-                  id: "lose-weight",
-                  value: "lose-weight",
-                  checked: goal === "lose-weight",
-                  onChange: () => setGoal("lose-weight"),
-                  label: "Lose weight",
-                })}
-              </li>
-              <li>
-                {radioButton({
-                  id: "maintain",
-                  value: "maintain",
-                  checked: goal === "maintain",
-                  onChange: () => setGoal("maintain"),
-                  label: "Keep weight",
-                })}
-              </li>
-              <li>
-                {radioButton({
-                  id: "gain-weight",
-                  value: "gain-weight",
-                  checked: goal === "gain-weight",
-                  onChange: () => setGoal("gain-weight"),
-                  label: "Gain weight",
-                })}
-              </li>
-            </ul>
-          </div>
-        </div>
-        <button type="submit" className="calculateMacros">
-          Calculate
-        </button>
-        <div className="result-macros">
-          <div className="result-label">The necessary macronutrients are:</div>
-          <div className="container-box">
-            {renderNutrientBox(
-              faFire,
-              "Calories",
-              "calories per day",
-              resultCalories
-            )}
-            {renderNutrientBox(
-              faBreadSlice,
-              "Carbs",
-              "grams per day",
-              resultCarbs
-            )}
-            {renderNutrientBox(
-              faFish,
-              "Proteins",
-              "grams per day",
-              resultProteins
-            )}
-            {renderNutrientBox(faCheese, "Fats", "grams per day", resultFats)}
-          </div>
-        </div>
-      </form>
     </div>
   );
 }
