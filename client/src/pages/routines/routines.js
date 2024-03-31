@@ -77,9 +77,9 @@ const ExercisePage = () => {
           {bodyParts.map((part) => (
             <div key={part} className={`${part}-exercises`}>
               <h1 className="h1-exercise">{part.toUpperCase()} EXERCISES</h1>
-              {exerciseDataState[part] && (
+              {exerciseDataState.samples[part] && (
                 <ExerciseCard
-                  exercise={exerciseDataState[part]}
+                  exercise={exerciseDataState.samples[part]}
                   bodyPartChoosen={part}
                   limit={limit}
                 />
