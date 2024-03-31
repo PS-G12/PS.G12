@@ -17,24 +17,39 @@ function SearchResultsPage() {
   const [exercisesPerPage] = useState(24);
   const [pagesToShow] = useState(5); 
 
-  useEffect(() => {
+   useEffect(() => {
     setLoading(true);
-    fetch(`/api/exercises?search=${search}&page=${currentPage}&perPage=${exercisesPerPage}`)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
+
+    // Intentar recuperar los datos de la caché
+    caches.open('exerciseCache').then(cache => {
+      cache.match(`/api/exercises?search=${search}&page=${currentPage}&perPage=${exercisesPerPage}`).then(cachedResponse => {
+        if (cachedResponse) {
+          cachedResponse.json().then(data => {
+            setFilteredExercises(data.results);
+            setTotalPages(data.totalPages);
+            setLoading(false);
+          });
+        } else {
+          fetch(`/api/exercises?search=${search}&page=${currentPage}&perPage=${exercisesPerPage}`)
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return response.json();
+            })
+            .then(data => {
+              cache.put(`/api/exercises?search=${search}&page=${currentPage}&perPage=${exercisesPerPage}`, new Response(JSON.stringify(data)));
+              setFilteredExercises(data.results);
+              setTotalPages(data.totalPages);
+              setLoading(false);
+            })
+            .catch(error => {
+              console.error('Error fetching exercises data:', error);
+              setLoading(false);
+            });
         }
-        return response.json();
-      })
-      .then(data => {
-        setFilteredExercises(data.results);
-        setTotalPages(data.totalPages);
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error('Error fetching exercises data:', error);
-        setLoading(false);
       });
+    });
   }, [search, currentPage, exercisesPerPage]);
 
 

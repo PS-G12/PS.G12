@@ -1,12 +1,20 @@
 const express = require('express');
 const exerciseData = require('./api/exercise_data_en.json');
 const path = require('path');
+const NodeCache = require('node-cache');
+const cache = new NodeCache();
 const app = express();
 
 app.use('/gifs', express.static(path.join(__dirname, 'gifs')));
 
 app.get('/api/exercises', (req, res) => {
   const { search, bodyPart, limit, page } = req.query;
+  const cacheKey = JSON.stringify(req.query);
+
+  const cachedData = cache.get(cacheKey);
+  if (cachedData) {
+    return res.json(cachedData);
+  }
 
   let filteredExercises = exerciseData;
 
@@ -27,9 +35,12 @@ app.get('/api/exercises', (req, res) => {
     const uniqueBodyParts = [...new Set(filteredExercises.map(exercise => exercise.bodyPart))];
     uniqueBodyParts.forEach(bodyPart => {
       const exercisesForBodyPart = filteredExercises.filter(exercise => exercise.bodyPart === bodyPart);
-      samples[bodyPart] = exercisesForBodyPart.slice(0, 5); // Modificación de la asignación
+      samples[bodyPart] = exercisesForBodyPart.slice(0, 5);
     });
-    return res.json(samples);
+    const data = { samples };
+
+    cache.set(cacheKey, data, 5 * 60);
+    return res.json(data);
   }
 
   const perPage = limit && limit > 0 && limit < 100 ? parseInt(limit) : 10;
@@ -39,7 +50,9 @@ app.get('/api/exercises', (req, res) => {
 
   const results = filteredExercises.slice(startIndex, endIndex);
   const totalPages = Math.ceil(filteredExercises.length / perPage);
-  res.json({ results, totalPages });
+  const data = { results, totalPages };
+  cache.set(cacheKey, data, 5 * 60);
+  res.json(data);
 });
 
 const PORT = process.env.PORT || 5000;
