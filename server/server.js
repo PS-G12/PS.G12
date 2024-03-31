@@ -8,7 +8,7 @@ const app = express();
 app.use('/gifs', express.static(path.join(__dirname, 'gifs')));
 
 app.get('/api/exercises', (req, res) => {
-  const { search, bodyPart, limit, page } = req.query;
+  const { search, bodyPart, perPage, page } = req.query;
   const cacheKey = JSON.stringify(req.query);
 
   const cachedData = cache.get(cacheKey);
@@ -42,14 +42,14 @@ app.get('/api/exercises', (req, res) => {
     cache.set(cacheKey, data, 5 * 60);
     return res.json(data);
   }
-
-  const perPage = limit && limit > 0 && limit < 100 ? parseInt(limit) : 10;
+  
+  const perPage_fix = perPage && perPage > 0 && perPage < 100 ? parseInt(perPage) : 10;
   const currentPage = page && page > 0 ? parseInt(page) : 1;
   const startIndex = (currentPage - 1) * perPage;
   const endIndex = currentPage * perPage;
 
   const results = filteredExercises.slice(startIndex, endIndex);
-  const totalPages = Math.ceil(filteredExercises.length / perPage);
+  const totalPages = Math.ceil(filteredExercises.length / perPage_fix);
   const data = { results, totalPages };
   cache.set(cacheKey, data, 5 * 60);
   res.json(data);
