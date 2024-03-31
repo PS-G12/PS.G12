@@ -1,29 +1,8 @@
-.chest-excercises, 
-.lower.legs-excercises, 
-.lower.arms-excercises, 
-.neck-excercises, 
-.shoulders-excercises, 
-.upper.arms-excercises, 
-.upper.legs-excercises, 
-.waist-excercises, 
-.back-excercises, 
-.cardio-excercises {
+.h1-exercise {
   text-align: center;
 }
 
-.chest-excercises .excercise-row,
-.lower.legs-excercises .excercise-row,
-.lower.arms-excercises .excercise-row,
-.neck-excercises .excercise-row,
-.shoulders-excercises .excercise-row,
-.upper.arms-excercises .excercise-row,
-.upper.legs-excercises .excercise-row,
-.waist-excercises .excercise-row,
-.back-excercises .excercise-row,
-.cardio-excercises .excercise-row {
+.excercise-row {
   display: flex;
   justify-content: center; 
 }
-
-
-  

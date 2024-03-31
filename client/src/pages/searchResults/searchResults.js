@@ -37,9 +37,6 @@ function SearchResultsPage() {
       });
   }, [search, currentPage, exercisesPerPage]);
 
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [search]);
 
   const handleSearch = term => {
     setSearchTerm(term);

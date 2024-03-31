@@ -69,17 +69,19 @@ const ExercisePage = () => {
       <Header />
       <SearchBar onSearch={handleSearch} />
       {loading ? (
-        <span class="loader"></span>
+        <div className="loader-container">
+          <span className="loader"></span>
+        </div>
       ) : (
         <div className="exercise-list">
-          {bodyParts.map((bodyPart) => (
-            <div key={bodyPart} className={`${bodyPart}-excercises`}>
-              <h1>{bodyPart.toUpperCase()} EXERCISES</h1>
-              {exerciseDataState && (
+          {bodyParts.map((part) => (
+            <div key={part} className={`${part}-exercises`}>
+              <h1 className="h1-exercise">{part.toUpperCase()} EXERCISES</h1>
+              {exerciseDataState[part] && (
                 <ExerciseCard
-                  exercise={exerciseDataState}
-                  bodyPartChoosen={bodyPart}
-                  limite={limit}
+                  exercise={exerciseDataState[part]}
+                  bodyPartChoosen={part}
+                  limit={limit}
                 />
               )}
             </div>

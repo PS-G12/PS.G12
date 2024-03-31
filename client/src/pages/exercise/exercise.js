@@ -25,7 +25,7 @@ const ExercisePage = () => {
       <div className="exercise-details">
         <div className="img-name">
           <h1><span>{exercise.name.toUpperCase()}</span></h1>
-          <img src={require(`../../gifs/${exercise.id}.gif`)} alt={exercise.name} />
+          <img src={`/gifs/${exercise.id}.gif`} alt={exercise.name} />
         </div>
 
         <div className="separator"></div>

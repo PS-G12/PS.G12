@@ -54,7 +54,7 @@ const ExerciseCard = ({ exercise, bodyPartChoosen, name, limite}) => {
       {filteredExercises.map((exercise, index) => (
         <a className="exercise-link" key={index} onClick={() => openExerciseWindow(exercise)}>
           <div className="excercise-card">
-            <img src={require(`../../gifs/${exercise.id}.gif`)} alt={exercise.name} />
+           <img src={`/gifs/${exercise.id}.gif`} alt={exercise.name} />
             <div className="body-parts">
               <span className="body-part-tag" style={{ backgroundColor: getColorForBodyPart(exercise.bodyPart) }}>{exercise.bodyPart}</span>
             </div>

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import fetchFood from "../../api/fetchFood.js";
 import Header from "../../components/Header/header.js";
 import { useLocation } from "react-router-dom";
 import "./searchFood.css";
@@ -32,16 +31,16 @@ const FoodSearch = () => {
       return;
     }
 
-    fetchFood(searchQuery)
-      .then((result) => {
-        setSearchResult(result);
-        setSelectedItem(null);
-      })
-      .catch((error) => {
-        console.error("Error:", error.message);
-        setSearchResult(null);
-        setSelectedItem(null);
-      });
+    // fetchFood(searchQuery)
+    //   .then((result) => {
+    //     setSearchResult(result);
+    //     setSelectedItem(null);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error:", error.message);
+    //     setSearchResult(null);
+    //     setSelectedItem(null);
+    //   });
   };
 
   const handleRowClick = (item) => {

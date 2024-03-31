@@ -1,6 +1,9 @@
 const express = require('express');
-const app = express();
 const exerciseData = require('./api/exercise_data_en.json');
+const path = require('path');
+const app = express();
+
+app.use('/gifs', express.static(path.join(__dirname, 'gifs')));
 
 app.get('/api/exercises', (req, res) => {
   const { search, bodyPart, limit, page } = req.query;
@@ -20,12 +23,11 @@ app.get('/api/exercises', (req, res) => {
   }
 
   if (!page) {
-    const samples = {};
-    console.log("samples");
+    let samples = {};
     const uniqueBodyParts = [...new Set(filteredExercises.map(exercise => exercise.bodyPart))];
     uniqueBodyParts.forEach(bodyPart => {
       const exercisesForBodyPart = filteredExercises.filter(exercise => exercise.bodyPart === bodyPart);
-      samples[bodyPart] = exercisesForBodyPart.slice(0, 5);
+      samples[bodyPart] = exercisesForBodyPart.slice(0, 5); // Modificación de la asignación
     });
     return res.json(samples);
   }
@@ -37,7 +39,6 @@ app.get('/api/exercises', (req, res) => {
 
   const results = filteredExercises.slice(startIndex, endIndex);
   const totalPages = Math.ceil(filteredExercises.length / perPage);
-
   res.json({ results, totalPages });
 });
 

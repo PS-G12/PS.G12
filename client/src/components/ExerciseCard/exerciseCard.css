@@ -1,4 +1,7 @@
 .excercise-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 200px;
   height: 350px;
   border: 1px solid #ccc;
@@ -27,6 +30,7 @@
 
 .body-parts {
   margin-top: 8px;
+  width: fit-content;
 }
 
 .body-part-tag {
