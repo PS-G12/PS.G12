@@ -1,5 +1,6 @@
 const express = require('express');
 const exerciseData = require('./api/exercise_data_en.json');
+const jsonData = require('./api/foodData.json');
 const path = require('path');
 const NodeCache = require('node-cache');
 const cache = new NodeCache();
@@ -55,9 +56,49 @@ app.get('/api/exercises', (req, res) => {
   res.json(data);
 });
 
-app.get('/api/food/', (req, res) => {
+async function fetchFood(query) {
+  try {
+    const searchQueryNormalized = query.trim().toLowerCase();
+    const searchWords = searchQueryNormalized.split(/\s+/);
 
+    const foundItems = [];
+
+    for (const category of jsonData) {
+      for (const item of category.items) {
+        if (
+          searchWords.some(
+            (searchWord) =>
+              item.name.toLowerCase().startsWith(searchWord) &&
+              !foundItems.some((foundItem) => foundItem.name === item.name)
+          )
+        ) {
+          foundItems.push(item);
+        }
+      }
+    }
+
+    return Promise.resolve({ items: foundItems });
+  } catch (error) {
+    console.error("Error al buscar alimentos:", error.message);
+    return Promise.reject(error);
+  }
+}
+
+app.get('/api/food/', (req, res) => {
+  const { search } = req.query;
+  
+  fetchFood(search)
+    .then((result) => {
+      console.log('El resultado para la búsqueda "' + search + '" es:');
+      console.log(result);
+      res.json(result);
+    })
+    .catch((error) => {
+      console.error("Error al buscar alimentos:", error.message);
+      res.status(500).json({ error: 'Error al buscar alimentos' });
+    });
 });
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

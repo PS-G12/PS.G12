@@ -16,19 +16,7 @@ const FoodSearch = () => {
   const type = new URLSearchParams(location.search).get("type");
   console.log(type);
 
-  const handleSearch = (props) => {
-    // fetchFood(searchQuery)
-    //   .then((result) => {
-    //     console.log('El resultado para la búsqueda "' + searchQuery + '" es:');
-    //     console.log(result);
-    //     setSearchResult(result);
-    //     setSelectedItem(null);
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error:", error.message);
-    //     setSearchResult(null);
-    //     setSelectedItem(null);
-    //   });
+  const handleSearch = () => {
     fetch(`/api/food?search=${searchQuery}`)
       .then((response) => {
         if (!response.ok) {
