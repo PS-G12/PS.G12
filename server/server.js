@@ -55,5 +55,9 @@ app.get('/api/exercises', (req, res) => {
   res.json(data);
 });
 
+app.get('/api/food/', (req, res) => {
+
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

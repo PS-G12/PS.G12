@@ -1,38 +1,26 @@
 import React, { useState } from "react";
 import Header from "../../components/Header/header.js";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./searchFood.css";
-import AddFood from "../../components/AddFood/addFood.js";
-import FoodCard from "../../components/FoodCard/foodCard.js";
-import Footer from "../../components/Footer/footer.js";
 
 const FoodSearch = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResult, setSearchResult] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [quantity, setQuantity] = useState(100);
+  const [savedMessage, setSavedMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const location = useLocation();
+
   const type = new URLSearchParams(location.search).get("type");
+  console.log(type);
 
-  const handleSearch = () => {
-    const storedFood = JSON.parse(localStorage.getItem("foodData")) || [];
-
-    const alimentosGuardados = JSON.parse(localStorage.getItem("foodData")) || {
-      items: [],
-    };
-    const searchQueryNormalized = searchQuery.trim().toLowerCase();
-    const found = alimentosGuardados.items.find(
-      (items) => items.name === searchQueryNormalized
-    );
-
-    if (found) {
-      setSearchResult(found);
-      setSelectedItem(null);
-      return;
-    }
-
+  const handleSearch = (props) => {
     // fetchFood(searchQuery)
     //   .then((result) => {
+    //     console.log('El resultado para la búsqueda "' + searchQuery + '" es:');
+    //     console.log(result);
     //     setSearchResult(result);
     //     setSelectedItem(null);
     //   })
@@ -41,94 +29,136 @@ const FoodSearch = () => {
     //     setSearchResult(null);
     //     setSelectedItem(null);
     //   });
+    fetch(`/api/food?search=${searchQuery}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setSearchResult(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching exercises data:", error);
+        setLoading(false);
+      });
   };
 
   const handleRowClick = (item) => {
     setSelectedItem(item);
   };
 
-  return (
-    <div className="searchFood-box">
-      <Header />
-      <div className="searchFood-container">
-        <h1>Add food to {type}</h1>
-        <div className="searchbar-container">
-          <input
-            className="form-search-input"
-            type="text"
-            placeholder="Introduce the food you're looking for"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                handleSearch();
-              }
-            }}
-          />
-          <button onClick={handleSearch}>Search</button>
-        </div>
+  const handleAddToMeal = () => {
+    // Verifica si se ha seleccionado un alimento
+    if (!selectedItem) {
+      console.error("No se ha seleccionado ningún alimento.");
+      return;
+    }
 
-        {searchResult && (
-          <div className="result-container-food">
-            <div className="table-container-food">
+    // Crear un objeto que represente el alimento con sus detalles y type de comida
+    const nuevoAlimento = {
+      typeComida: type,
+      nombre: selectedItem.name,
+      calorias: selectedItem.calories,
+      cantidad: quantity,
+      // Agrega otras propiedades según sea necesario
+    };
+
+    // Obtén los alimentos existentes del localStorage
+    const alimentosGuardados =
+      JSON.parse(localStorage.getItem("alimentos")) || [];
+
+    // Agrega el nuevo alimento a la lista
+    const nuevosAlimentos = [...alimentosGuardados, nuevoAlimento];
+
+    // Almacena la lista actualizada en localStorage
+    localStorage.setItem("alimentos", JSON.stringify(nuevosAlimentos));
+
+    // Muestra el mensaje de éxito
+    setSavedMessage("Alimento guardado correctamente.");
+
+    // Reinicia los estados para la próxima búsqueda
+    setSearchQuery("");
+    setSearchResult(null);
+    setSelectedItem(null);
+    setQuantity(100);
+  };
+
+  return (
+    <div className="buscarAlimento-box">
+      <Header />
+      <h1>Añadir alimento a {type}</h1>
+      <div className="searchbar-container">
+        <input
+          type="text"
+          placeholder="Introduce la búsqueda"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <button onClick={handleSearch}>Buscar</button>
+      </div>
+
+      <div className="search-result">
+        {searchResult ? (
+          <div className="result-container">
+            <div className="table-container">
               <table>
                 <thead>
                   <tr>
-                    <th>Name</th>
-                    <th>Calories</th>
+                    <th>Nombre</th>
+                    <th>Calorías</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {searchResult.items && searchResult.items.length > 0 ? (
-                    searchResult.items.map((item, index) => (
-                      <tr
-                        key={index}
-                        onClick={() => handleRowClick(item)}
-                        className={
-                          selectedItem === item ? "selected-row" : index
-                        }
-                        id="tr-result"
-                      >
-                        <td>{item.name}</td>
-                        <td>{item.calories}</td>
-                      </tr>
-                    ))
-                  ) : searchResult.name ? (
+                  {searchResult.items.map((item, index) => (
                     <tr
-                      key={1}
-                      onClick={() => handleRowClick(searchResult)}
-                      className="selected-row"
+                      key={index}
+                      onClick={() => handleRowClick(item)}
+                      className={selectedItem === item ? "selected-row" : ""}
                     >
-                      <td>{searchResult.name}</td>
-                      <td>{searchResult.calories}</td>
+                      <td>{item.name}</td>
+                      <td>{item.calories}</td>
                     </tr>
-                  ) : (
-                    <tr>
-                      <td colSpan="2">There were no results.</td>
-                    </tr>
-                  )}
+                  ))}
                 </tbody>
               </table>
             </div>
-          </div>
-        )}
 
-        {selectedItem && (
-          <div className="search-result-container">
-            {searchResult && (
-              <div className="result-container-food-details">
-                <FoodCard
-                  selectedItem={selectedItem}
-                  quantity={100}
-                  // setQuantity={setQuantity}
-                />
+            {selectedItem && (
+              <div className="details-container">
+                <h2>Detalles de {selectedItem.name}:</h2>
+                <p>
+                  <strong>Calorías:</strong> {selectedItem.calories}
+                </p>
+                <p>
+                  <strong>Tamaño de porción:</strong>{" "}
+                  {selectedItem.serving_size_g} g
+                </p>
+                <p>
+                  Cantidad:{" "}
+                  <input
+                    type="number"
+                    value={quantity}
+                    onChange={(e) => setQuantity(e.target.value)}
+                  />{" "}
+                  gramos
+                </p>
+                <button onClick={handleAddToMeal}>Añadir al desayuno</button>
+                {savedMessage && <p>{savedMessage}</p>}
               </div>
             )}
+
+            {searchResult.items.length === 0 && (
+              <p>No se encontraron resultados.</p>
+            )}
           </div>
-        )}
-        <AddFood />
+        ) : null}
       </div>
-      <Footer />
+
+      <Link to="/registroComidas">
+        <button>Ir a Registro de Comidas</button>
+      </Link>
     </div>
   );
 };
