@@ -9,6 +9,9 @@ import RegisterFood from "./pages/registerFood/registerFood.js";
 import SearchFood from "./pages/searchFood/searchFood.js";
 import BMICalculatorPage from "./pages/bmi/bmi.js";
 import MacrosCalculator from "./pages/MacrosCalculator/macrosCalculation.js";
+import RegisterForm from "./pages/Authentication/registerPage.js";
+import LoginForm from "./pages/Authentication/loginPage.js";
+
 
 function App() {
 
@@ -16,6 +19,8 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/register" element={<RegisterForm />} />
+        <Route path="/login" element={<LoginForm />} />
         <Route path="/routines" element={<Routines />} />
         <Route path="/results" element={<SearchResultsPage />} />
         <Route path="/exercise" element={<ExercisePage />} />

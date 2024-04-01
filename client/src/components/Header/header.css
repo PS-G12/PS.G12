@@ -115,3 +115,23 @@ nav .dropdown{
 .dropdown:hover .submenu {
   display: block;
 }
+
+.icon-users {
+  width: 55px;
+  height: 55px;
+}
+
+
+.icon-users img {
+  position: relative;
+  border-radius: 50%;
+  left: 20%;
+  width: 80%;
+  height: auto;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.icon-users img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}

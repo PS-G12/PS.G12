@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./header.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -60,6 +61,12 @@ function Header() {
           </li>
         </ul>
       </nav>
+      {/* Utiliza el componente Link para redirigir a /authentication */}
+      <div className="icon-users">
+        <Link to="/login">
+          <img src="user.png" alt="User Icon" />
+        </Link>
+      </div>
     </header>
   );
 }
