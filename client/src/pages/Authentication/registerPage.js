@@ -263,7 +263,7 @@ const RegisterForm = () => {
           <div className="intros-container">
             <div className="intro-control signin-intro">
               <div className="intro-control__inner">
-                <h2>Welcome to Fitbyte!</h2>
+                <h2>Welcome to <span className="fitnesscoach-msg">FitnessCoach!</span></h2>
                 <p>
                   Start your fitness journey today! We're excited to have you
                   join us. Let's get moving and stay healthy together.

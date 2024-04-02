@@ -1,12 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../firebase.js";
-import {
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  GoogleAuthProvider,
-  GithubAuthProvider,
-} from "firebase/auth";
+import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, GithubAuthProvider } from "firebase/auth";
 import "./authentication.css";
 
 const LoginForm = () => {
@@ -14,23 +9,16 @@ const LoginForm = () => {
     signInUsername: "",
     signInPassword: "",
   });
-
   const [error, setError] = useState(null); // Nuevo estado para el mensaje de error
+  const [loggedIn, setLoggedIn] = useState(false); // Estado para controlar si el usuario está logueado
 
   const handleSignIn = async (e) => {
     e.preventDefault();
-    console.log(
-      "Iniciar sesión con:",
-      formData.signInUsername,
-      formData.signInPassword
-    );
+    console.log("Iniciar sesión con:", formData.signInUsername, formData.signInPassword);
     try {
-      const userCredentials = await signInWithEmailAndPassword(
-        auth,
-        formData.signInUsername,
-        formData.signInPassword
-      );
+      const userCredentials = await signInWithEmailAndPassword(auth, formData.signInUsername, formData.signInPassword);
       console.log(userCredentials);
+      setLoggedIn(true); // Establecer loggedIn a true cuando el inicio de sesión sea exitoso
     } catch (err) {
       setError("Invalid email or password"); // Establecer el mensaje de error
     }
@@ -48,20 +36,27 @@ const LoginForm = () => {
     try {
       const result = await signInWithPopup(auth, provider);
       console.log(result);
+      setLoggedIn(true); // Establecer loggedIn a true cuando el inicio de sesión sea exitoso
     } catch (err) {
       console.error(err);
     }
   };
-
+  
+  const navigate = useNavigate();
   const handleGithubSignIn = async () => {
     const provider = new GithubAuthProvider();
     try {
       const result = await signInWithPopup(auth, provider);
       console.log(result);
+      setLoggedIn(true); // Establecer loggedIn a true cuando el inicio de sesión sea exitoso
     } catch (err) {
       console.error(err);
     }
   };
+  
+  if (loggedIn) {
+    navigate("/");
+  }
 
   return (
     <div className="auth-page">

@@ -316,6 +316,12 @@ p.error-dup{
   border-radius: 50%;
 }
 
+.fitnesscoach-msg {
+  background: linear-gradient(135deg, #65d4f6 0%, #7a7ce7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 
 @media screen and (max-width: 480px) {
   .auth-container {
