@@ -29,10 +29,10 @@ function Header() {
           </li>
           <li
             className={
-              isActive("/searchFood") || isActive("/searchFood") ? "active" : ""
+              isActive("/registerFood") || isActive("/registerFood") ? "active" : ""
             }
           >
-            <a href="/searchFood">
+            <a href="/registerFood">
               <FontAwesomeIcon icon={faUtensils} /> FOOD
             </a>
           </li>

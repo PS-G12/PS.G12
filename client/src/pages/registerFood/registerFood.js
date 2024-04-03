@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Header from "../../components/Header/header";
+import Footer from "../../components/Footer/footer";
 import "./registerFood.css";
 
 const FoodSearch = () => {
@@ -67,6 +68,7 @@ const FoodSearch = () => {
         {mostrarComidasEnLista("Cena", cena)}
         {mostrarComidasEnLista("Aperitivos", aperitivos)}
       </div>
+      <Footer />
     </div>
   );
 };
