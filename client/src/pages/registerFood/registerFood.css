@@ -1,0 +1,41 @@
+.registro-box {
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6%;
+    margin-bottom: 5%;
+}
+
+#listado-items {
+    background-color: white;
+    width: 30%;
+    min-height: 18.9rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    text-align: justify;
+    padding: 1%;
+}
+
+#listado-items h2{
+    margin: 0px 0px 10px;
+}
+
+.listado-items-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#listado-h1 {
+    margin-left: 10%;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 2.1rem;
+}
+
+#listado-items button {
+    bottom: 10%;
+}
+
+#listado-items ul { 
+    height: 250px;
+    overflow-y: scroll;
+}
