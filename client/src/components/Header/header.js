@@ -7,8 +7,11 @@ import {
   faUtensils,
   faDumbbell,
   faCalculator,
+  faSignInAlt,
+  faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
-import icon2 from "../../images/icons/icon-3.png";
+import icon2 from "../../images/icons/icon-app/icon-3.png";
+import iconUser from "../../images/icons/icon-header/user-default.png";
 
 function Header() {
   const currentPath = window.location.pathname;
@@ -30,7 +33,9 @@ function Header() {
           </li>
           <li
             className={
-              isActive("/registerFood") || isActive("/registerFood") ? "active" : ""
+              isActive("/registerFood") || isActive("/registerFood")
+                ? "active"
+                : ""
             }
           >
             <a href="/registerFood">
@@ -42,7 +47,7 @@ function Header() {
               <FontAwesomeIcon icon={faDumbbell} /> EXERCISE
             </a>
           </li>
-          <li className="dropdown">
+          <li className="dropdown-menu">
             <a href="#">
               <FontAwesomeIcon icon={faCalculator} /> CALCULATORS
             </a>
@@ -63,12 +68,32 @@ function Header() {
       </nav>
       <div className="icon-users">
         {isAuthenticated ? (
-            <button onClick={console.log("Log out")}>Log out</button>
-          ) : (
-            <Link to="/login">
-              <img src="user.png" alt="User Icon" />
-            </Link>
-          )}
+          <button onClick={console.log("Log out")}>Log out</button>
+        ) : (
+          <div className="hero">
+            <details class="dropdown">
+              <summary role="button">
+                <a class="button">
+                  <img src={iconUser} alt="User Icon" />
+                </a>
+              </summary>
+              <ul>
+                <li>
+                  <Link to="/login">
+                    <FontAwesomeIcon icon={faSignInAlt} />
+                    Login
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/register">
+                    <FontAwesomeIcon icon={faUserPlus} />
+                    Register
+                  </Link>
+                </li>
+              </ul>
+            </details>
+          </div>
+        )}
       </div>
     </header>
   );

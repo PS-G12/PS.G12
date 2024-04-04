@@ -166,7 +166,7 @@
 .auth-container .forms-container .form-control form {
   display: flex;
   flex-direction: column;
-  width: 55%;
+  width: 40%;
   margin: 0px 30px;
 }
 .auth-container .forms-container .form-control form input {
@@ -299,22 +299,26 @@
 
 p.error{
   color: red;
-  margin: 20px 0px 0px;
+  margin: 8px 0px 20px;
 }
 p.error-dup{
   color: red;
-  margin: 20px 0px 20px;
+  margin: 8px 0px 20px;
 }
 
 #root > div > div > div > div.forms-container > div > form > p > i{
   margin-right: 5px;
 }
 .linea-horizontal {
-  border-top: 2px solid #001525;
-  margin: 40px 0px 10px;
-  width: 50%;
-  border-radius: 50%;
+  height: 2px;
+  margin: 40px auto 10px;
+  width: 45%;
+  border-radius: 90px;
+  background-image: radial-gradient(circle at center, #000, #00000070); /* Define el degradado radial */
 }
+
+
+
 
 .fitnesscoach-msg {
   background: linear-gradient(135deg, #65d4f6 0%, #7a7ce7 100%);
