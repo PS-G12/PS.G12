@@ -2,7 +2,7 @@ import React from 'react';
 import './exerciseCard.css';
 import { useNavigate } from 'react-router-dom';
 
-const ExerciseCard = ({ exercise, bodyPartChoosen, name, limite}) => {
+const ExerciseCard = ({ exercise, bodyPartChoosen, bodyPartList, name, limite}) => {
   const navigate = useNavigate();
   const getColorForBodyPart = (part) => {
     switch (part) {
@@ -33,11 +33,18 @@ const ExerciseCard = ({ exercise, bodyPartChoosen, name, limite}) => {
 
   let filteredExercises = exercise;
 
-  if (!name) {
-    console.log("exercise");
-    console.log(exercise);
-    console.log(exercise.name);
+  if (!name && !bodyPartList) {
     filteredExercises = exercise.filter(item => item.bodyPart === bodyPartChoosen).slice(0, limite);
+  }
+
+  if (bodyPartList.length > 0) {
+    let tempFilteredExercises = [];
+    bodyPartList.forEach(bodyPart => {
+      const filteredByBodyPart = exercise.filter(item => item.bodyPart === bodyPart).slice(0, limite);
+      tempFilteredExercises = tempFilteredExercises.concat(filteredByBodyPart);
+    });
+  
+    filteredExercises = tempFilteredExercises;
   }
 
   const openExerciseWindow = (exercise) => {

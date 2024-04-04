@@ -1,6 +1,17 @@
-.result{
-  text-align: center;
+.result {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
+
+.filter-container {
+  flex: 1;  
+}
+
+.exercise-container {
+  flex: 3; 
+}
+
 
 .result .excercise-row {
   display: flex;

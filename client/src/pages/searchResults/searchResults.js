@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import queryString from "query-string";
 import ExerciseCard from "../../components/ExerciseCard/exerciseCard";
+import FilterCard from "../../components/FilterCard/filterCard";
 import "./searchResults.css";
 import SearchBar from "../../components/SearchBar/searchBar";
 import Header from "../../components/Header/header";
@@ -77,6 +78,26 @@ function SearchResultsPage() {
     setCurrentPage(1);
   }, [exercisesPerPage]);
 
+
+  const bodyParts = ['waist', 'chest', 'lower legs', 'lower arms', 'neck', 'shoulders', 'upper arms', 'upper legs', 'back', 'cardio'];
+
+
+  const [selectedBodyParts, setSelectedBodyParts] = useState([]);
+
+
+  const handleFilterChange = (event) => {
+    const { value } = event.target;
+    setSelectedBodyParts(prevSelected => {
+      console.log(value);
+      if (prevSelected.includes(value)) {
+        return prevSelected.filter(part => part !== value);
+      } else {
+        return [...prevSelected, value];
+      }
+    });
+  };
+  
+
   let startPage, endPage;
   if (totalPages <= pagesToShow) {
     startPage = 1;
@@ -150,14 +171,19 @@ function SearchResultsPage() {
             </ul>
           </summary>
         </details>
-      </div>
+      </div>  
       {loading ? (
         <div className="loader-container">
           <span className="loader"></span>
         </div>
       ) : (
         <div className="result">
-          <ExerciseCard exercise={filteredExercises} name="name" />
+          <div className="filter-container">
+            <FilterCard bodyParts={bodyParts} handleFilterChange={handleFilterChange} />
+          </div>
+          <div className="exercise-container">
+            <ExerciseCard exercise={filteredExercises} name="name" bodyPartList={selectedBodyParts} />
+          </div>
         </div>
       )}
       <ul className="pagination">
