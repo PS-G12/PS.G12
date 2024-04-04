@@ -19,14 +19,14 @@ function SearchResultsPage() {
   const [pagesToShow] = useState(5);
 
   useEffect(() => {
-    setLoading(true);
-
+    setLoading(search);
     caches.open("exerciseCache").then((cache) => {
       cache
         .match(
           `/api/exercises?search=${search}&page=${currentPage}&perPage=${exercisesPerPage}`
         )
         .then((cachedResponse) => {
+          console.log(cachedResponse)
           if (cachedResponse && 0) {
             cachedResponse.json().then((data) => {
               setFilteredExercises(data.results);
@@ -61,6 +61,8 @@ function SearchResultsPage() {
     });
   }, [search, currentPage, exercisesPerPage]);
 
+
+  
   const handleSearch = (term) => {
     setSearchTerm(term);
   };
@@ -79,16 +81,18 @@ function SearchResultsPage() {
   }, [exercisesPerPage]);
 
 
+
+
   const bodyParts = ['waist', 'chest', 'lower legs', 'lower arms', 'neck', 'shoulders', 'upper arms', 'upper legs', 'back', 'cardio'];
 
 
   const [selectedBodyParts, setSelectedBodyParts] = useState([]);
 
-
+  
+  // Manejar cambios en los checkboxes
   const handleFilterChange = (event) => {
     const { value } = event.target;
     setSelectedBodyParts(prevSelected => {
-      console.log(value);
       if (prevSelected.includes(value)) {
         return prevSelected.filter(part => part !== value);
       } else {
