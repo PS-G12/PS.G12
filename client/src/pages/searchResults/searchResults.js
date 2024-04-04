@@ -26,9 +26,9 @@ function SearchResultsPage() {
           `/api/exercises?search=${search}&page=${currentPage}&perPage=${exercisesPerPage}`
         )
         .then((cachedResponse) => {
-          console.log(cachedResponse)
           if (cachedResponse && 0) {
             cachedResponse.json().then((data) => {
+              
               setFilteredExercises(data.results);
               setTotalPages(data.totalPages);
               setLoading(false);

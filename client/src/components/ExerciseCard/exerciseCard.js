@@ -34,16 +34,17 @@ const ExerciseCard = ({ exercise, bodyPartChoosen, bodyPartList, name, limite}) 
   let filteredExercises = exercise;
 
   if (!name && !bodyPartList) {
+    console.log(bodyPartChoosen)
     filteredExercises = exercise.filter(item => item.bodyPart === bodyPartChoosen).slice(0, limite);
   }
 
-  if (bodyPartList.length > 0) {
+  if (bodyPartList && bodyPartList.length > 0) {
     let tempFilteredExercises = [];
     bodyPartList.forEach(bodyPart => {
       const filteredByBodyPart = exercise.filter(item => item.bodyPart === bodyPart).slice(0, limite);
       tempFilteredExercises = tempFilteredExercises.concat(filteredByBodyPart);
     });
-  
+    
     filteredExercises = tempFilteredExercises;
   }
 

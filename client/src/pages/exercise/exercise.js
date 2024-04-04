@@ -1,7 +1,9 @@
-import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './exercise.css'; 
+import React, { useState, useEffect } from "react";
+
 import BodyPart from '../../components/BodyPart/bodyPart';
+import ExerciseCard from "../../components/ExerciseCard/exerciseCard";
 
 const ExercisePage = () => {
   const location = useLocation();
@@ -9,7 +11,45 @@ const ExercisePage = () => {
   const hash = location.hash.substring(1); 
   const decodedHash = decodeURIComponent(hash);
   const exercise = JSON.parse(decodedHash);
+  const bodyPart = exercise.bodyPart;
+  const [loading, setLoading] = useState(false);
+  const [filteredExercises, setFilteredExercises] = useState([]);
 
+
+  useEffect(() => {
+    setLoading(true);
+    caches.open("exerciseCache").then((cache) => {
+      cache
+        .match(
+          `/api/exercises?bodyPart=`
+        )
+        .then(() => {
+          fetch(
+            `/api/exercises?bodyPart=${bodyPart}`
+          )
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Network response was not ok");
+              }
+              return response.json();
+            })
+            .then((data) => {
+              cache.put(
+                `/api/exercises?bodyPart=${bodyPart}`,
+                new Response(JSON.stringify(data))
+              );
+              setFilteredExercises(data.samples[bodyPart].slice(-3));
+              setLoading(false);
+            })
+            .catch((error) => {
+              console.error("Error fetching exercises data:", error);
+              setLoading(false);
+            });
+
+        });
+    });
+
+  }, [bodyPart]);
 
   const handleGoBack = () => {
     navigate(-1);
@@ -44,6 +84,13 @@ const ExercisePage = () => {
           {renderBodyPart("Equipment", exercise.equipment, "equipment")}
           {renderBodyPart("Target", exercise.target, "targets")}
         </div>
+
+        <div className="separator"></div>
+
+          <div className="relatedExercises">
+            <h2 id="related-exercises-h2">Related Exercises:</h2>
+            <ExerciseCard exercise={filteredExercises} name="name"/>
+          </div>
 
         <div className="separator"></div>
 
