@@ -1,10 +1,22 @@
 const express = require('express');
 const exerciseData = require('./api/exercise_data_en.json');
+const { registerUser } = require('./api/db.mongo');
+const { getUser } = require('./api/db.mongo');
 const jsonData = require('./api/foodData.json');
 const path = require('path');
 const NodeCache = require('node-cache');
+const bcrypt = require('bcrypt');
 const cache = new NodeCache();
+const jwt = require('jsonwebtoken');
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+const generateAccessToken = (userId) => {
+  const accessToken = jwt.sign({ userId }, '_N0C0mpaRt1r', { expiresIn: '1h' });
+  console.log(accessToken);
+  return accessToken;
+};
 
 app.use('/gifs', express.static(path.join(__dirname, 'gifs')));
 
@@ -99,6 +111,48 @@ app.get('/api/food/', (req, res) => {
     });
 });
 
+app.post('/auth/login/', async (req, res) => {
+  const { signInUsername, signInPassword } = req.body;
+  console.log(signInUsername, signInPassword);
+  try {
+    const findQuery = signInUsername;
+    const userquery = await getUser(findQuery);
+    console.log(userquery);
+    if (!userquery) {
+      return res.status(401).json({ success: false, message: 'Invalid username or password' });
+    }
+    
+    const passwordMatch = await bcrypt.compare(signInPassword, userquery.password);
+    
+    if (!passwordMatch) {
+      return res.status(401).json({ success: false, message: 'Invalid username or password' });
+    }
+    const token = generateAccessToken(userquery._id);
+    return res.status(200).json({ success: true, token });
+
+  } catch (error) {
+    console.error('Error occurred while authenticating user:', error);
+    return res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+});
+
+app.post('/auth/register', async (req, res) => {
+  console.log('register received');
+  const { signUpUsername, signUpEmail, signUpPassword } = req.body;
+
+  try {
+    const hashedPassword = await bcrypt.hash(signUpPassword, 10);
+    console.log("hashedPassword");
+    console.log(hashedPassword);
+    const result = await registerUser(signUpUsername, signUpEmail, hashedPassword);
+
+    const token = generateAccessToken(userquery._id);
+    return res.status(200).json({ success: true, token });
+  } catch (error) {
+    console.error('Error occurred while registering user:', error);
+    return res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

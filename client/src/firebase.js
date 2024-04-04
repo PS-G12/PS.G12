@@ -1,24 +1,35 @@
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const db = require('../../server/api/exercise_data_en.json');
+const uri = "mongodb+srv://javi9davi:123patata@cluster0.2xfgys2.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
+});
+// async function run() {
+//   try {
+//     // Connect the client to the server	(optional starting in v4.7)
+//     await client.connect();
+//     await client.db("admin").command({ ping: 1 });
+//     console.log("Pinged your deployment. You successfully connected to MongoDB!");
+//   } finally {
+//     await client.close();
+//   }
+// }
+// run().catch(console.dir);
 
-const firebaseConfig = {
-    apiKey: "AIzaSyDe4CxZ22i4-C_kNdmX0OVfcKu3dyvYDIw",
-    authDomain: "ps-pg12.firebaseapp.com",
-    projectId: "ps-pg12",
-    storageBucket: "ps-pg12.appspot.com",
-    messagingSenderId: "87626998092",
-    appId: "1:87626998092:web:4b6b99139acad0f5c6afe9",
-    measurementId: "G-T210VZ76YH"
-};
-
-let auth_var = null;
-
-try {
-  const app = initializeApp(firebaseConfig);
-  auth_var = getAuth(app);
-  //const analytics = getAnalytics(app);
-} catch (error) {
-  console.error("Error initializing Firebase:", error);
+async function insertarComida() {
+  try {
+    await client.connect(); 
+    const database = client.db('Cluster0'); 
+    const collection = database.collection('exercise'); 
+    const result = await collection.insertMany(db); 
+    console.log(`Documento insertado con el _id: ${result.insertedId}`);
+  } finally {
+    await client.close();
+  }
 }
 
-export const auth = auth_var;
+insertarComida().catch(console.error);

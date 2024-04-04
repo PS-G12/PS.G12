@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { auth } from "../../firebase.js";
+import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, GithubAuthProvider } from "firebase/auth";
 import "./authentication.css";
 
 const LoginForm = () => {
@@ -12,32 +14,13 @@ const LoginForm = () => {
 
   const handleSignIn = async (e) => {
     e.preventDefault();
+    console.log("Iniciar sesión con:", formData.signInUsername, formData.signInPassword);
     try {
-      // Hacer una solicitud HTTP POST al servidor para autenticar al usuario
-      const response = await fetch("/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      // Si la solicitud es exitosa, establecer loggedIn a true
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success) {
-          sessionStorage.setItem("token", data.token);
-          console.log("Logged in");
-          setLoggedIn(true);
-        } else {
-          setError("Invalid email or password");
-        }
-      } else {
-        setError("Error occurred while signing in");
-      }
+      const userCredentials = await signInWithEmailAndPassword(auth, formData.signInUsername, formData.signInPassword);
+      console.log(userCredentials);
+      setLoggedIn(true); // Establecer loggedIn a true cuando el inicio de sesión sea exitoso
     } catch (err) {
-      console.error(err);
-      setError("Error occurred while signing in");
+      setError("Invalid email or password"); // Establecer el mensaje de error
     }
   };
 
@@ -48,8 +31,29 @@ const LoginForm = () => {
     });
   };
 
+  const handleGoogleSignIn = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      console.log(result);
+      setLoggedIn(true); // Establecer loggedIn a true cuando el inicio de sesión sea exitoso
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  
   const navigate = useNavigate();
-
+  const handleGithubSignIn = async () => {
+    const provider = new GithubAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      console.log(result);
+      setLoggedIn(true); // Establecer loggedIn a true cuando el inicio de sesión sea exitoso
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  
   if (loggedIn) {
     navigate("/");
   }
@@ -82,8 +86,9 @@ const LoginForm = () => {
                 {error && (
                   <p className="error">
                     <i className="error-icon fas fa-exclamation-circle"></i>
-                    The provided email or password is incorrect. Please verify
+                    The provided email or password is incorrect. <br></br>Please verify
                     your credentials.
+                    {error}
                   </p>
                 )}
               </form>
@@ -93,7 +98,7 @@ const LoginForm = () => {
                 <button
                   className="gsi-material-button"
                   id="google-login"
-                  //onClick={handleGoogleSignIn}
+                  onClick={handleGoogleSignIn}
                 >
                   <div className="gsi-material-button-state"></div>
                   <div className="gsi-material-button-content-wrapper">
@@ -133,7 +138,7 @@ const LoginForm = () => {
                 <button
                   className="gsi-material-button"
                   id="github-login"
-                  //onClick={handleGithubSignIn}
+                  onClick={handleGithubSignIn}
                 >
                   <div className="gsi-material-button-state"></div>
                   <div className="gsi-material-button-content-wrapper">
@@ -183,4 +188,3 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
-

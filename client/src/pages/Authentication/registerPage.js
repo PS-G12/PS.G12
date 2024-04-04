@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { auth } from "../../firebase.js";
-import {
-  createUserWithEmailAndPassword,
-  signInWithPopup,
-  GoogleAuthProvider,
-  GithubAuthProvider,
-} from "firebase/auth";
+import { Link, useNavigate } from "react-router-dom";
 import "./authentication.css";
 
 const RegisterForm = () => {
@@ -17,6 +10,7 @@ const RegisterForm = () => {
     signUpPassword_dup: "",
   });
   const [errors, setErrors] = useState({});
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -37,7 +31,6 @@ const RegisterForm = () => {
     }
 
     if (!validateEmail(formData.signUpEmail)) {
-      console.log("Email validation failed");
       newErrors.signUpEmail = "Please enter a valid email address.";
     }
 
@@ -52,17 +45,30 @@ const RegisterForm = () => {
       setErrors(newErrors);
       return;
     }
-    let userCredentials;
+
     try {
-      userCredentials = await createUserWithEmailAndPassword(
-        auth,
-        formData.signUpEmail,
-        formData.signUpPassword
-      );
-    } catch (err) {
-      console.error(err);
-    }
-    console.log(userCredentials);
+        // Enviar solicitud POST al servidor
+        const response = await fetch('/auth/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            //'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify(formData)
+        });
+  
+        const data = await response.json();
+  
+        if (response.ok) {
+            sessionStorage.setItem("token", data.token);
+            setLoggedIn(true);
+        } else {
+          // Error en el registro
+          console.error(data.message);
+        }
+      } catch (error) {
+        console.error('Error occurred while registering user:', error);
+      }
   };
 
   const handleChange = (e) => {
@@ -78,25 +84,18 @@ const RegisterForm = () => {
   };
 
   const handleGoogleSignUp = async () => {
-    const provider = new GoogleAuthProvider();
-    try {
-      const result = await signInWithPopup(auth, provider);
-      console.log(result);
-    } catch (err) {
-      console.error(err);
-    }
+    // Aquí iría la lógica para el registro con Google
+    console.log("Signing up with Google...");
   };
 
   const handleGithubSignUp = async () => {
-    const provider = new GithubAuthProvider();
-    try {
-      const result = await signInWithPopup(auth, provider);
-      console.log(result);
-    } catch (err) {
-      console.error(err);
-    }
+    // Aquí iría la lógica para el registro con GitHub
+    console.log("Signing up with GitHub...");
   };
-
+  const navigate = useNavigate();
+  if (loggedIn) {
+    navigate("/");
+  }
   return (
     <div className="auth-page">
       <div className="bg-container">

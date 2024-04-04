@@ -1,8 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./header.css";
-import { signOut } from "firebase/auth";
-import  { auth } from "../../firebase"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChartLine,
@@ -14,7 +12,7 @@ import icon2 from "../../images/icons/icon-3.png";
 
 function Header() {
   const currentPath = window.location.pathname;
-  const isAuthenticated = auth ? true : false;
+  const isAuthenticated = sessionStorage.getItem("token") ? true : false;
   const isActive = (path) => currentPath === path;
 
   return (
@@ -63,10 +61,9 @@ function Header() {
           </li>
         </ul>
       </nav>
-      {/* Utiliza el componente Link para redirigir a /authentication */}
       <div className="icon-users">
         {isAuthenticated ? (
-            <button onClick={console.log(signOut(auth))}>Log out</button>
+            <button onClick={console.log("Log out")}>Log out</button>
           ) : (
             <Link to="/login">
               <img src="user.png" alt="User Icon" />

@@ -1,44 +1,68 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { auth } from "../../firebase.js";
+import {
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+  GithubAuthProvider,
+} from "firebase/auth";
 import "./authentication.css";
 
-const LoginForm = () => {
+const RegisterForm = () => {
   const [formData, setFormData] = useState({
-    signInUsername: "",
-    signInPassword: "",
+    signUpUsername: "",
+    signUpEmail: "",
+    signUpPassword: "",
+    signUpPassword_dup: "",
   });
-  const [error, setError] = useState(null); // Nuevo estado para el mensaje de error
-  const [loggedIn, setLoggedIn] = useState(false); // Estado para controlar si el usuario está logueado
+  const [errors, setErrors] = useState({});
 
-  const handleSignIn = async (e) => {
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const handleSignUp = async (e) => {
     e.preventDefault();
-    try {
-      // Hacer una solicitud HTTP POST al servidor para autenticar al usuario
-      const response = await fetch("/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+    const newErrors = {};
 
-      // Si la solicitud es exitosa, establecer loggedIn a true
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success) {
-          sessionStorage.setItem("token", data.token);
-          console.log("Logged in");
-          setLoggedIn(true);
-        } else {
-          setError("Invalid email or password");
-        }
-      } else {
-        setError("Error occurred while signing in");
-      }
+    if (formData.signUpUsername.length < 4) {
+      newErrors.signUpUsername = "Username must be at least 4 characters long.";
+    }
+
+    if (formData.signUpPassword.length < 6) {
+      newErrors.signUpPassword =
+        "Passwords must be at least 6 characters long.";
+    }
+
+    if (!validateEmail(formData.signUpEmail)) {
+      console.log("Email validation failed");
+      newErrors.signUpEmail = "Please enter a valid email address.";
+    }
+
+    if (
+      formData.signUpPassword.length >= 6 &&
+      formData.signUpPassword !== formData.signUpPassword_dup
+    ) {
+      newErrors.signUpPassword_dup = "Please make sure your passwords match.";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+    let userCredentials;
+    try {
+      userCredentials = await createUserWithEmailAndPassword(
+        auth,
+        formData.signUpEmail,
+        formData.signUpPassword
+      );
     } catch (err) {
       console.error(err);
-      setError("Error occurred while signing in");
     }
+    console.log(userCredentials);
   };
 
   const handleChange = (e) => {
@@ -46,13 +70,32 @@ const LoginForm = () => {
       ...formData,
       [e.target.name]: e.target.value,
     });
+    // Limpiar errores cuando se cambia el valor del campo
+    setErrors({
+      ...errors,
+      [e.target.name]: undefined,
+    });
   };
 
-  const navigate = useNavigate();
+  const handleGoogleSignUp = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      console.log(result);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-  if (loggedIn) {
-    navigate("/");
-  }
+  const handleGithubSignUp = async () => {
+    const provider = new GithubAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      console.log(result);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <div className="auth-page">
@@ -60,40 +103,96 @@ const LoginForm = () => {
         <div className="auth-container">
           <div className="forms-container">
             <div className="form-control signin-form">
-              <form onSubmit={handleSignIn}>
-                <h2>Sign In</h2>
+              <form onSubmit={handleSignUp}>
+                <h2>Register</h2>
                 <input
                   type="text"
-                  name="signInUsername"
+                  className={
+                    "input-signin" + (errors.signUpUsername ? " error" : "")
+                  }
+                  name="signUpUsername"
                   placeholder="Username"
-                  value={formData.signInUsername}
+                  value={formData.signUpUsername}
                   onChange={handleChange}
                   required
                 />
+
+                <p className="error">
+                  {errors.signUpUsername && (
+                    <i className="error-icon fas fa-exclamation-circle"></i>
+                  )}
+                  {errors.signUpUsername && (
+                    <span className="error">{errors.signUpUsername}</span>
+                  )}
+                </p>
+
+                <input
+                  type="email"
+                  className="input-signin"
+                  name="signUpEmail"
+                  placeholder="Email Address"
+                  value={formData.signUpEmail}
+                  onChange={handleChange}
+                  required
+                />
+                <p className="error">
+                  {errors.signUpEmail && (
+                    <i className="error-icon fas fa-exclamation-circle"></i>
+                  )}
+                  {errors.signUpEmail && (
+                    <span className="error">{errors.signUpEmail}</span>
+                  )}
+                </p>
+
                 <input
                   type="password"
-                  name="signInPassword"
+                  className={
+                    "input-signin" + ((errors.signUpPassword || errors.signUpPassword_dup) ? " error" : "")
+                  }
+                  name="signUpPassword"
                   placeholder="Password"
-                  value={formData.signInPassword}
+                  value={formData.signUpPassword}
                   onChange={handleChange}
                   required
                 />
-                <button type="submit">Sign In</button>
-                {error && (
-                  <p className="error">
+                <p className="error">
+                  {(errors.signUpPassword) && (
                     <i className="error-icon fas fa-exclamation-circle"></i>
-                    The provided email or password is incorrect. Please verify
-                    your credentials.
-                  </p>
-                )}
+                  )}
+                  {errors.signUpPassword && (
+                    <span className="error">{errors.signUpPassword}</span>
+                  )}
+                </p>
+
+                <input
+                  type="password"
+                  className={
+                    "input-signin" + (errors.signUpPassword_dup ? " error" : "")
+                  }
+                  name="signUpPassword_dup"
+                  placeholder="Repeat password"
+                  value={formData.signUpPassword_dup}
+                  onChange={handleChange}
+                  required
+                />
+                <p className="error-dup">
+                  {errors.signUpPassword_dup && (
+                    <i className="error-icon fas fa-exclamation-circle"></i>
+                  )}
+                  {errors.signUpPassword_dup && (
+                    <span className="error">{errors.signUpPassword_dup}</span>
+                  )}
+                </p>
+
+                <button type="submit">Sign Up</button>
               </form>
               <div className="linea-horizontal"></div>
-              <span>or sign in with</span>
+              <span>or sign up with</span>
               <div className="socials">
                 <button
                   className="gsi-material-button"
-                  id="google-login"
-                  //onClick={handleGoogleSignIn}
+                  id="google-signup"
+                  onClick={handleGoogleSignUp}
                 >
                   <div className="gsi-material-button-state"></div>
                   <div className="gsi-material-button-content-wrapper">
@@ -125,15 +224,15 @@ const LoginForm = () => {
                       </svg>
                     </div>
                     <span className="gsi-material-button-contents">
-                      Sign in with Google
+                      Sign up with Google
                     </span>
-                    <span style={{ display: "none" }}>Sign in with Google</span>
+                    <span style={{ display: "none" }}>Sign up with Google</span>
                   </div>
                 </button>
                 <button
                   className="gsi-material-button"
-                  id="github-login"
-                  //onClick={handleGithubSignIn}
+                  id="github-signup"
+                  onClick={handleGithubSignUp}
                 >
                   <div className="gsi-material-button-state"></div>
                   <div className="gsi-material-button-content-wrapper">
@@ -153,9 +252,9 @@ const LoginForm = () => {
                       </svg>
                     </div>
                     <span className="gsi-material-button-contents">
-                      Sign in with Github
+                      Sign up with Github
                     </span>
-                    <span style={{ display: "none" }}>Sign in with Github</span>
+                    <span style={{ display: "none" }}>Sign up with Github</span>
                   </div>
                 </button>
               </div>
@@ -164,14 +263,13 @@ const LoginForm = () => {
           <div className="intros-container">
             <div className="intro-control signin-intro">
               <div className="intro-control__inner">
-                <h2>Welcome Back!</h2>
+                <h2>Welcome to <span className="fitnesscoach-msg">FitnessCoach!</span></h2>
                 <p>
-                  Welcome back to the fitness world! We're delighted to have you
-                  here. It's great to see you again. We hope you've had a safe
-                  and enjoyable time.
+                  Start your fitness journey today! We're excited to have you
+                  join us. Let's get moving and stay healthy together.
                 </p>
-                <Link to="/register" id="signup-btn">
-                  Don't have an account yet? Sign up.
+                <Link to="/login" id="signup-btn">
+                  Already have an account? Sign in.
                 </Link>
               </div>
             </div>
@@ -182,5 +280,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
-
+export default RegisterForm;
