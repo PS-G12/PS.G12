@@ -21,7 +21,7 @@ const generateAccessToken = (userId) => {
 app.use('/gifs', express.static(path.join(__dirname, 'gifs')));
 
 app.get('/api/exercises', (req, res) => {
-  const { search, bodyPart, perPage, page } = req.query;
+  const { search, bodyPart, perPage, page, filter } = req.query;
   const cacheKey = JSON.stringify(req.query);
 
   const cachedData = cache.get(cacheKey);
@@ -43,6 +43,21 @@ app.get('/api/exercises', (req, res) => {
     );
   }
 
+  if (filter && filter.length > 0) {
+    filteredExercises = filteredExercises.filter(exercise =>
+      filter.includes(exercise.bodyPart.toLowerCase())
+    );
+    filteredExercises.sort((a, b) => {
+    if (a.bodyPart.toLowerCase() < b.bodyPart.toLowerCase()) {
+      return -1;
+    }
+    if (a.bodyPart.toLowerCase() > b.bodyPart.toLowerCase()) {
+      return 1;
+    }
+    return 0;
+  });
+  }
+
   if (!page) {
     let samples = {};
     const uniqueBodyParts = [...new Set(filteredExercises.map(exercise => exercise.bodyPart))];
@@ -50,8 +65,8 @@ app.get('/api/exercises', (req, res) => {
       const exercisesForBodyPart = filteredExercises.filter(exercise => exercise.bodyPart === bodyPart);
       samples[bodyPart] = exercisesForBodyPart.slice(0, 5);
     });
-    const data = { samples };
 
+    const data = { samples };
     cache.set(cacheKey, data, 5 * 60);
     return res.json(data);
   }
