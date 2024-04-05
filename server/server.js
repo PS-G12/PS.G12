@@ -282,10 +282,22 @@ app.get('/auth/google',
 
 app.get('/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: '/login' }),
-  function(req, res) {
+  function(req, res) {  
     res.redirect('/');
   });
+  
+  app.route('/auth/google/callback')
+  .get(passport.authenticate('google', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/create');
+});
 
+
+app.route('create')
+  .get(function(req, res){
+  })
+  .post(function(req, res){
+  });
 
 const PORT = 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
