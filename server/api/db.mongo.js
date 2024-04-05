@@ -63,5 +63,52 @@ async function registerUser(username, email, password) {
     }
 }
 
+const registerUserData = async (userId, objectiveData, macrosData) => {
+    try {
+        const collection = database.collection('user_records');
 
-module.exports = { getUser, getQuery, registerUser };
+        const filter = { userId: userId };
+
+        const updateDocument = {
+            $set: {
+                objective: {
+                    value: objectiveData.value,
+                    kcalObjective: objectiveData.kcalObjective,
+                    food: objectiveData.food,
+                    exercise: objectiveData.exercise,
+                    remaining: objectiveData.remaining
+                },
+                macros: {
+                    value1: macrosData.value,
+                    max1: macrosData.max,
+                    value2: macrosData.value2,
+                    max2: macrosData.max2,
+                    value3: macrosData.value3,
+                    max3: macrosData.max3
+                }
+            }
+        };
+
+        const options = { upsert: true };
+        const result = await collection.updateOne(filter, updateDocument, options);
+        return result.upsertedId || result.modifiedCount;
+    } catch (error) {
+        console.error('Error registering/updating user data:', error);
+        throw error;
+    }
+};
+
+const getUserData = async (userId) => {
+    try {
+        const collection = database.collection('user_records');
+        const userData = await collection.findOne({ userId: userId });
+        if (!userData) console.error('No user records found');
+        console.log('User data successfully fetched:', userData);
+        return userData;
+    } catch (error) {
+        console.error('Error fetching user data:', error);
+        throw error;
+    }
+};
+
+module.exports = { getUser, getQuery, registerUser, registerUserData, getUserData };

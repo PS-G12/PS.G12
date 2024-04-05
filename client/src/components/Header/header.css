@@ -130,6 +130,7 @@ nav .dropdown{
   pointer-events: auto;
   position: relative;
   left: 27px;
+  cursor: pointer;
 }
 
 
@@ -137,6 +138,10 @@ nav .dropdown{
 .icon-users img:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.icon-users img::after {
+  cursor:pointer;
 }
 .hero{
   width: 12vh;
@@ -267,3 +272,4 @@ a.button{
   bottom: 0;
   z-index: 1;
 }
+
