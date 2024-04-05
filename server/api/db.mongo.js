@@ -1,6 +1,7 @@
 const { ServerApiVersion } = require('mongodb');
 const { MongoClient } = require('mongodb');
-const uri = "mongodb+srv://javi9davi:123patata@cluster0.2xfgys2.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+require('dotenv').config();
+const uri = process.env.MONGO_CLIENT_ID;
 
 const client = new MongoClient(uri, {
     serverApi: {
@@ -63,6 +64,28 @@ async function registerUser(username, email, password) {
     }
 }
 
+async function registerUserGoogle(googleId, displayName, email) {
+    try {
+        // Verificar si el usuario ya está registrado
+        let existingUser = await getUser(googleId);
+
+        // Si el usuario ya existe, devolver el usuario existente
+        if (existingUser) {
+            return existingUser;
+        }
+
+        // Si el usuario no existe, registrar un nuevo usuario
+        const hashedPassword = await bcrypt.hash(googleId, 10); // Generar una contraseña hash única
+        const result = await registerUser(googleId, displayName, email, hashedPassword);
+
+        // Devolver el usuario registrado
+        return result;
+    } catch (error) {
+        throw error;
+    }
+}
+
+
 const registerUserData = async (userId, objectiveData, macrosData) => {
     try {
         const collection = database.collection('user_records');
@@ -111,4 +134,4 @@ const getUserData = async (userId) => {
     }
 };
 
-module.exports = { getUser, getQuery, registerUser, registerUserData, getUserData };
+module.exports = { getUser, getQuery, registerUser, registerUserData, getUserData, registerUserGoogle };

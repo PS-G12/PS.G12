@@ -1,6 +1,9 @@
 const express = require("express");
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const passport = require('passport');
+require('dotenv').config();
 const exerciseData = require("./api/exercise_data_en.json");
-const { registerUser, registerUserData, getUserData } = require("./api/db.mongo");
+const { registerUser, registerUserData, getUserData, registerUserGoogle } = require("./api/db.mongo");
 const { getUser } = require("./api/db.mongo");
 const jsonData = require("./api/foodData.json");
 const path = require("path");
@@ -11,6 +14,32 @@ const jwt = require("jsonwebtoken");
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+
+passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: "http://localhost:3000/auth/google/callback"
+  },
+  async function(accessToken, refreshToken, profile, cb) {
+    try {
+      let user = getUser(profile.id);
+
+      if (!user) {
+        user = await registerUserGoogle(
+          profile.id,
+          profile.displayName,
+          profile.emails[0].value
+        );
+      }
+
+      return cb(null, user);
+    } catch (err) {
+      return cb(err);
+    }
+  }
+));
+
 
 const generateAccessToken = (userId) => {
   console.log("Generating access token for user " + userId);
@@ -50,9 +79,10 @@ const verifyToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return res
-      .status(401)
-      .json({ success: false, message: "No token provided" });
+    return passport.authenticate('google', { session: false })(req, res, next);
+    // return res
+    //   .status(401)
+    //   .json({ success: false, message: "No token provided" });
   }
 
   const token = authHeader.split(" ")[1];
@@ -70,7 +100,7 @@ const verifyToken = (req, res, next) => {
 
 app.use("/gifs", express.static(path.join(__dirname, "gifs")));
 
-app.get("/api/exercises", verifyToken, (req, res) => {
+app.get("/api/exercises", (req, res) => {
   const { search, bodyPart, perPage, page, filter } = req.query;
   const cacheKey = JSON.stringify(req.query);
 
@@ -247,6 +277,15 @@ app.post("/user/data", verifyToken, async (req, res) => {
   }
 });
 
+app.get('/auth/google',
+  passport.authenticate('google', { scope: ['profile'] }));
 
-const PORT = process.env.PORT || 5000;
+app.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/');
+  });
+
+
+const PORT = 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

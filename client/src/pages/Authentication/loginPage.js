@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./authentication.css";
 
+const handleGoogleSignIn = () => {
+  window.location.href = "/auth/google";
+};
+
 const LoginForm = () => {
   const [formData, setFormData] = useState({
     signInUsername: "",
@@ -93,7 +97,7 @@ const LoginForm = () => {
                 <button
                   className="gsi-material-button"
                   id="google-login"
-                  //onClick={handleGoogleSignIn}
+                  onClick={handleGoogleSignIn}
                 >
                   <div className="gsi-material-button-state"></div>
                   <div className="gsi-material-button-content-wrapper">

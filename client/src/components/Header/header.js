@@ -75,9 +75,9 @@ function Header({ isAuthenticated }) {
       <div className="icon-users">
         {isAuthenticated ? (
           <div className="hero">
-            <details class="dropdown">
+            <details className="dropdown">
               <summary role="button">
-                <a class="button">
+                <a className="button">
                   <img src={iconUser} alt="User Icon" />
                 </a>
               </summary>
@@ -93,9 +93,9 @@ function Header({ isAuthenticated }) {
           </div>
         ) : (
           <div className="hero">
-            <details class="dropdown">
+            <details className="dropdown">
               <summary role="button">
-                <a class="button">
+                <a className="button">
                   <img src={iconUser} alt="User Icon" />
                 </a>
               </summary>
