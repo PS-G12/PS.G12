@@ -210,3 +210,7 @@ p.errorBMI{
 .errorBMI i{
   margin-right: 5px;
 }
+
+.height-input.error input {
+  border: 1px solid red;
+}

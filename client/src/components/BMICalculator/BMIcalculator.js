@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./BMIcalculator.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMale, faWeight } from "@fortawesome/free-solid-svg-icons";
@@ -8,51 +8,38 @@ const BMICalculator = () => {
   const [weight, setWeight] = useState("");
   const [resultBMI, setBMI] = useState("");
   const [system, setSystem] = useState("metric");
-  const [errors, setErrors] = useState({});
+  const [heightError, setHeightError] = useState("");
+  const [weightError, setWeightError] = useState("");
 
-  useEffect(() => {
-    const checkboxes = document.querySelectorAll("input[type=checkbox]");
-    checkboxes.forEach((check) =>
-      check.addEventListener("change", handleCheckboxChange)
-    );
-    return () => {
-      checkboxes.forEach((check) =>
-        check.removeEventListener("change", handleCheckboxChange)
-      );
-    };
-  }, []);
-
-  const handleCheckboxChange = (e) => {
-    const marked = e.target.checked;
-    const checkboxes = document.querySelectorAll("input[type=checkbox]");
-    checkboxes.forEach((check) => (check.checked = false));
-    e.target.checked = marked;
-  };
-
-  const handleChange = (setter) => (event) => {
+  const handleChange = (setter, setError) => (event) => {
     setter(event.target.value);
-    // Clear errors when input value changes
-    setErrors({
-      ...errors,
-      [event.target.name]: undefined,
-    });
-  };
-
-  const typeOfSystem = (event) => {
-    setSystem(event.target.value);
+    setError(""); // Clear error when input value changes
   };
 
   function validateValues(height, weight) {
-    const newErrors = {};
+    let valid = true;
 
-    if (isNaN(height) || isNaN(weight)) {
-      newErrors.general = "Please make sure that the height and weight fields are numbers.";
-    } else if (height <= 0 || weight <= 0) {
-      newErrors.general = "Please introduce a greater than zero value for the height and weight fields.";
+    if (isNaN(height)) {
+      setHeightError("Please make sure that the height field is a number.");
+      valid = false;
+    } else if (height <= 0) {
+      setHeightError("Please introduce a value greater than zero for the height field.");
+      valid = false;
+    } else {
+      setHeightError("");
     }
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    if (isNaN(weight)) {
+      setWeightError("Please make sure that the weight field is a number.");
+      valid = false;
+    } else if (weight <= 0) {
+      setWeightError("Please introduce a value greater than zero for the weight field.");
+      valid = false;
+    } else {
+      setWeightError("");
+    }
+
+    return valid;
   }
 
   const calculateBMI = () => {
@@ -80,7 +67,7 @@ const BMICalculator = () => {
           type="checkbox"
           id={`checkbox-${value}`}
           value={value}
-          onChange={typeOfSystem}
+          onChange={(event) => setSystem(event.target.value)}
           checked={system === value}
         />
         <label htmlFor={`checkbox-${value}`}></label>
@@ -90,7 +77,7 @@ const BMICalculator = () => {
   );
 
   const renderForm = (label, icon, placeholder, value, onChange, error) => (
-    <div className="height-input">
+    <div className={`height-input ${error ? "error" : ""}`}>
       <form className="height">
         <label className="height-info">{label}</label>
       </form>
@@ -118,28 +105,28 @@ const BMICalculator = () => {
       <div className="BMI-container">
         <h1>BODY MASS INDEX (BMI)</h1>
         <p className="data1">Calculate your BMI</p>
-        <form className="system-input">
+        <div className="system-input">
           <span className="data2">Choose a measurement system:</span>
           <div className="measurement-selection-bmi">
             {renderMeasurementCheckbox("imperial", "Imperial System")}
             {renderMeasurementCheckbox("metric", "Metric System")}
           </div>
-        </form>
+        </div>
         {renderForm(
           system === "imperial" ? "HEIGHT (in feet):" : "HEIGHT (in cm):",
           faMale,
           "Height",
           height,
-          handleChange(setHeight),
-          errors["HEIGHT (in feet):"] || errors["HEIGHT (in cm):"] || errors.general
+          handleChange(setHeight, setHeightError),
+          heightError
         )}
         {renderForm(
           system === "imperial" ? "Weight (in pounds):" : "WEIGHT (in kilograms):",
           faWeight,
           "Weight",
           weight,
-          handleChange(setWeight),
-          errors["Weight (in pounds):"] || errors["WEIGHT (in kilograms):"] || errors.general
+          handleChange(setWeight, setWeightError),
+          weightError
         )}
         <button className="button-calculator" onClick={calculateBMI}>
           Calculate
