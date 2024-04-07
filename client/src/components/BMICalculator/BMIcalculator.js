@@ -8,6 +8,7 @@ const BMICalculator = () => {
   const [weight, setWeight] = useState("");
   const [resultBMI, setBMI] = useState("");
   const [system, setSystem] = useState("metric");
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     const checkboxes = document.querySelectorAll("input[type=checkbox]");
@@ -30,24 +31,28 @@ const BMICalculator = () => {
 
   const handleChange = (setter) => (event) => {
     setter(event.target.value);
+    // Clear errors when input value changes
+    setErrors({
+      ...errors,
+      [event.target.name]: undefined,
+    });
   };
 
   const typeOfSystem = (event) => {
     setSystem(event.target.value);
   };
 
-  function validateValues(height, weight){
-    if (isNaN(height) || isNaN(weight)){
-      alert("Please, make sure that the height and weight fields are numbers.");
-      return false;
+  function validateValues(height, weight) {
+    const newErrors = {};
+
+    if (isNaN(height) || isNaN(weight)) {
+      newErrors.general = "Please make sure that the height and weight fields are numbers.";
+    } else if (height <= 0 || weight <= 0) {
+      newErrors.general = "Please introduce a greater than zero value for the height and weight fields.";
     }
-    else if (height <= 0 || weight <= 0){
-      alert("Please, introduce a greater than zero value for the height and weight fields.");
-      return false;
-    }
-    else{
-      return true;
-    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   }
 
   const calculateBMI = () => {
@@ -84,7 +89,7 @@ const BMICalculator = () => {
     </div>
   );
 
-  const renderForm = (label, icon, placeholder, value, onChange) => (
+  const renderForm = (label, icon, placeholder, value, onChange, error) => (
     <div className="height-input">
       <form className="height">
         <label className="height-info">{label}</label>
@@ -94,10 +99,17 @@ const BMICalculator = () => {
         type="text"
         placeholder={placeholder}
         className="height-input"
+        name={label}
         value={value}
         onChange={onChange}
         required
       ></input>
+      {error && (
+        <p className="errorBMI">
+          <i className="error-icon fas fa-exclamation-circle"></i>
+          {error}
+        </p>
+      )}
     </div>
   );
 
@@ -118,14 +130,16 @@ const BMICalculator = () => {
           faMale,
           "Height",
           height,
-          handleChange(setHeight)
+          handleChange(setHeight),
+          errors["HEIGHT (in feet):"] || errors["HEIGHT (in cm):"] || errors.general
         )}
         {renderForm(
           system === "imperial" ? "Weight (in pounds):" : "WEIGHT (in kilograms):",
           faWeight,
           "Weight",
           weight,
-          handleChange(setWeight)
+          handleChange(setWeight),
+          errors["Weight (in pounds):"] || errors["WEIGHT (in kilograms):"] || errors.general
         )}
         <button className="button-calculator" onClick={calculateBMI}>
           Calculate

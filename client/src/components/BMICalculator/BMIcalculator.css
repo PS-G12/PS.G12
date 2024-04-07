@@ -199,3 +199,14 @@
   display: flex;
   justify-content: flex-end;
 }
+
+
+p.errorBMI{
+  color: red;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.errorBMI i{
+  margin-right: 5px;
+}
