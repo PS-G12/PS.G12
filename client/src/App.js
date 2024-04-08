@@ -11,6 +11,7 @@ import BMICalculatorPage from "./pages/bmi/bmi.js";
 import MacrosCalculator from "./pages/MacrosCalculator/macrosCalculation.js";
 import RegisterForm from "./pages/Authentication/registerPage.js";
 import LoginForm from "./pages/Authentication/loginPage.js";
+import UserProfile from './pages/profile/profile.js';
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <Route path="/searchFood" element={<SearchFood />} />
         <Route path="/registerFood" element={<RegisterFood />} />
         <Route path="/MacrosCalculation" element={<MacrosCalculator />} />
+        <Route path="/profile" element={<UserProfile />} />
       </Routes>
     </Router>
   );

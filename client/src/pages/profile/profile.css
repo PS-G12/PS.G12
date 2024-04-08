@@ -1,0 +1,85 @@
+.profile-data-container{
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    width: 85%;
+    height: 480px;
+    margin: 0 auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.profile-image-container{
+    display: flex;
+    border: 2px solid #0066EE;
+    width: 35%;
+    height: 70px;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    border-radius: 10px;
+}
+
+.profile-image-container h1{
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.profile-image-container input{
+    display: none;
+}
+
+#file-button{
+    margin-top: 5%;
+    text-align: center;
+}
+
+.profile-image{
+    border-radius: 100%;
+    width: 4rem;
+    height: 4rem;
+    border: 2px solid #0066EE;
+}
+
+.forms-and-stats{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1%;
+}
+
+.forms-and-stats .user-data-container{
+    margin: 0;
+}
+
+.profile-forms{
+    text-align: center;
+    margin-right: 3%;
+}
+
+.profile-forms label{
+    font-weight: bold;
+}
+
+.profile-forms input{
+    margin: 5px 0px;
+    border: none;
+    padding: 15px;
+    background-color: #efefef;
+    border-radius: 5px;
+}
+
+.change-nickname{
+    margin-bottom: 1%;
+}
+
+.old-password{
+    margin-bottom: 1%;
+}
+
+.new-password{
+    margin-bottom: 1%;
+}
+
+.applay-changes-button{
+    margin-top: 2%;
+}
