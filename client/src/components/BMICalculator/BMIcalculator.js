@@ -8,6 +8,9 @@ const BMICalculator = () => {
   const [weight, setWeight] = useState("");
   const [resultBMI, setBMI] = useState("");
   const [system, setSystem] = useState("metric");
+  
+  const [heightValid, setHeightValid] = useState(true);
+  const [weightValid, setWeightValid] = useState(true);
 
   useEffect(() => {
     const checkboxes = document.querySelectorAll("input[type=checkbox]");
@@ -28,8 +31,10 @@ const BMICalculator = () => {
     e.target.checked = marked;
   };
 
-  const handleChange = (setter) => (event) => {
-    setter(event.target.value);
+  const handleChange = (setter, setValid) => (event) => {
+    const { value } = event.target;
+    setter(value);
+    setValid(!isNaN(value) && parseFloat(value) > 0);
   };
 
   const typeOfSystem = (event) => {
@@ -84,8 +89,8 @@ const BMICalculator = () => {
     </div>
   );
 
-  const renderForm = (label, icon, placeholder, value, onChange) => (
-    <div className="height-input">
+  const renderForm = (label, icon, placeholder, value, onChange, valid) => (
+    <div className={`height-input ${valid ? "" : "invalid"}`}>
       <form className="height">
         <label className="height-info">{label}</label>
       </form>
@@ -118,14 +123,16 @@ const BMICalculator = () => {
           faMale,
           "Height",
           height,
-          handleChange(setHeight)
+          handleChange(setHeight, setHeightValid),
+          heightValid
         )}
         {renderForm(
           system === "imperial" ? "Weight (in pounds):" : "WEIGHT (in kilograms):",
           faWeight,
           "Weight",
           weight,
-          handleChange(setWeight)
+          handleChange(setWeight, setWeightValid),
+          weightValid
         )}
         <button className="button-calculator" onClick={calculateBMI}>
           Calculate

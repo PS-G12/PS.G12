@@ -21,13 +21,20 @@ function MacrosCalculator() {
   const [resultCarbs, setCarbs] = useState("");
   const [resultFats, setFats] = useState("");
 
+  const [heightValid, setHeightValid] = useState(true);
+  const [ageValid, setAgeValid] = useState(true);
+  const [weightValid, setWeightValid] = useState(true);
+
   const handleCheckboxChange = (event) => {
     const { value } = event.target;
     setSystem(value);
   };
 
-  const handleInputChange = (setter) => (event) => {
-    setter(event.target.value);
+  const handleInputChange = (setter, setValid) => (event) => {
+    const { value } = event.target;
+    setter(value);
+    // Filed Validation
+    setValid(!isNaN(value) && parseFloat(value) > 0);
   };
 
   const handleSelectChange = (setter) => (event) => {
@@ -140,8 +147,9 @@ function MacrosCalculator() {
     onChange,
     placeholder,
     type = "text",
+    valid,
   }) => (
-    <div className={`${label.toLowerCase()}-input`}>
+    <div className={`${label.toLowerCase()}-input ${valid ? "" : "invalid"} ${value.trim() === "" && !valid ? "empty" : ""}`}>
       <div className={label.toLowerCase()}>
         <label className={`${label.toLowerCase()}-info`}>{label}:</label>
         <input
@@ -221,8 +229,9 @@ function MacrosCalculator() {
             {inputField({
               label: "Age",
               value: age,
-              onChange: handleInputChange(setAge),
+              onChange: handleInputChange(setAge, setAgeValid),
               placeholder: "Age",
+              valid: ageValid,
             })}
             {selectField({
               label: "Gender",
@@ -236,14 +245,16 @@ function MacrosCalculator() {
             {inputField({
               label: system === "imperial" ? "Height (ft)" : "Height (cm)",
               value: height,
-              onChange: handleInputChange(setHeight),
+              onChange: handleInputChange(setHeight, setHeightValid),
               placeholder: "Height",
+              valid: heightValid,
             })}
             {inputField({
               label: system === "imperial" ? "Weight (lbs)" : "Weight (kg)",
               value: weight,
-              onChange: handleInputChange(setWeight),
+              onChange: handleInputChange(setWeight, setWeightValid),
               placeholder: "Weight",
+              valid: weightValid,
             })}
           </div>
           <div className="row2">
