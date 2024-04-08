@@ -1,6 +1,7 @@
 const { ServerApiVersion } = require('mongodb');
 const { MongoClient } = require('mongodb');
-const uri = "mongodb+srv://javi9davi:123patata@cluster0.2xfgys2.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+require('dotenv').config();
+const uri = process.env.MONGO_CLIENT_ID;
 
 const client = new MongoClient(uri, {
     serverApi: {
@@ -63,5 +64,74 @@ async function registerUser(username, email, password) {
     }
 }
 
+async function registerUserGoogle(googleId, displayName, email) {
+    try {
+        // Verificar si el usuario ya está registrado
+        let existingUser = await getUser(googleId);
 
-module.exports = { getUser, getQuery, registerUser };
+        // Si el usuario ya existe, devolver el usuario existente
+        if (existingUser) {
+            return existingUser;
+        }
+
+        // Si el usuario no existe, registrar un nuevo usuario
+        const hashedPassword = await bcrypt.hash(googleId, 10); // Generar una contraseña hash única
+        const result = await registerUser(googleId, displayName, email, hashedPassword);
+
+        // Devolver el usuario registrado
+        return result;
+    } catch (error) {
+        throw error;
+    }
+}
+
+
+const registerUserData = async (userId, objectiveData, macrosData) => {
+    try {
+        const collection = database.collection('user_records');
+
+        const filter = { userId: userId };
+
+        const updateDocument = {
+            $set: {
+                objective: {
+                    value: objectiveData.value,
+                    kcalObjective: objectiveData.kcalObjective,
+                    food: objectiveData.food,
+                    exercise: objectiveData.exercise,
+                    remaining: objectiveData.remaining
+                },
+                macros: {
+                    value1: macrosData.value,
+                    max1: macrosData.max,
+                    value2: macrosData.value2,
+                    max2: macrosData.max2,
+                    value3: macrosData.value3,
+                    max3: macrosData.max3
+                }
+            }
+        };
+
+        const options = { upsert: true };
+        const result = await collection.updateOne(filter, updateDocument, options);
+        return result.upsertedId || result.modifiedCount;
+    } catch (error) {
+        console.error('Error registering/updating user data:', error);
+        throw error;
+    }
+};
+
+const getUserData = async (userId) => {
+    try {
+        const collection = database.collection('user_records');
+        const userData = await collection.findOne({ userId: userId });
+        if (!userData) console.error('No user records found');
+        console.log('User data successfully fetched:', userData);
+        return userData;
+    } catch (error) {
+        console.error('Error fetching user data:', error);
+        throw error;
+    }
+};
+
+module.exports = { getUser, getQuery, registerUser, registerUserData, getUserData, registerUserGoogle };

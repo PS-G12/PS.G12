@@ -17,25 +17,25 @@ function SearchResultsPage() {
   const [totalPages, setTotalPages] = useState(0);
   const [exercisesPerPage, setExercisesPerPage] = useState(24);
   const [pagesToShow] = useState(5);
+  const [selectedBodyParts, setSelectedBodyParts] = useState([]);
 
   useEffect(() => {
-    setLoading(search);
+    setLoading(true);
     caches.open("exerciseCache").then((cache) => {
       cache
         .match(
-          `/api/exercises?search=${search}&page=${currentPage}&perPage=${exercisesPerPage}`
+          `/api/exercises?search=${search}&page=${currentPage}&perPage=${exercisesPerPage}&filter=${selectedBodyParts}`
         )
         .then((cachedResponse) => {
           if (cachedResponse && 0) {
             cachedResponse.json().then((data) => {
-              
               setFilteredExercises(data.results);
               setTotalPages(data.totalPages);
               setLoading(false);
             });
           } else {
             fetch(
-              `/api/exercises?search=${search}&page=${currentPage}&perPage=${exercisesPerPage}`
+              `/api/exercises?search=${search}&page=${currentPage}&perPage=${exercisesPerPage}&filter=${selectedBodyParts}`
             )
               .then((response) => {
                 if (!response.ok) {
@@ -45,7 +45,7 @@ function SearchResultsPage() {
               })
               .then((data) => {
                 cache.put(
-                  `/api/exercises?search=${search}&page=${currentPage}&perPage=${exercisesPerPage}`,
+                  `/api/exercises?search=${search}&page=${currentPage}&perPage=${exercisesPerPage}&filter=${selectedBodyParts}`,
                   new Response(JSON.stringify(data))
                 );
                 setFilteredExercises(data.results);
@@ -59,7 +59,7 @@ function SearchResultsPage() {
           }
         });
     });
-  }, [search, currentPage, exercisesPerPage]);
+  }, [search, currentPage, exercisesPerPage, selectedBodyParts]);
 
 
   
@@ -81,25 +81,13 @@ function SearchResultsPage() {
   }, [exercisesPerPage]);
 
 
-
-
   const bodyParts = ['waist', 'chest', 'lower legs', 'lower arms', 'neck', 'shoulders', 'upper arms', 'upper legs', 'back', 'cardio'];
 
-
-  const [selectedBodyParts, setSelectedBodyParts] = useState([]);
-
-  
-  // Manejar cambios en los checkboxes
-  const handleFilterChange = (event) => {
-    const { value } = event.target;
-    setSelectedBodyParts(prevSelected => {
-      if (prevSelected.includes(value)) {
-        return prevSelected.filter(part => part !== value);
-      } else {
-        return [...prevSelected, value];
-      }
-    });
+  const handleFilterChange = (selectedBodyParts) => {
+    setSelectedBodyParts(selectedBodyParts);
+    setCurrentPage(1);
   };
+  
   
 
   let startPage, endPage;
@@ -183,7 +171,7 @@ function SearchResultsPage() {
       ) : (
         <div className="result">
           <div className="filter-container">
-            <FilterCard bodyParts={bodyParts} handleFilterChange={handleFilterChange} />
+            <FilterCard bodyParts={bodyParts} handleFilterChange={handleFilterChange} selectedBox={selectedBodyParts}/>
           </div>
           <div className="exercise-container">
             <ExerciseCard exercise={filteredExercises} name="name" bodyPartList={selectedBodyParts} />

@@ -2,18 +2,33 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./authentication.css";
 
+const handleGoogleSignIn = async () => {
+  try {
+    const response = await fetch("/auth/google", {
+      method: "GET",
+      mode: 'no-cors',
+    });
+    if (response.ok) {
+      window.location.href = response.url;
+    } else {
+      console.error("Error al iniciar sesión con Google:", response.statusText);
+    }
+  } catch (error) {
+    console.error("Error al iniciar sesión con Google:", error.message);
+  }
+};
+
 const LoginForm = () => {
   const [formData, setFormData] = useState({
     signInUsername: "",
     signInPassword: "",
   });
-  const [error, setError] = useState(null); // Nuevo estado para el mensaje de error
-  const [loggedIn, setLoggedIn] = useState(false); // Estado para controlar si el usuario está logueado
+  const [error, setError] = useState(null);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const handleSignIn = async (e) => {
     e.preventDefault();
     try {
-      // Hacer una solicitud HTTP POST al servidor para autenticar al usuario
       const response = await fetch("/auth/login", {
         method: "POST",
         headers: {
@@ -22,7 +37,6 @@ const LoginForm = () => {
         body: JSON.stringify(formData),
       });
 
-      // Si la solicitud es exitosa, establecer loggedIn a true
       if (response.ok) {
         const data = await response.json();
         if (data.success) {
@@ -61,7 +75,7 @@ const LoginForm = () => {
           <div className="forms-container">
             <div className="form-control signin-form">
               <form onSubmit={handleSignIn}>
-                <h2>Sign In</h2>
+                <h2>Log In</h2>
                 <input
                   type="text"
                   name="signInUsername"
@@ -93,7 +107,7 @@ const LoginForm = () => {
                 <button
                   className="gsi-material-button"
                   id="google-login"
-                  //onClick={handleGoogleSignIn}
+                  onClick={handleGoogleSignIn}
                 >
                   <div className="gsi-material-button-state"></div>
                   <div className="gsi-material-button-content-wrapper">
