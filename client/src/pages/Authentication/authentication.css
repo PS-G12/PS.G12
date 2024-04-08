@@ -121,10 +121,13 @@
   display: flex;
   flex-direction: column;
   margin: 15px 0px;
+  align-content: center;
+  flex-wrap: wrap;
 }
 .socials button {
   margin: 10px 0px 5px;
   scale: 1.1;
+  width: 60%;
 }
 
 
@@ -150,6 +153,11 @@
 .auth-container .forms-container {
   position: relative;
   width: 60%;
+  text-align: center;
+}
+.auth-container .forms-container.expanded{
+  position: relative;
+  width: 100%;
   text-align: center;
 }
 .auth-container .forms-container .form-control {
@@ -259,7 +267,16 @@
 .auth-container .intros-container .intro-control.signin-intro {
   opacity: 1;
   z-index: 2;
+  transform: translateX(0%);
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
+
+.auth-container .intros-container .intro-control.signin-intro.hidden {
+  opacity: 0.8;
+  z-index: 2;
+  transform: translateX(100%);
+}
+
 .auth-container .intros-container .intro-control.signup-intro {
   opacity: 0;
   z-index: 1;
@@ -313,11 +330,25 @@ p.error-dup{
 .linea-horizontal {
   height: 2px;
   margin: 40px auto 10px;
-  width: 45%;
+  width: 400px;
   border-radius: 90px;
-  background-image: radial-gradient(circle at center, #000, #00000070); /* Define el degradado radial */
+  background-image: radial-gradient(circle at center, #000, #00000070);
 }
 
+.social-auth-container {
+  width: fit-content;
+  opacity: 1;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.social-auth-container.hidden{
+  width: fit-content;
+  opacity: 0;
+}
+
+.form-control.signin-form.expanded {
+  width: 100vw;
+  transition: width 0.5s ease;
+}
 
 
 
@@ -390,12 +421,14 @@ p.error-dup{
   height: 10px;
   background-color: #ddd;
   margin-top: 20px;
+  border-radius: 12px;
 }
 
 .progress {
   height: 100%;
-  background-color: blue;
+  background: linear-gradient(to right, #007bff, #1e8fffd0);
   transition: width 0.5s ease;
+  border-radius: 12px;
 }
 
 *,
