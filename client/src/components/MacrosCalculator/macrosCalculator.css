@@ -300,3 +300,10 @@
   position: relative;
   display: flex;
 }
+
+.empty input,
+.invalid input {
+  border-color: red;
+  border-width: 2px;
+  background-color: rgba(255, 0, 0, 0.2);
+}

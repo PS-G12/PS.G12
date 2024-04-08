@@ -8,12 +8,14 @@ const BMICalculator = () => {
   const [weight, setWeight] = useState("");
   const [resultBMI, setBMI] = useState("");
   const [system, setSystem] = useState("metric");
+
   const [heightError, setHeightError] = useState("");
   const [weightError, setWeightError] = useState("");
 
   const handleChange = (setter, setError) => (event) => {
     setter(event.target.value);
     setError(""); // Clear error when input value changes
+
   };
 
   function validateValues(height, weight) {
@@ -76,8 +78,10 @@ const BMICalculator = () => {
     </div>
   );
 
+
   const renderForm = (label, icon, placeholder, value, onChange, error) => (
     <div className={`height-input ${error ? "error" : ""}`}>
+
       <form className="height">
         <label className="height-info">{label}</label>
       </form>
@@ -117,16 +121,20 @@ const BMICalculator = () => {
           faMale,
           "Height",
           height,
+
           handleChange(setHeight, setHeightError),
           heightError
+
         )}
         {renderForm(
           system === "imperial" ? "Weight (in pounds):" : "WEIGHT (in kilograms):",
           faWeight,
           "Weight",
           weight,
+
           handleChange(setWeight, setWeightError),
           weightError
+
         )}
         <button className="button-calculator" onClick={calculateBMI}>
           Calculate

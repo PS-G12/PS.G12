@@ -200,7 +200,6 @@
   justify-content: flex-end;
 }
 
-
 p.errorBMI{
   color: red;
   margin-top: 15px;
@@ -214,3 +213,11 @@ p.errorBMI{
 .height-input.error input {
   border: 1px solid red;
 }
+
+.empty input,
+.invalid input {
+  border-color: red;
+  border-width: 2px;
+  background-color: rgba(255, 0, 0, 0.2);
+}
+

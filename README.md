@@ -29,4 +29,5 @@ Esta demo no requiere registro. Todas las funcionalidades están diseñadas para
 - [@Juan Antonio Hernández Rodríguez](https://github.com/ULPGCJuan)
 - [@Santiago Santana Martínez](https://github.com/Tiago1615)
 - [@Javier Dávila Rodríguez](https://github.com/javi9davi)
+- [@Álvaro Rodríguez Teimoy](https://github.com/AlvaroRodguez)
 
