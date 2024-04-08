@@ -47,6 +47,11 @@ const generateAccessToken = (userId) => {
   return accessToken;
 };
 
+function getRandomExercises(exercises, count) {
+  const shuffledExercises = exercises.sort(() => Math.random() - 0.5);
+  return shuffledExercises.slice(0, count);
+}
+
 async function fetchFood(query) {
   try {
     const searchQueryNormalized = query.trim().toLowerCase();
@@ -137,7 +142,7 @@ app.get("/api/exercises", (req, res) => {
       return 0;
     });
   }
-
+  
   if (!page) {
     let samples = {};
     const uniqueBodyParts = [
@@ -147,11 +152,10 @@ app.get("/api/exercises", (req, res) => {
       const exercisesForBodyPart = filteredExercises.filter(
         (exercise) => exercise.bodyPart === bodyPart
       );
-      samples[bodyPart] = exercisesForBodyPart.slice(0, 5);
+      samples[bodyPart] = getRandomExercises(exercisesForBodyPart, 5);
     });
-
+  
     const data = { samples };
-    cache.set(cacheKey, data, 5 * 60);
     return res.json(data);
   }
 
@@ -223,7 +227,7 @@ app.post("/auth/register", async (req, res) => {
       hashedPassword
     );
 
-    const token = generateAccessToken(userquery._id);
+    const token = generateAccessToken(signUpUsername);
     return res.status(200).json({ success: true, token });
   } catch (error) {
     console.error("Error occurred while registering user:", error);
@@ -233,25 +237,6 @@ app.post("/auth/register", async (req, res) => {
   }
 });
 
-app.get("/user/register", verifyToken, async (req, res) => {
-  try {
-    const { userId, objectiveData, macrosData } = req.body;
-    const insertedId = await registerUserData(
-      userId,
-      objectiveData,
-      macrosData
-    );
-
-    res
-      .status(200)
-      .json({ message: "User data registered successfully", insertedId });
-  } catch (error) {
-    console.error("Error registering user data:", error);
-    res
-      .status(500)
-      .json({ error: "An error occurred while registering user data" });
-  }
-});
 
 app.get("/user/data", verifyToken, async (req, res) => {
   const userId = req.user;
