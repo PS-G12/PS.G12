@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Convergence&display=swap');
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css");
 
 .gsi-material-button {
@@ -366,4 +367,88 @@ p.error-dup{
   .change .intros-container .intro-control {
     transform: translateX(0%);
   }
+}
+
+.previous-button {
+  background-color: white !important;
+  border: 3px solid #1c74e6 !important;
+  color: #1c74e6 !important;
+  padding: 10px 20px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.continue-button {
+  background-color: #1c74e6 !important;
+  color: white !important;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  background-color: #ddd;
+  margin-top: 20px;
+}
+
+.progress {
+  height: 100%;
+  background-color: blue;
+  transition: width 0.5s ease;
+}
+
+*,
+*:focus{outline: none}
+.form {
+  width: 500px;
+  margin: 0 auto; /* Agregar margen automático para centrar horizontalmente */
+  margin-top: 150px;
+  font-family: sans-serif;
+  background: #fff;
+}
+.form-item {
+  position: relative;
+  margin-bottom: 15px;
+}
+.form-item input,
+.form-item select {
+  display: block;
+  width: calc(100% - 30px); /* Ancho calculado para tener en cuenta el padding */
+  height: 25px;
+  background: transparent;
+  border: solid 1px #ccc;
+  transition: all .3s ease;
+  padding: 0 15px;
+  margin: 0 auto; /* Añadir margen automático para centrar horizontalmente */
+}
+.form-item select {
+  height: 35px;
+}
+.form-item input:focus, 
+.form-item select:focus {
+  border-color: blue
+}
+.form-item label {
+  position: absolute;
+  pointer-events: none; /* Esto asegura que la etiqueta no interfiera con los eventos de clic */
+  left: 15px; /* Ajusta la posición de la etiqueta */
+  top: 50%; /* Posiciona la etiqueta verticalmente al centro */
+  transform: translateY(-50%); /* Corrige la posición vertical */
+  font-size: 12px;
+  font-weight: bold;
+  color: #999;
+  transition: all .3s ease;
+}
+.form-item input:focus + label,
+.form-item input:valid + label,
+.form-item select:focus + label,
+.form-item select:valid + label {
+  font-size: 11px;
+  top: 5px; /* Ajusta la posición de la etiqueta cuando el campo de entrada está enfocado o tiene contenido */
+  color: blue;
+}
+.form-item input:focus + label,
+.form-item select:focus + label {
+  color: blue
 }

@@ -5,6 +5,8 @@ import "./authentication.css";
 const RegisterForm = () => {
   const [formData, setFormData] = useState({
     signUpUsername: "",
+    signUpWeight: "",
+    signUpHeight: "",
     signUpEmail: "",
     signUpPassword: "",
     signUpPassword_dup: "",
@@ -12,33 +14,96 @@ const RegisterForm = () => {
   const [errors, setErrors] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
 
+  const [step, setStep] = useState(1);
+
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
 
+  const handleNextStep = () => {
+    // Verificar si el paso actual es el último
+    if (step < 4) {
+      // Verificar si los campos del paso actual están completos
+      if (step === 1) {
+        if (formData.signUpUsername === "") {
+          setErrors({ signUpUsername: "Please fill out this field." });
+          return; // Detener el avance si el campo no está completo
+        } else if (formData.signUpUsername.length < 4) {
+          setErrors({ signUpUsername: "Username must be at least 4 characters long." });
+          return; // Detener el avance si el campo no está completo
+        }
+      }
+      if (step === 2) {
+        if (formData.signUpWeight === "" || formData.signUpHeight === "") {
+          setErrors({ signUpWeight: "Please fill out this field.", signUpHeight: "Please fill out this field." });
+          return; // Detener el avance si los campos no están completos
+        } else {
+          const letterRegex = /^\d+(\.\d+)?$/;
+          if (!letterRegex.test(formData.signUpWeight)) {
+            setErrors({ signUpWeight: "Weight must be a valid number."});
+            return; // Detener el avance si los campos no están completos
+          }
+          if (!letterRegex.test(formData.signUpHeight)) {
+            setErrors({ signUpHeight: "Height must be a valid number."});
+            return; // Detener el avance si los campos no están completos
+          }          
+        }
+      }
+      if (step === 3) {
+        if (formData.signUpEmail === "" || formData.signUpPassword === "" || formData.signUpPassword_dup === "") {
+        setErrors({ signUpEmail: "Please fill out this field.", signUpPassword: "Please fill out this field.", signUpPassword_dup: "Please fill out this field." });
+        return; // Detener el avance si el campo no está completo
+        } else {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(formData.signUpEmail)) {
+            setErrors({ signUpEmail: "Please enter a valid email address."});
+            return; // Detener el avance si los campos no están completos
+          }
+          if (formData.signUpPassword.length < 5) {
+            setErrors({ signUpPassword: "Password must be at least 5 characters long."});
+            return; // Detener el avance si los campos no están completos
+          } else if (!/[A-Z].*[A-Z]/.test(formData.signUpPassword)) {
+            setErrors({ signUpPassword: "Password must contain at least two uppercase letters."});
+            return; // Detener el avance si los campos no están completos
+          }
+          if (formData.signUpPassword !== formData.signUpPassword_dup) {
+            setErrors({ signUpPassword_dup: "Please make sure your passwords match."});
+            return; // Detener el avance si los campos no están completos
+          }
+        }
+      }
+      
+      // Si todos los campos están completos, pasar al siguiente paso
+      setStep(step + 1);
+    }
+  };
+
+  const handlePrevStep = () => {
+    if (step > 1) {
+      setStep(step - 1);
+    }
+  };
+  
+
   const handleSignUp = async (e) => {
     e.preventDefault();
     const newErrors = {};
 
-    if (formData.signUpUsername.length < 4) {
+    if (step === 1 && formData.signUpUsername.length < 4) {
       newErrors.signUpUsername = "Username must be at least 4 characters long.";
     }
 
-    if (formData.signUpPassword.length < 6) {
+    if (step === 3 && formData.signUpPassword.length < 6) {
       newErrors.signUpPassword =
-        "Passwords must be at least 6 characters long.";
+        "Passwords must be at least 5 characters long.";
     }
 
-    if (!validateEmail(formData.signUpEmail)) {
-      newErrors.signUpEmail = "Please enter a valid email address.";
-    }
-
-    if (
-      formData.signUpPassword.length >= 6 &&
-      formData.signUpPassword !== formData.signUpPassword_dup
-    ) {
+    if (step === 3 && formData.signUpPassword !== formData.signUpPassword_dup) {
       newErrors.signUpPassword_dup = "Please make sure your passwords match.";
+    }
+    if (step === 3 && !validateEmail(formData.signUpEmail)) {
+      newErrors.signUpEmail = "Please enter a valid email address.";
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -46,29 +111,32 @@ const RegisterForm = () => {
       return;
     }
 
-    try {
+    if (step === 4) {
+      try {
         // Enviar solicitud POST al servidor
-        const response = await fetch('/auth/register', {
-          method: 'POST',
+        const response = await fetch("/auth/register", {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             //'Authorization': `Bearer ${token}`
           },
-          body: JSON.stringify(formData)
+          body: JSON.stringify(formData),
         });
-  
+
         const data = await response.json();
-  
+
         if (response.ok) {
-            sessionStorage.setItem("token", data.token);
-            setLoggedIn(true);
+          sessionStorage.setItem("token", data.token);
+          navigate("/registration-success");
         } else {
-          // Error en el registro
           console.error(data.message);
         }
       } catch (error) {
-        console.error('Error occurred while registering user:', error);
+        console.error("Error occurred while registering user:", error);
       }
+    } else {
+      handleNextStep();
+    }
   };
 
   const handleChange = (e) => {
@@ -81,6 +149,26 @@ const RegisterForm = () => {
       ...errors,
       [e.target.name]: undefined,
     });
+    
+    // Validar el peso
+    if (name === 'signUpWeight') {
+      if (!(/^\d*\.?\d+$/.test(value))) {
+        setErrors({
+          ...errors,
+          [name]: "Weight must be a valid number"
+        });
+      }
+    }
+
+    // Validar la altura
+    if (name === 'signUpHeight') {
+      if (!(/^\d*\.?\d+$/.test(value))) {
+        setErrors({
+          ...errors,
+          [name]: "Height must be a valid number"
+        });
+      }
+    }
   };
 
   const handleGoogleSignUp = async () => {
@@ -103,88 +191,203 @@ const RegisterForm = () => {
           <div className="forms-container">
             <div className="form-control signin-form">
               <form onSubmit={handleSignUp}>
-                <h2>Register</h2>
-                <input
-                  type="text"
-                  className={
-                    "input-signin" + (errors.signUpUsername ? " error" : "")
-                  }
-                  name="signUpUsername"
-                  placeholder="Username"
-                  value={formData.signUpUsername}
-                  onChange={handleChange}
-                  required
-                />
 
-                <p className="error">
-                  {errors.signUpUsername && (
-                    <i className="error-icon fas fa-exclamation-circle"></i>
-                  )}
-                  {errors.signUpUsername && (
-                    <span className="error">{errors.signUpUsername}</span>
-                  )}
-                </p>
+                <div className="progress-bar">
+                  <div className="progress" style={{ width: `${(step - 1) * 33.33}%` }}></div>
+                </div>
 
-                <input
-                  type="email"
-                  className="input-signin"
-                  name="signUpEmail"
-                  placeholder="Email Address"
-                  value={formData.signUpEmail}
-                  onChange={handleChange}
-                  required
-                />
-                <p className="error">
-                  {errors.signUpEmail && (
-                    <i className="error-icon fas fa-exclamation-circle"></i>
+                <h2>Register - Step {step}</h2>
+                
+                {step === 1 && (
+                    <>
+                      <div className="form-item">
+                        <input
+                          type="text"
+                          className={"input-signin" + (errors.signUpUsername ? " error" : "")}
+                          name="signUpUsername"
+                          autoComplete="off"
+                          value={formData.signUpUsername}
+                          onChange={handleChange}
+                          required
+                        />
+                        <label for="signUpUsername">Username</label>
+                      </div>
+                      <p className="error">
+                        {errors.signUpUsername && (
+                          <i className="error-icon fas fa-exclamation-circle"></i>
+                        )}
+                        {errors.signUpUsername && (
+                          <span className="error">{errors.signUpUsername}</span>
+                        )}
+                      </p>
+                    </>
                   )}
-                  {errors.signUpEmail && (
-                    <span className="error">{errors.signUpEmail}</span>
-                  )}
-                </p>
+                {step === 2 && (
+                  <>
+                    <div className="form-item">
+                      <input
+                        type="text"
+                        className={"input-signin" + (errors.signUpWeight ? " error" : "")}
+                        name="signUpWeight"
+                        autoComplete="off"
+                        value={formData.signUpWeight}
+                        onChange={handleChange}
+                        required
+                      />
+                      <label for="signUpWeight">Weight</label>
+                    </div>
+                    <p className="error">
+                      {errors.signUpWeight && (
+                        <i className="error-icon fas fa-exclamation-circle"></i>
+                      )}
+                      {errors.signUpWeight && (
+                        <span className="error">{errors.signUpWeight}</span>
+                      )}
+                    </p>
+                    <div className="form-item">
+                      <input
+                        type="text"
+                        className={"input-signin" + (errors.signUpHeight ? " error" : "")}
+                        name="signUpHeight"
+                        autoComplete="off"
+                        value={formData.signUpHeight}
+                        onChange={handleChange}
+                        required
+                      />
+                      <label for="signUpHeight">Height</label>
+                    </div>
+                    <p className="error">
+                      {errors.signUpHeight && (
+                        <i className="error-icon fas fa-exclamation-circle"></i>
+                      )}
+                      {errors.signUpHeight && (
+                        <span className="error">{errors.signUpHeight}</span>
+                      )}
+                    </p>
+                  </>
+                )}
 
-                <input
-                  type="password"
-                  className={
-                    "input-signin" + ((errors.signUpPassword || errors.signUpPassword_dup) ? " error" : "")
-                  }
-                  name="signUpPassword"
-                  placeholder="Password"
-                  value={formData.signUpPassword}
-                  onChange={handleChange}
-                  required
-                />
-                <p className="error">
-                  {(errors.signUpPassword) && (
-                    <i className="error-icon fas fa-exclamation-circle"></i>
-                  )}
-                  {errors.signUpPassword && (
-                    <span className="error">{errors.signUpPassword}</span>
-                  )}
-                </p>
+                {step === 3 && (
+                  <>
+                    <div className="form-item">
+                      <input
+                        type="email"
+                        className="input-signin"
+                        name="signUpEmail"
+                        value={formData.signUpEmail}
+                        onChange={handleChange}
+                        required
+                      />
+                      <label for="signUpEmail">Email Address</label>
+                    </div>
+                    <p className="error">
+                      {errors.signUpEmail && (
+                        <i className="error-icon fas fa-exclamation-circle"></i>
+                      )}
+                      {errors.signUpEmail && (
+                        <span className="error">{errors.signUpEmail}</span>
+                      )}
+                    </p>
 
-                <input
-                  type="password"
-                  className={
-                    "input-signin" + (errors.signUpPassword_dup ? " error" : "")
-                  }
-                  name="signUpPassword_dup"
-                  placeholder="Repeat password"
-                  value={formData.signUpPassword_dup}
-                  onChange={handleChange}
-                  required
-                />
-                <p className="error-dup">
-                  {errors.signUpPassword_dup && (
-                    <i className="error-icon fas fa-exclamation-circle"></i>
-                  )}
-                  {errors.signUpPassword_dup && (
-                    <span className="error">{errors.signUpPassword_dup}</span>
-                  )}
-                </p>
+                    <div className="form-item">
+                      <input
+                        type="password"
+                        className={
+                          "input-signin" + ((errors.signUpPassword || errors.signUpPassword_dup) ? " error" : "")
+                        }
+                        name="signUpPassword"
+                        value={formData.signUpPassword}
+                        onChange={handleChange}
+                        required
+                      />
+                      <label for="signUpPassword">Password</label>
+                    </div>
+                    <p className="error">
+                      {(errors.signUpPassword) && (
+                        <i className="error-icon fas fa-exclamation-circle"></i>
+                      )}
+                      {errors.signUpPassword && (
+                        <span className="error">{errors.signUpPassword}</span>
+                      )}
+                    </p>
 
-                <button type="submit">Sign Up</button>
+                    <div className="form-item">
+                      <input
+                        type="password"
+                        className={
+                          "input-signin" + (errors.signUpPassword_dup ? " error" : "")
+                        }
+                        name="signUpPassword_dup"
+                        value={formData.signUpPassword_dup}
+                        onChange={handleChange}
+                        required
+                      />
+                      <label for="signUpPassword_dup">Repeat password</label>
+                    </div>
+                    <p className="error-dup">
+                      {errors.signUpPassword_dup && (
+                        <i className="error-icon fas fa-exclamation-circle"></i>
+                      )}
+                      {errors.signUpPassword_dup && (
+                        <span className="error">{errors.signUpPassword_dup}</span>
+                      )}
+                    </p>
+                  </>
+                )}
+
+                {step === 4 && (
+                  <>
+                    <div className="activity-level-options">
+                      <h3>Choose your current activity level:</h3>
+                      <div className="form-item">
+                        <select
+                          name="activityLevel"
+                          value={formData.activityLevel}
+                          onChange={handleChange}
+                        >
+                          <option value="sedentary">Sedentary</option>
+                          <option value="moderate">Moderate</option>
+                          <option value="intense">Intense</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="fitness-goal-options">
+                      <h3>Choose your fitness goal:</h3>
+                      <div className="form-item">
+                        <select
+                          name="fitnessGoal"
+                          value={formData.fitnessGoal}
+                          onChange={handleChange}
+                        >
+                          <option value="muscleGain">Gain Muscle</option>
+                          <option value="maintainWeight">Maintain Weight</option>
+                          <option value="gainWeight">Gain Weight</option>
+                        </select>
+                      </div>
+                    </div>
+                  </>
+                )}
+
+
+
+                <div>
+                  {step > 1 && (
+                    <button className="previous-button" onClick={handlePrevStep}>
+                      Previous
+                    </button>
+                  )}
+                  {step < 4 ? (
+                    <button className="continue-button" onClick={handleNextStep}>
+                      Continue
+                    </button>
+                  ) : (
+                    <button type="submit">Sign Up</button>
+                  )}
+                </div>
+
               </form>
+              
               <div className="linea-horizontal"></div>
               <span>or sign up with</span>
               <div className="socials">
