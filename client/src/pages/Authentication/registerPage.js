@@ -142,8 +142,6 @@ const RegisterForm = () => {
       } catch (error) {
         console.error("Error occurred while registering user:", error);
       }
-    } else {
-      handleNextStep();
     }
   };
 
