@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./authentication.css";
 
@@ -19,6 +19,31 @@ const RegisterForm = () => {
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
+  };
+
+  const [system, setSystem] = useState("metric");
+
+  useEffect(() => {
+    const checkboxes = document.querySelectorAll("input[type=checkbox]");
+    checkboxes.forEach((check) =>
+      check.addEventListener("change", handleCheckboxChange)
+    );
+    return () => {
+      checkboxes.forEach((check) =>
+        check.removeEventListener("change", handleCheckboxChange)
+      );
+    };
+  }, []);
+
+  const handleCheckboxChange = (e) => {
+    const marked = e.target.checked;
+    const checkboxes = document.querySelectorAll("input[type=checkbox]");
+    checkboxes.forEach((check) => (check.checked = false));
+    e.target.checked = marked;
+  };
+
+  const typeOfSystem = (value) => {
+    setSystem(value);
   };
 
   const handleNextStep = () => {
@@ -77,6 +102,7 @@ const RegisterForm = () => {
             });
             return;
           }
+          
           if (formData.signUpPassword !== formData.signUpPassword_dup) {
             setErrors({
               signUpPassword_dup: "Please make sure your passwords match.",
@@ -247,7 +273,7 @@ const RegisterForm = () => {
                         onChange={handleChange}
                         required
                       />
-                      <label for="signUpWeight">Weight</label>
+                      <label for="signUpWeight">{system === 'metric' ? 'Weight (Kg)' : 'Weight (lb)'}</label>
                     </div>
                     <p className="error">
                       {errors.signUpWeight && (
@@ -269,7 +295,7 @@ const RegisterForm = () => {
                         onChange={handleChange}
                         required
                       />
-                      <label for="signUpHeight">Height</label>
+                      <label for="signUpHeight">{system === 'metric' ? 'Height (cm)' : 'Weight (ft)'}</label>
                     </div>
                     <p className="error">
                       {errors.signUpHeight && (
@@ -279,6 +305,26 @@ const RegisterForm = () => {
                         <span className="error">{errors.signUpHeight}</span>
                       )}
                     </p>
+                    <div className="measurement-system-profile">
+                      <div className="radio-button-metric">
+                        <input
+                          type="radio"
+                          value="metric"
+                          checked={system === "metric"}
+                          onChange={() => typeOfSystem("metric")}
+                        />
+                        <p>Metric System</p>
+                      </div>
+                      <div className="radio-button-imperial">
+                        <input
+                          type="radio"
+                          value="imperial"
+                          checked={system === "imperial"}
+                          onChange={() => typeOfSystem("imperial")}
+                        />
+                        <p>Imperial System</p>
+                      </div>
+                    </div>
                   </>
                 )}
 
