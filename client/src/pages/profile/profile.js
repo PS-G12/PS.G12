@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import './profile.css';
-import UserStats from '../../components/UserDataRegister/userDataRegister.js';
+import UserStats from '../../components/ChangeUserStats/userDataRegister.js';
 import Header from "../../components/Header/header.js";
 import Footer from "../../components/Footer/footer.js"
 
