@@ -15,6 +15,7 @@ const RegisterForm = () => {
   const [loggedIn, setLoggedIn] = useState(false);
 
   const [step, setStep] = useState(1);
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -46,7 +47,7 @@ const RegisterForm = () => {
     setSystem(value);
   };
 
-  const handleNextStep = () => {
+  const handleStep = () => {
     if (step < 4) {
       if (step === 1) {
         if (formData.signUpUsername === "") {
@@ -111,9 +112,12 @@ const RegisterForm = () => {
           }
         }
       }
-
-      setStep(step + 1);
     }
+  };
+
+  const handleNextStep = () => {
+    handleStep();
+    setStep(step + 1);
   };
 
   const handlePrevStep = () => {
@@ -147,7 +151,7 @@ const RegisterForm = () => {
       return;
     }
 
-    if (step === 4) {
+    if (step === 4 && formSubmitted) {
       try {
         const response = await fetch("/auth/register", {
           method: "POST",
@@ -295,7 +299,7 @@ const RegisterForm = () => {
                         onChange={handleChange}
                         required
                       />
-                      <label for="signUpHeight">{system === 'metric' ? 'Height (cm)' : 'Weight (ft)'}</label>
+                      <label for="signUpHeight">{system === 'metric' ? 'Height (cm)' : 'Height (ft)'}</label>
                     </div>
                     <p className="error">
                       {errors.signUpHeight && (
@@ -455,7 +459,7 @@ const RegisterForm = () => {
                       Continue
                     </button>
                   ) : (
-                    <button type="submit">Sign Up</button>
+                    <button type="submit" onClick={() => setFormSubmitted(true)}>Sign Up</button>
                   )}
                 </div>
               </form>
