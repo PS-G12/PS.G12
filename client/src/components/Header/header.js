@@ -9,13 +9,19 @@ import {
   faCalculator,
   faSignInAlt,
   faUserPlus,
+  faSignOut,
 } from "@fortawesome/free-solid-svg-icons";
 import icon2 from "../../images/icons/icon-app/icon-3.png";
 import iconUser from "../../images/icons/icon-header/user-default.png";
 
-function Header() {
+function handleLogout(event) {
+  event.preventDefault();
+  sessionStorage.removeItem("token");
+  window.location.href = "/";
+}
+
+function Header({ isAuthenticated }) {
   const currentPath = window.location.pathname;
-  const isAuthenticated = sessionStorage.getItem("token") ? true : false;
   const isActive = (path) => currentPath === path;
 
   return (
@@ -68,12 +74,28 @@ function Header() {
       </nav>
       <div className="icon-users">
         {isAuthenticated ? (
-          <button onClick={console.log("Log out")}>Log out</button>
+          <div className="hero">
+            <details className="dropdown">
+              <summary role="button">
+                <a className="button">
+                  <img src={iconUser} alt="User Icon" />
+                </a>
+              </summary>
+              <ul>
+                <li>
+                <Link onClick={handleLogout} className="nav-links">
+                <FontAwesomeIcon icon={faSignOut} />
+                  Log out
+                </Link>
+                </li>
+              </ul>
+            </details>
+          </div>
         ) : (
           <div className="hero">
-            <details class="dropdown">
+            <details className="dropdown">
               <summary role="button">
-                <a class="button">
+                <a className="button">
                   <img src={iconUser} alt="User Icon" />
                 </a>
               </summary>

@@ -1,15 +1,52 @@
-.cards{
+.cards,
+.blur-content {
   display: flex;
   flex: 1;
+  user-select: none;
 }
-.cards .card-containerobj{
+
+.cards .card-containerobj {
   margin-left: 15%;
   margin-top: 5%;
 }
 
-.cards .macros-container{
+.cards .macros-container {
   margin-left: 15%;
   margin-top: 5%;
   height: fit-content;
 }
 
+.cards.default .blur-content {
+  filter: blur(5px);
+  pointer-events: none;
+}
+
+.message-block {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.message-block p {
+  font-size: 2rem !important;
+  font-weight: 500;
+  font-size: 1.2rem;
+  color: #6c757d;
+}
+
+.message-block p a {
+  font-weight: bold;
+  background: linear-gradient(130deg, #4d96d6 0%, #2a4bc4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  cursor: pointer;
+}
+
+.lock-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
