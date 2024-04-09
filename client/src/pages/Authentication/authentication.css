@@ -460,14 +460,14 @@ p.error-dup{
 }
 .form-item input:focus, 
 .form-item select:focus {
-  border-color: blue
+  border-color: #1c74e6
 }
 .form-item label {
   position: absolute;
   pointer-events: none; /* Esto asegura que la etiqueta no interfiera con los eventos de clic */
   left: 15px; /* Ajusta la posición de la etiqueta */
-  top: 50%; /* Posiciona la etiqueta verticalmente al centro */
-  transform: translateY(-50%); /* Corrige la posición vertical */
+  top: 65%; /* Posiciona la etiqueta verticalmente al centro */
+  transform: translateY(-100%); /* Corrige la posición vertical */
   font-size: 12px;
   font-weight: bold;
   color: #999;
@@ -477,11 +477,11 @@ p.error-dup{
 .form-item input:valid + label,
 .form-item select:focus + label,
 .form-item select:valid + label {
-  font-size: 11px;
+  font-size: 16px;
   top: 5px; /* Ajusta la posición de la etiqueta cuando el campo de entrada está enfocado o tiene contenido */
-  color: blue;
+  color: #1c74e6;
 }
 .form-item input:focus + label,
 .form-item select:focus + label {
-  color: blue
+  color: #1c74e6
 }

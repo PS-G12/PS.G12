@@ -76,12 +76,6 @@ const RegisterForm = () => {
               signUpPassword: "Password must be at least 5 characters long.",
             });
             return;
-          } else if (!/[A-Z].*[A-Z]/.test(formData.signUpPassword)) {
-            setErrors({
-              signUpPassword:
-                "Password must contain at least two uppercase letters.",
-            });
-            return;
           }
           if (formData.signUpPassword !== formData.signUpPassword_dup) {
             setErrors({
