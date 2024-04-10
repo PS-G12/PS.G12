@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import './profile.css';
 import UserStats from '../../components/ChangeUserStats/userDataRegister.js';
 import Header from "../../components/Header/header.js";
 import Footer from "../../components/Footer/footer.js"
 
 const Profile = () => {
+    const [fileSelected, setFileSelected] = useState(false);
     useEffect(() => {
         const handleClick = () => {
             document.getElementById('file-input').click();
@@ -14,6 +15,7 @@ const Profile = () => {
             var file = document.getElementById('file-input').files[0];
             if (file){
                 console.log('Image selected');
+                setFileSelected(true);
             }
             else{
                 console.log('No image selected');
@@ -38,7 +40,11 @@ const Profile = () => {
                     <div className="profile-image"></div>
                     <h1>Username</h1>
                     <div className="new-image">
-                        <button id='file-button'> Select image</button>
+                        <div className="img-buttons">
+                            <button id='file-button'> Select image</button>
+                            <span>{fileSelected === true ? 'Image selected' : ''}</span>
+                            <button id='save-img' onClick={() => {setFileSelected(false);}}> Save image</button>
+                        </div>
                         <input type="file" className="new-image-input" accept="image/*" id="file-input"></input>
                     </div>
                 </div>
@@ -69,8 +75,22 @@ const Profile = () => {
                                 </form>
                                 <input type="password" placeholder="New Password"></input>
                             </div>
-                            <button className="applay-changes-button">Applay Changes</button>
                         </div>
+                        <div className="change-email">
+                            <div className="new-email">
+                                <form className="form-new-email">
+                                    <label>Introduce the new email</label>
+                                </form>
+                                <input type="text" placeholder="New Email"></input>
+                            </div>
+                            <div className="repeat-new-email">
+                                <form className="form-repeat-new-email">
+                                    <label>Repeat the new email</label>
+                                </form>
+                                <input type="text" placeholder="New Email"></input>
+                            </div>
+                        </div>
+                        <button className="applay-changes-button">Applay Changes</button>
                     </div>
                     <UserStats className='user-stats'/>
                 </div>

@@ -64,11 +64,12 @@ const UserDataRegister = () => {
                 </div>
             </div>
             <div className="drop-downs">
-                <div className="sex-drop-down">
+                <div className="goal-drop-down">
                     <select className="select-sex">
-                        <option value='' selected>Select your sex</option>
-                        <option value='male'>Male</option>
-                        <option value='female'>Female</option>
+                        <option value='' selected>Select your fitness goal</option>
+                        <option value='gain'>Gain Weight</option>
+                        <option value='mantain'>Maintain weight</option>
+                        <option value='lose'>Lose weight</option>
                     </select>
                 </div>
                 <div className="activity-drop-down">
@@ -80,8 +81,8 @@ const UserDataRegister = () => {
                     </select>
                 </div>
             </div>
-            <div className="buttons-confirm-later">
-                <button className="button-later">Cancel</button>
+            <div className="buttons-confirm-cancel">
+                <button className="button-cancel">Cancel</button>
                 <button className="button-confirm">Confirm</button>
             </div>
         </div>

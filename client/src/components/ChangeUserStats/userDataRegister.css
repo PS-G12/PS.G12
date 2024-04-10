@@ -1,9 +1,9 @@
 .user-data-container{
     background-color: white;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    width: 20%;
+    width: 41%;
     margin: 0 auto;
-    height: 360px;
+    height: 368px;
 }
 
 .tittle-subtittle{
@@ -45,6 +45,10 @@
     border-radius: 5px;
 }
 
+.form-user-actual-weight label{
+    font-weight: bold;
+}
+
 .form-user-weight-goal{
     margin-bottom: 1%;
 }
@@ -57,8 +61,16 @@
     border-radius: 5px;
 }
 
+.form-user-weight-goal label{
+    font-weight: bold;
+}
+
 .form-user-age{
     margin-bottom: 1%;
+}
+
+.form-user-age label{
+    font-weight: bold;
 }
 
 .form-user-age input{
@@ -76,8 +88,12 @@
     margin-top: 2%;
 }
 
-.drop-downs .sex-drop-down{
-    margin-right: 2%;
+.drop-downs .goal-drop-down{
+    margin-right: 5%;
+}
+
+.drop-downs select{
+    border: 1px solid #ccc;
 }
 
 .radio-button-metric{
@@ -92,14 +108,18 @@
     align-items: center;
 }
 
-.buttons-confirm-later{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 2%;
+.drop-downs select, .activity-drop-down select{
+    padding: 3px;
 }
 
-.buttons-confirm-later .button-later{
+.buttons-confirm-cancel{
+    display: flex;
+    margin-top: 2%;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttons-confirm-cancel .button-cancel{
     color: #0066EE;
     background-color: white;
     border: 2px solid #0066EE;
