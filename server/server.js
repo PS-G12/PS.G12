@@ -3,7 +3,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const passport = require('passport');
 require('dotenv').config();
 const exerciseData = require("./api/exercise_data_en.json");
-const { registerUser, registerUserData, getUserData, registerUserGoogle } = require("./api/db.mongo");
+const { registerUser, registerUserData, getUserData, registerUserGoogle, checkUser, getUserWeightHeight } = require("./api/db.mongo");
 const { getUser } = require("./api/db.mongo");
 const jsonData = require("./api/foodData.json");
 const path = require("path");
@@ -82,21 +82,25 @@ async function fetchFood(query) {
 
 const verifyToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
-
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return passport.authenticate('google', { session: false })(req, res, next);
     // return res
     //   .status(401)
     //   .json({ success: false, message: "No token provided" });
   }
-
+  
   const token = authHeader.split(" ")[1];
+  if (token === null || authHeader === ""){
+    console.error("Error validating token:", error.message);
+    return res.status(401).json({ success: false, message: "Invalid token" });
+  }
 
   try {
     const decoded = jwt.verify(token, "_N0C0mpaRt1r");
     req.user = decoded.userId;
     next();
   } catch (error) {
+    console.log(token)
     console.error("Error validating token:", error.message);
     return res.status(401).json({ success: false, message: "Invalid token" });
   }
@@ -172,12 +176,13 @@ app.get("/api/exercises", (req, res) => {
   res.json(data);
 });
 
-app.get("/api/food/", verifyToken, (req, res) => {
+app.get("/api/food/", (req, res) => {
   const { search } = req.query;
 
   fetchFood(search)
     .then((result) => {
       res.json(result);
+      console.log(result);
     })
     .catch((error) => {
       console.error("Error al buscar alimentos:", error.message);
@@ -217,17 +222,13 @@ app.post("/auth/login/", async (req, res) => {
 });
 
 app.post("/auth/register", async (req, res) => {
-  const { signUpUsername, signUpEmail, signUpPassword } = req.body;
-
+  const { formData } = req.body;
+  
   try {
-    const hashedPassword = await bcrypt.hash(signUpPassword, 10);
-    const result = await registerUser(
-      signUpUsername,
-      signUpEmail,
-      hashedPassword
-    );
-
-    const token = generateAccessToken(signUpUsername);
+    const hashedPassword = await bcrypt.hash(formData.userData.password, 10);
+    formData.userData.password = hashedPassword;
+    const result = await registerUser(formData);
+    const token = generateAccessToken(formData.userData.username);
     return res.status(200).json({ success: true, token });
   } catch (error) {
     console.error("Error occurred while registering user:", error);
@@ -236,6 +237,18 @@ app.post("/auth/register", async (req, res) => {
       .json({ success: false, message: "Internal server error" });
   }
 });
+
+app.post("/auth/check", async (req, res) => {
+  const { username, email } = req.body;
+  try {
+    const result = await checkUser(username, email);
+    res.status(200).json(result);
+  } catch (error) {
+    console.error("Error occurred while checking user:", error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+});
+
 
 
 app.get("/user/data", verifyToken, async (req, res) => {
@@ -261,6 +274,24 @@ app.post("/user/data", verifyToken, async (req, res) => {
     res.status(500).json({ error: "Error al registrar los datos del usuario" });
   }
 });
+
+app.get("/user/data/weightHeight", verifyToken, async (req, res) => {
+  const username = req.user
+  try {
+    console.log("username", username);
+    const userData = await getUserWeightHeight(username);
+    if (!userData) {
+      return res.status(404).json({ error: "No user records found" });
+    }
+    const { weight, height } = userData;
+    res.status(200).json({ weight, height });
+  }
+  catch (error) {
+    console.error("Error while getting the user data:", error);
+    res.status(500).json({ error: "Error while getting the user weight or height" });
+  }
+});
+
 
 app.get('/auth/google',
   passport.authenticate('google', { scope: ['profile'] }));

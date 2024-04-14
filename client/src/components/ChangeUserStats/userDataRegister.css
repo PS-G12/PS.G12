@@ -3,7 +3,7 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     width: 41%;
     margin: 0 auto;
-    height: 368px;
+    height: 350px;
 }
 
 .tittle-subtittle{
@@ -65,27 +65,11 @@
     font-weight: bold;
 }
 
-.form-user-age{
-    margin-bottom: 1%;
-}
-
-.form-user-age label{
-    font-weight: bold;
-}
-
-.form-user-age input{
-    text-align: center;
-    border: none;
-    padding: 8px;
-    background-color: #efefef;
-    border-radius: 5px;
-}
-
 .drop-downs{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 2%;
+    margin-top: 5%;
 }
 
 .drop-downs .goal-drop-down{
@@ -114,7 +98,7 @@
 
 .buttons-confirm-cancel{
     display: flex;
-    margin-top: 2%;
+    margin-top: 5%;
     justify-content: center;
     align-items: center;
 }

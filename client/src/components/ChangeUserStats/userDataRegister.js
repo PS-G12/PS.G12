@@ -31,7 +31,7 @@ const UserDataRegister = () => {
         <div className="user-data-container">
             <div className="tittle-subtittle">
                 <h1>Change your stats</h1>
-                <h2>This way, we can track your progress</h2>
+                <h2>Choose your system of measurement</h2>
             </div>
             <div className="forms-user-data">
                 <div className="measurement-system-user">
@@ -46,21 +46,15 @@ const UserDataRegister = () => {
                 </div>
                 <div className="form-user-actual-weight">
                     <form>
-                        <label>{system === 'metric' ? 'Introduce your actual weight (Kg)' : 'Introduce your actual weight (lb)'}</label>
+                        <label>{system === 'metric' ? 'Register your new weight mark (Kg)' : 'Register your new weight mark (lb)'}</label>
                     </form>
                     <input type="text" placeholder="weight"></input>
                 </div>
                 <div className="form-user-weight-goal">
                     <form>
-                        <label>{system === 'metric' ? 'Introduce your weight goal (Kg)' : 'Introduce your weight goal (lb)'}</label>
+                        <label>{system === 'metric' ? 'Change your weight goal (Kg)' : 'Change your weight goal (lb)'}</label>
                     </form>
                     <input type="text" placeholder="weight goal"></input>
-                </div>
-                <div className="form-user-age">
-                    <form>
-                        <label>Introduce your age</label>
-                    </form>
-                    <input type="text" placeholder="age"></input>
                 </div>
             </div>
             <div className="drop-downs">

@@ -18,8 +18,6 @@ const getQuery = async (collection, findQuery) => {
         await cursor.forEach(recipe => {
             console.log(`${recipe.name} has ${recipe.ingredients.length} ingredients and takes ${recipe.prepTimeInMinutes} minutes to make.`);
         });
-        
-        console.log();
     } catch (err) {
         console.error(`Something went wrong trying to find the documents: ${err}\n`);
     }
@@ -31,31 +29,54 @@ const getUser = async (findQuery) => {
         const collection = database.collection(collectionName);
         const userquery = await collection.findOne({
             $or: [
-                { username: findQuery },
-                { email: findQuery }
+                { "userData.username": findQuery },
+                { "userData.email": findQuery }
             ]
         });
-        return userquery;
+        return userquery.userData;
     } catch (err) {
         console.error(`Something went wrong trying to find the documents: ${err}\n`);
         throw err;
     }
 };
 
+async function checkUser(username, email) {
+    const collection_user = database.collection('user_data');
+    try {
+      const existingUser = await collection_user.findOne({ username });
+      if (username){
+        if (existingUser) {
+        console.log('Username already exists');
+        return { success: false, message: 'Username already exists' };}
+      }
+      else if (email){
+        const existingEmail = await collection_user.findOne({ email });
+        if (existingEmail) {
+            console.log('Email' + email + 'already exists');
+            return { success: false, message: 'Email already exists' };
+        }
+      }
+        return { success: true, message: 'User available' };
+    } catch (error) {
+      console.error('Error checking user:', error);
+      throw error;
+    }
+}
 
-async function registerUser(username, email, password) {
-    const collection = database.collection('user_data');
-
+async function registerUser(formData) {
+    const collection_user = database.collection('user_data');
+    const collection_records = database.collection('user_records');
     try {
         
-        const existingUser = await collection.findOne({ username });
+        const existingUser = await collection_user.findOne({ username: formData.userData.username });
         if (existingUser) {
             console.log('Username already exists');
             return { success: false, message: 'Username already exists' };
         }
 
         
-        await collection.insertOne({ username, email, password });
+        await collection_user.insertOne({ userData: formData.userData });
+        await collection_records.insertOne({ userId: formData.userData.username, objectiveData: formData.objectiveData, macrosData: formData.macrosData });
         console.log('User registered successfully');
         return { success: true, message: 'User registered successfully' };
     } catch (error) {
@@ -64,74 +85,41 @@ async function registerUser(username, email, password) {
     }
 }
 
-async function registerUserGoogle(googleId, displayName, email) {
-    try {
-        // Verificar si el usuario ya está registrado
-        let existingUser = await getUser(googleId);
-
-        // Si el usuario ya existe, devolver el usuario existente
-        if (existingUser) {
-            return existingUser;
-        }
-
-        // Si el usuario no existe, registrar un nuevo usuario
-        const hashedPassword = await bcrypt.hash(googleId, 10); // Generar una contraseña hash única
-        const result = await registerUser(googleId, displayName, email, hashedPassword);
-
-        // Devolver el usuario registrado
-        return result;
-    } catch (error) {
-        throw error;
-    }
-}
-
-
-const registerUserData = async (userId, objectiveData, macrosData) => {
-    try {
-        const collection = database.collection('user_records');
-
-        const filter = { userId: userId };
-
-        const updateDocument = {
-            $set: {
-                objective: {
-                    value: objectiveData.value,
-                    kcalObjective: objectiveData.kcalObjective,
-                    food: objectiveData.food,
-                    exercise: objectiveData.exercise,
-                    remaining: objectiveData.remaining
-                },
-                macros: {
-                    value1: macrosData.value,
-                    max1: macrosData.max,
-                    value2: macrosData.value2,
-                    max2: macrosData.max2,
-                    value3: macrosData.value3,
-                    max3: macrosData.max3
-                }
-            }
-        };
-
-        const options = { upsert: true };
-        const result = await collection.updateOne(filter, updateDocument, options);
-        return result.upsertedId || result.modifiedCount;
-    } catch (error) {
-        console.error('Error registering/updating user data:', error);
-        throw error;
-    }
-};
-
 const getUserData = async (userId) => {
     try {
         const collection = database.collection('user_records');
         const userData = await collection.findOne({ userId: userId });
-        if (!userData) console.error('No user records found');
-        console.log('User data successfully fetched:', userData);
-        return userData;
+        if (!userData){
+            console.error('No user records found');
+        }
+        else{
+            console.log('User data successfully fetched:', userData);
+            return userData;
+        }
     } catch (error) {
         console.error('Error fetching user data:', error);
         throw error;
     }
 };
 
-module.exports = { getUser, getQuery, registerUser, registerUserData, getUserData, registerUserGoogle };
+const getUserWeightHeight = async (username) => {
+    try {
+        const collection = database.collection('user_data');
+        const userResult = await collection.findOne({ "userData.username": username });
+        if (!userResult) {
+            console.error('No user records found');
+            return null;
+        }
+        const { weight, height } = userResult.userData;
+        console.log('User data successfully fetched:', userResult);
+        return { weight, height };
+    }
+    catch (error) {
+        console.error('Error fetching user data:', error);
+        throw error;
+    }
+};
+
+
+
+module.exports = { getUser, getQuery, registerUser, getUserData, checkUser, getUserWeightHeight };

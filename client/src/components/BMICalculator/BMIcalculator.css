@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
 
 .BMI-calculator {
-  margin-top: 1%;
+  margin-top: -1%;
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -16,6 +16,7 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   text-align: center;
   padding: 1%;
+  margin-bottom: 1%;
 }
 
 .BMI-container label {
@@ -136,6 +137,10 @@
   opacity: 1;
 }
 
+.bmi-calculator-buttons{
+  align-content: center;
+}
+
 .button-calculator {
   background-color: #23a6f0;
   color: white;
@@ -148,6 +153,14 @@
 
 .button-calculator:hover {
   background-color: #0066ee;
+}
+
+.default-data-button{
+  background-color: #23a6f0;
+  color: white;
+  border-radius: 5px;
+  font-weight: bold;
+  border-color: #23a6f0;
 }
 
 .macros-calculator {
