@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./macrosCalculator.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -20,6 +20,8 @@ function MacrosCalculator() {
   const [resultProteins, setProteins] = useState("");
   const [resultCarbs, setCarbs] = useState("");
   const [resultFats, setFats] = useState("");
+  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [token, setToken] = useState();
 
   const [heightValid, setHeightValid] = useState(true);
   const [ageValid, setAgeValid] = useState(true);
@@ -123,6 +125,63 @@ function MacrosCalculator() {
     setCarbs(carbs.toFixed(2));
   };
 
+  const calculateMacrosDefault = (weight, height, age, gender, activityLevel, fitnessGoal) => {
+    let factor;
+    switch (activityLevel){
+      case "sedentary":
+        factor = 1.2;
+        break;
+      case "moderate":
+        factor = 1.375;
+        break;
+      case "intense":
+        factor = 1.6;
+        break;
+      default:
+        factor = 1.2;
+        break;
+    }
+
+    let ageUser = parseInt(age);
+    let weightUser = parseFloat(weight.replace(",", "."));
+    let heightUser = parseFloat(height.replace(",", "."));
+
+    let BMR;
+    if (gender === 'male'){
+      BMR = 10 * weightUser + 6.25 * heightUser - 5 * ageUser + 5;
+    }
+    else{
+      BMR = 10 * weightUser + 6.25 * heightUser - 5 * ageUser - 161;
+    }
+
+    let userGoal;
+    switch (fitnessGoal){
+      case "loseWeight":
+        userGoal = -500;
+        break;
+      case "maintainWeight":
+        userGoal = 0;
+        break;
+      case "gainWeight":
+        userGoal = 500;
+        break;
+      default:
+        userGoal = -500;
+    }
+
+    const calories = BMR * factor + userGoal;
+    setCalories(calories.toFixed(2));
+
+    const proteins = (calories * 0.25) / 4;
+    setProteins(proteins.toFixed(2));
+
+    const fats = (calories * 0.25) / 9;
+    setFats(fats.toFixed(2));
+
+    const carbs = (calories - proteins * 4 - fats * 9) / 4;
+    setCarbs(carbs.toFixed(2));
+  };
+
   const renderMeasurementCheckbox = (value, text) => (
     <form className="system-input-bmi">
       <div className="checkbox-wrapper-18" key={value}>
@@ -208,6 +267,45 @@ function MacrosCalculator() {
       </p>
     </div>
   );
+
+  useEffect(() => {
+    const userToken = sessionStorage.getItem('token');
+    if (userToken){
+      setLoggedIn(true);
+      setToken(userToken);
+    }
+    else{
+      setLoggedIn(false);
+    }
+  }, [])
+
+  async function getUserDatAndCalulateMacros() {
+    try {
+      const response = await fetch("/user/data/macros", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.weight && data.height && data.age && data.gender && data.activityLevel && data.fitnessGoal) {
+        const { weight, height, age, gender, activityLevel, fitnessGoal } = data;
+        calculateMacrosDefault(weight, height, age, gender, activityLevel, fitnessGoal);
+        return true;
+      }
+      else {
+        console.error("Error occurred while getting user data");
+        return false;
+      }
+    }
+    catch (error) {
+      console.error("Error occurred while getting user macros:", error);
+      return false;
+    }
+  }
 
   return (
     <div className="macros-containercalc">
@@ -301,9 +399,12 @@ function MacrosCalculator() {
               </ul>
             </div>
           </div>
-          <button type="submit" className="calculateMacros">
-            Calculate
-          </button>
+          <div className="buttons-macros-calculator">
+            <button type="submit" className="calculateMacros">
+              Calculate
+            </button>
+            {isLoggedIn && (<button className="default-data-button-macros" onClick={getUserDatAndCalulateMacros}>Calculate with my default data</button>)}
+          </div>
           <div className="result-macros">
             <div className="result-label">
               The necessary macronutrients are:

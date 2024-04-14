@@ -3,7 +3,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const passport = require('passport');
 require('dotenv').config();
 const exerciseData = require("./api/exercise_data_en.json");
-const { registerUser, registerUserData, getUserData, registerUserGoogle, checkUser, getUserWeightHeight } = require("./api/db.mongo");
+const { registerUser, registerUserData, getUserData, registerUserGoogle, checkUser, getUserWeightHeight, getUserMacros, getPrevUserData } = require("./api/db.mongo");
 const { getUser } = require("./api/db.mongo");
 const jsonData = require("./api/foodData.json");
 const path = require("path");
@@ -289,6 +289,68 @@ app.get("/user/data/weightHeight", verifyToken, async (req, res) => {
   catch (error) {
     console.error("Error while getting the user data:", error);
     res.status(500).json({ error: "Error while getting the user weight or height" });
+  }
+});
+
+app.get("/user/data/macros", verifyToken, async (req, res) => {
+  const username = req.user;
+  try{
+    console.log("username: ", username);
+    const userData = await getUserMacros(username);
+    if (!userData){
+      return res.status(404).json({ error: "No user records found" });
+    }
+    const { weight, height, age, gender, activityLevel, fitnessGoal } = userData
+    res.status(200).json({ weight, height, age, gender, activityLevel, fitnessGoal });
+  }
+  catch (error){
+    console.error("Error while getting the user data:", error);
+    res.status(500).json({ error: "Error while getting the user macros" });
+  }
+});
+
+app.post("/user/data/change", verifyToken, async (req, res) => {
+  const user = req.user;
+  const { formData } = req.body;
+  try{
+    const prevUserData = await getPrevUserData(user);
+    if (prevUserData){
+      const passCompare = bcrypt.compare(
+        formData.password_old,
+        prevUserData.password
+      );
+
+      if (!passCompare){
+        return res.status(401).json({ success: false, message: "The old password desn't match" });
+      }
+      else{
+        if (formData.password !== formData.password_dup){
+          return res.status(401).json({ success: false, message: "The new passwords don't match" });
+        }
+      }
+    }
+    else{
+      return res.status(401).json({ success: false, message: "No user records found" });
+    }
+
+    if (prevUserData.email === formData.email){
+      return res.status(401).json({ success: false, message: "New email must be different than the previous one" });
+    }
+
+    if (prevUserData.username === formData.username){
+      return res.status(401).json({ success: false, message: "New username must be different than the previous one" });
+    }
+
+    const hashedPassword = await bcrypt.hash(formData.password, 10);
+    const hashedPasswordDup = await bcrypt.hash(formData.password_dup, 10);
+
+    formData.password = hashedPassword;
+
+    //const updateUserData = await updateUser(formData); TO DO
+  }
+  catch (error){
+    console.error("Error updating the users data:", error);
+    res.status(500).json({ error: "Error updating the users data" });
   }
 });
 

@@ -25,42 +25,46 @@ const IndexPage = () => {
   });
 
   useEffect(() => {
-    fetch('/user/data', {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-      }
-    })
-    .then(response => {
-      if (response.ok) {
-        setIsLoggedIn(true);
-        return response.json();
-      } else {
+    const token = sessionStorage.getItem('token');
+    if (token){
+      fetch('/user/data', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          setIsLoggedIn(true);
+          return response.json();
+        } else {
+          setIsLoggedIn(false);
+          throw new Error('User data not available');
+        }
+      })
+      .then(data => {
+        setObjectiveData({
+          value: data.objectiveData.value,
+          kcalObjective: data.objectiveData.kcalObjective,
+          food: data.objectiveData.food,
+          exercise: data.objectiveData.exercise,
+          remaining: data.objectiveData.remaining
+        });
+        setMacrosData({
+          value: data.macrosData.value1,
+          max: data.macrosData.max1,
+          value2: data.macrosData.value2,
+          max2: data.macrosData.max2,
+          value3: data.macrosData.value3,
+          max3: data.macrosData.max3
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching user data:', error);
+        console.log('si')
         setIsLoggedIn(false);
-        throw new Error('User data not available');
-      }
-    })
-    .then(data => {
-      setObjectiveData({
-        value: data.objective.value,
-        kcalObjective: data.objective.kcalObjective,
-        food: data.objective.food,
-        exercise: data.objective.exercise,
-        remaining: data.objective.remaining
       });
-      setMacrosData({
-        value: data.macros.value1,
-        max: data.macros.max1,
-        value2: data.macros.value2,
-        max2: data.macros.max2,
-        value3: data.macros.value3,
-        max3: data.macros.max3
-      });
-    })
-    .catch(error => {
-      console.error('Error fetching user data:', error);
-      setIsLoggedIn(false);
-    });
+    }
   }, []);
   
 

@@ -76,7 +76,7 @@ const RegisterForm = () => {
     console.log(formData);
   };
 
-  function calculateMacrosFunction(
+  /*function calculateMacrosFunction(
     age,
     height,
     weight,
@@ -154,7 +154,7 @@ const RegisterForm = () => {
       fats: fats.toFixed(2),
       carbs: carbs.toFixed(2),
     };
-  }
+  }*/
 
   const checkEmailUser = async (username, email) => {
     console.log(email, username);
@@ -194,12 +194,15 @@ const RegisterForm = () => {
 
       if (response.ok) {
         sessionStorage.setItem("token", data.token);
+        setLoggedIn(true);
         navigate("/");
       } else {
         console.error(data.message);
+        setLoggedIn(false);
       }
     } catch (error) {
       console.error("Error occurred while registering user:", error);
+      setLoggedIn(false);
     }
   };
 
@@ -353,7 +356,7 @@ const RegisterForm = () => {
     const result = await handleStep();
     console.log(Object.values(errors).length);
     console.log(errors);
-    if (result != -1) {
+    if (result !== -1) {
       console.log("Se ha dado un paso con error: " + JSON.stringify(errors));
       setStep(step + 1);
     }
@@ -555,6 +558,20 @@ const RegisterForm = () => {
                       )}
                     </p>
 
+                    <div className="gender-options">
+                      <h3>Select your gender:</h3>
+                      <div className="form-item">
+                        <select
+                          name="gender"
+                          value={formData.userData.gender}
+                          onChange={handleChange}
+                        >
+                          <option value="male">Male</option>
+                          <option value="female">Female</option>
+                        </select>
+                      </div>
+                    </div>
+
                     <div className="measurement-system-profile">
                       <div className="radio-button-metric">
                         <label>
@@ -688,7 +705,7 @@ const RegisterForm = () => {
                           value={formData.objectiveData.goal}
                           onChange={handleChange}
                         >
-                          <option value="muscleGain">Gain Muscle</option>
+                          <option value="loseWeight">Lose Weight</option>
                           <option value="maintainWeight">
                             Maintain Weight
                           </option>

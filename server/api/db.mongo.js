@@ -18,6 +18,7 @@ const getQuery = async (collection, findQuery) => {
         await cursor.forEach(recipe => {
             console.log(`${recipe.name} has ${recipe.ingredients.length} ingredients and takes ${recipe.prepTimeInMinutes} minutes to make.`);
         });
+        
     } catch (err) {
         console.error(`Something went wrong trying to find the documents: ${err}\n`);
     }
@@ -74,7 +75,6 @@ async function registerUser(formData) {
             return { success: false, message: 'Username already exists' };
         }
 
-        
         await collection_user.insertOne({ userData: formData.userData });
         await collection_records.insertOne({ userId: formData.userData.username, objectiveData: formData.objectiveData, macrosData: formData.macrosData });
         console.log('User registered successfully');
@@ -120,6 +120,83 @@ const getUserWeightHeight = async (username) => {
     }
 };
 
+const getUserMacros = async (username) => {
+    try{
+        const collection = database.collection('user_data');
+        const result = await collection.findOne({"userData.username": username});
+        if (!result){
+            console.error('No user records found');
+            return null;
+        }
+        const { weight, height, age, gender, activityLevel, fitnessGoal } = result.userData;
+        console.log('User data successfully fetched: ', result);
+        return { weight, height, age, gender, activityLevel, fitnessGoal };
+    }
+    catch (error){
+        console.error('Error while fetching user macros: ', error);
+        throw error;
+    }
+};
+
+const getPrevUserData = async (user) => {
+    try{
+        const collection = database.collection('user_data');
+        const result = await collection.findOne({"userData.username":user});
+        if (!result){
+            console.error('No user records found');
+            return null;
+        }
+        console.log('User data successfully fetched: ', result);
+        return result.userData;
+    }
+    catch (error){
+        console.error('Error while getting the users data: ', error);
+        throw error;
+    }
+};
+
+//=======================================================TO DO======================================================
+
+/*const updateUser = async (formData) => {
+    try{
+        const collection = database.collection('user_data');
+        const document = collection.findOne({"userData.username": formData.username});
+        if (!document){
+            console.error('No user records found');
+            return null
+        }
+
+        let updateCases = [0, 0, 0];
+        updateCases[0] = (formData.username !== null);
+        updateCases[1] = (formData.email !== null);
+        updateCases[2] = (formData.password !== null);
+
+        switch (updateCases.join('')){
+                //UPE
+            case '000':
+                break;
+            case '001':
+                break;
+            case '010':
+                break;
+            case '011':
+                break;
+            case '100':
+                break;
+            case '101':
+                break;
+            case '110':
+                break;
+            case '111':
+                break;
+        }
+    }
+    catch (error){
+        console.error('Error while updating the users data: ', error);
+        throw error;
+    }
+};*/
 
 
-module.exports = { getUser, getQuery, registerUser, getUserData, checkUser, getUserWeightHeight };
+
+module.exports = { getUser, getQuery, registerUser, getUserData, checkUser, getUserWeightHeight, getUserMacros, getPrevUserData };

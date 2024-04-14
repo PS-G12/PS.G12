@@ -10,6 +10,7 @@ import {
   faSignInAlt,
   faUserPlus,
   faSignOut,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import icon2 from "../../images/icons/icon-app/icon-3.png";
 import iconUser from "../../images/icons/icon-header/user-default.png";
@@ -83,10 +84,16 @@ function Header({ isAuthenticated }) {
               </summary>
               <ul>
                 <li>
-                <Link onClick={handleLogout} className="nav-links">
-                <FontAwesomeIcon icon={faSignOut} />
-                  Log out
-                </Link>
+                  <Link to = '/profile'>
+                  <FontAwesomeIcon icon={faUser} />
+                    Profile
+                  </Link>
+                </li>
+                <li>
+                  <Link onClick={handleLogout} className="nav-links">
+                  <FontAwesomeIcon icon={faSignOut} />
+                    Log out
+                  </Link>
                 </li>
               </ul>
             </details>

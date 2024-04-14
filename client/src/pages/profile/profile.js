@@ -6,6 +6,20 @@ import Footer from "../../components/Footer/footer.js"
 
 const Profile = () => {
     const [fileSelected, setFileSelected] = useState(false);
+    const [isLoggedIn, setLoggedIn] = useState(false);
+    const [token, setToken] = useState();
+    const [formData, setFormData] = useState(
+        {
+            userData:{
+                username: "",
+                email: "",
+                password_old: "",
+                password: "",
+                password_dup: "",
+            }
+        }
+    );
+
     useEffect(() => {
         const handleClick = () => {
             document.getElementById('file-input').click();
@@ -32,9 +46,57 @@ const Profile = () => {
 
     }, []);
 
+    useEffect(() => {
+        const userToken = sessionStorage.getItem('token');
+        if (userToken){
+          setLoggedIn(true);
+          setToken(userToken);
+        }
+        else{
+          setLoggedIn(false);
+        }
+    }, []);
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormData(prevState => ({
+            ...prevState,
+            userData: {
+                ...prevState.userData,
+                [name]: value
+            }
+        }));
+    };
+
+    const changeUserData = async () => {
+        try{
+            const response = await fetch("/user/data/change", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({ formData })
+            });
+    
+            const data = await response.json();
+
+            if (response.ok){
+                console.log("Data sended correctly to the db: ", data);
+            }
+            else{
+                console.error("An error ocurred while sending the data: ", data);
+            }
+        }
+        catch (error){
+            console.error("An error ocurred while updating the users data: ", error);
+            throw error;
+        }
+    };
+
     return (
         <div className="profile-container">
-            <Header />
+            <Header isAuthenticated={isLoggedIn} />
             <div className="profile-data-container">
                 <div className="profile-image-container">
                     <div className="profile-image"></div>
@@ -54,26 +116,26 @@ const Profile = () => {
                             <form className="form-new-nickname">
                                 <label>Introduce your new username</label>
                             </form>
-                            <input type="text" placeholder="Username"></input>
+                            <input type="text" placeholder="Username" value={formData.userData.username} onChange={handleChange}></input>
                         </div>
                         <div className="change-password">
                             <div className="old-password">
                                 <form className="form-old-password">
                                     <label>Introduce the previous password</label>
                                 </form>
-                                <input type="password" placeholder="Old Password" pass></input>
+                                <input type="password" placeholder="Old Password" pass value={formData.userData.password_old} onChange={handleChange}></input>
                             </div>
                             <div className="new-password">
                                 <form className="form-new-password">
                                     <label>Introduce the new password</label>
                                 </form>
-                                <input type="password" placeholder="New Password"></input>
+                                <input type="password" placeholder="New Password" pass value={formData.userData.password} onChange={handleChange}></input>
                             </div>
                             <div className="repeat-new-password">
                                 <form className="form-repeat-new-password">
                                     <label>Repeat the new password</label>
                                 </form>
-                                <input type="password" placeholder="New Password"></input>
+                                <input type="password" placeholder="New Password" pass value={formData.userData.password_dup} onChange={handleChange}></input>
                             </div>
                         </div>
                         <div className="change-email">
@@ -81,7 +143,7 @@ const Profile = () => {
                                 <form className="form-new-email">
                                     <label>Introduce the new email</label>
                                 </form>
-                                <input type="text" placeholder="New Email"></input>
+                                <input type="text" placeholder="New Email" value={formData.userData.email} onChange={handleChange}></input>
                             </div>
                             <div className="repeat-new-email">
                                 <form className="form-repeat-new-email">
