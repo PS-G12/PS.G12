@@ -10,9 +10,17 @@
     background-color: white;
     width: 30%;
     min-height: 18.9rem;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 5px #0067ee6b;
     text-align: justify;
     padding: 1%;
+    margin: 20px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 }
 
 #listado-items h2{
@@ -38,4 +46,9 @@
 #listado-items ul { 
     height: 250px;
     overflow-y: scroll;
+}
+
+.registro-box button {
+    margin: auto;
+    display: block;
 }
