@@ -67,14 +67,11 @@ const RegisterForm = () => {
   };
 
   const typeOfSystem = (value) => {
-    console.log("value: " + value);
     setSystem(value);
     formData.userData.system = value;
-    console.log(formData);
   };
 
   const checkEmailUser = async (username, email) => {
-    console.log(email, username);
     try {
       const response = await fetch("/auth/check", {
         method: "POST",
@@ -190,7 +187,6 @@ const RegisterForm = () => {
           }
 
           const testRegex = /^\d{1,3}(?:\.\d{1,3})?$/;
-          console.log(formData.userData.weight);
           if (
             !testRegex.test(formData.userData.weight) ||
             parseFloat(formData.userData.weight) >= 600
@@ -226,8 +222,6 @@ const RegisterForm = () => {
            "Please enter the height in feet and inches format: X'Y."
           }
         }
-
-        console.log("newErrors.length " + Object.keys(newErrors).length);
         if (Object.keys(newErrors).length > 0) {
           setErrors(newErrors);
           return -1;
@@ -260,7 +254,6 @@ const RegisterForm = () => {
             "Please make sure your passwords match.";
         }
       }
-      console.log("newErrors.length");
       if (Object.keys(newErrors).length > 0) {
         setErrors(newErrors);
         return -1;
@@ -271,8 +264,6 @@ const RegisterForm = () => {
 
   const handleNextStep = async () => {
     const result = await handleStep();
-    console.log(Object.values(errors).length);
-    console.log(errors);
     if (result !== -1) {
       setStep(step + 1);
     }
@@ -321,8 +312,6 @@ const RegisterForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
-    if (name === 'goal') console.log("goal detected");
     if (name in formData.userData) {
       setFormData((prevState) => ({
         ...prevState,
