@@ -34,6 +34,7 @@ const getUser = async (findQuery) => {
                 { "userData.email": findQuery }
             ]
         });
+        if (!userquery) throw err;
         return userquery.userData;
     } catch (err) {
         console.error(`Something went wrong trying to find the documents: ${err}\n`);
@@ -84,7 +85,7 @@ async function registerUser(formData) {
 
 const getUserData = async (userId) => {
     try {
-        const collection = database.collection('user_records');
+        const collection = database.collection('objective_records');
         const userData = await collection.findOne({ userId: userId });
         if (!userData){
             console.error('No user records found');

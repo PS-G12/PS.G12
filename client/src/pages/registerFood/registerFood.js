@@ -13,20 +13,19 @@ const FoodSearch = () => {
   useEffect(() => {
     const storedAlimentos = JSON.parse(localStorage.getItem("alimentos")) || [];
     console.log(JSON.stringify(storedAlimentos));
-    console.log("Prueba los alimentos");
-
+    
     // Filtra los alimentos por tipo de comida
     const desayunoData = storedAlimentos.filter(
-      (alimento) => alimento.tipoComida === "desayuno"
+      (alimento) => alimento.typeComida === "desayuno"
     );
     const almuerzoData = storedAlimentos.filter(
-      (alimento) => alimento.tipoComida === "almuerzo"
+      (alimento) => alimento.typeComida === "almuerzo"
     );
     const cenaData = storedAlimentos.filter(
-      (alimento) => alimento.tipoComida === "cena"
+      (alimento) => alimento.typeComida === "cena"
     );
     const aperitivosData = storedAlimentos.filter(
-      (alimento) => alimento.tipoComida === "aperitivos"
+      (alimento) => alimento.typeComida === "aperitivos"
     );
 
     setDesayuno(desayunoData);
@@ -47,7 +46,7 @@ const FoodSearch = () => {
             </li>
           ))}
         </ul>
-        <div className="button-container"> {/* Aquí añadimos la clase button-container */}
+        <div className="button-container">
           <button
             onClick={() =>
               (window.location.href = `/searchFood?type=${tipo.toLowerCase()}`)

@@ -155,7 +155,7 @@ const FoodSearch = () => {
         ) : null}
       </div>
 
-      <Link to="/registroComidas">
+      <Link to="/registerFood">
         <button>Ir a Registro de Comidas</button>
       </Link>
     </div>

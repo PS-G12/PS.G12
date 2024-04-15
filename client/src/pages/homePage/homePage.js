@@ -61,7 +61,6 @@ const IndexPage = () => {
       })
       .catch(error => {
         console.error('Error fetching user data:', error);
-        console.log('si')
         setIsLoggedIn(false);
       });
     }
