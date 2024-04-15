@@ -44,36 +44,36 @@ const IndexPage = () => {
       })
       .then(data => {
         setObjectiveData({
-          value: data.objectiveData.value,
+          value: data.objectiveData.kcalConsumed,
           kcalObjective: data.objectiveData.kcalObjective,
-          food: data.objectiveData.food,
-          exercise: data.objectiveData.exercise,
-          remaining: data.objectiveData.remaining
+          //food: data.objectiveData.food,
+          //exercise: data.objectiveData.exercise,
+          remaining: data.objectiveData.kcalObjective - data.objectiveData.kcalConsumed
         });
         setMacrosData({
-          value: data.macrosData.value1,
-          max: data.macrosData.max1,
-          value2: data.macrosData.value2,
-          max2: data.macrosData.max2,
-          value3: data.macrosData.value3,
-          max3: data.macrosData.max3
+          value: data.objectiveData.carbsConsumed,
+          max: data.objectiveData.carbsObjective,
+          value2: data.objectiveData.fatsConsumed,
+          max2: data.objectiveData.fatsObjective,
+          value3: data.objectiveData.proteinsConsumed,
+          max3: data.objectiveData.proteinsObjective,
         });
       })
       .catch(error => {
         console.error('Error fetching user data:', error);
+        console.log('si')
         setIsLoggedIn(false);
       });
     }
   }, []);
   
-
   return (
     <div className="index-page">
       <Header isAuthenticated={isLoggedIn} />
       {isLoggedIn ? (
         <div className="cards">
-          <ObjectiveCard 
-            value={(objectiveData.remaining / objectiveData.kcalObjective) * 100} 
+          <ObjectiveCard
+            value={objectiveData.remaining === parseFloat(objectiveData.kcalObjective) ? 0 : (objectiveData.remaining / objectiveData.kcalObjective) * 100} 
             kcalObjective={objectiveData.kcalObjective} 
             food={objectiveData.food} 
             exercise={objectiveData.exercise} 

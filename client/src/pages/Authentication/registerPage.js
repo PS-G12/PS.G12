@@ -19,11 +19,14 @@ const RegisterForm = () => {
       activityLevel: "sedentary",
       goal:"loseWeight",
       weightGoal: "",
-      physicalActivity: "",
       kcalObjective: "",
       proteinsObjective: "",
       fatsObjective: "",
-      kcalConsumed: "",
+      carbsObjective: "",
+      kcalConsumed: 0,
+      proteinsConsumed: 0,
+      fatsConsumed: 0,
+      carbsConsumed: 0,
       weightProgression: {
         // date: "",
         // weight: "",
@@ -330,12 +333,84 @@ const RegisterForm = () => {
       }));
     }
   
+    calculateAndSetMacros();
+
     setErrors({
       ...errors,
     });
   };
-  
 
+  const calculateMacrosRegister = (weight, height, age, gender, activityLevel, fitnessGoal) => {
+    let factor;
+    switch (activityLevel){
+      case "sedentary":
+        factor = 1.2;
+        break;
+      case "moderate":
+        factor = 1.375;
+        break;
+      case "intense":
+        factor = 1.6;
+        break;
+      default:
+        factor = 1.2;
+        break;
+    }
+
+    let ageUser = parseInt(age);
+    let weightUser = parseFloat(weight.replace(",", "."));
+    let heightUser = parseFloat(height.replace(",", "."));
+
+    let BMR;
+    if (gender === 'male'){
+      BMR = 10 * weightUser + 6.25 * heightUser - 5 * ageUser + 5;
+    }
+    else{
+      BMR = 10 * weightUser + 6.25 * heightUser - 5 * ageUser - 161;
+    }
+
+    let userGoal;
+    switch (fitnessGoal){
+      case "loseWeight":
+        userGoal = -500;
+        break;
+      case "maintainWeight":
+        userGoal = 0;
+        break;
+      case "gainWeight":
+        userGoal = 500;
+        break;
+      default:
+        userGoal = -500;
+    }
+
+    const calories = (BMR * factor + userGoal).toFixed(2);
+
+    const proteins = ((calories * 0.25) / 4).toFixed(2);
+
+    const fats = ((calories * 0.25) / 9).toFixed(2);
+
+    const carbs = ((calories - proteins * 4 - fats * 9) / 4).toFixed(2);
+
+    return { calories, proteins, fats, carbs };
+  };
+
+  const calculateAndSetMacros = () => {
+    const { calories, proteins, fats, carbs } = calculateMacrosRegister(formData.userData.weight, formData.userData.height,
+       formData.userData.age, formData.userData.gender, formData.objectiveData.activityLevel, formData.objectiveData.goal);
+
+    setFormData((prevState) => ({
+      ...prevState,
+      objectiveData: {
+        ...prevState.objectiveData,
+        kcalObjective: calories,
+        proteinsObjective: proteins,
+        fatsObjective: fats,
+        carbsObjective: carbs,
+      }
+    }));
+  };
+  
   const handleGoogleSignUp = async () => {
     console.log("Signing up with Google...");
   };
