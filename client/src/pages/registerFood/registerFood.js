@@ -47,13 +47,15 @@ const FoodSearch = () => {
             </li>
           ))}
         </ul>
-        <button
-          onClick={() =>
-            (window.location.href = `/searchFood?type=${tipo.toLowerCase()}`)
-          }
-        >
-          Añadir Alimento
-        </button>
+        <div className="button-container"> {/* Aquí añadimos la clase button-container */}
+          <button
+            onClick={() =>
+              (window.location.href = `/searchFood?type=${tipo.toLowerCase()}`)
+            }
+          >
+            Añadir Alimento
+          </button>
+        </div>
       </div>
     );
   };

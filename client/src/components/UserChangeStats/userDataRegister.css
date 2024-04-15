@@ -1,0 +1,107 @@
+.user-data-container{
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    width: 20%;
+    margin: 0 auto;
+    height: 360px;
+}
+
+.tittle-subtittle{
+    text-align: center;
+}
+
+.tittle-subtittle h1{
+    font-size: 18px;
+    margin-bottom: 0;
+}
+
+.tittle-subtittle h2{
+    font-size: 14px;
+    margin: 0;
+}
+
+.measurement-system-user{
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.measurement-system-user p{
+    margin: 0;
+}
+
+.forms-user-data{
+    text-align: center;
+}
+
+.form-user-actual-weight{
+    margin-bottom: 1%;
+}
+
+.form-user-actual-weight input{
+    text-align: center;
+    border: none;
+    padding: 8px;
+    background-color: #efefef;
+    border-radius: 5px;
+}
+
+.form-user-weight-goal{
+    margin-bottom: 1%;
+}
+
+.form-user-weight-goal input{
+    text-align: center;
+    border: none;
+    padding: 8px;
+    background-color: #efefef;
+    border-radius: 5px;
+}
+
+.form-user-age{
+    margin-bottom: 1%;
+}
+
+.form-user-age input{
+    text-align: center;
+    border: none;
+    padding: 8px;
+    background-color: #efefef;
+    border-radius: 5px;
+}
+
+.drop-downs{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2%;
+}
+
+.drop-downs .sex-drop-down{
+    margin-right: 2%;
+}
+
+.radio-button-metric{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.radio-button-imperial{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttons-confirm-later{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2%;
+}
+
+.buttons-confirm-later .button-later{
+    color: #0066EE;
+    background-color: white;
+    border: 2px solid #0066EE;
+    margin-right: 8%;
+}
