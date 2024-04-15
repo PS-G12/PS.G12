@@ -13,10 +13,11 @@ const RegisterForm = () => {
       height: "",
       system: "metric",
       age: "",
-      gender: "",
+      gender: "Male",
     },
     objectiveData: {
-      activityLevel: "",
+      activityLevel: "sedentary",
+      goal:"loseWeight",
       weightGoal: "",
       physicalActivity: "",
       kcalObjective: "",
@@ -58,10 +59,6 @@ const RegisterForm = () => {
     };
   }, []);
 
-  useEffect(() => {
-    console.log(errors);
-  }, [errors]);
-
   const handleCheckboxChange = (e) => {
     const marked = e.target.checked;
     const checkboxes = document.querySelectorAll("input[type=checkbox]");
@@ -75,86 +72,6 @@ const RegisterForm = () => {
     formData.userData.system = value;
     console.log(formData);
   };
-
-  /*function calculateMacrosFunction(
-    age,
-    height,
-    weight,
-    gender,
-    physicalActivity,
-    goal,
-    system = "metric" // Añade un valor por defecto para el sistema si no se proporciona
-  ) {
-    const sedentaryFactor = 1.2;
-    const intermediateFactor = 1.375;
-    const intenseFactor = 1.6;
-
-    let ageUser = parseInt(age);
-    let heightUser = parseFloat(height.replace(",", "."));
-    let weightUser = parseFloat(weight.replace(",", "."));
-
-    if (
-      isNaN(ageUser) ||
-      isNaN(heightUser) ||
-      isNaN(weightUser) ||
-      ageUser <= 0 ||
-      heightUser <= 0 ||
-      weightUser <= 0 ||
-      (Number.isInteger(ageUser) === false && ageUser > 0)
-    ) {
-      alert(
-        "Please, make sure that the age, height and weight fields are numbers."
-      );
-      return null;
-    }
-
-    if (system === "imperial") {
-      heightUser = heightUser / 0.032808; // Convert feet to centimeters
-      weightUser = weightUser / 2.2046; // Convert pounds to kilograms
-    }
-
-    const caloriesGoal =
-      {
-        "gain-weight": 500,
-        "lose-weight": -500,
-        "maintain-weight": 0,
-      }[goal] || 0;
-
-    let BMR;
-    if (gender === "male") {
-      BMR = 10 * weightUser + 6.25 * heightUser - 5 * age + 5;
-    } else {
-      BMR = 10 * weightUser + 6.25 * heightUser - 5 * age - 161;
-    }
-
-    let physicalActivityFactor;
-    switch (physicalActivity) {
-      case "sedentary":
-        physicalActivityFactor = sedentaryFactor;
-        break;
-      case "intermediate":
-        physicalActivityFactor = intermediateFactor;
-        break;
-      case "intense":
-        physicalActivityFactor = intenseFactor;
-        break;
-      default:
-        physicalActivityFactor = sedentaryFactor;
-        break;
-    }
-
-    const calories = BMR * physicalActivityFactor + caloriesGoal;
-    const proteins = (calories * 0.25) / 4;
-    const fats = (calories * 0.25) / 9;
-    const carbs = (calories - proteins * 4 - fats * 9) / 4;
-
-    return {
-      calories: calories.toFixed(2),
-      proteins: proteins.toFixed(2),
-      fats: fats.toFixed(2),
-      carbs: carbs.toFixed(2),
-    };
-  }*/
 
   const checkEmailUser = async (username, email) => {
     console.log(email, username);
@@ -357,7 +274,6 @@ const RegisterForm = () => {
     console.log(Object.values(errors).length);
     console.log(errors);
     if (result !== -1) {
-      console.log("Se ha dado un paso con error: " + JSON.stringify(errors));
       setStep(step + 1);
     }
   };
@@ -405,26 +321,31 @@ const RegisterForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      userData: {
-        ...prevState.userData,
-        [name]: value,
-      },
-      objectiveData: {
-        ...prevState.objectiveData,
-        [name]: value,
-      },
-      macrosData: {
-        ...prevState.macrosData,
-        [name]: value,
-      },
-    }));
-
+    console.log(name, value);
+    if (name === 'goal') console.log("goal detected");
+    if (name in formData.userData) {
+      setFormData((prevState) => ({
+        ...prevState,
+        userData: {
+          ...prevState.userData,
+          [name]: value,
+        }
+      }));
+    } else if (name in formData.objectiveData) {
+      setFormData((prevState) => ({
+        ...prevState,
+        objectiveData: {
+          ...prevState.objectiveData,
+          [name]: value,
+        }
+      }));
+    }
+  
     setErrors({
       ...errors,
     });
   };
+  
 
   const handleGoogleSignUp = async () => {
     console.log("Signing up with Google...");
@@ -701,7 +622,7 @@ const RegisterForm = () => {
                       <h3>Choose your fitness goal:</h3>
                       <div className="form-item">
                         <select
-                          name="fitnessGoal"
+                          name="goal"
                           value={formData.objectiveData.goal}
                           onChange={handleChange}
                         >

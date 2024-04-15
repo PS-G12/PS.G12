@@ -43,15 +43,16 @@ const getUser = async (findQuery) => {
 
 async function checkUser(username, email) {
     const collection_user = database.collection('user_data');
+    console.log(`Checking ${username} and ${email}`);
     try {
-      const existingUser = await collection_user.findOne({ username });
+      const existingUser = await collection_user.findOne({ "userData.username": username });
       if (username){
         if (existingUser) {
         console.log('Username already exists');
         return { success: false, message: 'Username already exists' };}
       }
       else if (email){
-        const existingEmail = await collection_user.findOne({ email });
+        const existingEmail = await collection_user.findOne({ "userData.email": email });
         if (existingEmail) {
             console.log('Email' + email + 'already exists');
             return { success: false, message: 'Email already exists' };
@@ -66,19 +67,15 @@ async function checkUser(username, email) {
 
 async function registerUser(formData) {
     const collection_user = database.collection('user_data');
-    const collection_records = database.collection('user_records');
+    const collection_records = database.collection('objective_records');
     try {
-        
-        const existingUser = await collection_user.findOne({ username: formData.userData.username });
-        if (existingUser) {
-            console.log('Username already exists');
-            return { success: false, message: 'Username already exists' };
+        const userExists = await checkUser(formData.userData.username, formData.userData.email);
+        if (userExists){
+            await collection_user.insertOne({ userData: formData.userData });
+            await collection_records.insertOne({ userId: formData.userData.username, objectiveData: formData.objectiveData });
+            console.log('User registered successfully');
+            return { success: true, message: 'User registered successfully' };
         }
-
-        await collection_user.insertOne({ userData: formData.userData });
-        await collection_records.insertOne({ userId: formData.userData.username, objectiveData: formData.objectiveData, macrosData: formData.macrosData });
-        console.log('User registered successfully');
-        return { success: true, message: 'User registered successfully' };
     } catch (error) {
         console.error('Error registering user:', error);
         throw error;

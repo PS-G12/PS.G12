@@ -227,6 +227,8 @@ app.post("/auth/register", async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(formData.userData.password, 10);
     formData.userData.password = hashedPassword;
+    delete formData.userData.password_dup;
+    console.log(formData);
     const result = await registerUser(formData);
     const token = generateAccessToken(formData.userData.username);
     return res.status(200).json({ success: true, token });
@@ -265,13 +267,13 @@ app.get("/user/data", verifyToken, async (req, res) => {
 
 
 app.post("/user/data", verifyToken, async (req, res) => {
-  const { userId, objectiveData, macrosData } = req.body;
+  const { userId, objectiveData } = req.body;
   try {
-    const insertedId = await registerUserData(userId, objectiveData, macrosData);
+    const insertedId = await registerUserData(userId, objectiveData);
     res.status(200).json({ message: "User data registered successfully", insertedId });
   } catch (error) {
-    console.error("Error al registrar los datos del usuario:", error);
-    res.status(500).json({ error: "Error al registrar los datos del usuario" });
+    console.error("Error registering user data:", error);
+    res.status(500).json({ error: "Error registering user data" });
   }
 });
 
