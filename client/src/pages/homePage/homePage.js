@@ -19,7 +19,7 @@ Chart.register(
 )
 
 const IndexPage = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [objectiveData, setObjectiveData] = useState({
     value: 0,
     kcalObjective: 0,
@@ -60,7 +60,7 @@ const IndexPage = () => {
           setIsLoggedIn(true);
           return response.json();
         } else {
-          setIsLoggedIn(true);
+          setIsLoggedIn(false);
           throw new Error('User data not available');
         }
       })
@@ -98,8 +98,7 @@ const IndexPage = () => {
       })
       .catch(error => {
         console.error('Error fetching user data:', error);
-        console.log('si')
-        setIsLoggedIn(true);
+        setIsLoggedIn(false);
       });
     }
   }, []);
@@ -109,8 +108,8 @@ const IndexPage = () => {
       <Header isAuthenticated={isLoggedIn} />
       {isLoggedIn ? (
         <div className="cards">
-          <ObjectiveCard 
-            value={(objectiveData.remaining / objectiveData.kcalObjective) * 100} 
+          <ObjectiveCard
+            value={objectiveData.remaining === parseFloat(objectiveData.kcalObjective) ? 0 : (objectiveData.remaining / objectiveData.kcalObjective) * 100} 
             kcalObjective={objectiveData.kcalObjective} 
             food={objectiveData.food} 
             exercise={objectiveData.exercise} 
