@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../../components/Header/header.js";
 import { Link, useLocation } from "react-router-dom";
 import "./searchFood.css";
@@ -10,11 +10,38 @@ const FoodSearch = () => {
   const [quantity, setQuantity] = useState(100);
   const [savedMessage, setSavedMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const location = useLocation();
 
   const type = new URLSearchParams(location.search).get("type");
-  console.log(type);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem('token');
+    if (token) {
+      fetch('/verify-token', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          setIsLoggedIn(true);
+        } else {
+          setIsLoggedIn(false);
+          console.error('Token inválido');
+        }
+      })
+      .catch(error => {
+        console.error('Error al verificar el token:', error);
+        
+      });
+    } else {
+      console.error('Token no encontrado. Usuario no autenticado.');
+    }
+  }, []);
+  
 
   const handleSearch = () => {
     fetch(`/api/food?search=${searchQuery}`)
@@ -38,44 +65,61 @@ const FoodSearch = () => {
   };
 
   const handleAddToMeal = () => {
-    // Verifica si se ha seleccionado un alimento
+    
     if (!selectedItem) {
       console.error("No se ha seleccionado ningún alimento.");
       return;
     }
-
-    // Crear un objeto que represente el alimento con sus detalles y type de comida
+    
     const nuevoAlimento = {
       typeComida: type,
       nombre: selectedItem.name,
       calorias: selectedItem.calories,
       cantidad: quantity,
-      // Agrega otras propiedades según sea necesario
+      
     };
-
-    // Obtén los alimentos existentes del localStorage
-    const alimentosGuardados =
+    
+    if (isLoggedIn) {
+      const token = sessionStorage.getItem('token');
+      fetch('/user/data/food', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ food: nuevoAlimento })
+      })
+      .then(response => {
+        if (response.ok) {
+          setSavedMessage("Alimento guardado correctamente.");
+          setSearchQuery("");
+          setSearchResult(null);
+          setSelectedItem(null);
+          setQuantity(100);
+        } else {
+          console.error('Error al guardar el alimento:', response.statusText);
+          throw new Error('Error al guardar el alimento');
+        }
+      })
+      .catch(error => {
+        console.error('Error al guardar el alimento:', error);
+      });
+    } else {
+      const alimentosGuardados =
       JSON.parse(localStorage.getItem("alimentos")) || [];
-
-    // Agrega el nuevo alimento a la lista
-    const nuevosAlimentos = [...alimentosGuardados, nuevoAlimento];
-
-    // Almacena la lista actualizada en localStorage
-    localStorage.setItem("alimentos", JSON.stringify(nuevosAlimentos));
-
-    // Muestra el mensaje de éxito
-    setSavedMessage("Alimento guardado correctamente.");
-
-    // Reinicia los estados para la próxima búsqueda
-    setSearchQuery("");
-    setSearchResult(null);
-    setSelectedItem(null);
-    setQuantity(100);
+      const nuevosAlimentos = [...alimentosGuardados, nuevoAlimento];
+      localStorage.setItem("alimentos", JSON.stringify(nuevosAlimentos));
+      setSavedMessage("Alimento guardado correctamente.");
+      setSearchQuery("");
+      setSearchResult(null);
+      setSelectedItem(null);
+      setQuantity(100);
+    }
   };
 
   return (
     <div className="buscarAlimento-box">
-      <Header />
+    <Header isAuthenticated={isLoggedIn}/>
       <h1>Añadir alimento a {type}</h1>
 
       <div className="searchbar">
@@ -86,8 +130,8 @@ const FoodSearch = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <button onClick={handleSearch} class="searchButton">
-            <svg viewBox="0 0 1024 1024"><path class="path1" d="M848.471 928l-263.059-263.059c-48.941 
+          <button onClick={handleSearch} className="searchButton">
+            <svg viewBox="0 0 1024 1024"><path className="path1" d="M848.471 928l-263.059-263.059c-48.941 
               36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 
               312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 
               263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 
@@ -143,7 +187,7 @@ const FoodSearch = () => {
                   />{" "}
                   gramos
                 </p>
-                <button onClick={handleAddToMeal}>Añadir al desayuno</button>
+                <button onClick={handleAddToMeal}>Añadir a {type}</button>
                 {savedMessage && <p>{savedMessage}</p>}
               </div>
             )}

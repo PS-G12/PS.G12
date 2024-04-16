@@ -8,13 +8,72 @@ const FoodSearch = () => {
   const [almuerzo, setAlmuerzo] = useState([]);
   const [cena, setCena] = useState([]);
   const [aperitivos, setAperitivos] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // Recuperar datos almacenados en el localStorage cuando el componente se monta
   useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const token = sessionStorage.getItem('token');
+        if (!token) {
+          setIsLoggedIn(false);
+          getLocalData();
+          return;
+        }
+        
+        const response = await fetch('/user/data/food', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        
+        if (response.ok) {
+          setIsLoggedIn(true);
+          const data = await response.json();
+          setFoodData(data);
+        } else {
+          setIsLoggedIn(false);
+          getLocalData();
+          throw new Error('User data not available');
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+        setIsLoggedIn(false);
+        getLocalData();
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  const setFoodData = (userData) => {
+    console.log(userData);
+    const storedAlimentos = userData || [];
+  
+    const desayunoData = storedAlimentos.filter(
+      (alimento) => alimento.typeComida === "desayuno"
+    );
+    const almuerzoData = storedAlimentos.filter(
+      (alimento) => alimento.typeComida === "almuerzo"
+    );
+    const cenaData = storedAlimentos.filter(
+      (alimento) => alimento.typeComida === "cena"
+    );
+    const aperitivosData = storedAlimentos.filter(
+      (alimento) => alimento.typeComida === "aperitivos"
+    );
+  
+    setDesayuno(desayunoData);
+    setAlmuerzo(almuerzoData);
+    setCena(cenaData);
+    setAperitivos(aperitivosData);
+  };
+  
+
+  const getLocalData = () => {
     const storedAlimentos = JSON.parse(localStorage.getItem("alimentos")) || [];
     console.log(JSON.stringify(storedAlimentos));
     
-    // Filtra los alimentos por tipo de comida
     const desayunoData = storedAlimentos.filter(
       (alimento) => alimento.typeComida === "desayuno"
     );
@@ -32,9 +91,8 @@ const FoodSearch = () => {
     setAlmuerzo(almuerzoData);
     setCena(cenaData);
     setAperitivos(aperitivosData);
-  }, []);
+  };
 
-  // Función para mostrar comidas en la lista
   const mostrarComidasEnLista = (tipo, lista) => {
     return (
       <div className={`listado-${tipo.toLowerCase()}`} id="listado-items">
@@ -61,7 +119,7 @@ const FoodSearch = () => {
 
   return (
     <div className="registro-container">
-      <Header />
+      <Header isAuthenticated={isLoggedIn}/>
       <h1 id="listado-h1">Listado de Comidas</h1>
       <div className="registro-box">
         {mostrarComidasEnLista("Desayuno", desayuno)}

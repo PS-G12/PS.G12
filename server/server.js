@@ -3,7 +3,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const passport = require('passport');
 require('dotenv').config();
 const exerciseData = require("./api/exercise_data_en.json");
-const { registerUser, registerUserData, getUserData, registerUserGoogle, checkUser, getUserWeightHeight, getUserMacros, getPrevUserData } = require("./api/db.mongo");
+const { registerUser, registerUserData, getUserData, setUserData, registerUserGoogle, checkUser, getUserWeightHeight, getUserMacros, getPrevUserData } = require("./api/db.mongo");
 const { getUser } = require("./api/db.mongo");
 const jsonData = require("./api/foodData.json");
 const path = require("path");
@@ -182,7 +182,6 @@ app.get("/api/food/", (req, res) => {
   fetchFood(search)
     .then((result) => {
       res.json(result);
-      console.log(result);
     })
     .catch((error) => {
       console.error("Error al buscar alimentos:", error.message);
@@ -228,7 +227,6 @@ app.post("/auth/register", async (req, res) => {
     const hashedPassword = await bcrypt.hash(formData.userData.password, 10);
     formData.userData.password = hashedPassword;
     delete formData.userData.password_dup;
-    console.log(formData);
     const result = await registerUser(formData);
     const token = generateAccessToken(formData.userData.username);
     return res.status(200).json({ success: true, token });
@@ -252,11 +250,9 @@ app.post("/auth/check", async (req, res) => {
 });
 
 
-
 app.get("/user/data", verifyToken, async (req, res) => {
   const userId = req.user;
   try {
-    console.log("userId", userId);
     const userData = await getUserData(userId);
     res.status(200).json(userData);
   } catch (error) {
@@ -264,7 +260,6 @@ app.get("/user/data", verifyToken, async (req, res) => {
     res.status(500).json({ error: "Error al obtener los datos del usuario" });
   }
 });
-
 
 app.post("/user/data", verifyToken, async (req, res) => {
   const { userId, objectiveData } = req.body;
@@ -277,10 +272,42 @@ app.post("/user/data", verifyToken, async (req, res) => {
   }
 });
 
+app.get("/user/data/food", verifyToken, async (req, res) => {
+  const userId = req.user;
+  try {
+    const userData = await getUserData(userId);
+    res.status(200).json(userData.objectiveData.foodRecords);
+  } catch (error) {
+    console.error("Error al obtener los datos del user:", error);
+    res.status(500).json({ error: "Error al obtener los datos del user" });
+  }
+});
+
+app.post("/user/data/food", verifyToken, async (req, res) => {
+  const userId = req.user;
+  const { food } = req.body;
+  console.log(userId, food);
+  try {
+    const userData = await setUserData(userId, food);
+    res.status(200).json(userData.foodRecords);
+  } catch (error) {
+    console.error("Error al obtener los datos del usuario:", error);
+    res.status(500).json({ error: "Error al obtener los datos del usuario" });
+  }
+});
+
+app.post("/verify-token", verifyToken, async (req, res) => {
+  try {
+    res.status(200).json({ message: 'Token válido' });
+  } catch (error) {
+    console.error("Error al obtener los datos del usuario:", error);
+    res.status(500).json({ error: "Error al obtener los datos del usuario" });
+  }
+});
+
 app.get("/user/data/weightHeight", verifyToken, async (req, res) => {
   const username = req.user
   try {
-    console.log("username", username);
     const userData = await getUserWeightHeight(username);
     if (!userData) {
       return res.status(404).json({ error: "No user records found" });

@@ -30,8 +30,8 @@ function Header({ isAuthenticated }) {
       <div className="icon-bar">
         <img className="icon-1" src={icon2} alt="Icon" />
       </div>
-      <nav className="navbar">
         <div className="logo"></div>
+      <nav className="navbar">
         <ul className="nav-links">
           <li className={isActive("/") ? "active" : ""}>
             <a href="/">

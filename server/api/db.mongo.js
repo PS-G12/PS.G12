@@ -100,6 +100,39 @@ const getUserData = async (userId) => {
     }
 };
 
+const setUserData = async (userId, food) => {
+    try {
+        const collection = database.collection('objective_records');
+        const userData = await collection.findOne({ userId: userId });
+        if (!userData){
+            console.error('No user records found');
+            return;
+        }
+        if (!userData.objectiveData) {
+            userData.objectiveData = {};
+        }
+        
+        if (!userData.objectiveData.foodRecords) {
+            userData.objectiveData.foodRecords = [];
+        }
+
+        userData.objectiveData.foodRecords.push(food);
+        await collection.updateOne(
+            { userId: userId },
+            { $set: { "objectiveData.foodRecords": userData.objectiveData.foodRecords } }
+        );
+        
+        return userData;
+    } catch (error) {
+        console.error('Error fetching/updating user data:', error);
+        throw error;
+    }
+};
+
+
+
+
+
 const getUserWeightHeight = async (username) => {
     try {
         const collection = database.collection('user_data');
@@ -197,4 +230,4 @@ const getPrevUserData = async (user) => {
 
 
 
-module.exports = { getUser, getQuery, registerUser, getUserData, checkUser, getUserWeightHeight, getUserMacros, getPrevUserData };
+module.exports = { getUser, getQuery, registerUser, getUserData, setUserData, checkUser, getUserWeightHeight, getUserMacros, getPrevUserData };
