@@ -72,6 +72,14 @@ const IndexPage = () => {
           //exercise: data.objectiveData.exercise,
           remaining: data.objectiveData.kcalObjective - data.objectiveData.kcalConsumed
         });
+        setMacrosData({
+          value: data.objectiveData.carbsConsumed,
+          max: data.objectiveData.carbsObjective,
+          value2: data.objectiveData.fatsConsumed,
+          max2: data.objectiveData.fatsObjective,
+          value3: data.objectiveData.proteinsConsumed,
+          max3: data.objectiveData.proteinsObjective,
+        });
 
         let weightProgressionDates = []; 
         let weightProgressionWeights = []; 
