@@ -50,3 +50,43 @@
   font-size: 4rem;
   margin-bottom: 1rem;
 }
+
+
+.chart-container {
+  width: 35%;
+  height: 30%;
+  margin-top: 20%;
+  margin-bottom: 5%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  margin-left: -70%;
+}
+
+
+.chart-container canvas {
+  width: 100% !important; 
+  height: auto !important;
+}
+
+.chart-container p, .chart-container2 p {
+  text-align: center;
+  font-weight: bold;
+}
+
+.chart-container2 {
+  width: 35%;
+  height: 30%;
+  margin-top: 20%;
+  margin-bottom: 5%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  margin-left: 4%;
+}
+
+
+.chart-container2 canvas {
+  width: 100% !important; 
+  height: auto !important;
+}

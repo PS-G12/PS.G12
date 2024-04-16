@@ -1,13 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
+import { Line } from 'react-chartjs-2';
+import { CategoryScale, Chart, LineElement, PointElement } from 'chart.js';
+import {LinearScale} from 'chart.js';
+import 'chartjs-plugin-datalabels'; 
 import Header from '../../components/Header/header';
 import ObjectiveCard from '../../components/ObjectiveCard/ObjectiveCard';
 import MacrosCard from '../../components/MacrosCard/macrosCard';
 import Footer from '../../components/Footer/footer';
 import './homePage.css';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDumbbell, faHeart } from "@fortawesome/free-solid-svg-icons";
+Chart.register(
+  LineElement,
+  CategoryScale,
+  LinearScale,
+  PointElement
+)
 
 const IndexPage = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [objectiveData, setObjectiveData] = useState({
     value: 0,
     kcalObjective: 0,
@@ -24,6 +36,16 @@ const IndexPage = () => {
     max3: 0
   });
 
+  const [weightProgressionData, setWeightProgressionData] = useState({
+    dates: [],
+    weights: []
+  });
+
+  const [PulseProgressionData, setPulseProgressionData] = useState({
+    dates: [],
+    ratio: []
+  });
+
   useEffect(() => {
     const token = sessionStorage.getItem('token');
     if (token){
@@ -38,7 +60,7 @@ const IndexPage = () => {
           setIsLoggedIn(true);
           return response.json();
         } else {
-          setIsLoggedIn(false);
+          setIsLoggedIn(true);
           throw new Error('User data not available');
         }
       })
@@ -50,19 +72,34 @@ const IndexPage = () => {
           //exercise: data.objectiveData.exercise,
           remaining: data.objectiveData.kcalObjective - data.objectiveData.kcalConsumed
         });
-        setMacrosData({
-          value: data.objectiveData.carbsConsumed,
-          max: data.objectiveData.carbsObjective,
-          value2: data.objectiveData.fatsConsumed,
-          max2: data.objectiveData.fatsObjective,
-          value3: data.objectiveData.proteinsConsumed,
-          max3: data.objectiveData.proteinsObjective,
+
+        let weightProgressionDates = []; 
+        let weightProgressionWeights = []; 
+        let pulseProgressionDates = []; 
+        let pulseProgressionratio = []; 
+
+        weightProgressionDates = Object.keys(data.objectiveData.weightProgression);
+        weightProgressionWeights = Object.values(data.objectiveData.weightProgression);
+        pulseProgressionDates = Object.keys(data.objectiveData.pulseProgression);
+        pulseProgressionratio = Object.values(data.objectiveData.pulseProgression);
+
+
+        
+        setWeightProgressionData({
+          dates: weightProgressionDates,
+          weights: weightProgressionWeights
         });
+
+        setPulseProgressionData({
+          dates: pulseProgressionDates,
+          ratio: pulseProgressionratio
+        });
+
       })
       .catch(error => {
         console.error('Error fetching user data:', error);
         console.log('si')
-        setIsLoggedIn(false);
+        setIsLoggedIn(true);
       });
     }
   }, []);
@@ -72,8 +109,8 @@ const IndexPage = () => {
       <Header isAuthenticated={isLoggedIn} />
       {isLoggedIn ? (
         <div className="cards">
-          <ObjectiveCard
-            value={objectiveData.remaining === parseFloat(objectiveData.kcalObjective) ? 0 : (objectiveData.remaining / objectiveData.kcalObjective) * 100} 
+          <ObjectiveCard 
+            value={(objectiveData.remaining / objectiveData.kcalObjective) * 100} 
             kcalObjective={objectiveData.kcalObjective} 
             food={objectiveData.food} 
             exercise={objectiveData.exercise} 
@@ -87,7 +124,65 @@ const IndexPage = () => {
             value3={macrosData.value3} 
             max3={macrosData.max3}
           />
-        </div>
+          <div className="chart-container">
+          <p> Your Weight Progression <FontAwesomeIcon icon={faDumbbell} /></p>
+            <Line
+              data={{
+                labels: weightProgressionData.dates, 
+                datasets: [
+                  {
+                    label: 'Weight Progression', 
+                    data: weightProgressionData.weights, 
+                    fill: false, 
+                    borderColor: 'rgb(75, 192, 192)', 
+                    tension: 0.1 
+                  }
+                ]
+              }}
+              options={{
+                plugins: {
+                  scales: {
+                    y: {
+                      beginAtZero: true
+                    }
+                  },
+                  legend: {
+                    display: true
+                  }
+                }
+              }}
+            />
+          </div>
+          <div className="chart-container2">
+          <p>Your Pulse Progression <FontAwesomeIcon icon={faHeart} /></p>
+            <Line
+              data={{
+                labels: PulseProgressionData.dates, 
+                datasets: [
+                  {
+                    label: 'Pulse Progression', 
+                    data: PulseProgressionData.ratio, 
+                    fill: false, 
+                    borderColor: 'rgb(12, 374, 12)', 
+                    tension: 0.1 
+                  }
+                ]
+              }}
+              options={{
+                plugins: {
+                  scales: {
+                    y: {
+                      beginAtZero: true
+                    }
+                  },
+                  legend: {
+                    display: true
+                  }
+                }
+              }}
+            />
+          </div>
+      </div>
       ) : (
         <div className="cards default">
           <div className="message-block">
