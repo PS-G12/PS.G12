@@ -186,48 +186,86 @@ const getPrevUserData = async (user) => {
     }
 };
 
-//=======================================================TO DO======================================================
-
-/*const updateUser = async (formData) => {
+const updateUser = async (formData, user) => {
     try{
         const collection = database.collection('user_data');
-        const document = collection.findOne({"userData.username": formData.username});
+        const collection_to_expand = database.collection('objective_records');
+        const document = collection.findOne({"userData.username": user});
         if (!document){
             console.error('No user records found');
             return null
         }
 
         let updateCases = [0, 0, 0];
-        updateCases[0] = (formData.username !== null);
-        updateCases[1] = (formData.email !== null);
-        updateCases[2] = (formData.password !== null);
-
+        updateCases[0] = (formData.username !== null) + 0;
+        updateCases[1] = (formData.email !== null) + 0;
+        updateCases[2] = (formData.password !== null) + 0;
+        console.log("Update case: ",updateCases.join(''));
+        let updateDocument;
         switch (updateCases.join('')){
                 //UPE
             case '000':
+                console.error('Nothing to update');
                 break;
             case '001':
+                updateDocument = {
+                    $set: {"userData.email": formData.userData.email}
+                };
                 break;
             case '010':
+                updateDocument = {
+                    $set: {"userData.password": formData.userData.password}
+                };
                 break;
             case '011':
+                updateDocument = {
+                    $set: {"userData.password": formData.userData.password, "userData.email": formData.userData.email}
+                };
                 break;
             case '100':
+                updateDocument = {
+                    $set: {"userData.username": formData.userData.username}
+                };
                 break;
             case '101':
+                updateDocument = {
+                    $set: {"userData.username": formData.userData.username, "userData.email": formData.userData.email}
+                };
                 break;
             case '110':
+                updateDocument = {
+                    $set: {"userData.username": formData.userData.username, "userData.password": formData.userData.password}
+                };
                 break;
             case '111':
+                updateDocument = {
+                    $set: {"userData.username": formData.userData.username, "userData.password": formData.userData.password, "userData.email": formData.userData.email}
+                };
                 break;
+        }
+
+        if (!updateDocument){
+            return null;
+        }
+        const result = await collection.updateOne({"userData.username": user}, updateDocument);
+        const expandUpdate = {
+            $set:{userId: formData.userData.username}
+        }
+        const expandUpdateToCollection = await collection_to_expand.updateOne({userId: user}, expandUpdate);
+        if (result.modifiedCount === 1 && expandUpdateToCollection.modifiedCount === 1){
+            console.log('Update was successfull');
+            return result;
+        }
+        else{
+            console.log('Something went wrong updating the user');
         }
     }
     catch (error){
         console.error('Error while updating the users data: ', error);
         throw error;
     }
-};*/
+};
 
 
 
-module.exports = { getUser, getQuery, registerUser, getUserData, setUserData, checkUser, getUserWeightHeight, getUserMacros, getPrevUserData };
+module.exports = { getUser, getQuery, registerUser, getUserData, checkUser, getUserWeightHeight, getUserMacros, getPrevUserData };

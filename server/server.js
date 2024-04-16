@@ -3,7 +3,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const passport = require('passport');
 require('dotenv').config();
 const exerciseData = require("./api/exercise_data_en.json");
-const { registerUser, registerUserData, getUserData, setUserData, registerUserGoogle, checkUser, getUserWeightHeight, getUserMacros, getPrevUserData } = require("./api/db.mongo");
+const { registerUser, registerUserData, getUserData, registerUserGoogle, checkUser, getUserWeightHeight, getUserMacros, getPrevUserData } = require("./api/db.mongo");
 const { getUser } = require("./api/db.mongo");
 const jsonData = require("./api/foodData.json");
 const path = require("path");
@@ -189,7 +189,7 @@ app.get("/api/food/", (req, res) => {
     });
 });
 
-app.post("/auth/login/", async (req, res) => {
+app.post("/auth/login", async (req, res) => {
   const { signInUsername, signInPassword } = req.body;
   try {
     const findQuery = signInUsername;
@@ -344,8 +344,9 @@ app.post("/user/data/change", verifyToken, async (req, res) => {
   try{
     const prevUserData = await getPrevUserData(user);
     if (prevUserData){
+      //console.log(prevUserData.password);
       const passCompare = bcrypt.compare(
-        formData.password_old,
+        formData.userData.password_old,
         prevUserData.password
       );
 
@@ -353,7 +354,7 @@ app.post("/user/data/change", verifyToken, async (req, res) => {
         return res.status(401).json({ success: false, message: "The old password desn't match" });
       }
       else{
-        if (formData.password !== formData.password_dup){
+        if (formData.userData.password !== formData.userData.password_dup){
           return res.status(401).json({ success: false, message: "The new passwords don't match" });
         }
       }
@@ -362,20 +363,27 @@ app.post("/user/data/change", verifyToken, async (req, res) => {
       return res.status(401).json({ success: false, message: "No user records found" });
     }
 
-    if (prevUserData.email === formData.email){
+    if (prevUserData.email === formData.userData.email){
       return res.status(401).json({ success: false, message: "New email must be different than the previous one" });
     }
 
-    if (prevUserData.username === formData.username){
+    if (formData.userData.email !== formData.userData.email_dup){
+      return res.status(401).json({ success: false, message: "New emails don't match" });
+    }
+
+    if (prevUserData.username === formData.userData.username){
       return res.status(401).json({ success: false, message: "New username must be different than the previous one" });
     }
 
-    const hashedPassword = await bcrypt.hash(formData.password, 10);
-    const hashedPasswordDup = await bcrypt.hash(formData.password_dup, 10);
+    const hashedPassword = await bcrypt.hash(formData.userData.password, 10);
 
-    formData.password = hashedPassword;
+    formData.userData.password = hashedPassword;
 
-    //const updateUserData = await updateUser(formData); TO DO
+    const updateUserData = await updateUser(formData, user);
+    if (!updateUserData){
+      return res.status(401).json({ success: false, message: "Could not update the user" });
+    }
+    res.status(200).json({success: true, message: "User updated successfully"});
   }
   catch (error){
     console.error("Error updating the users data:", error);

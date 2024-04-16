@@ -13,6 +13,7 @@ const Profile = () => {
             userData:{
                 username: "",
                 email: "",
+                email_dup: "",
                 password_old: "",
                 password: "",
                 password_dup: "",
@@ -57,13 +58,68 @@ const Profile = () => {
         }
     }, []);
 
-    const handleChange = (event) => {
-        const { name, value } = event.target;
+    const handleChangeUsername = (event) => {
+        const { value } = event.target;
         setFormData(prevState => ({
             ...prevState,
             userData: {
                 ...prevState.userData,
-                [name]: value
+                username: value
+            }
+        }));
+    };
+
+    const handleChangePasswordOld = (event) => {
+        const { value } = event.target;
+        setFormData(prevState => ({
+            ...prevState,
+            userData: {
+                ...prevState.userData,
+                password_old: value
+            }
+        }));
+    };
+
+    const handleChangePasswordNew = (event) => {
+        const { value } = event.target;
+        setFormData(prevState => ({
+            ...prevState,
+            userData: {
+                ...prevState.userData,
+                password: value
+            }
+        }));
+    };
+
+    const handleChangePasswordDup = (event) => {
+        const { value } = event.target;
+        setFormData(prevState => ({
+            ...prevState,
+            userData: {
+                ...prevState.userData,
+                password_dup: value
+            }
+        }));
+    };
+
+    const handleChangeNewEmail = (event) => {
+        const { value } = event.target;
+        setFormData(prevState => ({
+            ...prevState,
+            userData: {
+                ...prevState.userData,
+                email: value
+            }
+        }));
+    };
+
+    const handleChangeNewEmailDup = (event) => {
+        const { value } = event.target;
+        setFormData(prevState => ({
+            ...prevState,
+            userData: {
+                ...prevState.userData,
+                email_dup: value
             }
         }));
     };
@@ -116,26 +172,26 @@ const Profile = () => {
                             <form className="form-new-nickname">
                                 <label>Introduce your new username</label>
                             </form>
-                            <input type="text" placeholder="Username" value={formData.userData.username} onChange={handleChange}></input>
+                            <input type="text" placeholder="Username" value={formData.userData.username} onChange={handleChangeUsername}></input>
                         </div>
                         <div className="change-password">
                             <div className="old-password">
                                 <form className="form-old-password">
                                     <label>Introduce the previous password</label>
                                 </form>
-                                <input type="password" placeholder="Old Password" pass value={formData.userData.password_old} onChange={handleChange}></input>
+                                <input type="password" placeholder="Old Password" pass value={formData.userData.password_old} onChange={handleChangePasswordOld}></input>
                             </div>
                             <div className="new-password">
                                 <form className="form-new-password">
                                     <label>Introduce the new password</label>
                                 </form>
-                                <input type="password" placeholder="New Password" pass value={formData.userData.password} onChange={handleChange}></input>
+                                <input type="password" placeholder="New Password" pass value={formData.userData.password} onChange={handleChangePasswordNew}></input>
                             </div>
                             <div className="repeat-new-password">
                                 <form className="form-repeat-new-password">
                                     <label>Repeat the new password</label>
                                 </form>
-                                <input type="password" placeholder="New Password" pass value={formData.userData.password_dup} onChange={handleChange}></input>
+                                <input type="password" placeholder="New Password" pass value={formData.userData.password_dup} onChange={handleChangePasswordDup}></input>
                             </div>
                         </div>
                         <div className="change-email">
@@ -143,16 +199,16 @@ const Profile = () => {
                                 <form className="form-new-email">
                                     <label>Introduce the new email</label>
                                 </form>
-                                <input type="text" placeholder="New Email" value={formData.userData.email} onChange={handleChange}></input>
+                                <input type="email" placeholder="New Email" value={formData.userData.email} onChange={handleChangeNewEmail}></input>
                             </div>
                             <div className="repeat-new-email">
                                 <form className="form-repeat-new-email">
                                     <label>Repeat the new email</label>
                                 </form>
-                                <input type="text" placeholder="New Email"></input>
+                                <input type="email" placeholder="New Email" value={formData.userData.email_dup} onChange={handleChangeNewEmailDup}></input>
                             </div>
                         </div>
-                        <button className="applay-changes-button">Applay Changes</button>
+                        <button className="applay-changes-button" onClick={changeUserData}>Applay Changes</button>
                     </div>
                     <UserStats className='user-stats'/>
                 </div>
