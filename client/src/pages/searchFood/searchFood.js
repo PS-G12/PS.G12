@@ -120,13 +120,13 @@ const FoodSearch = () => {
   return (
     <div className="buscarAlimento-box">
     <Header isAuthenticated={isLoggedIn}/>
-      <h1>Añadir alimento a {type}</h1>
+      <h1>Add food to {type}</h1>
 
       <div className="searchbar">
         <div id="form" className="searchbar-container">
           <input
             type="text"
-            placeholder="Introduce la búsqueda"
+            placeholder="Enter search"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -149,8 +149,8 @@ const FoodSearch = () => {
               <table>
                 <thead>
                   <tr>
-                    <th>Nombre</th>
-                    <th>Calorías</th>
+                    <th>Name</th>
+                    <th>Calories</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -200,7 +200,7 @@ const FoodSearch = () => {
       </div>
 
       <Link to="/registerFood">
-        <button>Ir a Registro de Comidas</button>
+        <button>Go to Food Log</button>
       </Link>
     </div>
   );
