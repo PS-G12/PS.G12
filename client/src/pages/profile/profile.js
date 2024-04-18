@@ -8,6 +8,7 @@ const Profile = () => {
     const [fileSelected, setFileSelected] = useState(false);
     const [isLoggedIn, setLoggedIn] = useState(false);
     const [token, setToken] = useState();
+    const [username, setUsername] = useState();
     const [formData, setFormData] = useState(
         {
             userData:{
@@ -139,6 +140,10 @@ const Profile = () => {
 
             if (response.ok){
                 console.log("Data sended correctly to the db: ", data);
+                if (data.usernameChanged){
+                    updateToken();
+                    //window.location.reload();
+                }
             }
             else{
                 console.error("An error ocurred while sending the data: ", data);
@@ -150,13 +155,71 @@ const Profile = () => {
         }
     };
 
+    const updateToken = async () => {
+        try{
+            sessionStorage.removeItem('token');
+            const response = await fetch("/user/data/update/token", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ formData })
+            });
+
+            const data = await response.json();
+
+            if (response.ok){
+                console.log("New token generated: ", data);
+                sessionStorage.setItem("token", data.token);
+            }
+            else{
+                console.error("An error ocurred while sending the data: ", data);
+            }
+
+        }
+        catch (error){
+            console.error('Run into an error updating the token: ', error);
+        }
+    }
+
+    /*useEffect(() => {
+        const getUsername = async () => {
+            try{
+                const response = await fetch("/user/data/username", {
+                    method: "GET",
+                    headers: {
+                      "Content-Type": "application/json",
+                      "Authorization": `Bearer ${token}`
+                    },
+                });
+            
+                const data = await response.json();
+    
+                if (response.ok && data){
+                    const { username } = data;
+                    setUsername(username);
+                    return true;
+                }
+                else{
+                    console.error('Could not fetch the username');
+                    return false;
+                }
+            }
+            catch (error){
+                console.error('Run into an error while getting the users data:', error);
+                throw error;
+            }
+        };
+        getUsername();
+    });*/
+
     return (
         <div className="profile-container">
             <Header isAuthenticated={isLoggedIn} />
             <div className="profile-data-container">
                 <div className="profile-image-container">
                     <div className="profile-image"></div>
-                    <h1>Username</h1>
+                    <h1>{username ? username : "Username"}</h1>
                     <div className="new-image">
                         <div className="img-buttons">
                             <button id='file-button'> Select image</button>

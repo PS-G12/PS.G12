@@ -36,9 +36,9 @@ const getUser = async (findQuery) => {
         });
         if (!userquery) throw err;
         return userquery.userData;
-    } catch (err) {
-        console.error(`Something went wrong trying to find the documents: ${err}\n`);
-        throw err;
+    } catch (error) {
+        console.error("Something went wrong trying to find the documents: ", error);
+        throw error;
     }
 };
 
@@ -88,7 +88,7 @@ const getUserData = async (userId) => {
         const collection = database.collection('objective_records');
         const userData = await collection.findOne({ userId: userId });
         if (!userData){
-            console.error('No user records found');
+            console.error('No user records foundA');
         }
         else{
             console.log('User data successfully fetched:', userData);
@@ -100,45 +100,12 @@ const getUserData = async (userId) => {
     }
 };
 
-const setUserData = async (userId, food) => {
-    try {
-        const collection = database.collection('objective_records');
-        const userData = await collection.findOne({ userId: userId });
-        if (!userData){
-            console.error('No user records found');
-            return;
-        }
-        if (!userData.objectiveData) {
-            userData.objectiveData = {};
-        }
-        
-        if (!userData.objectiveData.foodRecords) {
-            userData.objectiveData.foodRecords = [];
-        }
-
-        userData.objectiveData.foodRecords.push(food);
-        await collection.updateOne(
-            { userId: userId },
-            { $set: { "objectiveData.foodRecords": userData.objectiveData.foodRecords } }
-        );
-        
-        return userData;
-    } catch (error) {
-        console.error('Error fetching/updating user data:', error);
-        throw error;
-    }
-};
-
-
-
-
-
 const getUserWeightHeight = async (username) => {
     try {
         const collection = database.collection('user_data');
         const userResult = await collection.findOne({ "userData.username": username });
         if (!userResult) {
-            console.error('No user records found');
+            console.error('No user records foundB');
             return null;
         }
         const { weight, height } = userResult.userData;
@@ -156,7 +123,7 @@ const getUserMacros = async (username) => {
         const collection = database.collection('user_data');
         const result = await collection.findOne({"userData.username": username});
         if (!result){
-            console.error('No user records found');
+            console.error('No user records foundC');
             return null;
         }
         const { weight, height, age, gender, activityLevel, fitnessGoal } = result.userData;
@@ -171,10 +138,11 @@ const getUserMacros = async (username) => {
 
 const getPrevUserData = async (user) => {
     try{
+        console.log(user);
         const collection = database.collection('user_data');
         const result = await collection.findOne({"userData.username":user});
         if (!result){
-            console.error('No user records found');
+            console.error('No user records foundD');
             return null;
         }
         console.log('User data successfully fetched: ', result);
@@ -192,14 +160,14 @@ const updateUser = async (formData, user) => {
         const collection_to_expand = database.collection('objective_records');
         const document = collection.findOne({"userData.username": user});
         if (!document){
-            console.error('No user records found');
+            console.error('No user records foundE');
             return null
         }
 
         let updateCases = [0, 0, 0];
-        updateCases[0] = (formData.username !== null) + 0;
-        updateCases[1] = (formData.email !== null) + 0;
-        updateCases[2] = (formData.password !== null) + 0;
+        updateCases[0] = (formData.userData.username !== "") + 0;
+        updateCases[1] = (formData.userData.password !== "") + 0;
+        updateCases[2] = (formData.userData.email !== "") + 0;
         console.log("Update case: ",updateCases.join(''));
         let updateDocument;
         switch (updateCases.join('')){
@@ -248,13 +216,24 @@ const updateUser = async (formData, user) => {
             return null;
         }
         const result = await collection.updateOne({"userData.username": user}, updateDocument);
-        const expandUpdate = {
-            $set:{userId: formData.userData.username}
+        let modifiedCollectiontoExpand = false;
+        if (formData.userData.username){
+            const expandUpdate = {
+                $set:{userId: formData.userData.username}
+            }
+            const expandUpdateToCollection = await collection_to_expand.updateOne({userId: user}, expandUpdate);
+            if (expandUpdateToCollection.modifiedCount === 1){
+                modifiedCollectiontoExpand = true;
+            }
         }
-        const expandUpdateToCollection = await collection_to_expand.updateOne({userId: user}, expandUpdate);
-        if (result.modifiedCount === 1 && expandUpdateToCollection.modifiedCount === 1){
-            console.log('Update was successfull');
-            return result;
+        
+        if (result.modifiedCount === 1 && modifiedCollectiontoExpand){
+            console.log('Update and update expansion were successfull');
+            return modifiedCollectiontoExpand;
+        }
+        else if (result.modifiedCount === 1){
+            console.log('Update was successful');
+            return modifiedCollectiontoExpand;
         }
         else{
             console.log('Something went wrong updating the user');
@@ -268,4 +247,4 @@ const updateUser = async (formData, user) => {
 
 
 
-module.exports = { getUser, getQuery, registerUser, getUserData, checkUser, getUserWeightHeight, getUserMacros, getPrevUserData };
+module.exports = { getUser, getQuery, registerUser, getUserData, checkUser, getUserWeightHeight, getUserMacros, getPrevUserData, updateUser };
