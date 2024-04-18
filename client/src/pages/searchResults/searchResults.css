@@ -8,8 +8,10 @@
   flex: 1;  
 }
 
-.exercise-container {
+.exercise-container-cards {
+  display: flex;
   flex: 3; 
+  justify-content: flex-start;
 }
 
 
