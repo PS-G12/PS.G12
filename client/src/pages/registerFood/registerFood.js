@@ -110,7 +110,7 @@ const FoodSearch = () => {
               (window.location.href = `/searchFood?type=${tipo.toLowerCase()}`)
             }
           >
-            Añadir Alimento
+            Add Food
           </button>
         </div>
       </div>
@@ -120,12 +120,12 @@ const FoodSearch = () => {
   return (
     <div className="registro-container">
       <Header isAuthenticated={isLoggedIn}/>
-      <h1 id="listado-h1">Listado de Comidas</h1>
+      <h1 id="listado-h1">Food List</h1>
       <div className="registro-box">
-        {mostrarComidasEnLista("Desayuno", desayuno)}
-        {mostrarComidasEnLista("Almuerzo", almuerzo)}
-        {mostrarComidasEnLista("Cena", cena)}
-        {mostrarComidasEnLista("Aperitivos", aperitivos)}
+        {mostrarComidasEnLista("Breakfast", desayuno)}
+        {mostrarComidasEnLista("Lunch", almuerzo)}
+        {mostrarComidasEnLista("Dinner", cena)}
+        {mostrarComidasEnLista("Snacks", aperitivos)}
       </div>
       <Footer />
     </div>
