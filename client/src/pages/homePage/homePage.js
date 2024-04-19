@@ -70,6 +70,7 @@ const IndexPage = () => {
         }
       })
       .then(data => {
+        console.log(data);
         setObjectiveData({
           value: data.objectiveData.kcalConsumed,
           kcalObjective: data.objectiveData.kcalObjective,
@@ -115,6 +116,7 @@ const IndexPage = () => {
         setLoading(false);
       });
     }
+    setLoading(false);
   }, []);
   
   return (

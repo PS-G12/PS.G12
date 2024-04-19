@@ -44,7 +44,7 @@ passport.use(new GoogleStrategy({
 
 const generateAccessToken = (userId) => {
   console.log("Generating access token for user " + userId);
-  const accessToken = jwt.sign({ userId }, "_N0C0mpaRt1r", { expiresIn: "1h" });
+  const accessToken = jwt.sign({ userId }, "_N0C0mpaRt1r", { expiresIn: "4h" });
   return accessToken;
 };
 
