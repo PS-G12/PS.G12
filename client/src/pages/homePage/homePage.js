@@ -1,10 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
+import { Line } from 'react-chartjs-2';
+import { CategoryScale, Chart, LineElement, PointElement } from 'chart.js';
+import { LinearScale } from 'chart.js';
+import 'chartjs-plugin-datalabels';
 import Header from '../../components/Header/header';
 import ObjectiveCard from '../../components/ObjectiveCard/ObjectiveCard';
 import MacrosCard from '../../components/MacrosCard/macrosCard';
 import Footer from '../../components/Footer/footer';
 import './homePage.css';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDumbbell, faHeart } from "@fortawesome/free-solid-svg-icons";
+
+Chart.register(
+  LineElement,
+  CategoryScale,
+  LinearScale,
+  PointElement
+);
 
 const IndexPage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
