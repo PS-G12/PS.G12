@@ -3,7 +3,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const passport = require('passport');
 require('dotenv').config();
 const exerciseData = require("./api/exercise_data_en.json");
-const { registerUser, registerUserData, getUserData, registerUserGoogle, checkUser, getUserWeightHeight, getUserMacros, getPrevUserData, updateUser } = require("./api/db.mongo");
+const { registerUser, registerUserData, getUserData, registerUserGoogle, checkUser, getUserWeightHeight, getUserMacros, getPrevUserData, updateUser, setUserData } = require("./api/db.mongo");
 const { getUser } = require("./api/db.mongo");
 const jsonData = require("./api/foodData.json");
 const path = require("path");
@@ -275,6 +275,39 @@ app.post("/user/data", verifyToken, async (req, res) => {
   } catch (error) {
     console.error("Error registering user data:", error);
     res.status(500).json({ error: "Error registering user data" });
+  }
+});
+
+app.get("/user/data/food", verifyToken, async (req, res) => {
+  const userId = req.user;
+  try {
+    const userData = await getUserData(userId);
+    res.status(200).json(userData.objectiveData.foodRecords);
+  } catch (error) {
+    console.error("Error al obtener los datos del user:", error);
+    res.status(500).json({ error: "Error al obtener los datos del user" });
+  }
+});
+
+app.post("/user/data/food", verifyToken, async (req, res) => {
+  const userId = req.user;
+  const { food } = req.body;
+  console.log(userId, food);
+  try {
+    const userData = await setUserData(userId, food);
+    res.status(200).json(userData.foodRecords);
+  } catch (error) {
+    console.error("Error al obtaining the users data:", error);
+    res.status(500).json({ error: "Error al obtaining the users data" });
+  }
+});
+
+app.post("/verify-token", verifyToken, async (req, res) => {
+  try {
+    res.status(200).json({ message: 'Token válido' });
+  } catch (error) {
+    console.error("Error al obtaining the users data:", error);
+    res.status(500).json({ error: "Error al obtaining the users data" });
   }
 });
 

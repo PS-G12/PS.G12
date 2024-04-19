@@ -30,15 +30,15 @@ const FoodSearch = () => {
           setIsLoggedIn(true);
         } else {
           setIsLoggedIn(false);
-          console.error('Token inválido');
+          console.error('Invalid token');
         }
       })
       .catch(error => {
-        console.error('Error al verificar el token:', error);
+        console.error('Error verifying token:', error);
         
       });
     } else {
-      console.error('Token no encontrado. Usuario no autenticado.');
+      console.error('Could not find the token, user not authenticated');
     }
   }, []);
   

@@ -18,6 +18,8 @@ function SearchResultsPage() {
   const [exercisesPerPage, setExercisesPerPage] = useState(24);
   const [pagesToShow] = useState(5);
   const [selectedBodyParts, setSelectedBodyParts] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [token, setToken] = useState();
 
   useEffect(() => {
     setLoading(true);
@@ -61,7 +63,33 @@ function SearchResultsPage() {
     });
   }, [search, currentPage, exercisesPerPage, selectedBodyParts]);
 
-
+  useEffect(() => {
+    const token = sessionStorage.getItem('token');
+    if (token) {
+      setToken(token);
+      fetch('/verify-token', {
+        method: 'POST',
+        headers: {
+        'Authorization': `Bearer ${token}`
+      }
+      })
+      .then(response => {
+        if (response.ok) {
+          setIsLoggedIn(true);
+        }
+        else {
+          setIsLoggedIn(false);
+          console.error('Invalid token');
+        }
+      })
+      .catch(error => {
+        console.error('Error verifying token:', error);
+      });
+    }
+    else {
+      console.error('Could not find the token, user not authenticated');
+    }
+  }, []);
   
   const handleSearch = (term) => {
     setSearchTerm(term);
@@ -119,7 +147,7 @@ function SearchResultsPage() {
               type="radio"
               name="item"
               id="default"
-              title="Tarjetas por página..."
+              title="Cards per Pages..."
               checked
             />
             <ul className="list">
@@ -173,7 +201,7 @@ function SearchResultsPage() {
           <div className="filter-container">
             <FilterCard bodyParts={bodyParts} handleFilterChange={handleFilterChange} selectedBox={selectedBodyParts}/>
           </div>
-          <div className="exercise-container">
+          <div className="exercise-container-cards">
             <ExerciseCard exercise={filteredExercises} name="name" bodyPartList={selectedBodyParts} />
           </div>
         </div>
