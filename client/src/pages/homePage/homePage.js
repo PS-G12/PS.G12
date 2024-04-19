@@ -49,12 +49,6 @@ const IndexPage = () => {
 
   const [loading, setLoading] = useState(true);
   
-  const navigate = useNavigate();
-
-  const handleObjectiveCardClick = () => {
-    navigate('/calories');
-  };
-
   useEffect(() => {
     const token = sessionStorage.getItem('token');
     if (token){
