@@ -1,10 +1,10 @@
 .card {
-  background-color: #ffffff;
+  background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  width: 800px;
-  height: 1050px;
+  width: 600px;
+  height: 800px;
 }
 
 .card-content {
@@ -14,7 +14,7 @@
 .pie-chart {
   height: 400px;
   width: 100%;
-  margin-bottom: 10%;
+  margin-bottom: 5%;
   display: flex;
   justify-content: center;
 }
@@ -24,6 +24,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin-bottom: 5%;
 }
 
 .category-details {
@@ -40,7 +41,7 @@
 }
 
 .category-details h1 {
-  font-size: xx-large;
+  font-size: x-large;
   font-weight: 700;
   font-style: italic;
   margin: 0;
@@ -51,12 +52,12 @@
   font-weight: 200;
   font-style: italic;
   margin: 0;
-  margin-bottom: 10%;
+  margin-bottom: 5%;
 }
 
 .separator {
   border-top: 2px solid #000000;
-  margin: 5% 0;
+  margin: 3% 0;
 }
 
 .total-specifications,
@@ -66,15 +67,16 @@
 }
 
 .specification-title {
-  font-size: xx-large;
+  font-size: x-large;
   font-weight: 700;
   font-style: italic;
   width: 70%;
+  margin-bottom: 0%;
   margin-left: 10%;
 }
 
 .specification-value {
-  font-size: xx-large;
+  font-size: x-large;
   font-weight: 700;
   font-style: italic;
   width: 30%;
