@@ -31,7 +31,10 @@ function App() {
         <Route path="/registerFood" element={<RegisterFood />} />
         <Route path="/MacrosCalculation" element={<MacrosCalculator />} />
         <Route path="/profile" element={<UserProfile />} />
-        <Route path="/macrosSpecification" element={<MacrosSpecification />} />
+        <Route path="/calories" element={<MacrosSpecification specificationName="calories"/>} />
+        <Route path="/carbs" element={<MacrosSpecification specificationName="carbs"/>} />
+        <Route path="/fats" element={<MacrosSpecification specificationName="fats"/>} />
+        <Route path="/proteins" element={<MacrosSpecification specificationName="proteins"/>} />
       </Routes>
     </Router>
   );

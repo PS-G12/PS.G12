@@ -1,114 +1,81 @@
 .card {
-    background-color: #f1f1f1;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    width: 800px; 
-    height: 1100px;
-  }
-  
-  .card-content{
-    width: 100%;
-  }
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 800px;
+  height: 1050px;
+}
 
-  .pie-chart {
-    height: 400px;
-    width: 100%; 
-    margin-bottom: 10%;
-    display: flex;
-    justify-content: center;
-  }
+.card-content {
+  width: 100%;
+}
 
-  .specifications-per-categories{
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    margin-left: 15%;
-  }
+.pie-chart {
+  height: 400px;
+  width: 100%;
+  margin-bottom: 10%;
+  display: flex;
+  justify-content: center;
+}
 
-  .category-details {
-    align-items: center;
-    width: 40%;
-  }
-  
-  .breakfast-details, .lunch-details, .dinner-details, .snacks-details{
-    display: flex;
-  }
+.specifications-per-categories {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 
-  .breakfast-details h1, .lunch-details h1, .dinner-details h1, .snacks-details h1{
-    font-size:xx-large;
-    font-weight: 700;
-    font-style: italic;
-    margin: 0;
-  }
+.category-details {
+  display: flex;
+  align-items: center;
+  margin-left: 10%;
+  width: 40%;
+}
 
-  .breakfast-details h2, .lunch-details h2, .dinner-details h2, .snacks-details h2{
-    font-size:x-large;
-    font-weight: 200;
-    font-style: italic;
-    margin: 0;
-    margin-bottom: 10%;
-  }
+.category-details .color-square {
+  width: 50px;
+  height: 50px;
+  margin-right: 5%;
+}
 
-  .breakfast-details .color-square {
-    width: 50px; 
-    height: 50px; 
-    background-color: #4A93F4; 
-    margin-right: 5%;
-  }
+.category-details h1 {
+  font-size: xx-large;
+  font-weight: 700;
+  font-style: italic;
+  margin: 0;
+}
 
-  .lunch-details .color-square {
-    width: 50px; 
-    height: 50px; 
-    background-color: #196EE1; 
-    margin-right: 5%;
-  }
+.category-details h2 {
+  font-size: x-large;
+  font-weight: 200;
+  font-style: italic;
+  margin: 0;
+  margin-bottom: 10%;
+}
 
-  .dinner-details .color-square {
-    width: 50px; 
-    height: 50px; 
-    background-color: #000000; 
-    margin-right: 5%;
-  }
+.separator {
+  border-top: 2px solid #000000;
+  margin: 5% 0;
+}
 
-  .snacks-details .color-square {
-    width: 50px; 
-    height: 50px; 
-    background-color: #95BBEE; 
-    margin-right: 5%;
-  }
+.total-specifications,
+.goal-specifications {
+  display: flex;
+  justify-content: center;
+}
 
+.specification-title {
+  font-size: xx-large;
+  font-weight: 700;
+  font-style: italic;
+  width: 70%;
+  margin-left: 10%;
+}
 
-  /*Separator*/
-
-  .separator {
-    border-top: 2px solid #000000; 
-    margin-top: 7%;
-    margin-bottom: 7%;
-  }
-
-  /*Goals*/
-
-  .total-specifications{
-    display: flex;
-    justify-content: center;
-  }
-
-  .total-specifications h1{
-    font-size:xx-large;
-    font-weight: 700;
-    font-style: italic;
-    width: 70%;
-  }
-
-  .goal-specifications{
-    display: flex;
-    justify-content: center;
-  }
-
-  .goal-specifications h1{
-    font-size:xx-large;
-    font-weight: 700;
-    font-style: italic;
-    width: 70%;
-  }
+.specification-value {
+  font-size: xx-large;
+  font-weight: 700;
+  font-style: italic;
+  width: 30%;
+}
