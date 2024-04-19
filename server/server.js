@@ -3,7 +3,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const passport = require('passport');
 require('dotenv').config();
 const exerciseData = require("./api/exercise_data_en.json");
-const { registerUser, registerUserData, getUserData, registerUserGoogle, checkUser, getUserWeightHeight, getUserMacros, getPrevUserData, updateUser, setUserData } = require("./api/db.mongo");
+const { registerUser, registerUserData, getUserData, registerUserGoogle, checkUser, getUserWeightHeight, getUserMacros, getPrevUserData, updateUser, setUserData, registerUserDataPulse, registerUserDataWeight } = require("./api/db.mongo");
 const { getUser } = require("./api/db.mongo");
 const jsonData = require("./api/foodData.json");
 const path = require("path");
@@ -277,6 +277,31 @@ app.post("/user/data", verifyToken, async (req, res) => {
     res.status(500).json({ error: "Error registering user data" });
   }
 });
+
+app.post("/user/data/pulse", verifyToken, async (req, res) => {
+  const user = req.user;
+  const { pulseDate, pulse } = req.body;
+  try {
+      const insertedId = await registerUserDataPulse(pulseDate, pulse, user);
+    
+  } catch (error) {
+    console.error("Error registering user data:", error);
+    res.status(500).json({ error: "Error registering user data" });
+  }
+});
+
+app.post("/user/data/weight", verifyToken, async (req, res) => {
+  const user = req.user;
+  const { weightDate, weight } = req.body;
+  try {
+      const insertedId = await registerUserDataWeight(weightDate, weight, user); 
+    
+  } catch (error) {
+    console.error("Error registering user data:", error);
+    res.status(500).json({ error: "Error registering user data" });
+  }
+});
+
 
 app.get("/user/data/food", verifyToken, async (req, res) => {
   const userId = req.user;
