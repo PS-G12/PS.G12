@@ -76,7 +76,16 @@ const FoodSearch = () => {
       nombre: selectedItem.name,
       calorias: selectedItem.calories,
       cantidad: quantity,
-      
+      servingSize: selectedItem.serving_size_g,
+      fatTotal: selectedItem.fat_total_g,
+      fatSaturated: selectedItem.fat_saturated_g,
+      protein: selectedItem.protein_g,
+      sodium: selectedItem.sodium_mg,
+      potassium: selectedItem.potassium_mg,
+      cholesterol: selectedItem.cholesterol_mg,
+      carbohydratesTotal: selectedItem.carbohydrates_total_g,
+      fiber: selectedItem.fiber_g,
+      sugar: selectedItem.sugar_g
     };
     
     if (isLoggedIn) {
@@ -170,14 +179,14 @@ const FoodSearch = () => {
 
             {selectedItem && (
               <div className="details-container">
-                <h2>Detalles de {selectedItem.name}:</h2>
-                <p>
-                  <strong>Calorías:</strong> {selectedItem.calories}
-                </p>
-                <p>
-                  <strong>Tamaño de porción:</strong>{" "}
-                  {selectedItem.serving_size_g} g
-                </p>
+                 <h2>Details of {selectedItem.name}:</h2>
+                 <p>
+                   <strong>Calories:</strong> {selectedItem.calories}
+                 </p>
+                 <p>
+                   <strong>Serving size:</strong>{" "}
+                   {selectedItem.serving_size_g} g
+                 </p>
                 <p>
                   Cantidad:{" "}
                   <input
@@ -185,9 +194,9 @@ const FoodSearch = () => {
                     value={quantity}
                     onChange={(e) => setQuantity(e.target.value)}
                   />{" "}
-                  gramos
+                  grams
                 </p>
-                <button onClick={handleAddToMeal}>Añadir a {type}</button>
+                <button onClick={handleAddToMeal}>Add to {type}</button>
                 {savedMessage && <p>{savedMessage}</p>}
               </div>
             )}

@@ -16,7 +16,7 @@ const getQuery = async (collection, findQuery) => {
     try {
         const cursor = await collection.find(findQuery).sort({ name: 1 });
         await cursor.forEach(recipe => {
-            console.log(`${recipe.name} has ${recipe.ingredients.length} ingredients and takes ${recipe.prepTimeInMinutes} minutes to make.`);
+            //console.log(`${recipe.name} has ${recipe.ingredients.length} ingredients and takes ${recipe.prepTimeInMinutes} minutes to make.`);
         });
         
     } catch (err) {
@@ -44,18 +44,18 @@ const getUser = async (findQuery) => {
 
 async function checkUser(username, email) {
     const collection_user = database.collection('user_data');
-    console.log(`Checking ${username} and ${email}`);
+    //console.log(`Checking ${username} and ${email}`);
     try {
       const existingUser = await collection_user.findOne({ "userData.username": username });
       if (username){
         if (existingUser) {
-        console.log('Username already exists');
+        //console.log('Username already exists');
         return { success: false, message: 'Username already exists' };}
       }
       else if (email){
         const existingEmail = await collection_user.findOne({ "userData.email": email });
         if (existingEmail) {
-            console.log('Email' + email + 'already exists');
+            //console.log('Email' + email + 'already exists');
             return { success: false, message: 'Email already exists' };
         }
       }
@@ -74,7 +74,7 @@ async function registerUser(formData) {
         if (userExists){
             await collection_user.insertOne({ userData: formData.userData });
             await collection_records.insertOne({ userId: formData.userData.username, objectiveData: formData.objectiveData });
-            console.log('User registered successfully');
+            //console.log('User registered successfully');
             return { success: true, message: 'User registered successfully' };
         }
     } catch (error) {
@@ -91,7 +91,7 @@ const getUserData = async (userId) => {
             console.error('No user records found');
         }
         else{
-            console.log('User data successfully fetched:', userData);
+            //console.log('User data successfully fetched:', userData);
             return userData;
         }
     } catch (error) {
@@ -142,7 +142,7 @@ const getUserWeightHeight = async (username) => {
             return null;
         }
         const { weight, height } = userResult.userData;
-        console.log('User data successfully fetched:', userResult);
+        //console.log('User data successfully fetched:', userResult);
         return { weight, height };
     }
     catch (error) {
@@ -160,7 +160,7 @@ const getUserMacros = async (username) => {
             return null;
         }
         const { weight, height, age, gender, activityLevel, fitnessGoal } = result.userData;
-        console.log('User data successfully fetched: ', result);
+        //console.log('User data successfully fetched: ', result);
         return { weight, height, age, gender, activityLevel, fitnessGoal };
     }
     catch (error){
@@ -177,7 +177,7 @@ const getPrevUserData = async (user) => {
             console.error('No user records found');
             return null;
         }
-        console.log('User data successfully fetched: ', result);
+        //console.log('User data successfully fetched: ', result);
         return result.userData;
     }
     catch (error){
@@ -200,7 +200,7 @@ const updateUser = async (formData, user) => {
         updateCases[0] = (formData.username !== null) + 0;
         updateCases[1] = (formData.email !== null) + 0;
         updateCases[2] = (formData.password !== null) + 0;
-        console.log("Update case: ",updateCases.join(''));
+        //console.log("Update case: ",updateCases.join(''));
         let updateDocument;
         switch (updateCases.join('')){
                 //UPE
@@ -253,11 +253,11 @@ const updateUser = async (formData, user) => {
         }
         const expandUpdateToCollection = await collection_to_expand.updateOne({userId: user}, expandUpdate);
         if (result.modifiedCount === 1 && expandUpdateToCollection.modifiedCount === 1){
-            console.log('Update was successfull');
+            //console.log('Update was successfull');
             return result;
         }
         else{
-            console.log('Something went wrong updating the user');
+            //console.log('Something went wrong updating the user');
         }
     }
     catch (error){
@@ -268,4 +268,4 @@ const updateUser = async (formData, user) => {
 
 
 
-module.exports = { getUser, getQuery, registerUser, getUserData, checkUser, getUserWeightHeight, getUserMacros, getPrevUserData };
+module.exports = { getUser, getQuery, registerUser, setUserData, getUserData, checkUser, getUserWeightHeight, getUserMacros, getPrevUserData };

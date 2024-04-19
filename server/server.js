@@ -3,7 +3,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const passport = require('passport');
 require('dotenv').config();
 const exerciseData = require("./api/exercise_data_en.json");
-const { registerUser, registerUserData, getUserData, registerUserGoogle, checkUser, getUserWeightHeight, getUserMacros, getPrevUserData } = require("./api/db.mongo");
+const { registerUser, registerUserData, getUserData, registerUserGoogle, setUserData, checkUser, getUserWeightHeight, getUserMacros, getPrevUserData } = require("./api/db.mongo");
 const { getUser } = require("./api/db.mongo");
 const jsonData = require("./api/foodData.json");
 const path = require("path");
@@ -286,7 +286,7 @@ app.get("/user/data/food", verifyToken, async (req, res) => {
 app.post("/user/data/food", verifyToken, async (req, res) => {
   const userId = req.user;
   const { food } = req.body;
-  console.log(userId, food);
+  
   try {
     const userData = await setUserData(userId, food);
     res.status(200).json(userData.foodRecords);
@@ -324,7 +324,6 @@ app.get("/user/data/weightHeight", verifyToken, async (req, res) => {
 app.get("/user/data/macros", verifyToken, async (req, res) => {
   const username = req.user;
   try{
-    console.log("username: ", username);
     const userData = await getUserMacros(username);
     if (!userData){
       return res.status(404).json({ error: "No user records found" });

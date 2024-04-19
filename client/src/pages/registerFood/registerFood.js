@@ -51,16 +51,16 @@ const FoodSearch = () => {
     const storedAlimentos = userData || [];
   
     const desayunoData = storedAlimentos.filter(
-      (alimento) => alimento.typeComida === "desayuno"
+      (alimento) => alimento.typeComida === "breakfast"
     );
     const almuerzoData = storedAlimentos.filter(
-      (alimento) => alimento.typeComida === "almuerzo"
+      (alimento) => alimento.typeComida === "lunch"
     );
     const cenaData = storedAlimentos.filter(
-      (alimento) => alimento.typeComida === "cena"
+      (alimento) => alimento.typeComida === "dinner"
     );
     const aperitivosData = storedAlimentos.filter(
-      (alimento) => alimento.typeComida === "aperitivos"
+      (alimento) => alimento.typeComida === "snacks"
     );
   
     setDesayuno(desayunoData);
@@ -75,16 +75,16 @@ const FoodSearch = () => {
     console.log(JSON.stringify(storedAlimentos));
     
     const desayunoData = storedAlimentos.filter(
-      (alimento) => alimento.typeComida === "desayuno"
+      (alimento) => alimento.typeComida === "breakfast"
     );
     const almuerzoData = storedAlimentos.filter(
-      (alimento) => alimento.typeComida === "almuerzo"
+      (alimento) => alimento.typeComida === "lunch"
     );
     const cenaData = storedAlimentos.filter(
-      (alimento) => alimento.typeComida === "cena"
+      (alimento) => alimento.typeComida === "dinner"
     );
     const aperitivosData = storedAlimentos.filter(
-      (alimento) => alimento.typeComida === "aperitivos"
+      (alimento) => alimento.typeComida === "snacks"
     );
 
     setDesayuno(desayunoData);
@@ -93,6 +93,11 @@ const FoodSearch = () => {
     setAperitivos(aperitivosData);
   };
 
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+
   const mostrarComidasEnLista = (tipo, lista) => {
     return (
       <div className={`listado-${tipo.toLowerCase()}`} id="listado-items">
@@ -100,7 +105,7 @@ const FoodSearch = () => {
         <ul>
           {lista.map((comida, index) => (
             <li key={index}>
-              {comida.nombre} - {comida.cantidad} gramos
+              {capitalizeFirstLetter(comida.nombre)} - {comida.cantidad} grams
             </li>
           ))}
         </ul>
@@ -116,6 +121,7 @@ const FoodSearch = () => {
       </div>
     );
   };
+  
 
   return (
     <div className="registro-container">
