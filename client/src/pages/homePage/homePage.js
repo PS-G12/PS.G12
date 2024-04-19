@@ -46,9 +46,13 @@ const IndexPage = () => {
     ratio: []
   });
 
+  const [loading, setLoading] = useState(true);
+
+
   useEffect(() => {
     const token = sessionStorage.getItem('token');
     if (token){
+      setLoading(true);
       fetch('/user/data', {
         method: 'GET',
         headers: {
@@ -56,6 +60,7 @@ const IndexPage = () => {
         }
       })
       .then(response => {
+        setLoading(false);
         if (response.ok) {
           setIsLoggedIn(true);
           return response.json();
@@ -107,6 +112,7 @@ const IndexPage = () => {
       .catch(error => {
         console.error('Error fetching user data:', error);
         setIsLoggedIn(false);
+        setLoading(false);
       });
     }
   }, []);
@@ -114,97 +120,106 @@ const IndexPage = () => {
   return (
     <div className="index-page">
       <Header isAuthenticated={isLoggedIn} />
-      {isLoggedIn ? (
-        <div className="cards">
-          <ObjectiveCard
-            value={objectiveData.remaining === parseFloat(objectiveData.kcalObjective) ? 0 : (objectiveData.remaining / objectiveData.kcalObjective) * 100} 
-            kcalObjective={objectiveData.kcalObjective} 
-            food={objectiveData.food} 
-            exercise={objectiveData.exercise} 
-            remaining={objectiveData.remaining} 
-          />
-          <MacrosCard 
-            value={macrosData.value} 
-            max={macrosData.max} 
-            value2={macrosData.value2} 
-            max2={macrosData.max2} 
-            value3={macrosData.value3} 
-            max3={macrosData.max3}
-          />
-          <div className="chart-container">
-          <p> Your Weight Progression <FontAwesomeIcon icon={faDumbbell} /></p>
-            <Line
-              data={{
-                labels: weightProgressionData.dates, 
-                datasets: [
-                  {
-                    label: 'Weight Progression', 
-                    data: weightProgressionData.weights, 
-                    fill: false, 
-                    borderColor: 'rgb(75, 192, 192)', 
-                    tension: 0.1 
-                  }
-                ]
-              }}
-              options={{
-                plugins: {
-                  scales: {
-                    y: {
-                      beginAtZero: true
-                    }
-                  },
-                  legend: {
-                    display: true
-                  }
-                }
-              }}
-            />
-          </div>
-          <div className="chart-container2">
-          <p>Your Pulse Progression <FontAwesomeIcon icon={faHeart} /></p>
-            <Line
-              data={{
-                labels: PulseProgressionData.dates, 
-                datasets: [
-                  {
-                    label: 'Pulse Progression', 
-                    data: PulseProgressionData.ratio, 
-                    fill: false, 
-                    borderColor: 'rgb(12, 374, 12)', 
-                    tension: 0.1 
-                  }
-                ]
-              }}
-              options={{
-                plugins: {
-                  scales: {
-                    y: {
-                      beginAtZero: true
-                    }
-                  },
-                  legend: {
-                    display: true
-                  }
-                }
-              }}
-            />
-          </div>
-      </div>
-      ) : (
-        <div className="cards default">
-          <div className="message-block">
-            <span role="img" aria-label="lock" className="lock-icon">&#x1F512;</span>
-            <p>Please <Link to="/login">log in</Link> or <Link to="/register">register</Link> to access this content.</p>
-          </div>
-          <div className="blur-content">
-            <ObjectiveCard value={50} kcalObjective={2000} food={0} exercise={0} remaining={1000} />
-            <MacrosCard value={60} max={150} value2={40} max2={50} value3={30} max3={80}/>
-          </div>
+      {loading ? (
+        <div className="loader-container">
+          <span className="loader"></span>
         </div>
+      ) : (
+        <>
+          {isLoggedIn ? (
+            <div className="cards">
+              <ObjectiveCard
+                value={objectiveData.remaining === parseFloat(objectiveData.kcalObjective) ? 0 : (objectiveData.remaining / objectiveData.kcalObjective) * 100} 
+                kcalObjective={objectiveData.kcalObjective} 
+                food={objectiveData.food} 
+                exercise={objectiveData.exercise} 
+                remaining={objectiveData.remaining} 
+              />
+              <MacrosCard 
+                value={macrosData.value} 
+                max={macrosData.max} 
+                value2={macrosData.value2} 
+                max2={macrosData.max2} 
+                value3={macrosData.value3} 
+                max3={macrosData.max3}
+              />
+              <div className="chart-container">
+                <p> Your Weight Progression <FontAwesomeIcon icon={faDumbbell} /></p>
+                <Line
+                  data={{
+                    labels: weightProgressionData.dates, 
+                    datasets: [
+                      {
+                        label: 'Weight Progression', 
+                        data: weightProgressionData.weights, 
+                        fill: false, 
+                        borderColor: 'rgb(75, 192, 192)', 
+                        tension: 0.1 
+                      }
+                    ]
+                  }}
+                  options={{
+                    plugins: {
+                      scales: {
+                        y: {
+                          beginAtZero: true
+                        }
+                      },
+                      legend: {
+                        display: true
+                      }
+                    }
+                  }}
+                />
+              </div>
+              <div className="chart-container2">
+                <p>Your Pulse Progression <FontAwesomeIcon icon={faHeart} /></p>
+                <Line
+                  data={{
+                    labels: PulseProgressionData.dates, 
+                    datasets: [
+                      {
+                        label: 'Pulse Progression', 
+                        data: PulseProgressionData.ratio, 
+                        fill: false, 
+                        borderColor: 'rgb(12, 374, 12)', 
+                        tension: 0.1 
+                      }
+                    ]
+                  }}
+                  options={{
+                    plugins: {
+                      scales: {
+                        y: {
+                          beginAtZero: true
+                        }
+                      },
+                      legend: {
+                        display: true
+                      }
+                    }
+                  }}
+                />
+              </div>
+            </div>
+          ) : (
+            <div className="cards default">
+              <div className="message-block">
+                <span role="img" aria-label="lock" className="lock-icon">&#x1F512;</span>
+                <p>Please <Link to="/login">log in</Link> or <Link to="/register">register</Link> to access this content.</p>
+              </div>
+              <div className="blur-content">
+                <ObjectiveCard value={50} kcalObjective={2000} food={0} exercise={0} remaining={1000} />
+                <MacrosCard value={60} max={150} value2={40} max2={50} value3={30} max3={80}/>
+              </div>
+            </div>
+          )}
+          <Footer />
+        </>
       )}
-      <Footer />
     </div>
   );
+  
 };
 
 export default IndexPage;

@@ -22,12 +22,14 @@ const Profile = () => {
             }
         }
     );
+    const [loading, setLoading] = useState(true);
+
 
     useEffect(() => {
         const handleClick = () => {
             document.getElementById('file-input').click();
         };
-
+    
         const handleChange = () => {
             var file = document.getElementById('file-input').files[0];
             if (file){
@@ -38,20 +40,28 @@ const Profile = () => {
                 console.log('No image selected');
             }
         };
-
-        document.getElementById('file-button').addEventListener('click', handleClick);
-        document.getElementById('file-input').addEventListener('change', handleChange);
-
+    
+        const fileButton = document.getElementById('file-button');
+        const fileInput = document.getElementById('file-input');
+    
+        if (fileButton && fileInput) {
+            fileButton.addEventListener('click', handleClick);
+            fileInput.addEventListener('change', handleChange);
+        }
+    
         return () => {
-            document.getElementById('file-button').removeEventListener('click', handleClick);
-            document.getElementById('file-input').removeEventListener('change', handleChange);
+            if (fileButton && fileInput) {
+                fileButton.removeEventListener('click', handleClick);
+                fileInput.removeEventListener('change', handleChange);
+            }
         };
-
+    
     }, []);
-
+    
     useEffect(() => {
         const token = sessionStorage.getItem('token');
         if (token) {
+            setLoading(true);
             setToken(token);
             fetch('/verify-token', {
             method: 'POST',
@@ -60,12 +70,14 @@ const Profile = () => {
             }
             })
             .then(response => {
+                setLoading(false);
                 if (response.ok) {
                     setIsLoggedIn(true);
                     setTokenFetched(true);
                 }
                 else {
                     setIsLoggedIn(false);
+                    setLoading(false);
                     console.error('Invalid token');
                 }
             })
@@ -235,71 +247,78 @@ const Profile = () => {
     }, [tokenFetched]);
 
     return (
-        <div className="profile-container">
-            <Header isAuthenticated={isLoggedIn} />
-            <div className="profile-data-container">
-                <div className="profile-image-container">
-                    <div className="profile-image"></div>
-                    <h1>{username ? username : "Username"}</h1>
-                    <div className="new-image">
-                        <div className="img-buttons">
-                            <button id='file-button'> Select image</button>
-                            <span>{fileSelected === true ? 'Image selected' : ''}</span>
-                            <button id='save-img' onClick={() => {setFileSelected(false);}}> Save image</button>
-                        </div>
-                        <input type="file" className="new-image-input" accept="image/*" id="file-input"></input>
-                    </div>
-                </div>
-                <div className="forms-and-stats">
-                    <div className="profile-forms">
-                        <div className="change-nickname">
-                            <form className="form-new-nickname">
-                                <label>Introduce your new username</label>
-                            </form>
-                            <input type="text" placeholder="Username" value={formData.userData.username} onChange={handleChangeUsername}></input>
-                        </div>
-                        <div className="change-password">
-                            <div className="old-password">
-                                <form className="form-old-password">
-                                    <label>Introduce the previous password</label>
-                                </form>
-                                <input type="password" placeholder="Old Password" value={formData.userData.password_old} onChange={handleChangePasswordOld}></input>
-                            </div>
-                            <div className="new-password">
-                                <form className="form-new-password">
-                                    <label>Introduce the new password</label>
-                                </form>
-                                <input type="password" placeholder="New Password" value={formData.userData.password} onChange={handleChangePasswordNew}></input>
-                            </div>
-                            <div className="repeat-new-password">
-                                <form className="form-repeat-new-password">
-                                    <label>Repeat the new password</label>
-                                </form>
-                                <input type="password" placeholder="New Password" value={formData.userData.password_dup} onChange={handleChangePasswordDup}></input>
-                            </div>
-                        </div>
-                        <div className="change-email">
-                            <div className="new-email">
-                                <form className="form-new-email">
-                                    <label>Introduce the new email</label>
-                                </form>
-                                <input type="email" placeholder="New Email" value={formData.userData.email} onChange={handleChangeNewEmail}></input>
-                            </div>
-                            <div className="repeat-new-email">
-                                <form className="form-repeat-new-email">
-                                    <label>Repeat the new email</label>
-                                </form>
-                                <input type="email" placeholder="New Email" value={formData.userData.email_dup} onChange={handleChangeNewEmailDup}></input>
-                            </div>
-                        </div>
-                        <button className="applay-changes-button" onClick={changeUserData}>Applay Changes</button>
-                    </div>
-                    <UserStats className='user-stats'/>
-                </div>
+  <div className="profile-container">
+    <Header isAuthenticated={isLoggedIn} />
+    {loading ? (
+      <div className="loader-container">
+        <span className="loader"></span>
+      </div>
+    ) : (
+      <div className="profile-data-container">
+        <div className="profile-image-container">
+          <div className="profile-image"></div>
+          <h1>{username ? username : "Username"}</h1>
+          <div className="new-image">
+            <div className="img-buttons">
+              <button id='file-button'> Select image</button>
+              <span>{fileSelected === true ? 'Image selected' : ''}</span>
+              <button id='save-img' onClick={() => {setFileSelected(false);}}> Save image</button>
             </div>
-            <Footer />
+            <input type="file" className="new-image-input" accept="image/*" id="file-input"></input>
+          </div>
         </div>
-    )
+        <div className="forms-and-stats">
+          <div className="profile-forms">
+            <div className="change-nickname">
+              <form className="form-new-nickname">
+                <label>Introduce your new username</label>
+              </form>
+              <input type="text" placeholder="Username" value={formData.userData.username} onChange={handleChangeUsername}></input>
+            </div>
+            <div className="change-password">
+              <div className="old-password">
+                <form className="form-old-password">
+                  <label>Introduce the previous password</label>
+                </form>
+                <input type="password" placeholder="Old Password" value={formData.userData.password_old} onChange={handleChangePasswordOld}></input>
+              </div>
+              <div className="new-password">
+                <form className="form-new-password">
+                  <label>Introduce the new password</label>
+                </form>
+                <input type="password" placeholder="New Password" value={formData.userData.password} onChange={handleChangePasswordNew}></input>
+              </div>
+              <div className="repeat-new-password">
+                <form className="form-repeat-new-password">
+                  <label>Repeat the new password</label>
+                </form>
+                <input type="password" placeholder="New Password" value={formData.userData.password_dup} onChange={handleChangePasswordDup}></input>
+              </div>
+            </div>
+            <div className="change-email">
+              <div className="new-email">
+                <form className="form-new-email">
+                  <label>Introduce the new email</label>
+                </form>
+                <input type="email" placeholder="New Email" value={formData.userData.email} onChange={handleChangeNewEmail}></input>
+              </div>
+              <div className="repeat-new-email">
+                <form className="form-repeat-new-email">
+                  <label>Repeat the new email</label>
+                </form>
+                <input type="email" placeholder="New Email" value={formData.userData.email_dup} onChange={handleChangeNewEmailDup}></input>
+              </div>
+            </div>
+            <button className="applay-changes-button" onClick={changeUserData}>Applay Changes</button>
+          </div>
+          <UserStats className='user-stats'/>
+        </div>
+      </div>
+    )}
+    <Footer />
+  </div>
+);
+
 }
 
 export default Profile

@@ -9,17 +9,20 @@ const FoodSearch = () => {
   const [cena, setCena] = useState([]);
   const [aperitivos, setAperitivos] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const token = sessionStorage.getItem('token');
         if (!token) {
+          setLoading(false);
           setIsLoggedIn(false);
           getLocalData();
           return;
         }
-        
+        setLoading(true);
         const response = await fetch('/user/data/food', {
           method: 'GET',
           headers: {
@@ -27,6 +30,7 @@ const FoodSearch = () => {
           }
         });
         
+        setLoading(false);
         if (response.ok) {
           setIsLoggedIn(true);
           const data = await response.json();
@@ -126,16 +130,24 @@ const FoodSearch = () => {
   return (
     <div className="registro-container">
       <Header isAuthenticated={isLoggedIn}/>
-      <h1 id="listado-h1">Food List</h1>
-      <div className="registro-box">
-        {mostrarComidasEnLista("Breakfast", desayuno)}
-        {mostrarComidasEnLista("Lunch", almuerzo)}
-        {mostrarComidasEnLista("Dinner", cena)}
-        {mostrarComidasEnLista("Snacks", aperitivos)}
-      </div>
-      <Footer />
+      {loading ? (
+        <div className="loader-container">
+          <span className="loader"></span>
+        </div>
+      ) : (
+        <>
+          <h1 id="listado-h1">Food List</h1>
+          <div className="registro-box">
+            {mostrarComidasEnLista("Breakfast", desayuno)}
+            {mostrarComidasEnLista("Lunch", almuerzo)}
+            {mostrarComidasEnLista("Dinner", cena)}
+            {mostrarComidasEnLista("Snacks", aperitivos)}
+          </div>
+          <Footer />
+        </>
+      )}
     </div>
-  );
+  );  
 };
 
 export default FoodSearch;

@@ -111,6 +111,7 @@ const FoodSearch = () => {
         }
       })
       .catch(error => {
+        setLoading(false);
         console.error('Error al guardar el alimento:', error);
       });
     } else {
