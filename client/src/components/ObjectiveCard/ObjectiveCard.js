@@ -3,6 +3,7 @@ import './ObjectiveCard.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFlag, faUtensils, faRunning } from '@fortawesome/free-solid-svg-icons'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import { useNavigate } from 'react-router-dom';
 
 const Objective = ({ icon, label, value }) => {
     return (
@@ -15,8 +16,15 @@ const Objective = ({ icon, label, value }) => {
 };
 
 function ObjectiveCard({remaining, kcalObjective, food, exercise, value}) {
+
+  const navigate = useNavigate();
+
+  const handleObjectiveCardClick = () => {
+    navigate('/calories');
+  };
+
     return (
-        <div className='card-containerobj'>
+        <div className='card-containerobj' onClick={handleObjectiveCardClick}>
           <div className='circularProgression'>
             <CircularProgressbar
               value={value}
