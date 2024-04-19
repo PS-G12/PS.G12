@@ -8,7 +8,7 @@ const BMICalculator = () => {
   const [weight, setWeight] = useState("");
   const [resultBMI, setBMI] = useState("");
   const [system, setSystem] = useState("metric");
-  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [token, setToken] = useState();
   const [defaultValues, setDefaultValues] = useState(false);
 
@@ -116,15 +116,31 @@ const BMICalculator = () => {
   );
 
   useEffect(() => {
-    const userToken = sessionStorage.getItem('token');
-    if (userToken){
-      setLoggedIn(true);
-      setToken(userToken);
+    const token = sessionStorage.getItem('token');
+    if (token) {
+      setToken(token);
+      fetch('/verify-token', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+      })
+      .then(response => {
+      if (response.ok) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+        console.error('Invalid token');
+      }
+      })
+      .catch(error => {
+      console.error('Error verifying token:', error);
+      });
     }
-    else{
-      setLoggedIn(false);
+    else {
+      console.error('Could not find the token, user not authenticated');
     }
-  }, [])
+  }, []);
 
   async function getUserWeightHeightAndCalculateBMI() {
     setDefaultValues(true);

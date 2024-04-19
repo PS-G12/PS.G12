@@ -11,6 +11,8 @@ const ExercisePage = () => {
   const [loading, setLoading] = useState(true);
   const [bodyPart, setBodyPart] = useState('');
   const [limit, setLimit] = useState(25);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [token, setToken] = useState();
 
   useEffect(() => {
     fetchExercises();
@@ -64,9 +66,30 @@ const ExercisePage = () => {
     'cardio'
   ];
 
+  useEffect(() => {
+    const tryToken = async () => {
+      try {
+        const token = sessionStorage.getItem('token');
+        if (!token) {
+          setIsLoggedIn(false);
+          return;
+        }
+        else{
+          setIsLoggedIn(true);
+          setToken(token);
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+        setIsLoggedIn(false);
+      }
+    };
+
+    tryToken();
+  }, []);
+
   return (
     <div className="exercise-page">
-      <Header />
+      <Header isAuthenticated={isLoggedIn}/>
       <SearchBar onSearch={handleSearch} />
       {loading ? (
         <div className="loader-container">

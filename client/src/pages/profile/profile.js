@@ -6,8 +6,10 @@ import Footer from "../../components/Footer/footer.js"
 
 const Profile = () => {
     const [fileSelected, setFileSelected] = useState(false);
-    const [isLoggedIn, setLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [token, setToken] = useState();
+    const [username, setUsername] = useState();
+    const [tokenFetched, setTokenFetched] = useState(false);
     const [formData, setFormData] = useState(
         {
             userData:{
@@ -48,13 +50,31 @@ const Profile = () => {
     }, []);
 
     useEffect(() => {
-        const userToken = sessionStorage.getItem('token');
-        if (userToken){
-          setLoggedIn(true);
-          setToken(userToken);
+        const token = sessionStorage.getItem('token');
+        if (token) {
+            setToken(token);
+            fetch('/verify-token', {
+            method: 'POST',
+            headers: {
+            'Authorization': `Bearer ${token}`
+            }
+            })
+            .then(response => {
+                if (response.ok) {
+                    setIsLoggedIn(true);
+                    setTokenFetched(true);
+                }
+                else {
+                    setIsLoggedIn(false);
+                    console.error('Invalid token');
+                }
+            })
+            .catch(error => {
+                console.error('Error verifying token:', error);
+            });
         }
-        else{
-          setLoggedIn(false);
+        else {
+            console.error('Could not find the token, user not authenticated');
         }
     }, []);
 
@@ -139,6 +159,10 @@ const Profile = () => {
 
             if (response.ok){
                 console.log("Data sended correctly to the db: ", data);
+                if (data.usernameChanged){
+                    await updateToken();
+                    window.location.reload();
+                }
             }
             else{
                 console.error("An error ocurred while sending the data: ", data);
@@ -150,13 +174,73 @@ const Profile = () => {
         }
     };
 
+    const updateToken = async () => {
+        try{
+            sessionStorage.removeItem('token');
+            const response = await fetch("/user/data/update/token", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ formData })
+            });
+
+            const data = await response.json();
+
+            if (response.ok){
+                console.log("New token generated: ", data);
+                sessionStorage.setItem("token", data.token);
+            }
+            else{
+                console.error("An error ocurred while sending the data: ", data);
+            }
+
+        }
+        catch (error){
+            console.error('Run into an error updating the token: ', error);
+        }
+    }
+
+    useEffect(() => {
+        if (tokenFetched){
+            const getUsername = async () => {
+                try{
+                    const response = await fetch("/user/data/username", {
+                        method: "GET",
+                        headers: {
+                          "Content-Type": "application/json",
+                          "Authorization": `Bearer ${token}`
+                        },
+                    });
+                
+                    const data = await response.json();
+        
+                    if (response.ok && data){
+                        const { username } = data;
+                        setUsername(username);
+                        return true;
+                    }
+                    else{
+                        console.error('Could not fetch the username');
+                        return false;
+                    }
+                }
+                catch (error){
+                    console.error('Run into an error while getting the users data:', error);
+                    throw error;
+                }
+            };
+            getUsername();
+        }
+    }, [tokenFetched]);
+
     return (
         <div className="profile-container">
             <Header isAuthenticated={isLoggedIn} />
             <div className="profile-data-container">
                 <div className="profile-image-container">
                     <div className="profile-image"></div>
-                    <h1>Username</h1>
+                    <h1>{username ? username : "Username"}</h1>
                     <div className="new-image">
                         <div className="img-buttons">
                             <button id='file-button'> Select image</button>
@@ -179,19 +263,19 @@ const Profile = () => {
                                 <form className="form-old-password">
                                     <label>Introduce the previous password</label>
                                 </form>
-                                <input type="password" placeholder="Old Password" pass value={formData.userData.password_old} onChange={handleChangePasswordOld}></input>
+                                <input type="password" placeholder="Old Password" value={formData.userData.password_old} onChange={handleChangePasswordOld}></input>
                             </div>
                             <div className="new-password">
                                 <form className="form-new-password">
                                     <label>Introduce the new password</label>
                                 </form>
-                                <input type="password" placeholder="New Password" pass value={formData.userData.password} onChange={handleChangePasswordNew}></input>
+                                <input type="password" placeholder="New Password" value={formData.userData.password} onChange={handleChangePasswordNew}></input>
                             </div>
                             <div className="repeat-new-password">
                                 <form className="form-repeat-new-password">
                                     <label>Repeat the new password</label>
                                 </form>
-                                <input type="password" placeholder="New Password" pass value={formData.userData.password_dup} onChange={handleChangePasswordDup}></input>
+                                <input type="password" placeholder="New Password" value={formData.userData.password_dup} onChange={handleChangePasswordDup}></input>
                             </div>
                         </div>
                         <div className="change-email">
