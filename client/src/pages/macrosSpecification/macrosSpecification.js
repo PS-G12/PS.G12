@@ -3,7 +3,7 @@ import MacrosHeader from '../../components/macrosHeader/macrosHeader';
 import MacrosSpecificationCard from '../../components/macrosSpecificationCard/macrosSpecificationCard';
 import './macrosSpecification.css'
 
-const MacrosSpecification = () => {
+const MacrosSpecification = ({specificationName}) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const MacrosSpecification = () => {
     <div className="main-specifications">
       <MacrosHeader isAuthenticated={isLoggedIn} />
       <div className="card-component">
-        <MacrosSpecificationCard specificationName="calories"/>
+        <MacrosSpecificationCard specificationName={specificationName}/>
       </div>
     </div>
   );
