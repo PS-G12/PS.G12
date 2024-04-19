@@ -1,0 +1,114 @@
+.card {
+    background-color: #f1f1f1;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 800px; 
+    height: 1100px;
+  }
+  
+  .card-content{
+    width: 100%;
+  }
+
+  .pie-chart {
+    height: 400px;
+    width: 100%; 
+    margin-bottom: 10%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .specifications-per-categories{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 15%;
+  }
+
+  .category-details {
+    align-items: center;
+    width: 40%;
+  }
+  
+  .breakfast-details, .lunch-details, .dinner-details, .snacks-details{
+    display: flex;
+  }
+
+  .breakfast-details h1, .lunch-details h1, .dinner-details h1, .snacks-details h1{
+    font-size:xx-large;
+    font-weight: 700;
+    font-style: italic;
+    margin: 0;
+  }
+
+  .breakfast-details h2, .lunch-details h2, .dinner-details h2, .snacks-details h2{
+    font-size:x-large;
+    font-weight: 200;
+    font-style: italic;
+    margin: 0;
+    margin-bottom: 10%;
+  }
+
+  .breakfast-details .color-square {
+    width: 50px; 
+    height: 50px; 
+    background-color: #4A93F4; 
+    margin-right: 5%;
+  }
+
+  .lunch-details .color-square {
+    width: 50px; 
+    height: 50px; 
+    background-color: #196EE1; 
+    margin-right: 5%;
+  }
+
+  .dinner-details .color-square {
+    width: 50px; 
+    height: 50px; 
+    background-color: #000000; 
+    margin-right: 5%;
+  }
+
+  .snacks-details .color-square {
+    width: 50px; 
+    height: 50px; 
+    background-color: #95BBEE; 
+    margin-right: 5%;
+  }
+
+
+  /*Separator*/
+
+  .separator {
+    border-top: 2px solid #000000; 
+    margin-top: 7%;
+    margin-bottom: 7%;
+  }
+
+  /*Goals*/
+
+  .total-specifications{
+    display: flex;
+    justify-content: center;
+  }
+
+  .total-specifications h1{
+    font-size:xx-large;
+    font-weight: 700;
+    font-style: italic;
+    width: 70%;
+  }
+
+  .goal-specifications{
+    display: flex;
+    justify-content: center;
+  }
+
+  .goal-specifications h1{
+    font-size:xx-large;
+    font-weight: 700;
+    font-style: italic;
+    width: 70%;
+  }

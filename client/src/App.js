@@ -12,6 +12,7 @@ import MacrosCalculator from "./pages/MacrosCalculator/macrosCalculation.js";
 import RegisterForm from "./pages/Authentication/registerPage.js";
 import LoginForm from "./pages/Authentication/loginPage.js";
 import UserProfile from './pages/profile/profile.js';
+import MacrosSpecification from './pages/macrosSpecification/macrosSpecification.js';
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
         <Route path="/registerFood" element={<RegisterFood />} />
         <Route path="/MacrosCalculation" element={<MacrosCalculator />} />
         <Route path="/profile" element={<UserProfile />} />
+        <Route path="/macrosSpecification" element={<MacrosSpecification />} />
       </Routes>
     </Router>
   );
