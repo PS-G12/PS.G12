@@ -48,6 +48,8 @@ const IndexPage = () => {
   });
 
   const [loading, setLoading] = useState(true);
+
+  const [popupData, setPopupData] = useState(null);
   
   useEffect(() => {
     const token = sessionStorage.getItem('token');
@@ -118,6 +120,103 @@ const IndexPage = () => {
     }
     setLoading(false);
   }, []);
+
+  const handleWeightChartClick = (event) => {
+    const clickedDate = event.target.dataset.date;
+    const defaultDate = new Date(clickedDate);
+    const currentDate = new Date();
+    if (defaultDate > currentDate) return; 
+
+    const weightPopup = (
+      <div className="weight-popup">
+        <h3>Register your weight</h3>
+        <form className="weight-form" onSubmit={handleSubmit}>
+          <label htmlFor="weightDate">Date:</label>
+          <input type="date" id="weightDate" name="weightDate" defaultValue={clickedDate} max={currentDate.toISOString().split('T')[0]} required />
+          <label htmlFor="weight">Weight (Kg):</label>
+          <input type="number" id="weight" name="weight" min="0" required />
+          <div className="button-space">
+            <button type="submit" className="submit-button">Submit</button>
+            <button className="cancel-button" onClick={() => setPopupData(null)}>Cancel</button>
+          </div>
+        </form>
+      </div>
+    );
+    
+
+    
+    setPopupData(weightPopup);
+  };
+
+  const handlePulseChartClick = (event) => {
+    const clickedDate = event.target.dataset.date;
+    const defaultDate = new Date(clickedDate);
+    const currentDate = new Date();
+    if (defaultDate > currentDate) return; 
+
+    const pulsePopup = (
+      <div className="pulse-popup">
+        <h3>Register your pulse</h3>
+        <form className="pulse-form" onSubmit={handleSubmit}>
+          <label htmlFor="pulseDate">Date:</label>
+          <input type="date" id="pulseDate" name="pulseDate" defaultValue={clickedDate} max={currentDate.toISOString().split('T')[0]} required />
+          <label htmlFor="pulse">Pulse (Bpm):</label>
+          <input type="number" id="pulse" name="pulse" min="0" required />
+          <div className="button-space">
+            <button type="submit" className="submit-button">Submit</button>
+            <button className="cancel-button" onClick={() => setPopupData(null)}>Cancel</button>
+          </div>
+        </form>
+      </div>
+    );
+
+    setPopupData(pulsePopup);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    
+    const formData = new FormData(event.target);
+    const weightDate = formData.get('weightDate');
+    const weight = formData.get('weight');
+    const pulseDate = formData.get('pulseDate');
+    const pulse = formData.get('pulse');
+
+    if (pulse > 0){
+      const token = sessionStorage.getItem('token');
+      if(token){
+        fetch('/user/data/pulse', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            "Content-Type": "application/json"
+          }, 
+          body: JSON.stringify({ pulseDate, pulse}) 
+        })
+        .then(response => {
+          setPopupData(null); 
+          window.location.reload();
+        })
+      }  
+    } else if (weight > 0){
+      const token = sessionStorage.getItem('token');
+      if(token){
+        fetch('/user/data/weight', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            "Content-Type": "application/json"
+          }, 
+          body: JSON.stringify({ weightDate, weight}) 
+        })
+        .then(response => {
+          setPopupData(null); 
+          window.location.reload();
+        })
+      }
+    }
+
+  };
   
   return (
     <div className="index-page">
@@ -148,7 +247,7 @@ const IndexPage = () => {
                   max3={macrosData.max3}
                 />
 
-              <div className="chart-container">
+              <div className="chart-container" onClick={handleWeightChartClick}>
                 <p> Your Weight Progression <FontAwesomeIcon icon={faDumbbell} /></p>
                 <Line
                   data={{
@@ -177,7 +276,7 @@ const IndexPage = () => {
                   }}
                 />
               </div>
-              <div className="chart-container2">
+              <div className="chart-container2" onClick={handlePulseChartClick}>
                 <p>Your Pulse Progression <FontAwesomeIcon icon={faHeart} /></p>
                 <Line
                   data={{
@@ -220,6 +319,7 @@ const IndexPage = () => {
             </div>
           )}
           <Footer />
+          
         </>
       )}
     </div>
