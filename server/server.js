@@ -360,14 +360,17 @@ app.post("/user/data/change", verifyToken, async (req, res) => {
 
       console.log(passCompare);
       console.log(formData.userData.password_old !== "");
-      console.log(formData.userData.password);
-      console.log(formData.userData.password_dup);
 
-      if (passCompare === false){
+      if (passCompare === false && formData.userData.password !== "" && formData.userData.password_dup !== ""){
         return res.status(401).json({ success: false, message: "The old password desn't match" });
       }
 
-      if ((prevUserData.password === formData.userData.password) && formData.userData.password_old !== "" && formData.userData.password !== "" && formData.userData.password_dup !== ""){
+      const currentPassCompare = await bcrypt.compare(
+        formData.userData.password,
+        prevUserData.password
+      );
+
+      if (currentPassCompare && formData.userData.password_old !== "" && formData.userData.password !== "" && formData.userData.password_dup !== ""){
         return res.status(401).json({ success: false, message: "The new password can't be the same as the previous one!" });
       }
 
