@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import { Line } from 'react-chartjs-2';
 import { CategoryScale, Chart, LineElement, PointElement } from 'chart.js';
@@ -47,7 +48,12 @@ const IndexPage = () => {
   });
 
   const [loading, setLoading] = useState(true);
+  
+  const navigate = useNavigate();
 
+  const handleObjectiveCardClick = () => {
+    navigate('/calories');
+  };
 
   useEffect(() => {
     const token = sessionStorage.getItem('token');
@@ -130,21 +136,24 @@ const IndexPage = () => {
         <>
           {isLoggedIn ? (
             <div className="cards">
-              <ObjectiveCard
-                value={objectiveData.remaining === parseFloat(objectiveData.kcalObjective) ? 0 : (objectiveData.remaining / objectiveData.kcalObjective) * 100} 
-                kcalObjective={objectiveData.kcalObjective} 
-                food={objectiveData.food} 
-                exercise={objectiveData.exercise} 
-                remaining={objectiveData.remaining} 
-              />
-              <MacrosCard 
-                value={macrosData.value} 
-                max={macrosData.max} 
-                value2={macrosData.value2} 
-                max2={macrosData.max2} 
-                value3={macrosData.value3} 
-                max3={macrosData.max3}
-              />
+
+                <ObjectiveCard
+                  value={objectiveData.remaining === parseFloat(objectiveData.kcalObjective) ? 0 : (objectiveData.remaining / objectiveData.kcalObjective) * 100} 
+                  kcalObjective={objectiveData.kcalObjective} 
+                  food={objectiveData.food} 
+                  exercise={objectiveData.exercise} 
+                  remaining={objectiveData.remaining} 
+                />
+
+                <MacrosCard 
+                  value={macrosData.value} 
+                  max={macrosData.max} 
+                  value2={macrosData.value2} 
+                  max2={macrosData.max2} 
+                  value3={macrosData.value3} 
+                  max3={macrosData.max3}
+                />
+
               <div className="chart-container">
                 <p> Your Weight Progression <FontAwesomeIcon icon={faDumbbell} /></p>
                 <Line
