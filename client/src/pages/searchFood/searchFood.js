@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Header from "../../components/Header/header.js";
 import { Link, useLocation } from "react-router-dom";
 import "./searchFood.css";
@@ -9,39 +9,12 @@ const FoodSearch = () => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [quantity, setQuantity] = useState(100);
   const [savedMessage, setSavedMessage] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [loading, setLoading] = useState(false);
 
   const location = useLocation();
 
   const type = new URLSearchParams(location.search).get("type");
-
-  useEffect(() => {
-    const token = sessionStorage.getItem('token');
-    if (token) {
-      fetch('/verify-token', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      })
-      .then(response => {
-        if (response.ok) {
-          setIsLoggedIn(true);
-        } else {
-          setIsLoggedIn(false);
-          console.error('Invalid token');
-        }
-      })
-      .catch(error => {
-        console.error('Error verifying token:', error);
-        
-      });
-    } else {
-      console.error('Could not find the token, user not authenticated');
-    }
-  }, []);
-  
+  console.log(type);
 
   const handleSearch = () => {
     fetch(`/api/food?search=${searchQuery}`)
@@ -56,7 +29,7 @@ const FoodSearch = () => {
       })
       .catch((error) => {
         console.error("Error fetching exercises data:", error);
-        setLoading(false);
+        // setLoading(false);
       });
   };
 
@@ -65,153 +38,134 @@ const FoodSearch = () => {
   };
 
   const handleAddToMeal = () => {
-    
+    // Verifica si se ha seleccionado un alimento
     if (!selectedItem) {
       console.error("No se ha seleccionado ningún alimento.");
       return;
     }
-    
+
+    // Crear un objeto que represente el alimento con sus detalles y type de comida
     const nuevoAlimento = {
       typeComida: type,
       nombre: selectedItem.name,
       calorias: selectedItem.calories,
       cantidad: quantity,
-      servingSize: selectedItem.serving_size_g,
-      fatTotal: selectedItem.fat_total_g,
-      fatSaturated: selectedItem.fat_saturated_g,
-      protein: selectedItem.protein_g,
-      sodium: selectedItem.sodium_mg,
-      potassium: selectedItem.potassium_mg,
-      cholesterol: selectedItem.cholesterol_mg,
-      carbohydratesTotal: selectedItem.carbohydrates_total_g,
-      fiber: selectedItem.fiber_g,
-      sugar: selectedItem.sugar_g
+      // Agrega otras propiedades según sea necesario
     };
-    
-    if (isLoggedIn) {
-      const token = sessionStorage.getItem('token');
-      fetch('/user/data/food', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ food: nuevoAlimento })
-      })
-      .then(response => {
-        if (response.ok) {
-          setSavedMessage("Alimento guardado correctamente.");
-          setSearchQuery("");
-          setSearchResult(null);
-          setSelectedItem(null);
-          setQuantity(100);
-        } else {
-          console.error('Error al guardar el alimento:', response.statusText);
-          throw new Error('Error al guardar el alimento');
-        }
-      })
-      .catch(error => {
-        setLoading(false);
-        console.error('Error al guardar el alimento:', error);
-      });
-    } else {
-      const alimentosGuardados =
+
+    // Obtén los alimentos existentes del localStorage
+    const alimentosGuardados =
       JSON.parse(localStorage.getItem("alimentos")) || [];
-      const nuevosAlimentos = [...alimentosGuardados, nuevoAlimento];
-      localStorage.setItem("alimentos", JSON.stringify(nuevosAlimentos));
-      setSavedMessage("Alimento guardado correctamente.");
-      setSearchQuery("");
-      setSearchResult(null);
-      setSelectedItem(null);
-      setQuantity(100);
-    }
+
+    // Agrega el nuevo alimento a la lista
+    const nuevosAlimentos = [...alimentosGuardados, nuevoAlimento];
+
+    // Almacena la lista actualizada en localStorage
+    localStorage.setItem("alimentos", JSON.stringify(nuevosAlimentos));
+
+    // Muestra el mensaje de éxito
+    setSavedMessage("Alimento guardado correctamente.");
+
+    // Reinicia los estados para la próxima búsqueda
+    setSearchQuery("");
+    setSearchResult(null);
+    setSelectedItem(null);
+    setQuantity(100);
   };
 
   return (
     <div className="buscarAlimento-box">
-    <Header isAuthenticated={isLoggedIn}/>
-      <h1>Add food to {type}</h1>
+      <Header />
+      <div className="content">
+        <div className="left-content">
+          <h1>Añadir alimento a {type}</h1>
+          <div className="searchbar">
+            <div id="form" className="searchbar-container">
+              <input
+                type="text"
+                placeholder="Introduce la búsqueda"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              <button onClick={handleSearch} className="searchButton">
+                <svg viewBox="0 0 1024 1024">
+                  <path
+                    className="path1"
+                    d="M848.471 928l-263.059-263.059c-48.941 
+                      36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 
+                      312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 
+                      263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 
+                      218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 
+                      0-218.455 97.091-218.455 218.455z"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <Link to="/registroComidas">
+            <button>Ir a Registro de Comidas</button>
+          </Link>
+        </div>
+        <div class="divider"></div>
+        <div className="right-content">
+          <div className="search-food-result">
+            {searchResult ? (
+              <div className="result-food-container">
+                <div className="table-container">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Nombre</th>
+                        <th>Calorías</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {searchResult.items.map((item, index) => (
+                        <tr
+                          key={index}
+                          onClick={() => handleRowClick(item)}
+                          className={selectedItem === item ? "selected-row" : ""}
+                        >
+                          <td>{item.name}</td>
+                          <td>{item.calories}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
 
-      <div className="searchbar">
-        <div id="form" className="searchbar-container">
-          <input
-            type="text"
-            placeholder="Enter search"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <button onClick={handleSearch} className="searchButton">
-            <svg viewBox="0 0 1024 1024"><path className="path1" d="M848.471 928l-263.059-263.059c-48.941 
-              36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 
-              312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 
-              263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 
-              218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 
-              0-218.455 97.091-218.455 218.455z"></path>
-            </svg>
-          </button>
+                {selectedItem && (
+                  <div className="details-container">
+                    <h2>Detalles de {selectedItem.name}:</h2>
+                    <p>
+                      <strong>Calorías:</strong> {selectedItem.calories}
+                    </p>
+                    <p>
+                      <strong>Tamaño de porción:</strong>{" "}
+                      {selectedItem.serving_size_g} g
+                    </p>
+                    <p>
+                      Cantidad:{" "}
+                      <input
+                        type="number"
+                        value={quantity}
+                        onChange={(e) => setQuantity(e.target.value)}
+                      />{" "}
+                      gramos
+                    </p>
+                    <button onClick={handleAddToMeal}>Añadir al desayuno</button>
+                    {savedMessage && <p>{savedMessage}</p>}
+                  </div>
+                )}
+
+                {searchResult.items.length === 0 && (
+                  <p>No se encontraron resultados.</p>
+                )}
+              </div>
+            ) : null}
+          </div>
         </div>
       </div>
-
-      <div className="search-result">
-        {searchResult ? (
-          <div className="result-container">
-            <div className="table-container">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Calories</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {searchResult.items.map((item, index) => (
-                    <tr
-                      key={index}
-                      onClick={() => handleRowClick(item)}
-                      className={selectedItem === item ? "selected-row" : ""}
-                    >
-                      <td>{item.name}</td>
-                      <td>{item.calories}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            {selectedItem && (
-              <div className="details-container">
-                 <h2>Details of {selectedItem.name}:</h2>
-                 <p>
-                   <strong>Calories:</strong> {selectedItem.calories}
-                 </p>
-                 <p>
-                   <strong>Serving size:</strong>{" "}
-                   {selectedItem.serving_size_g} g
-                 </p>
-                <p>
-                  Cantidad:{" "}
-                  <input
-                    type="number"
-                    value={quantity}
-                    onChange={(e) => setQuantity(e.target.value)}
-                  />{" "}
-                  grams
-                </p>
-                <button onClick={handleAddToMeal}>Add to {type}</button>
-                {savedMessage && <p>{savedMessage}</p>}
-              </div>
-            )}
-
-            {searchResult.items.length === 0 && (
-              <p>No se encontraron resultados.</p>
-            )}
-          </div>
-        ) : null}
-      </div>
-
-      <Link to="/registerFood">
-        <button>Go to Food Log</button>
-      </Link>
     </div>
   );
 };
