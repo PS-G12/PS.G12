@@ -319,7 +319,7 @@ const IndexPage = () => {
             </div>
           )}
           <Footer />
-          
+          {popupData && popupData}
         </>
       )}
     </div>
