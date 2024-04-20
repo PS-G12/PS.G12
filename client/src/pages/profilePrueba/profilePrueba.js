@@ -47,7 +47,7 @@ const ProfilePrueba = () => {
         const [editMode, setEditMode] = useState(false);
         const [editedValue, setEditedValue] = useState(value);
 
-        const showEditButton = title !== "UserName" && title !== "mail";
+        const showEditButton = title !== "UserName" && title !== "Mail";
 
         const handleEditClick = () => {
             setEditMode(true);
@@ -119,7 +119,7 @@ const ProfilePrueba = () => {
                                 <table>
                                     <tbody>
                                         <TableRow title="UserName" value="TuNombreAquí" />
-                                        <TableRow title="mail" value="mail@gmail.com" />
+                                        <TableRow title="Mail" value="mail@gmail.com" />
                                     </tbody>
                                 </table>
                             </div>
