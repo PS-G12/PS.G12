@@ -170,10 +170,14 @@ const registerUserDataPulse = async (pulseDate, pulse, user) => {
             return null;
         }
         
-        const actualizacion = { $set: { [`objectiveData.pulseProgression.${pulseDate}`]: pulse } };
-        await collection.updateOne(userResult, actualizacion);
-        
-        
+        const pulseProgression = userResult.objectiveData.pulseProgression || {}; 
+        pulseProgression[pulseDate] = pulse;
+        const sortedPulseProgression = Object.entries(pulseProgression).sort((a, b) => new Date(a[0]) - new Date(b[0]));
+        const sortedPulseProgressionObj = Object.fromEntries(sortedPulseProgression);
+
+        const actualizacion = { $set: { 'objectiveData.pulseProgression': sortedPulseProgressionObj } };
+        await collection.updateOne({ "userId": user }, actualizacion);  
+             
     }
     catch (error) {
         console.error('Error fetching user data:', error);
@@ -190,8 +194,13 @@ const registerUserDataWeight = async (weightDate, weight, user) => {
             return null;
         }
         
-        const actualizacion = { $set: { [`objectiveData.weightProgression.${weightDate}`]: weight } };
-        await collection.updateOne(userResult, actualizacion);
+        const weightProgression = userResult.objectiveData.weightProgression || {}; 
+        weightProgression[weightDate] = weight;
+        const sortedWeightProgression = Object.entries(weightProgression).sort((a, b) => new Date(a[0]) - new Date(b[0]));
+        const sortedWeightProgressionObj = Object.fromEntries(sortedWeightProgression);
+
+        const actualizacion = { $set: { 'objectiveData.weightProgression': sortedWeightProgressionObj } };
+        await collection.updateOne({ "userId": user }, actualizacion);
 
     }
     catch (error) {

@@ -1,0 +1,26 @@
+.profile-navbar {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    text-align: start;
+}
+
+.profile-navbar ul { 
+    list-style-type: none;
+    padding: 0;
+}
+
+.profile-navbar ul li { 
+    margin-bottom: 10px;
+}
+
+.profile-navbar ul li a { 
+    color: #0066ee;
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+}
+
+.profile-navbar ul li a:hover { 
+    color: gray;
+}
