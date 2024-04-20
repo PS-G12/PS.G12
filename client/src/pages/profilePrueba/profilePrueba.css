@@ -1,0 +1,102 @@
+
+.photo-table{
+  display: flex;
+}
+
+
+.photo-username-section  {
+    text-align: center;
+    width: 30%;
+}
+
+.photo-username-section img {
+    max-width: 50%;
+    height: auto;
+}
+
+
+.tables-profile{
+    height: 70%;
+}
+
+.table-info-section{
+    width: 70%;
+}
+
+
+.other-info{
+    margin-top: 4%;
+}
+
+.username-section{
+    margin-bottom: 5%;
+}
+
+.table-info-section .username-section h1 {
+    color: #0066ee;
+    font-weight: 300;
+    font-size: 60px;
+    margin-bottom: 0;
+}
+
+.table-info-section .username-section h2 {
+    color: gray;
+    font-weight: 300;
+    font-size: xx-large;
+    margin-top: 0;
+}
+
+.table-container {
+    width: 60%;
+    margin-top: 20px; 
+}
+
+
+.table-container table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+
+.table-container tr td{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.table-container tr td .value{
+    margin:0;
+}
+
+.table-container th,
+.table-container td {
+    padding: 8px;
+    text-align: left; 
+}
+
+.table-container th {
+    background-color: #f2f2f2;
+    width: 40%;
+}
+
+
+.table-container tr:first-child th, .table-container tr:first-child td {
+    border-top: 1px solid #000000;
+}
+
+.table-container td, .table-container th {
+    border: none;
+}
+
+.table-container tr th, .table-container tr td {
+    border-bottom: 1px solid #000000;
+}
+
+.input-edit-mode {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-size: inherit;
+    color: inherit;
+}
