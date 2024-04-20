@@ -47,7 +47,7 @@ const IndexPage = () => {
 
   const [popupData, setPopupData] = useState(null);
 
-  const [waterCount, setwaterCount] = useState(1504);
+  const [waterCount, setwaterCount] = useState(0);
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -117,6 +117,7 @@ const IndexPage = () => {
             dates: pulseProgressionDates,
             ratio: pulseProgressionratio,
           });
+          setwaterCount(data.objectiveData.waterAmount);
         })
         .catch((error) => {
           console.error("Error fetching user data:", error);
@@ -248,33 +249,66 @@ const IndexPage = () => {
     setPopupData(weightPopup);
   };
 
+  const handleWaterData = (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const waterAmount = parseInt(formData.get("waterAmount"));
+    
+    if (waterAmount > 0) {
+      const token = sessionStorage.getItem("token");
+      if (token) {
+        fetch("/user/data/water", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ waterAmount }),
+        })
+        .then((response) => {
+          if (response.ok) {
+            setwaterCount(waterAmount+waterCount);
+            setPopupData(null);
+          } else {
+            console.error("Failed to add water");
+          }
+        })
+        .catch(error => {
+          console.error("Error adding water:", error);
+        });
+      }
+    } else {
+      console.error("Invalid water amount");
+    }
+  };
+  
+
   const handleWaterSubmit = (event) => {
     event.preventDefault();
-    console.log("pulsado")
+    const waterPopup = (
+      <div className="water-popup" onSubmit={handleWaterData}>
+        <h3>Add Water</h3>
+        <form className="water-form">
+          <label htmlFor="waterAmount">Amount (ml):</label>
+          <input type="number" id="waterAmount" name="waterAmount" min="0" required />
+          <div className="button-space">
+            <button type="submit" className="submit-button">
+              Submit
+            </button>
+            <button
+              className="cancel-button"
+              onClick={() => setPopupData(null)}
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    );
+    setPopupData(waterPopup);
   };
 
-  const waterPopup = (
-    <div className="water-popup">
-      <h3>Add Water</h3>
-      <form className="water-form" onSubmit={handleWaterSubmit}>
-        <label htmlFor="waterDate">Date:</label>
-
-        <label htmlFor="waterAmount">Amount (ml):</label>
-        <input type="number" id="waterAmount" name="waterAmount" min="0" required />
-        <div className="button-space">
-          <button type="submit" className="submit-button">
-            Submit
-          </button>
-          <button
-            className="cancel-button"
-            onClick={() => setPopupData(null)}
-          >
-            Cancel
-          </button>
-        </div>
-      </form>
-    </div>
-  );
+  
   
   return (
     <div className="index-page">
@@ -316,7 +350,7 @@ const IndexPage = () => {
                   max3={Math.round(parseFloat(macrosData.max3))}
                 />
                 <div className="water-container" onClick={handleWaterSubmit}>
-                <WaterGlass waterCount={waterCount} waterGoal={1500} />
+                  <WaterGlass waterCount={waterCount} waterGoal={1500} />
                 </div>
               </div>
               <div className="chart-container-main">

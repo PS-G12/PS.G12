@@ -1,9 +1,23 @@
 const express = require("express");
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const passport = require('passport');
-require('dotenv').config();
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const passport = require("passport");
+require("dotenv").config();
 const exerciseData = require("./api/exercise_data_en.json");
-const { registerUser, registerUserData, getUserData, registerUserGoogle, checkUser, getUserWeightHeight, getUserMacros, getPrevUserData, updateUser, setUserData, registerUserDataPulse, registerUserDataWeight } = require("./api/db.mongo");
+const {
+  registerUser,
+  registerUserData,
+  getUserData,
+  registerUserGoogle,
+  checkUser,
+  getUserWeightHeight,
+  getUserMacros,
+  getPrevUserData,
+  updateUser,
+  setUserData,
+  registerUserDataPulse,
+  registerUserDataWeight,
+  registerUserDataWater,
+} = require("./api/db.mongo");
 const { getUser } = require("./api/db.mongo");
 const jsonData = require("./api/foodData.json");
 const path = require("path");
@@ -16,31 +30,32 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: "http://localhost:3000/auth/google/callback",
+    },
+    async function (accessToken, refreshToken, profile, cb) {
+      try {
+        let user = getUser(profile.id);
 
-passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/auth/google/callback"
-  },
-  async function(accessToken, refreshToken, profile, cb) {
-    try {
-      let user = getUser(profile.id);
+        if (!user) {
+          user = await registerUserGoogle(
+            profile.id,
+            profile.displayName,
+            profile.emails[0].value
+          );
+        }
 
-      if (!user) {
-        user = await registerUserGoogle(
-          profile.id,
-          profile.displayName,
-          profile.emails[0].value
-        );
+        return cb(null, user);
+      } catch (err) {
+        return cb(err);
       }
-
-      return cb(null, user);
-    } catch (err) {
-      return cb(err);
     }
-  }
-));
-
+  )
+);
 
 const generateAccessToken = (userId) => {
   console.log("Generating access token for user " + userId);
@@ -84,14 +99,14 @@ async function fetchFood(query) {
 const verifyToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return passport.authenticate('google', { session: false })(req, res, next);
+    return passport.authenticate("google", { session: false })(req, res, next);
     // return res
     //   .status(401)
     //   .json({ success: false, message: "No token provided" });
   }
-  
+
   const token = authHeader.split(" ")[1];
-  if (token === null || authHeader === ""){
+  if (token === null || authHeader === "") {
     console.error("Error validating token:", error.message);
     return res.status(401).json({ success: false, message: "Invalid token" });
   }
@@ -101,12 +116,11 @@ const verifyToken = (req, res, next) => {
     req.user = decoded.userId;
     next();
   } catch (error) {
-    console.log(token)
+    console.log(token);
     console.error("Error validating token:", error.message);
     return res.status(401).json({ success: false, message: "Invalid token" });
   }
 };
-
 
 app.use("/gifs", express.static(path.join(__dirname, "gifs")));
 
@@ -147,7 +161,7 @@ app.get("/api/exercises", (req, res) => {
       return 0;
     });
   }
-  
+
   if (!page) {
     let samples = {};
     const uniqueBodyParts = [
@@ -159,7 +173,7 @@ app.get("/api/exercises", (req, res) => {
       );
       samples[bodyPart] = getRandomExercises(exercisesForBodyPart, 5);
     });
-  
+
     const data = { samples };
     return res.json(data);
   }
@@ -224,7 +238,7 @@ app.post("/auth/login", async (req, res) => {
 
 app.post("/auth/register", async (req, res) => {
   const { formData } = req.body;
-  
+
   try {
     const hashedPassword = await bcrypt.hash(formData.userData.password, 10);
     formData.userData.password = hashedPassword;
@@ -252,8 +266,6 @@ app.post("/auth/check", async (req, res) => {
   }
 });
 
-
-
 app.get("/user/data", verifyToken, async (req, res) => {
   const userId = req.user;
   try {
@@ -266,12 +278,13 @@ app.get("/user/data", verifyToken, async (req, res) => {
   }
 });
 
-
 app.post("/user/data", verifyToken, async (req, res) => {
   const { userId, objectiveData } = req.body;
   try {
     const insertedId = await registerUserData(userId, objectiveData);
-    res.status(200).json({ message: "User data registered successfully", insertedId });
+    res
+      .status(200)
+      .json({ message: "User data registered successfully", insertedId });
   } catch (error) {
     console.error("Error registering user data:", error);
     res.status(500).json({ error: "Error registering user data" });
@@ -282,9 +295,8 @@ app.post("/user/data/pulse", verifyToken, async (req, res) => {
   const user = req.user;
   const { pulseDate, pulse } = req.body;
   try {
-      const insertedId = await registerUserDataPulse(pulseDate, pulse, user);
-      res.status(200).json({ message: "User pulse registered successfully" });    
-    
+    const insertedId = await registerUserDataPulse(pulseDate, pulse, user);
+    res.status(200).json({ message: "User pulse registered successfully" });
   } catch (error) {
     console.error("Error registering user data:", error);
     res.status(500).json({ error: "Error registering user data" });
@@ -296,8 +308,20 @@ app.post("/user/data/weight", verifyToken, async (req, res) => {
   const { weightDate, weight } = req.body;
 
   try {
-      const insertedId = await registerUserDataWeight(weightDate, weight, user); 
-      res.status(200).json({ message: "User weight registered successfully" });   
+    const insertedId = await registerUserDataWeight(weightDate, weight, user);
+    res.status(200).json({ message: "User weight registered successfully" });
+  } catch (error) {
+    console.error("Error registering user data:", error);
+    res.status(500).json({ error: "Error registering user data" });
+  }
+});
+app.post("/user/data/water", verifyToken, async (req, res) => {
+  const user = req.user;
+  const { waterAmount } = req.body;
+
+  try {
+    const insertedId = await registerUserDataWater(waterAmount, user);
+    res.status(200).json({ message: "User weight registered successfully" });
   } catch (error) {
     console.error("Error registering user data:", error);
     res.status(500).json({ error: "Error registering user data" });
@@ -318,7 +342,7 @@ app.get("/user/data/food", verifyToken, async (req, res) => {
 app.post("/user/data/food", verifyToken, async (req, res) => {
   const userId = req.user;
   const { food } = req.body;
-  
+
   try {
     const userData = await setUserData(userId, food);
     res.status(200).json(userData.foodRecords);
@@ -330,7 +354,7 @@ app.post("/user/data/food", verifyToken, async (req, res) => {
 
 app.post("/verify-token", verifyToken, async (req, res) => {
   try {
-    res.status(200).json({ message: 'Token válido' });
+    res.status(200).json({ message: "Token válido" });
   } catch (error) {
     console.error("Error al obtaining the users data:", error);
     res.status(500).json({ error: "Error al obtaining the users data" });
@@ -338,7 +362,7 @@ app.post("/verify-token", verifyToken, async (req, res) => {
 });
 
 app.get("/user/data/weightHeight", verifyToken, async (req, res) => {
-  const username = req.user
+  const username = req.user;
   try {
     console.log("username", username);
     const userData = await getUserWeightHeight(username);
@@ -347,24 +371,27 @@ app.get("/user/data/weightHeight", verifyToken, async (req, res) => {
     }
     const { weight, height } = userData;
     res.status(200).json({ weight, height });
-  }
-  catch (error) {
+  } catch (error) {
     console.error("Error while getting the user data:", error);
-    res.status(500).json({ error: "Error while getting the user weight or height" });
+    res
+      .status(500)
+      .json({ error: "Error while getting the user weight or height" });
   }
 });
 
 app.get("/user/data/macros", verifyToken, async (req, res) => {
   const username = req.user;
-  try{
+  try {
     const userData = await getUserMacros(username);
-    if (!userData){
+    if (!userData) {
       return res.status(404).json({ error: "No user records found" });
     }
-    const { weight, height, age, gender, activityLevel, fitnessGoal } = userData
-    res.status(200).json({ weight, height, age, gender, activityLevel, fitnessGoal });
-  }
-  catch (error){
+    const { weight, height, age, gender, activityLevel, fitnessGoal } =
+      userData;
+    res
+      .status(200)
+      .json({ weight, height, age, gender, activityLevel, fitnessGoal });
+  } catch (error) {
     console.error("Error while getting the user data:", error);
     res.status(500).json({ error: "Error while getting the user macros" });
   }
@@ -375,9 +402,9 @@ app.get("/user/data/macros", verifyToken, async (req, res) => {
 app.post("/user/data/change", verifyToken, async (req, res) => {
   const user = req.user;
   const { formData } = req.body;
-  try{
+  try {
     const prevUserData = await getPrevUserData(user);
-    if (prevUserData){
+    if (prevUserData) {
       const passCompare = await bcrypt.compare(
         formData.userData.password_old,
         prevUserData.password
@@ -386,8 +413,14 @@ app.post("/user/data/change", verifyToken, async (req, res) => {
       console.log(passCompare);
       console.log(formData.userData.password_old !== "");
 
-      if (passCompare === false && formData.userData.password !== "" && formData.userData.password_dup !== ""){
-        return res.status(401).json({ success: false, message: "The old password desn't match" });
+      if (
+        passCompare === false &&
+        formData.userData.password !== "" &&
+        formData.userData.password_dup !== ""
+      ) {
+        return res
+          .status(401)
+          .json({ success: false, message: "The old password desn't match" });
       }
 
       const currentPassCompare = await bcrypt.compare(
@@ -395,42 +428,96 @@ app.post("/user/data/change", verifyToken, async (req, res) => {
         prevUserData.password
       );
 
-      if (currentPassCompare && formData.userData.password_old !== "" && formData.userData.password !== "" && formData.userData.password_dup !== ""){
-        return res.status(401).json({ success: false, message: "The new password can't be the same as the previous one!" });
+      if (
+        currentPassCompare &&
+        formData.userData.password_old !== "" &&
+        formData.userData.password !== "" &&
+        formData.userData.password_dup !== ""
+      ) {
+        return res
+          .status(401)
+          .json({
+            success: false,
+            message: "The new password can't be the same as the previous one!",
+          });
       }
 
-      if ((formData.userData.password !== formData.userData.password_dup) && formData.userData.password_old !== "" && formData.userData.password !== "" && formData.userData.password_dup !== ""){
-        return res.status(401).json({ success: false, message: "The new passwords don't match" });
+      if (
+        formData.userData.password !== formData.userData.password_dup &&
+        formData.userData.password_old !== "" &&
+        formData.userData.password !== "" &&
+        formData.userData.password_dup !== ""
+      ) {
+        return res
+          .status(401)
+          .json({ success: false, message: "The new passwords don't match" });
       }
 
-      if ((prevUserData.email === formData.userData.email) && formData.userData.email !== ""){
-        return res.status(401).json({ success: false, message: "New email must be different than the previous one" });
-      }
-  
-      if ((formData.userData.email !== formData.userData.email_dup) && formData.userData.email !== "" && formData.userData.email_dup !== ""){
-        return res.status(401).json({ success: false, message: "New emails don't match" });
-      }
-  
-      if ((prevUserData.username === formData.userData.username) && formData.userData.username !== ""){
-        return res.status(401).json({ success: false, message: "New username must be different than the previous one" });
+      if (
+        prevUserData.email === formData.userData.email &&
+        formData.userData.email !== ""
+      ) {
+        return res
+          .status(401)
+          .json({
+            success: false,
+            message: "New email must be different than the previous one",
+          });
       }
 
-      if (formData.userData.password_old !== "" && formData.userData.password !== "" && formData.userData.password_dup !== ""){
-        const hashedPassword = await bcrypt.hash(formData.userData.password, 10);
+      if (
+        formData.userData.email !== formData.userData.email_dup &&
+        formData.userData.email !== "" &&
+        formData.userData.email_dup !== ""
+      ) {
+        return res
+          .status(401)
+          .json({ success: false, message: "New emails don't match" });
+      }
+
+      if (
+        prevUserData.username === formData.userData.username &&
+        formData.userData.username !== ""
+      ) {
+        return res
+          .status(401)
+          .json({
+            success: false,
+            message: "New username must be different than the previous one",
+          });
+      }
+
+      if (
+        formData.userData.password_old !== "" &&
+        formData.userData.password !== "" &&
+        formData.userData.password_dup !== ""
+      ) {
+        const hashedPassword = await bcrypt.hash(
+          formData.userData.password,
+          10
+        );
         formData.userData.password = hashedPassword;
       }
-  
+
       const updateUserData = await updateUser(formData, user);
-      if (!updateUserData){
-        return res.status(401).json({ success: false, message: "Could not update the user", });
+      if (!updateUserData) {
+        return res
+          .status(401)
+          .json({ success: false, message: "Could not update the user" });
       }
-      return res.status(200).json({success: true, message: "User updated successfully", usernameChanged: updateUserData});
+      return res
+        .status(200)
+        .json({
+          success: true,
+          message: "User updated successfully",
+          usernameChanged: updateUserData,
+        });
+    } else {
+      return res
+        .status(401)
+        .json({ success: false, message: "No user records found" });
     }
-    else{
-      return res.status(401).json({ success: false, message: "No user records found" });
-    }
-  }
-  catch (error){
+  } catch (error) {
     console.error("Error updating the users data:", error);
     res.status(500).json({ error: "Error updating the users data" });
   }
@@ -438,54 +525,58 @@ app.post("/user/data/change", verifyToken, async (req, res) => {
 
 app.get("/user/data/username", verifyToken, async (req, res) => {
   const user = req.user;
-  try{
+  try {
     const userData = await getUser(user);
-    if (!userData){
+    if (!userData) {
       return res.status(401).json({ success: false, message: "No user found" });
     }
-    console.log('Obtained the data from the user succesfully');
+    console.log("Obtained the data from the user succesfully");
     return res.status(200).json(userData);
-  }
-  catch (error){
-    console.error('Run into an error while looking for the user');
+  } catch (error) {
+    console.error("Run into an error while looking for the user");
     res.status(500).json({ error: "Error geting the users data" });
   }
 });
 
 app.post("/user/data/update/token", async (req, res) => {
   const { formData } = req.body;
-  try{
+  try {
     const token = generateAccessToken(formData.userData.username);
     return res.status(200).json({ success: true, token });
-  }
-  catch (error){
-    console.error('Could not update the users token');
-    res.status(500).json({ error: "An error ocurred while updating the users token" });
+  } catch (error) {
+    console.error("Could not update the users token");
+    res
+      .status(500)
+      .json({ error: "An error ocurred while updating the users token" });
   }
 });
 
+app.get(
+  "/auth/google",
+  passport.authenticate("google", { scope: ["profile"] })
+);
 
-app.get('/auth/google',
-  passport.authenticate('google', { scope: ['profile'] }));
+app.get(
+  "/auth/google/callback",
+  passport.authenticate("google", { failureRedirect: "/login" }),
+  function (req, res) {
+    res.redirect("/");
+  }
+);
 
-app.get('/auth/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/login' }),
-  function(req, res) {  
-    res.redirect('/');
-  });
-  
-  app.route('/auth/google/callback')
-  .get(passport.authenticate('google', { failureRedirect: '/login' }),
-  function(req, res) {
-    res.redirect('/create');
-});
+app
+  .route("/auth/google/callback")
+  .get(
+    passport.authenticate("google", { failureRedirect: "/login" }),
+    function (req, res) {
+      res.redirect("/create");
+    }
+  );
 
-
-app.route('create')
-  .get(function(req, res){
-  })
-  .post(function(req, res){
-  });
+app
+  .route("create")
+  .get(function (req, res) {})
+  .post(function (req, res) {});
 
 const PORT = 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

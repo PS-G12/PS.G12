@@ -7,9 +7,9 @@ const WaterGlass = ({ waterCount, waterGoal }) => {
 
   useEffect(() => {
     const waterElement = waterRef.current;
-    const porcent = (waterCount / waterGoal) * 100;
-    if (porcent <= 10 && porcent > 5) porcent += 10;
-    if (porcent < 100) porcent = 100;
+    let porcent = (waterCount / waterGoal) * 100;
+    if (porcent <= 14 && porcent > 5) porcent += 10;
+    if (porcent > 100) porcent = 100;
     const waterCC = (porcent * -5) + 365;
     const calculatedTop = `${waterCC}px`;
 
@@ -41,7 +41,9 @@ const WaterGlass = ({ waterCount, waterGoal }) => {
     }, 1);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [waterCount]);
+
+  
 
   return (
     <div className="glass-ctr">
