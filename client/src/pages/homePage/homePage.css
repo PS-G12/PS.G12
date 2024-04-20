@@ -64,6 +64,10 @@
   height: auto !important;
 }
 
+.water-popup{
+  text-align: center;
+}
+
 .chart-container p, .chart-container2 p {
   text-align: center;
   font-weight: bold;
@@ -152,4 +156,5 @@ input[type="number"] {
 }
 .chart-container-main div{
   margin: 0 20px 0;
+  margin-bottom: 5%;
 }
