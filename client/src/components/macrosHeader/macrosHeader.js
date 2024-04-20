@@ -15,22 +15,28 @@ function macrosHeader() {
     <header className="header-menu">
       <nav className="navbarCarbs">
         <ul className="nav-links-Carbs">
-          <li className={isActive("/") ? "active" : ""}>
+          <li>
+            <a href="/">
+              <FontAwesomeIcon/> HOME
+            </a>
+          </li>
+
+          <li className={isActive("/calories") ? "active" : ""}>
             <a href="/calories">
               <FontAwesomeIcon/> CALORIES
             </a>
           </li>
-          <li>
+          <li className={isActive("/carbs") ? "active" : ""}>
             <a href="/carbs">
               <FontAwesomeIcon/> CARBS
             </a>
           </li>
-          <li>
+          <li className={isActive("/fats") ? "active" : ""}>
             <a href="/fats">
               <FontAwesomeIcon/> FATS
             </a>
           </li>
-          <li>
+          <li className={isActive("/proteins") ? "active" : ""}>
             <a href="/proteins">
               <FontAwesomeIcon/> PROTEINS
             </a>
