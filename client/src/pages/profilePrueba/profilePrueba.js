@@ -108,7 +108,7 @@ const ProfilePrueba = () => {
                     <div className="tables-profile">
                         <div className="basic-info information-box-profile">
                             <h1>Basic Info</h1>
-                            <div className="table-container">
+                            <div className="table-container-profile">
                                 <table>
                                     <tbody>
                                         <TableRow title="UserName" value="TuNombreAquí" />
@@ -120,7 +120,7 @@ const ProfilePrueba = () => {
 
                         <div className="other-info information-box-profile">
                             <h1>Other Info</h1>
-                            <div className="table-container">
+                            <div className="table-container-profile">
                                 <table>
                                     <tbody>
                                         <TableRow title="Weight" value="XX" />
