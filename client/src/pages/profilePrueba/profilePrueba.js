@@ -47,7 +47,7 @@ const ProfilePrueba = () => {
         const [editMode, setEditMode] = useState(false);
         const [editedValue, setEditedValue] = useState(value);
 
-        const showEditButton = title !== "UserName" && title !== "Mail";
+        const showEditButton = title !== "x";
 
         const handleEditClick = () => {
             setEditMode(true);
@@ -55,7 +55,6 @@ const ProfilePrueba = () => {
 
         const handleSaveClick = () => {
             setEditMode(false);
-            // Aquí puedes agregar la lógica para guardar el valor editado, por ejemplo, enviar una solicitud al servidor.
         };
 
         return (
@@ -132,8 +131,9 @@ const ProfilePrueba = () => {
                                     <tbody>
                                         <TableRow title="Weight" value="XX" />
                                         <TableRow title="Height" value="XX" />
-                                        <TableRow title="Gender" value="Male" />
                                         <TableRow title="Age" value="20" />
+                                        <TableRow title="Kcals Goal" value="xxxx" />
+                                        <TableRow title="Gender" value="Male" />
                                         <TableRow title="System" value="Metric" />
                                     </tbody>
                                 </table>
