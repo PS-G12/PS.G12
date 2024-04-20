@@ -309,7 +309,7 @@ const RegisterForm = () => {
     if (step === 4) {
       return;
     } else {
-      handleNextStep();
+
     }
   };
 
