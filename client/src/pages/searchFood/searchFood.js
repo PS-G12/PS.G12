@@ -41,6 +41,7 @@ const FoodSearch = () => {
       console.error('Could not find the token, user not authenticated');
     }
   }, []);
+  
 
   const handleSearch = () => {
     fetch(`/api/food?search=${searchQuery}`)
@@ -128,97 +129,89 @@ const FoodSearch = () => {
 
   return (
     <div className="buscarAlimento-box">
-      <Header />
-      <div className="content">
-        <div className="left-content">
-          <h1>Añadir alimento a {type}</h1>
-          <div className="searchbar">
-            <div id="form" className="searchbar-container">
-              <input
-                type="text"
-                placeholder="Introduce la búsqueda"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-              <button onClick={handleSearch} className="searchButton">
-                <svg viewBox="0 0 1024 1024">
-                  <path
-                    className="path1"
-                    d="M848.471 928l-263.059-263.059c-48.941 
-                      36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 
-                      312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 
-                      263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 
-                      218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 
-                      0-218.455 97.091-218.455 218.455z"
-                  ></path>
-                </svg>
-              </button>
-            </div>
-          </div>
-          <Link to="/registroComidas">
-            <button>Ir a Registro de Comidas</button>
-          </Link>
-        </div>
-        <div class="divider"></div>
-        <div className="right-content">
-          <div className="search-food-result">
-            {searchResult ? (
-              <div className="result-food-container">
-                <div className="table-container">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>Nombre</th>
-                        <th>Calorías</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {searchResult.items.map((item, index) => (
-                        <tr
-                          key={index}
-                          onClick={() => handleRowClick(item)}
-                          className={selectedItem === item ? "selected-row" : ""}
-                        >
-                          <td>{item.name}</td>
-                          <td>{item.calories}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+    <Header isAuthenticated={isLoggedIn}/>
+      <h1>Add food to {type}</h1>
 
-                {selectedItem && (
-                  <div className="details-container">
-                    <h2>Detalles de {selectedItem.name}:</h2>
-                    <p>
-                      <strong>Calorías:</strong> {selectedItem.calories}
-                    </p>
-                    <p>
-                      <strong>Tamaño de porción:</strong>{" "}
-                      {selectedItem.serving_size_g} g
-                    </p>
-                    <p>
-                      Cantidad:{" "}
-                      <input
-                        type="number"
-                        value={quantity}
-                        onChange={(e) => setQuantity(e.target.value)}
-                      />{" "}
-                      gramos
-                    </p>
-                    <button onClick={handleAddToMeal}>Añadir al desayuno</button>
-                    {savedMessage && <p>{savedMessage}</p>}
-                  </div>
-                )}
-
-                {searchResult.items.length === 0 && (
-                  <p>No se encontraron resultados.</p>
-                )}
-              </div>
-            ) : null}
-          </div>
+      <div className="searchbar">
+        <div id="form" className="searchbar-container">
+          <input
+            type="text"
+            placeholder="Enter search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <button onClick={handleSearch} className="searchButton">
+            <svg viewBox="0 0 1024 1024"><path className="path1" d="M848.471 928l-263.059-263.059c-48.941 
+              36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 
+              312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 
+              263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 
+              218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 
+              0-218.455 97.091-218.455 218.455z"></path>
+            </svg>
+          </button>
         </div>
       </div>
+
+      <div className="search-result">
+        {searchResult ? (
+          <div className="result-container">
+            <div className="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Calories</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {searchResult.items.map((item, index) => (
+                    <tr
+                      key={index}
+                      onClick={() => handleRowClick(item)}
+                      className={selectedItem === item ? "selected-row" : ""}
+                    >
+                      <td>{item.name}</td>
+                      <td>{item.calories}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {selectedItem && (
+              <div className="details-container">
+                 <h2>Details of {selectedItem.name}:</h2>
+                 <p>
+                   <strong>Calories:</strong> {selectedItem.calories}
+                 </p>
+                 <p>
+                   <strong>Serving size:</strong>{" "}
+                   {selectedItem.serving_size_g} g
+                 </p>
+                <p>
+                  Cantidad:{" "}
+                  <input
+                    type="number"
+                    value={quantity}
+                    onChange={(e) => setQuantity(e.target.value)}
+                  />{" "}
+                  grams
+                </p>
+                <button onClick={handleAddToMeal}>Add to {type}</button>
+                {savedMessage && <p>{savedMessage}</p>}
+              </div>
+            )}
+
+            {searchResult.items.length === 0 && (
+              <p>No se encontraron resultados.</p>
+            )}
+          </div>
+        ) : null}
+      </div>
+
+      <Link to="/registerFood">
+        <button>Go to Food Log</button>
+      </Link>
     </div>
   );
 };

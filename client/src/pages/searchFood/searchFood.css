@@ -4,40 +4,11 @@
   text-align: center;
 }
 
-.divider {
-  border-left: 6px solid #0066EE;
-  height: 500px;
-  position: absolute;
-  left: 50%;
-  margin-left: -3px;
-  border-radius: 3px;
-}
-
-.content {
-  display: flex;
-  justify-content: space-between;
-}
-
-.left-content {
-  flex: 1;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.right-content {
-  display: flex;
-  width: 50%;
-}
-
-
 .table-container {
-  margin: 10px;
-  display: inline-block;
+  display: flex;
+  flex-wrap: wrap;
   gap: 20px;
+  align-items: center;
 }
 
 .table-container table {
@@ -66,25 +37,24 @@
   display: flex;
   align-items: center;
   margin: 0 auto;
-  width: 500px;
-  margin-bottom: 10px;
+  max-width: 500px;
 }
 
-input {
+.searchbar-container input {
   all: unset;
   font: 16px system-ui;
   color: #fff;
-  flex: 1;
+  flex: 1; /* El input ocupa todo el espacio disponible */
   padding: 6px 10px;
 }
 
 .searchbar-container:hover,
 .searchbar-container:focus {
-  background-color: #0077ff;
+  background-color: #0077ff; /* Fondo azul claro al pasar el mouse o al estar en foco */
 }
 
 
-::placeholder {
+.searchbar-container input::placeholder {
   color: #fff;
   opacity: 0.7; 
 }
@@ -96,7 +66,7 @@ input {
   height: 44px;
 }
 
-svg {
+.searchbar-container svg {
   color: #fff;
   fill: currentColor;
   width: 24px;
@@ -109,18 +79,12 @@ svg {
 }
 
 .details-container {
-  position: absolute;
-  display: inline-block;
-  width: 25%;
+  width: 40%;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 8px;
   background-color: #fff;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-}
-
-.details-container input {
-  color: black;
 }
 
 /* Estilos para cada food-item */
@@ -154,14 +118,14 @@ svg {
   min-width: 150px;
 }
 
-.alimento-agregar {
-  text-align: center;
-  font-weight: bold;
-  width: 100%;
-}
-
 .food-item p span {
   display: inline-block;
   text-align: right;
   min-width: 50%;
+}
+
+.alimento-agregar {
+  text-align: center;
+  font-weight: bold;
+  width: 100%;
 }
