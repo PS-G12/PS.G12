@@ -421,6 +421,7 @@ const IndexPage = () => {
             </div>
           )}
           <Footer />
+          {popupData}
         </>
       )}
     </div>
