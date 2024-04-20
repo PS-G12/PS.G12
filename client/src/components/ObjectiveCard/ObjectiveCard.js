@@ -22,14 +22,12 @@ function ObjectiveCard({ remaining, kcalObjective, food, exercise, value }) {
         navigate('/calories');
     };
 
-    // Calcular el porcentaje completado en lugar de las calorías restantes
-    const completedPercentage = 100 - value;
 
     return (
         <div className='card-containerobj' onClick={handleObjectiveCardClick}>
             <div className='circularProgression'>
                 <CircularProgressbar
-                    value={completedPercentage}
+                    value={value}
                     text={`${remaining} kcal remaining`}
                     styles={buildStyles({
                         textSize: '10px',

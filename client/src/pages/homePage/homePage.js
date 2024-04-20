@@ -8,6 +8,7 @@ import "chartjs-plugin-datalabels";
 import Header from "../../components/Header/header";
 import ObjectiveCard from "../../components/ObjectiveCard/ObjectiveCard";
 import MacrosCard from "../../components/MacrosCard/macrosCard";
+import WaterGlass from "../../components/WaterCard/WaterCard";
 import Footer from "../../components/Footer/footer";
 import "./homePage.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -45,6 +46,8 @@ const IndexPage = () => {
   const [loading, setLoading] = useState(true);
 
   const [popupData, setPopupData] = useState(null);
+
+  const [waterCount, setwaterCount] = useState(1504);
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -245,6 +248,34 @@ const IndexPage = () => {
     setPopupData(weightPopup);
   };
 
+  const handleWaterSubmit = (event) => {
+    event.preventDefault();
+    console.log("pulsado")
+  };
+
+  const waterPopup = (
+    <div className="water-popup">
+      <h3>Add Water</h3>
+      <form className="water-form" onSubmit={handleWaterSubmit}>
+        <label htmlFor="waterDate">Date:</label>
+
+        <label htmlFor="waterAmount">Amount (ml):</label>
+        <input type="number" id="waterAmount" name="waterAmount" min="0" required />
+        <div className="button-space">
+          <button type="submit" className="submit-button">
+            Submit
+          </button>
+          <button
+            className="cancel-button"
+            onClick={() => setPopupData(null)}
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+  
   return (
     <div className="index-page">
       <Header isAuthenticated={isLoggedIn} />
@@ -256,63 +287,76 @@ const IndexPage = () => {
         <>
           {isLoggedIn ? (
             <div className="cards">
-              <ObjectiveCard
-                value={parseFloat(
-                  objectiveData.remaining ===
+              <div className="card-container-top">
+                <ObjectiveCard
+                  value={Math.round(
+                    parseFloat(
+                      objectiveData.remaining ===
+                        parseFloat(objectiveData.kcalObjective)
+                        ? 0
+                        : (objectiveData.remaining /
+                            objectiveData.kcalObjective) *
+                            100
+                    )
+                  )}
+                  kcalObjective={Math.round(
                     parseFloat(objectiveData.kcalObjective)
-                    ? 0
-                    : (objectiveData.remaining / objectiveData.kcalObjective) *
-                        100
-                ).toFixed(2)}
-                kcalObjective={parseFloat(objectiveData.kcalObjective).toFixed(
-                  2
-                )}
-                food={parseFloat(objectiveData.food).toFixed(2)}
-                exercise={parseFloat(objectiveData.exercise).toFixed(2)}
-                remaining={parseFloat(objectiveData.remaining).toFixed(2)}
-              />
+                  )}
+                  food={Math.round(parseFloat(objectiveData.food))}
+                  exercise={Math.round(parseFloat(objectiveData.exercise))}
+                  remaining={Math.round(parseFloat(objectiveData.remaining))}
+                />
 
-              <MacrosCard
-                value={parseFloat(macrosData.value).toFixed(2)}
-                max={parseFloat(macrosData.max)}
-                value2={parseFloat(macrosData.value2).toFixed(2)}
-                max2={parseFloat(macrosData.max2)}
-                value3={parseFloat(macrosData.value3).toFixed(2)}
-                max3={parseFloat(macrosData.max3)}
-              />
-
-              <div className="chart-container" onClick={handleWeightChartClick}>
-                <p>
-                  {" "}
-                  Your Weight Progression <FontAwesomeIcon icon={faDumbbell} />
-                </p>
-                <Line
-                  data={{
-                    labels: weightProgressionData.dates,
-                    datasets: [
-                      {
-                        label: "Weight Progression",
-                        data: weightProgressionData.weights,
-                        fill: false,
-                        borderColor: "rgb(75, 192, 192)",
-                        tension: 0.1,
-                      },
-                    ],
-                  }}
-                  options={{
-                    plugins: {
-                      scales: {
-                        y: {
-                          beginAtZero: true,
+                <MacrosCard
+                  value={Math.round(parseFloat(macrosData.value))}
+                  max={Math.round(parseFloat(macrosData.max))}
+                  value2={Math.round(parseFloat(macrosData.value2))}
+                  max2={Math.round(parseFloat(macrosData.max2))}
+                  value3={Math.round(parseFloat(macrosData.value3))}
+                  max3={Math.round(parseFloat(macrosData.max3))}
+                />
+                <div className="water-container" onClick={handleWaterSubmit}>
+                <WaterGlass waterCount={waterCount} waterGoal={1500} />
+                </div>
+              </div>
+              <div className="chart-container-main">
+                <div
+                  className="chart-container"
+                  onClick={handleWeightChartClick}
+                >
+                  <p>
+                    {" "}
+                    Your Weight Progression{" "}
+                    <FontAwesomeIcon icon={faDumbbell} />
+                  </p>
+                  <Line
+                    data={{
+                      labels: weightProgressionData.dates,
+                      datasets: [
+                        {
+                          label: "Weight Progression",
+                          data: weightProgressionData.weights,
+                          fill: false,
+                          borderColor: "rgb(75, 192, 192)",
+                          tension: 0.1,
+                        },
+                      ],
+                    }}
+                    options={{
+                      plugins: {
+                        scales: {
+                          y: {
+                            beginAtZero: true,
+                          },
+                        },
+                        legend: {
+                          display: true,
                         },
                       },
-                      legend: {
-                        display: true,
-                      },
-                    },
-                  }}
-                />
-              </div>
+                    }}
+                  />
+                </div>
+              
               <div className="chart-container2" onClick={handlePulseChartClick}>
                 <p>
                   Your Pulse Progression <FontAwesomeIcon icon={faHeart} />
@@ -345,6 +389,7 @@ const IndexPage = () => {
                 />
               </div>
             </div>
+            </div>
           ) : (
             <div className="cards default">
               <div className="message-block">
@@ -376,7 +421,6 @@ const IndexPage = () => {
             </div>
           )}
           <Footer />
-          {popupData && popupData}
         </>
       )}
     </div>

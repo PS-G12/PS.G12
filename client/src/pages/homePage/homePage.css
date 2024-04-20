@@ -1,18 +1,17 @@
-.cards,
+.cards {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  user-select: none;
+}
+
 .blur-content {
   display: flex;
   flex: 1;
   user-select: none;
 }
 
-.cards .card-containerobj {
-  margin-left: 15%;
-  margin-top: 5%;
-}
-
 .cards .macros-container {
-  margin-left: 15%;
-  margin-top: 5%;
   height: fit-content;
 }
 
@@ -48,19 +47,15 @@
 
 .lock-icon {
   font-size: 4rem;
-  margin-bottom: 1rem;
 }
 
 
 .chart-container {
   width: 35%;
   height: 30%;
-  margin-top: 20%;
-  margin-bottom: 5%;
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 20px;
-  margin-left: -70%;
 }
 
 
@@ -77,12 +72,9 @@
 .chart-container2 {
   width: 35%;
   height: 30%;
-  margin-top: 20%;
-  margin-bottom: 5%;
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 20px;
-  margin-left: 4%;
 }
 
 
@@ -111,10 +103,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-label {
-  margin-bottom: 5px;
 }
 
 input[type="date"],
@@ -146,4 +134,22 @@ input[type="number"] {
 
 .button-space {
   margin-top: 10px;
+}
+
+.card-container-top {
+  display: flex;
+  justify-content:center;
+  align-items: center;
+}
+
+.card-container-top div{
+  margin: 0 20px 0;
+}
+
+.chart-container-main{
+  display: flex;
+  justify-content: center;
+}
+.chart-container-main div{
+  margin: 0 20px 0;
 }
