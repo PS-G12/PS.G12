@@ -99,4 +99,9 @@
     background-color: transparent;
     font-size: inherit;
     color: inherit;
+    }
+
+.input-edit-mode-input{
+    width: 80%;
 }
+

@@ -9,6 +9,8 @@ const ProfilePrueba = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [token, setToken] = useState();
     const [selectedImage, setSelectedImage] = useState("");
+    const [editedGender, setEditedGender] = useState("Male"); // Valor predeterminado
+    const [editedSystem, setEditedSystem] = useState("Metric");
 
     const handleImageChange = (event) => {
         const file = event.target.files[0];
@@ -43,7 +45,7 @@ const ProfilePrueba = () => {
         }
     }, []);
 
-    const TableRow = ({ title, value }) => {
+    const TableRow = ({ title, value, isSelector = false, options = [], onChange }) => {
         const [editMode, setEditMode] = useState(false);
         const [editedValue, setEditedValue] = useState(value);
 
@@ -58,16 +60,28 @@ const ProfilePrueba = () => {
         };
 
         return (
-            <tr>
+<tr>
                 <th>{title}</th>
                 <td>
                     {editMode ? (
-                        <input 
-                            type="text"
-                            value={editedValue}
-                            onChange={(e) => setEditedValue(e.target.value)}
-                            className="input-edit-mode"
-                        />
+                        isSelector ? (
+                            <select
+                                value={editedValue}
+                                onChange={(e) => setEditedValue(e.target.value)}
+                                className="input-edit-mode-input"
+                            >
+                                {options.map(option => (
+                                    <option key={option} value={option}>{option}</option>
+                                ))}
+                            </select>
+                        ) : (
+                            <input
+                                type="text"
+                                value={editedValue}
+                                onChange={(e) => setEditedValue(e.target.value)}
+                                className="input-edit-mode"
+                            />
+                        )
                     ) : (
                         <p className="value">{value}</p>
                     )}
@@ -83,7 +97,6 @@ const ProfilePrueba = () => {
                             </button>
                         )
                     )}
-
                 </td>
             </tr>
         );
@@ -133,8 +146,183 @@ const ProfilePrueba = () => {
                                         <TableRow title="Height" value="XX" />
                                         <TableRow title="Age" value="20" />
                                         <TableRow title="Kcals Goal" value="xxxx" />
-                                        <TableRow title="Gender" value="Male" />
-                                        <TableRow title="System" value="Metric" />
+                                        <TableRow
+                                            title="Gender"
+                                            value={editedGender}
+                                            isSelector={true}
+                                            options={[
+                                                "Male",
+                                                "Female",
+                                                "Other",
+                                                "Transgender Male",
+                                                "Transgender Female",
+                                                "Genderqueer",
+                                                "Non-binary",
+                                                "Agender",
+                                                "Bigender",
+                                                "Genderfluid",
+                                                "Two-Spirit",
+                                                "Questioning",
+                                                "Prefer not to say",
+                                                "Androgynous",
+                                                "Neutrois",
+                                                "Demiboy",
+                                                "Demigirl",
+                                                "Multigender",
+                                                "Pangender",
+                                                "Intergender",
+                                                "Femandrogyne",
+                                                "Mascanine",
+                                                "Femuline",
+                                                "Androgyne",
+                                                "Epicene",
+                                                "Ambigender",
+                                                "Quoigender",
+                                                "Libragender",
+                                                "Exgender",
+                                                "Ceterogender",
+                                                "Novigender",
+                                                "Fluxgender",
+                                                "Nebulagender",
+                                                "Aliengender",
+                                                "Voidgender",
+                                                "Galaxygender",
+                                                "Stargender",
+                                                "Mythogender",
+                                                "Aerogender",
+                                                "Hydrogender",
+                                                "Pyrogender",
+                                                "Terragender",
+                                                "Lunagender",
+                                                "Solargender",
+                                                "Chronogender",
+                                                "Technogender",
+                                                "Robogender",
+                                                "Pixelgender",
+                                                "Cybergender",
+                                                "Glowgender",
+                                                "Toxicgender",
+                                                "Cosmicgender",
+                                                "Cryptogender",
+                                                "Frostgender",
+                                                "Flamegender",
+                                                "Sparklegender",
+                                                "Glitchgender",
+                                                "Fantasygender",
+                                                "Wondergender",
+                                                "Dreamgender",
+                                                "Mirrorgender",
+                                                "Infinitygender",
+                                                "Plasmagender",
+                                                "Spectragender",
+                                                "Radiogender",
+                                                "Ultravioletgender",
+                                                "Infraredgender",
+                                                "Diamogender",
+                                                "Crystalgender",
+                                                "Marblegender",
+                                                "Lavagender",
+                                                "Crystallogender",
+                                                "Vortexgender",
+                                                "Echoicgender",
+                                                "Sonogender",
+                                                "Cacogender",
+                                                "Aerogender",
+                                                "Oceangender",
+                                                "Meteorogender",
+                                                "Zephyrgender",
+                                                "Cyclonegender",
+                                                "Monsoongender",
+                                                "Tornadogender",
+                                                "Hurricanegender",
+                                                "Blizzardgender",
+                                                "Avalanchegender",
+                                                "Arcticgender",
+                                                "Glaciergender",
+                                                "Alpengender",
+                                                "Polarisgender",
+                                                "Auroragender",
+                                                "Quasargender",
+                                                "Nebulagender",
+                                                "Supernovagender",
+                                                "Blackholegender",
+                                                "Neutrongender",
+                                                "Photonogender",
+                                                "Waviclegender",
+                                                "Cosmogender",
+                                                "Astrogender",
+                                                "Starlightgender",
+                                                "Galaxiagender",
+                                                "Moonlightgender",
+                                                "Sunlightgender",
+                                                "Starburstgender",
+                                                "Asteroidgender",
+                                                "Nebulagender",
+                                                "Milkywaygender",
+                                                "Spacegender",
+                                                "Aliengender",
+                                                "Exoplanetgender",
+                                                "Meteoritegender",
+                                                "Saturngender",
+                                                "Jupitergender",
+                                                "Marsgender",
+                                                "Earthgender",
+                                                "Venusgender",
+                                                "Plutogender",
+                                                "Uranusgender",
+                                                "Neptunegender",
+                                                "Interstellargender",
+                                                "Cosmicagender",
+                                                "Cosmofluid",
+                                                "Stellargender",
+                                                "Galacticgender",
+                                                "Meteorogender",
+                                                "Meteoritogender",
+                                                "Solarisgender",
+                                                "Solgender",
+                                                "Solargender",
+                                                "Celestialgender",
+                                                "Cometgender",
+                                                "Spacestationgender",
+                                                "Cosmonautgender",
+                                                "Astronautgender",
+                                                "Sputnikgender",
+                                                "Lunargender",
+                                                "Orbitgender",
+                                                "Blackholegender",
+                                                "Darkmattergender",
+                                                "Supernovagender",
+                                                "Quasargender",
+                                                "Astrologender",
+                                                "Telescopogender",
+                                                "Observatorygender",
+                                                "Galaxgender",
+                                                "Planetarygender",
+                                                "Constellationgender",
+                                                "Cosmicgender",
+                                                "Multiversegender",
+                                                "Dimensiongender",
+                                                "Extragalacticgender",
+                                                "Nebulogender",
+                                                "Voidgender",
+                                                "Interdimensiongender",
+                                                "Singularitygender",
+                                                "Interplanetarygender",
+                                                "Astrogender",
+                                                "Supergender",
+                                                "Hypergender"
+                                            ]}
+                                            
+
+                                            onChange={setEditedGender}
+                                        />
+                                        <TableRow
+                                            title="System"
+                                            value={editedSystem}
+                                            isSelector={true}
+                                            options={["Metric", "Imperial"]}
+                                            onChange={setEditedSystem}
+                                        />
                                     </tbody>
                                 </table>
                             </div>
