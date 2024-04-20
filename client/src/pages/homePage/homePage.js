@@ -117,7 +117,7 @@ const IndexPage = () => {
             dates: pulseProgressionDates,
             ratio: pulseProgressionratio,
           });
-          setwaterCount(data.objectiveData.waterAmount);
+          setwaterCount(data.objectiveData.waterAmount || 0);
         })
         .catch((error) => {
           console.error("Error fetching user data:", error);

@@ -27,6 +27,7 @@ const RegisterForm = () => {
       proteinsConsumed: 0,
       fatsConsumed: 0,
       carbsConsumed: 0,
+      waterAmount: 0,
       weightProgression: {
         // date: "",
         // weight: "",
