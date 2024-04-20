@@ -17,6 +17,7 @@ import Cookies from './pages/footerPages/cookies.js';
 import API from './pages/footerPages/apis.js';
 import WhoWeAre from './pages/footerPages/whoweare.js';
 import GetInTouchWithUs from './pages/footerPages/getintouchwithus.js';
+import MacrosSpecification from './pages/macrosSpecification/macrosSpecification.js';
 
 
 function App() {
@@ -35,6 +36,10 @@ function App() {
         <Route path="/registerFood" element={<RegisterFood />} />
         <Route path="/MacrosCalculation" element={<MacrosCalculator />} />
         <Route path="/profile" element={<UserProfile />} />
+        <Route path="/calories" element={<MacrosSpecification specificationName="calories"/>} />
+        <Route path="/carbs" element={<MacrosSpecification specificationName="carbs"/>} />
+        <Route path="/fats" element={<MacrosSpecification specificationName="fats"/>} />
+        <Route path="/proteins" element={<MacrosSpecification specificationName="proteins"/>} />
         <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
         <Route path="/Cookies" element={<Cookies />} />
         <Route path="/API" element={<API />} />

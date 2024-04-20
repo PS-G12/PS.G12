@@ -129,6 +129,45 @@ const setUserData = async (userId, food) => {
     }
 };
 
+const registerUserDataPulse = async (pulseDate, pulse, user) => {
+    try {
+        const collection = database.collection('objective_records');
+        const userResult = await collection.findOne({ "userId": user });
+        if (!userResult) {
+            console.error('No user records found');
+            return null;
+        }
+        
+        const actualizacion = { $set: { [`objectiveData.pulseProgression.${pulseDate}`]: pulse } };
+        await collection.updateOne(userResult, actualizacion);
+        
+        
+    }
+    catch (error) {
+        console.error('Error fetching user data:', error);
+        throw error;
+    }
+};
+
+const registerUserDataWeight = async (weightDate, weight, user) => {
+    try {
+        const collection = database.collection('objective_records');
+        const userResult = await collection.findOne({ "userId": user });
+        if (!userResult) {
+            console.error('No user records found');
+            return null;
+        }
+        
+        const actualizacion = { $set: { [`objectiveData.weightProgression.${weightDate}`]: weight } };
+        await collection.updateOne(userResult, actualizacion);
+
+    }
+    catch (error) {
+        console.error('Error fetching user data:', error);
+        throw error;
+    }
+};
+
 const getUserWeightHeight = async (username) => {
     try {
         const collection = database.collection('user_data');
@@ -276,4 +315,4 @@ const updateUser = async (formData, user) => {
 
 
 
-module.exports = { getUser, getQuery, registerUser, getUserData, checkUser, getUserWeightHeight, getUserMacros, getPrevUserData, updateUser, setUserData };
+module.exports = { getUser, getQuery, registerUser, getUserData, checkUser, getUserWeightHeight, getUserMacros, getPrevUserData, updateUser, setUserData,  registerUserDataPulse, registerUserDataWeight };

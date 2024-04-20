@@ -1,13 +1,21 @@
 import React from "react";
 import './macrosCard.css'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import { useNavigate } from 'react-router-dom';
 
 function MacroCircularProgressBar({ label, value, max, color }) {
     const percentage = (value / max) * 100;
     const text = `${value}/${max}g`;
 
+    const navigate = useNavigate();
+
+    const handleObjectiveCardClick = () => {
+      navigate('/fats');
+    };
+
+
     return (
-        <div className={`macro${label}`}>
+        <div className={`macro${label}`} onClick={handleObjectiveCardClick}>
             <p className={`label${label}`}>{label}</p>
             <CircularProgressbar
                 className={`c${label}`}

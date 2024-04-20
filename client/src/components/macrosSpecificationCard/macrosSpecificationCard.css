@@ -1,0 +1,83 @@
+.card {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 600px;
+  height: 800px;
+}
+
+.card-content {
+  width: 100%;
+}
+
+.pie-chart {
+  height: 400px;
+  width: 100%;
+  margin-bottom: 5%;
+  display: flex;
+  justify-content: center;
+}
+
+.specifications-per-categories {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 5%;
+}
+
+.category-details {
+  display: flex;
+  align-items: center;
+  margin-left: 10%;
+  width: 40%;
+}
+
+.category-details .color-square {
+  width: 50px;
+  height: 50px;
+  margin-right: 5%;
+}
+
+.category-details h1 {
+  font-size: x-large;
+  font-weight: 700;
+  font-style: italic;
+  margin: 0;
+}
+
+.category-details h2 {
+  font-size: x-large;
+  font-weight: 200;
+  font-style: italic;
+  margin: 0;
+  margin-bottom: 5%;
+}
+
+.separator {
+  border-top: 2px solid #000000;
+  margin: 3% 0;
+}
+
+.total-specifications,
+.goal-specifications {
+  display: flex;
+  justify-content: center;
+}
+
+.specification-title {
+  font-size: x-large;
+  font-weight: 700;
+  font-style: italic;
+  width: 70%;
+  margin-bottom: 0%;
+  margin-left: 10%;
+}
+
+.specification-value {
+  font-size: x-large;
+  font-weight: 700;
+  font-style: italic;
+  width: 30%;
+}
