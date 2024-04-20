@@ -322,13 +322,14 @@ const IndexPage = () => {
           {isLoggedIn ? (
             <div className="cards">
               <div className="card-container-top">
+                {console.log(`kcalObjective : ${objectiveData.kcalObjective}` )}
+                {console.log(`kcalConsumed : ${objectiveData.value}` )}
+                {console.log(`Remaining : ${objectiveData.remaining}` )}
+
                 <ObjectiveCard
-                  value={Math.round(
+                  remaining={Math.round(
                     parseFloat(
-                      objectiveData.kcalConsumed ===
-                        parseFloat(objectiveData.value)
-                        ? 0
-                        : (objectiveData.value /
+                            (objectiveData.value /
                             objectiveData.kcalObjective) *
                             100
                     )
@@ -336,9 +337,10 @@ const IndexPage = () => {
                   kcalObjective={Math.round(
                     parseFloat(objectiveData.kcalObjective)
                   )}
+                  
                   food={Math.round(parseFloat(objectiveData.food))}
                   exercise={Math.round(parseFloat(objectiveData.exercise))}
-                  remaining={Math.round(parseFloat(objectiveData.remaining))}
+                  value={Math.round(parseFloat(objectiveData.remaining))}
                 />
 
                 <MacrosCard
