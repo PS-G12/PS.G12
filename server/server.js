@@ -282,8 +282,8 @@ app.post("/user/data/pulse", verifyToken, async (req, res) => {
   const user = req.user;
   const { pulseDate, pulse } = req.body;
   try {
-      const insertedId = await registerUserDataPulse(pulseDate, pulse, user);
-    
+      await registerUserDataPulse(pulseDate, pulse, user);
+      res.status(200).json({ message: "Weight registered successfully" });
   } catch (error) {
     console.error("Error registering user data:", error);
     res.status(500).json({ error: "Error registering user data" });
@@ -294,8 +294,10 @@ app.post("/user/data/weight", verifyToken, async (req, res) => {
   const user = req.user;
   const { weightDate, weight } = req.body;
   try {
-      const insertedId = await registerUserDataWeight(weightDate, weight, user); 
-    
+    console.log("entre");
+    await registerUserDataWeight(weightDate, weight, user); 
+    console.log("salgo");
+    res.status(200).json({ message: "Weight registered successfully" });
   } catch (error) {
     console.error("Error registering user data:", error);
     res.status(500).json({ error: "Error registering user data" });

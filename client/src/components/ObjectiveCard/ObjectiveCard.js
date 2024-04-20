@@ -7,45 +7,47 @@ import { useNavigate } from 'react-router-dom';
 
 const Objective = ({ icon, label, value }) => {
     return (
-      <div className='objective'>
-        <FontAwesomeIcon icon={icon} className='icon' />
-        <span>{label}</span>
-        <p>{value}</p>
-      </div>
+        <div className='objective'>
+            <FontAwesomeIcon icon={icon} className='icon' />
+            <span>{label}</span>
+            <p>{value}</p>
+        </div>
     );
 };
 
-function ObjectiveCard({remaining, kcalObjective, food, exercise, value}) {
+function ObjectiveCard({ remaining, kcalObjective, food, exercise, value }) {
+    const navigate = useNavigate();
 
-  const navigate = useNavigate();
+    const handleObjectiveCardClick = () => {
+        navigate('/calories');
+    };
 
-  const handleObjectiveCardClick = () => {
-    navigate('/calories');
-  };
+    // Calcular el porcentaje completado en lugar de las calorías restantes
+    const completedPercentage = 100 - value;
 
     return (
         <div className='card-containerobj' onClick={handleObjectiveCardClick}>
-          <div className='circularProgression'>
-            <CircularProgressbar
-              value={value}
-              text={`${remaining} kcal remaining`}
-              styles={buildStyles({
-                textSize: '10px',
-                pathTransitionDuration: 0.5,
-                pathColor: 'red',
-                textColor: 'black',
-                trailColor: '#d6d6d6',
-                backgroundColor: '#3e98c7',
-                strokeLinecap: 'butt',
-                verticalAlingn: 'middle'
-              })}
-            />
-          </div>
-          <div className='objectives'>
-            <Objective icon={faFlag} label="Kcal Objective" value={kcalObjective} />
-            <Objective icon={faUtensils} label="Food" value={food} />
-            <Objective icon={faRunning} label="Exercise" value={exercise} />
-          </div>
+            <div className='circularProgression'>
+                <CircularProgressbar
+                    value={completedPercentage}
+                    text={`${remaining} kcal remaining`}
+                    styles={buildStyles({
+                        textSize: '10px',
+                        pathTransitionDuration: 0.5,
+                        pathColor: 'red',
+                        textColor: 'black',
+                        trailColor: '#d6d6d6',
+                        backgroundColor: '#3e98c7',
+                        strokeLinecap: 'butt',
+                        verticalAlingn: 'middle'
+                    })}
+                />
+            </div>
+            <div className='objectives'>
+                <Objective icon={faFlag} label="Kcal Objective" value={kcalObjective} />
+                <Objective icon={faUtensils} label="Food" value={food} />
+                <Objective icon={faRunning} label="Exercise" value={exercise} />
+            </div>
         </div>
     );
 };

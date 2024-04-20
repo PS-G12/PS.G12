@@ -48,7 +48,7 @@ const IndexPage = () => {
   });
 
   const [loading, setLoading] = useState(true);
-  
+  const [popupData, setPopupData] = useState(null);
   const navigate = useNavigate();
 
   const handleObjectiveCardClick = () => {
@@ -66,7 +66,7 @@ const IndexPage = () => {
         }
       })
       .then(response => {
-        setLoading(false);
+        console.log("set loading false");
         if (response.ok) {
           setIsLoggedIn(true);
           return response.json();
@@ -76,12 +76,13 @@ const IndexPage = () => {
         }
       })
       .then(data => {
+        setLoading(false);
         console.log(data);
         setObjectiveData({
           value: data.objectiveData.kcalConsumed,
           kcalObjective: data.objectiveData.kcalObjective,
-          //food: data.objectiveData.food,
-          //exercise: data.objectiveData.exercise,
+          food: data.objectiveData.kcalConsumed,
+          exercise:0,
           remaining: data.objectiveData.kcalObjective - data.objectiveData.kcalConsumed
         });
         setMacrosData({
@@ -92,38 +93,40 @@ const IndexPage = () => {
           value3: data.objectiveData.proteinsConsumed,
           max3: data.objectiveData.proteinsObjective,
         });
-
+  
         let weightProgressionDates = []; 
         let weightProgressionWeights = []; 
         let pulseProgressionDates = []; 
         let pulseProgressionratio = []; 
-
+  
         weightProgressionDates = Object.keys(data.objectiveData.weightProgression);
         weightProgressionWeights = Object.values(data.objectiveData.weightProgression);
         pulseProgressionDates = Object.keys(data.objectiveData.pulseProgression);
         pulseProgressionratio = Object.values(data.objectiveData.pulseProgression);
-
-
+  
+  
         
         setWeightProgressionData({
           dates: weightProgressionDates,
           weights: weightProgressionWeights
         });
-
+  
         setPulseProgressionData({
           dates: pulseProgressionDates,
           ratio: pulseProgressionratio
         });
-
+  
       })
       .catch(error => {
         console.error('Error fetching user data:', error);
         setIsLoggedIn(false);
         setLoading(false);
       });
+    } else {
+      setLoading(false);
     }
-    setLoading(false);
   }, []);
+  
 
   const handleWeightChartClick = (event) => {
     const clickedDate = event.target.dataset.date;
@@ -198,7 +201,7 @@ const IndexPage = () => {
           body: JSON.stringify({ pulseDate, pulse}) 
         })
         .then(response => {
-          setPopupData(null); 
+          setPopupData(null);
           window.location.reload();
         })
       }  
@@ -214,7 +217,7 @@ const IndexPage = () => {
           body: JSON.stringify({ weightDate, weight}) 
         })
         .then(response => {
-          setPopupData(null); 
+          setPopupData(null);
           window.location.reload();
         })
       }
