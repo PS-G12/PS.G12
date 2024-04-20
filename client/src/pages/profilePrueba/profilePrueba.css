@@ -94,9 +94,9 @@
   }
   
   .input-edit-mode {
-      border: none;
-      outline: none;
-      background-color: transparent;
-      font-size: inherit;
-      color: inherit;
-  }
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-size: inherit;
+    color: inherit;
+}
