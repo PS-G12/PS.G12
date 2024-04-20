@@ -328,6 +328,55 @@ const getPrevUserData = async (user) => {
   }
 };
 
+
+const resetProgress = async (user) => {
+  try {
+    const collection = database.collection("objective_records");
+    const result = await collection.findOne({ "userId": user });
+    if (!result) {
+      console.error("No user records found");
+      return null;
+    }
+    const objectiveData = result.objectiveData; 
+    const userLastLogin = objectiveData ? objectiveData.userLastLogin : null;
+    const currentDate = new Date();
+    if (userLastLogin) {
+      const lastLoginDate = new Date(userLastLogin);
+      if (
+        lastLoginDate.getDate() === currentDate.getDate() &&
+        lastLoginDate.getMonth() === currentDate.getMonth() &&
+        lastLoginDate.getFullYear() === currentDate.getFullYear()
+      ) {
+        console.log("El último inicio de sesión ocurrió hoy.");
+      } else {
+        console.log("El último inicio de sesión no ocurrió hoy.");
+        result.objectiveData.proteinsConsumed = 0;
+        result.objectiveData.kcalConsumed = 0;
+        result.objectiveData.carbsConsumed = 0;
+        result.objectiveData.fatsConsumed = 0;
+        result.objectiveData.waterAmount = 0;       
+      }
+    }
+    result.objectiveData = {
+      ...objectiveData,
+      userLastLogin: currentDate.toISOString(),
+    };
+    console.log("result");
+    console.log(result);
+    await collection.updateOne(
+      { "userId": user },
+      { $set: { "objectiveData": result.objectiveData } }
+    );
+    return 1;
+  } catch (error) {
+    console.error("Error while getting the user's data: ", error);
+    throw error;
+  }
+};
+
+
+
+
 const updateUser = async (formData, user) => {
   try {
     const collection = database.collection("user_data");
@@ -449,4 +498,5 @@ module.exports = {
   registerUserDataPulse,
   registerUserDataWeight,
   registerUserDataWater,
+  resetProgress
 };

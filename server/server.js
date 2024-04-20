@@ -17,6 +17,7 @@ const {
   registerUserDataPulse,
   registerUserDataWeight,
   registerUserDataWater,
+  resetProgress
 } = require("./api/db.mongo");
 const { getUser } = require("./api/db.mongo");
 const jsonData = require("./api/foodData.json");
@@ -227,6 +228,7 @@ app.post("/auth/login", async (req, res) => {
         .json({ success: false, message: "Invalid username or password" });
     }
     const token = generateAccessToken(signInUsername);
+    resetProgress(signInUsername);
     return res.status(200).json({ success: true, token });
   } catch (error) {
     console.error("Error occurred while authenticating user:", error);
