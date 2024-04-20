@@ -115,11 +115,43 @@ const setUserData = async (userId, food) => {
         if (!userData.objectiveData.foodRecords) {
             userData.objectiveData.foodRecords = [];
         }
+        console.log(food);
+        console.log(userData);
+
+        const calories = parseFloat(food.calorias);
+        const proteins = parseFloat(food.protein);
+        const fats = parseFloat(food.fatTotal);
+        const carbs = parseFloat(food.carbohydratesTotal);
+        
+        const validCalories = isNaN(calories) || !isFinite(calories) ? 0 : calories;
+        const validProteins = isNaN(proteins) || !isFinite(proteins) ? 0 : proteins;
+        const validFats = isNaN(fats) || !isFinite(fats) ? 0 : fats;
+        const validCarbs = isNaN(carbs) || !isFinite(carbs) ? 0 : carbs;
+
+        console.log(validCalories, validProteins, validFats, validCarbs);
+
+        const kcalConsumed = isNaN(userData.objectiveData.kcalConsumed) || !isFinite(userData.objectiveData.kcalConsumed) ? 0 : userData.objectiveData.kcalConsumed;
+        const proteinsConsumed = isNaN(userData.objectiveData.proteinsConsumed) || !isFinite(userData.objectiveData.proteinsConsumed) ? 0 : userData.objectiveData.proteinsConsumed;
+        const fatsConsumed = isNaN(userData.objectiveData.fatsConsumed) || !isFinite(userData.objectiveData.fatsConsumed) ? 0 : userData.objectiveData.fatsConsumed;
+        const carbsConsumed = isNaN(userData.objectiveData.carbsConsumed) || !isFinite(userData.objectiveData.carbsConsumed) ? 0 : userData.objectiveData.carbsConsumed;
+
+        const totalCaloriesConsumed = Math.round((parseFloat(kcalConsumed) + parseFloat(validCalories)) * 100) / 100;
+        const totalProteinsConsumed = Math.round((parseFloat(proteinsConsumed) + parseFloat(validProteins)) * 100) / 100;
+        const totalFatsConsumed = Math.round((parseFloat(fatsConsumed) + parseFloat(validFats)) * 100) / 100;
+        const totalCarbsConsumed = Math.round((parseFloat(carbsConsumed) + parseFloat(validCarbs)) * 100) / 100;
+
+
 
         userData.objectiveData.foodRecords.push(food);
         await collection.updateOne(
             { userId: userId },
-            { $set: { "objectiveData.foodRecords": userData.objectiveData.foodRecords } }
+            { $set: { 
+                "objectiveData.foodRecords": userData.objectiveData.foodRecords, 
+                "objectiveData.kcalConsumed": totalCaloriesConsumed, 
+                "objectiveData.proteinsConsumed": totalProteinsConsumed, 
+                "objectiveData.fatsConsumed": totalFatsConsumed,
+                "objectiveData.carbsConsumed": totalCarbsConsumed
+            } }
         );
         
         return userData;

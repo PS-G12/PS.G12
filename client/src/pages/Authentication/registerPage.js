@@ -18,11 +18,11 @@ const RegisterForm = () => {
     objectiveData: {
       activityLevel: "sedentary",
       goal:"loseWeight",
-      weightGoal: "",
-      kcalObjective: "",
-      proteinsObjective: "",
-      fatsObjective: "",
-      carbsObjective: "",
+      weightGoal: 0,
+      kcalObjective: 0,
+      proteinsObjective: 0,
+      fatsObjective: 0,
+      carbsObjective: 0,
       kcalConsumed: 0,
       proteinsConsumed: 0,
       fatsConsumed: 0,
@@ -383,16 +383,15 @@ const RegisterForm = () => {
       default:
         userGoal = -500;
     }
+    const calories = Math.round((BMR * factor + userGoal).toFixed(2));
 
-    const calories = (BMR * factor + userGoal).toFixed(2);
-
-    const proteins = ((calories * 0.25) / 4).toFixed(2);
-
-    const fats = ((calories * 0.25) / 9).toFixed(2);
-
-    const carbs = ((calories - proteins * 4 - fats * 9) / 4).toFixed(2);
-
-    return { calories, proteins, fats, carbs };
+    const proteins = Math.round(((calories * 0.25) / 4).toFixed(2));
+    
+    const fats = Math.round(((calories * 0.25) / 9).toFixed(2));
+    
+    const carbs = Math.round(((calories - proteins * 4 - fats * 9) / 4).toFixed(2));
+    
+    return { calories, proteins, fats, carbs };    
   };
 
   const calculateAndSetMacros = () => {
