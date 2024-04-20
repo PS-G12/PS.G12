@@ -13,6 +13,11 @@ import RegisterForm from "./pages/Authentication/registerPage.js";
 import LoginForm from "./pages/Authentication/loginPage.js";
 import UserProfile from './pages/profile/profile.js';
 import MacrosSpecification from './pages/macrosSpecification/macrosSpecification.js';
+import PrivacyPolicy from './pages/footerPages/privacyPolicy.js';
+import Cookies from './pages/footerPages/cookies.js';
+import API from './pages/footerPages/apis.js';
+import WhoWeAre from './pages/footerPages/whoweare.js';
+import GetInTouchWithUs from './pages/footerPages/getintouchwithus.js';
 
 
 function App() {
@@ -35,6 +40,11 @@ function App() {
         <Route path="/carbs" element={<MacrosSpecification specificationName="carbs"/>} />
         <Route path="/fats" element={<MacrosSpecification specificationName="fats"/>} />
         <Route path="/proteins" element={<MacrosSpecification specificationName="proteins"/>} />
+        <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
+        <Route path="/Cookies" element={<Cookies />} />
+        <Route path="/API" element={<API />} />
+        <Route path="/WhoWeAre" element={<WhoWeAre />} />
+        <Route path="/GetInTouchWithUs" element={<GetInTouchWithUs />} />
       </Routes>
     </Router>
   );
