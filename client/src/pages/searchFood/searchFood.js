@@ -129,7 +129,7 @@ const FoodSearch = () => {
 
   return (
     <div className="buscarAlimento-box">
-    <Header isAuthenticated={isLoggedIn}/>
+      <Header isAuthenticated={isLoggedIn}/>
       <h1>Add food to {type}</h1>
 
       <div className="searchbar">
@@ -152,66 +152,71 @@ const FoodSearch = () => {
         </div>
       </div>
 
-      <div className="search-result">
-        {searchResult ? (
-          <div className="result-container">
-            <div className="table-container">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Calories</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {searchResult.items.map((item, index) => (
-                    <tr
-                      key={index}
-                      onClick={() => handleRowClick(item)}
-                      className={selectedItem === item ? "selected-row" : ""}
-                    >
-                      <td>{item.name}</td>
-                      <td>{item.calories}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            {selectedItem && (
-              <div className="details-container">
-                 <h2>Details of {selectedItem.name}:</h2>
-                 <p>
-                   <strong>Calories:</strong> {selectedItem.calories}
-                 </p>
-                 <p>
-                   <strong>Serving size:</strong>{" "}
-                   {selectedItem.serving_size_g} g
-                 </p>
-                <p>
-                  Cantidad:{" "}
-                  <input
-                    type="number"
-                    value={quantity}
-                    onChange={(e) => setQuantity(e.target.value)}
-                  />{" "}
-                  grams
-                </p>
-                <button onClick={handleAddToMeal}>Add to {type}</button>
-                {savedMessage && <p>{savedMessage}</p>}
-              </div>
-            )}
-
-            {searchResult.items.length === 0 && (
-              <p>No se encontraron resultados.</p>
-            )}
-          </div>
-        ) : null}
-      </div>
 
       <Link to="/registerFood">
         <button>Go to Food Log</button>
       </Link>
+
+      <div className="resultSearchFood">
+        <div className="search-result">
+          {searchResult ? (
+            <div className="result-container-searchFood">
+              <div className="table-container">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Calories</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {searchResult.items.map((item, index) => (
+                      <tr
+                        key={index}
+                        onClick={() => handleRowClick(item)}
+                        className={selectedItem === item ? "selected-row" : ""}
+                      >
+                        <td>{item.name}</td>
+                        <td>{item.calories}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {selectedItem && (
+                <div className="details-container">
+                  <h2>Details of {selectedItem.name}:</h2>
+                  <p>
+                    <strong>Calories:</strong> {selectedItem.calories}
+                  </p>
+                  <p>
+                    <strong>Serving size:</strong>{" "}
+                    {selectedItem.serving_size_g} g
+                  </p>
+                  <p>
+                    Cantidad:{" "}
+                    <input
+                      type="number"
+                      value={quantity}
+                      onChange={(e) => setQuantity(e.target.value)}
+                    />{" "}
+                    grams
+                  </p>
+                  <button onClick={handleAddToMeal}>Add to {type}</button>
+                  {savedMessage && <p>{savedMessage}</p>}
+                </div>
+              )}
+
+              {searchResult.items.length === 0 && (
+                <p>No se encontraron resultados.</p>
+              )}
+            </div>
+          ) : null}
+        </div>
+      </div>
+
+
     </div>
   );
 };
