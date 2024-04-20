@@ -200,7 +200,8 @@ const MacrosSpecificationCard = ({ specificationName }) => {
   const cenaTotal = calcularTotales(cena);
 
   const totals = [desayunoTotal, almuerzoTotal, aperitivosTotal, cenaTotal];
-  const percentages = totals.map(total => Math.round((total[specificName] / getTotal()) * 100));
+  let percentages = totals.map(total => Math.round((total[specificName] / getTotal()) * 100));
+  percentages = percentages.map(value => isNaN(value) ? 0 : value);
 
   useEffect(() => {
     if(objectives !== null){
@@ -210,6 +211,8 @@ const MacrosSpecificationCard = ({ specificationName }) => {
     }
   }, [objectives]);
 
+  
+  
 
   return (
     <div className="card">
