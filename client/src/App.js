@@ -20,6 +20,7 @@ import WhoWeAre from './pages/footerPages/whoweare.js';
 import GetInTouchWithUs from './pages/footerPages/getintouchwithus.js';
 
 import ProfilePrueba from './pages/profilePrueba/profilePrueba.js';
+import ChangePassword from './pages/profilePrueba/changePassword.js';
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
         <Route path="/profile" element={<UserProfile />} />
 
         <Route path="/profilePrueba" element={<ProfilePrueba />} />
+        <Route path="/changePassword" element={<ChangePassword />} />
 
         <Route path="/calories" element={<MacrosSpecification specificationName="calories"/>} />
         <Route path="/carbs" element={<MacrosSpecification specificationName="carbs"/>} />
