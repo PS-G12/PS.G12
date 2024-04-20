@@ -24,20 +24,21 @@ const BMICalculator = () => {
   function validateValues(height, weight) {
     let valid = true;
 
-    if (isNaN(height) && defaultValues) {
+    if (isNaN(height)) {
       setHeightError("Please make sure that the height field is a number.");
       valid = false;
-    } else if (height <= 0 && defaultValues) {
+    } else if (height <= 0) {
       setHeightError("Please introduce a value greater than zero for the height field.");
       valid = false;
     } else {
       setHeightError("");
     }
 
-    if (isNaN(weight) && defaultValues) {
+    if (isNaN(weight)) {
       setWeightError("Please make sure that the weight field is a number.");
+      
       valid = false;
-    } else if (weight <= 0 && defaultValues) {
+    } else if (weight <= 0) {
       setWeightError("Please introduce a value greater than zero for the weight field.");
       valid = false;
     } else {
@@ -107,11 +108,13 @@ const BMICalculator = () => {
         required
       ></input>
       {error && (
+      
         <p className="errorBMI">
           <i className="error-icon fas fa-exclamation-circle"></i>
           {error}
         </p>
       )}
+
     </div>
   );
 
