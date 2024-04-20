@@ -325,10 +325,10 @@ const IndexPage = () => {
                 <ObjectiveCard
                   value={Math.round(
                     parseFloat(
-                      objectiveData.remaining ===
-                        parseFloat(objectiveData.kcalObjective)
+                      objectiveData.kcalConsumed ===
+                        parseFloat(objectiveData.value)
                         ? 0
-                        : (objectiveData.remaining /
+                        : (objectiveData.value /
                             objectiveData.kcalObjective) *
                             100
                     )

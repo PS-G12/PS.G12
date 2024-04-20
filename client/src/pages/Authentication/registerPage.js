@@ -287,7 +287,7 @@ const RegisterForm = () => {
       newErrors.signUpUsername = "Username must be at least 4 characters long.";
     }
 
-    if (step === 3 && formData.userData.password.length < 6) {
+    if (step === 3 && formData.userData.password.length < 5) {
       newErrors.signUpPassword =
         "Passwords must be at least 5 characters long.";
     }
