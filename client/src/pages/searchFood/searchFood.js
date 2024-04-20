@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../../components/Header/header.js";
 import { Link, useLocation } from "react-router-dom";
 import "./searchFood.css";
@@ -9,12 +9,38 @@ const FoodSearch = () => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [quantity, setQuantity] = useState(100);
   const [savedMessage, setSavedMessage] = useState("");
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const location = useLocation();
 
   const type = new URLSearchParams(location.search).get("type");
-  console.log(type);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem('token');
+    if (token) {
+      fetch('/verify-token', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          setIsLoggedIn(true);
+        } else {
+          setIsLoggedIn(false);
+          console.error('Invalid token');
+        }
+      })
+      .catch(error => {
+        console.error('Error verifying token:', error);
+        
+      });
+    } else {
+      console.error('Could not find the token, user not authenticated');
+    }
+  }, []);
 
   const handleSearch = () => {
     fetch(`/api/food?search=${searchQuery}`)
@@ -29,7 +55,7 @@ const FoodSearch = () => {
       })
       .catch((error) => {
         console.error("Error fetching exercises data:", error);
-        // setLoading(false);
+        setLoading(false);
       });
   };
 
@@ -38,39 +64,66 @@ const FoodSearch = () => {
   };
 
   const handleAddToMeal = () => {
-    // Verifica si se ha seleccionado un alimento
+    
     if (!selectedItem) {
       console.error("No se ha seleccionado ningún alimento.");
       return;
     }
-
-    // Crear un objeto que represente el alimento con sus detalles y type de comida
+    
     const nuevoAlimento = {
       typeComida: type,
       nombre: selectedItem.name,
       calorias: selectedItem.calories,
       cantidad: quantity,
-      // Agrega otras propiedades según sea necesario
+      servingSize: selectedItem.serving_size_g,
+      fatTotal: selectedItem.fat_total_g,
+      fatSaturated: selectedItem.fat_saturated_g,
+      protein: selectedItem.protein_g,
+      sodium: selectedItem.sodium_mg,
+      potassium: selectedItem.potassium_mg,
+      cholesterol: selectedItem.cholesterol_mg,
+      carbohydratesTotal: selectedItem.carbohydrates_total_g,
+      fiber: selectedItem.fiber_g,
+      sugar: selectedItem.sugar_g
     };
-
-    // Obtén los alimentos existentes del localStorage
-    const alimentosGuardados =
+    
+    if (isLoggedIn) {
+      const token = sessionStorage.getItem('token');
+      fetch('/user/data/food', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ food: nuevoAlimento })
+      })
+      .then(response => {
+        if (response.ok) {
+          setSavedMessage("Alimento guardado correctamente.");
+          setSearchQuery("");
+          setSearchResult(null);
+          setSelectedItem(null);
+          setQuantity(100);
+        } else {
+          console.error('Error al guardar el alimento:', response.statusText);
+          throw new Error('Error al guardar el alimento');
+        }
+      })
+      .catch(error => {
+        setLoading(false);
+        console.error('Error al guardar el alimento:', error);
+      });
+    } else {
+      const alimentosGuardados =
       JSON.parse(localStorage.getItem("alimentos")) || [];
-
-    // Agrega el nuevo alimento a la lista
-    const nuevosAlimentos = [...alimentosGuardados, nuevoAlimento];
-
-    // Almacena la lista actualizada en localStorage
-    localStorage.setItem("alimentos", JSON.stringify(nuevosAlimentos));
-
-    // Muestra el mensaje de éxito
-    setSavedMessage("Alimento guardado correctamente.");
-
-    // Reinicia los estados para la próxima búsqueda
-    setSearchQuery("");
-    setSearchResult(null);
-    setSelectedItem(null);
-    setQuantity(100);
+      const nuevosAlimentos = [...alimentosGuardados, nuevoAlimento];
+      localStorage.setItem("alimentos", JSON.stringify(nuevosAlimentos));
+      setSavedMessage("Alimento guardado correctamente.");
+      setSearchQuery("");
+      setSearchResult(null);
+      setSelectedItem(null);
+      setQuantity(100);
+    }
   };
 
   return (
