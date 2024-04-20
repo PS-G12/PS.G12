@@ -27,8 +27,8 @@ function ObjectiveCard({ remaining, kcalObjective, food, exercise, value }) {
         <div className='card-containerobj' onClick={handleObjectiveCardClick}>
             <div className='circularProgression'>
                 <CircularProgressbar
-                    value={value}
-                    text={`${remaining} kcal remaining`}
+                    value={remaining}
+                    text={`${value} kcal remaining`}
                     styles={buildStyles({
                         textSize: '10px',
                         pathTransitionDuration: 0.5,

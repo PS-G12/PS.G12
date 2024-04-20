@@ -9,12 +9,13 @@ const FoodSearch = () => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [quantity, setQuantity] = useState(100);
   const [savedMessage, setSavedMessage] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [queryType, setQuerytype] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const location = useLocation();
 
   const type = new URLSearchParams(location.search).get("type");
+  const query = new URLSearchParams(location.search).get("query");
 
   useEffect(() => {
     const token = sessionStorage.getItem('token');
@@ -40,10 +41,48 @@ const FoodSearch = () => {
     } else {
       console.error('Could not find the token, user not authenticated');
     }
+    
+    if (type === "none") {
+      setQuerytype(false);
+      fetch(`/api/food?search=${query}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+          setSearchResult(data);
+        })
+        .catch((error) => {
+          console.error("Error fetching food data:", error);
+        });
+        return;
+      }
+      setQuerytype(true);
   }, []);
   
 
   const handleSearch = () => {
+    if (type === "none" || !queryType) {
+      console.log("Soy gay");
+      fetch(`/api/food?search=${searchQuery}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log("Entre");
+          setSearchResult(data);
+        })
+        .catch((error) => {
+          console.error("Error fetching food data:", error);
+        });
+        return;
+      }
     fetch(`/api/food?search=${searchQuery}`)
       .then((response) => {
         if (!response.ok) {
@@ -56,7 +95,6 @@ const FoodSearch = () => {
       })
       .catch((error) => {
         console.error("Error fetching exercises data:", error);
-        setLoading(false);
       });
   };
 
@@ -111,7 +149,6 @@ const FoodSearch = () => {
         }
       })
       .catch(error => {
-        setLoading(false);
         console.error('Error al guardar el alimento:', error);
       });
     } else {
@@ -126,12 +163,10 @@ const FoodSearch = () => {
       setQuantity(100);
     }
   };
-
   return (
     <div className="buscarAlimento-box">
       <Header isAuthenticated={isLoggedIn}/>
-      <h1>Add food to {type}</h1>
-
+      {queryType ? <h1>Add food to {type}</h1> : null}
       <div className="searchbar">
         <div id="form" className="searchbar-container">
           <input
@@ -203,7 +238,8 @@ const FoodSearch = () => {
                     />{" "}
                     grams
                   </p>
-                  <button onClick={handleAddToMeal}>Add to {type}</button>
+                  {queryType ? <button onClick={handleAddToMeal}>Add to {type}</button> : null}
+              
                   {savedMessage && <p>{savedMessage}</p>}
                 </div>
               )}

@@ -138,7 +138,7 @@ function SearchResultsPage() {
 
   return (
     <div>
-      <Header />
+      <Header isAuthenticated={isLoggedIn}/>
       <SearchBar onSearch={handleSearch} />
       <div className="exercise-container">
         <details className="custom-select">
