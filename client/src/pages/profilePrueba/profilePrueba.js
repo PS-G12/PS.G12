@@ -62,22 +62,29 @@ const ProfilePrueba = () => {
             <tr>
                 <th>{title}</th>
                 <td>
-                    {showEditButton ? (
+                    {editMode ? (
                         <input 
                             type="text"
-                            value={value}
-                            readOnly
+                            value={editedValue}
+                            onChange={(e) => setEditedValue(e.target.value)}
                             className="input-edit-mode"
                         />
                     ) : (
                         <p className="value">{value}</p>
                     )}
-                    {/* No mostramos los botones si no es necesario */}
+
                     {showEditButton && (
-                        <button className="edit" onClick={handleEditClick}>
-                            <FontAwesomeIcon icon={faEdit} />
-                        </button>
+                        editMode ? (
+                            <button className="save" onClick={handleSaveClick}>
+                                <FontAwesomeIcon icon={faSave} />
+                            </button>
+                        ) : (
+                            <button className="edit" onClick={handleEditClick}>
+                                <FontAwesomeIcon icon={faEdit} />
+                            </button>
+                        )
                     )}
+
                 </td>
             </tr>
         );
