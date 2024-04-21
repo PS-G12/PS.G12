@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Header from "../../components/Header/header.js";
+import AddFood from "../../components/AddFood/addFood.js";
 import { Link, useLocation } from "react-router-dom";
 import "./searchFood.css";
 
@@ -190,6 +191,8 @@ const FoodSearch = () => {
       <Link to="/registerFood">
         <button>Go to Food Log</button>
       </Link>
+
+      <AddFood></AddFood>
 
       <div className="resultSearchFood">
         <div className="search-result">
