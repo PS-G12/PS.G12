@@ -106,17 +106,6 @@ const IndexPage = () => {
             data.objectiveData.pulseProgression
           );
 
-          console.log(
-            "Datos de weightProgressionData:",
-            weightProgressionDates,
-            weightProgressionWeights
-          );
-          console.log(
-            "Datos de PulseProgressionData:",
-            pulseProgressionDates,
-            pulseProgressionratio
-          );
-
           setWeightProgressionData({
             dates: weightProgressionDates,
             weights: weightProgressionWeights,

@@ -36,7 +36,9 @@ const getUser = async (findQuery) => {
         { "userData.email": findQuery },
       ],
     });
-    if (!userquery) throw err;
+    if (!userquery) {
+      throw new Error("userquery is not defined or falsy");
+    }
     return userquery.userData;
   } catch (error) {
     console.error("Something went wrong trying to find the documents: ", error);

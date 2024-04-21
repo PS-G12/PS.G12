@@ -161,4 +161,5 @@ input[type="number"] {
 
 .blur-content .cards .card-container-top .card-containerobj{
   height: fit-content;
+  padding: 3%;  
 }
