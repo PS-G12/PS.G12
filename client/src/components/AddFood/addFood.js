@@ -24,7 +24,7 @@ function capitalizedCase(key) {
   return capitalizedCase(key);
 }
 
-const AddFood = (isAuthenticated) => {
+const AddFood = (props) => {
   const [foodData, setFoodData] = useState({
     name: "",
     calories: "",
@@ -42,7 +42,7 @@ const AddFood = (isAuthenticated) => {
 
   const [showForm, setShowForm] = useState(false);
   const [showAddButton, setShowAddButton] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(isAuthenticated);
+  const [isLoggedIn, setIsLoggedIn] = useState(props.isAuthenticated);
 
   const handleToggleForm = () => {
     setShowForm(!showForm);
@@ -57,6 +57,37 @@ const AddFood = (isAuthenticated) => {
     }));
   };
 
+  const getLocalData = (foodData) => {
+    let existingData = JSON.parse(localStorage.getItem("foodData"));
+    if (!existingData) {
+      existingData = [];
+    }
+  
+    // Convertir foodData a un objeto
+    const newFoodData = { ...foodData };
+  
+    const newData = [...existingData, newFoodData];
+    localStorage.setItem("foodData", JSON.stringify(newData));
+  
+    setFoodData({
+      name: "",
+      calories: "",
+      serving_size_g: "",
+      fat_total_g: "",
+      fat_saturated_g: "",
+      protein_g: "",
+      sodium_mg: "",
+      potassium_mg: "",
+      cholesterol_mg: "",
+      carbohydrates_total_g: "",
+      fiber_g: "",
+      sugar_g: "",
+    });
+  
+    handleToggleForm();
+  };
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -68,6 +99,7 @@ const AddFood = (isAuthenticated) => {
     if (!token) {
       setIsLoggedIn(false);
     }
+    console.log(isLoggedIn ? "Is logged in" : "Not logged in");
     if (isLoggedIn) {
       try {
         const response = await fetch("/user/data/add-food", {
@@ -77,7 +109,7 @@ const AddFood = (isAuthenticated) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ foodData: foodData }),
-        })
+        });
         if (response.ok) {
           setFoodData({
             name: "",
@@ -96,7 +128,24 @@ const AddFood = (isAuthenticated) => {
           handleToggleForm();
           return;
         } else if (response.status === 401) {
+          console.log("llegue dos");
+          getLocalData([foodData]);
           setIsLoggedIn(false);
+          setFoodData({
+            name: "",
+            calories: "",
+            serving_size_g: "",
+            fat_total_g: "",
+            fat_saturated_g: "",
+            protein_g: "",
+            sodium_mg: "",
+            potassium_mg: "",
+            cholesterol_mg: "",
+            carbohydrates_total_g: "",
+            fiber_g: "",
+            sugar_g: "",
+          });
+          handleToggleForm();
           throw new Error("User data not available");
         } else {
           throw new Error("User data not available");
@@ -106,31 +155,8 @@ const AddFood = (isAuthenticated) => {
         setIsLoggedIn(true);
       }
     } else {
-      let existingData = JSON.parse(localStorage.getItem("foodData"));
-      if (!existingData) {
-        existingData = [];
-      }
-
-      const newData = [...existingData, foodData];
-      console.log(newData);
-      localStorage.setItem("foodData", JSON.stringify(newData));
-
-      setFoodData({
-        name: "",
-        calories: "",
-        serving_size_g: "",
-        fat_total_g: "",
-        fat_saturated_g: "",
-        protein_g: "",
-        sodium_mg: "",
-        potassium_mg: "",
-        cholesterol_mg: "",
-        carbohydrates_total_g: "",
-        fiber_g: "",
-        sugar_g: "",
-      });
-
-      handleToggleForm();
+      console.log("entre")
+      getLocalData([foodData]);
     }
   };
 

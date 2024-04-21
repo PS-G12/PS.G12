@@ -217,7 +217,8 @@ app.get("/api/food/", async (req, res) => {
   const token = req.headers.authorization.split(' ')[1];
   let result;
   try {
-    const userId = decodeToken(token).userId;
+    let userId = decodeToken(token);
+    if (userId) userId = userId.userId;
     result = await fetchFood(search, userId);
     return res.json(result);
   } catch (error) {
