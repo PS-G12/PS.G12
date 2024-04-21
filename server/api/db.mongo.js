@@ -104,7 +104,7 @@ const getUserData = async (userId) => {
     if (!userData) {
       console.error("No user records foundA");
     } else {
-      //console.log('User data successfully fetched:', userData);
+      console.log('User data successfully fetched:', userData);
       return userData;
     }
   } catch (error) {

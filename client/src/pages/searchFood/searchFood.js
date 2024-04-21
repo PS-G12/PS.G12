@@ -81,8 +81,14 @@ const FoodSearch = () => {
         .then((data) => {
           setSearchResult(data);
           const localData = JSON.parse(localStorage.getItem("foodData"));
+          let filteredData = [];
+          if (localData) {
+            filteredData = localData.filter(obj => {
+              return obj.hasOwnProperty("0") && obj["0"].name && obj["0"].name.toLowerCase().startsWith(searchQuery.toLowerCase());
+            });
+          }
           const mergedData = {
-            items: [...data.items, ...(localData || [])],
+            items: [...data.items, ...filteredData]
           };
           setSearchResult(mergedData);
         })

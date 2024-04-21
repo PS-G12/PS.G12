@@ -119,11 +119,7 @@ const verifyToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return passport.authenticate("google", { session: false })(req, res, next);
-    // return res
-    //   .status(401)
-    //   .json({ success: false, message: "No token provided" });
   }
-
   const token = authHeader.split(" ")[1];
   if (token === null || authHeader === "") {
     console.error("Error validating token:", error.message);
@@ -220,8 +216,10 @@ app.get("/api/exercises", (req, res) => {
 });
 
 app.get("/api/food/", async (req, res) => {
-  const { search} = req.query;
-  const token = req.headers.authorization.split(' ')[1];
+  const { search } = req.query;
+  let token = req.headers.authorization;
+  if (token) req.headers.authorization.split(' ')[1];
+  console.log(token);
   let result;
   try {
     let userId = decodeToken(token);
@@ -360,6 +358,7 @@ app.get("/user/data/food", verifyToken, async (req, res) => {
   const userId = req.user;
   try {
     const userData = await getUserData(userId);
+    console.log(userData);
     res.status(200).json(userData.objectiveData.foodRecords);
   } catch (error) {
     console.error("Error al obtener los datos del user:", error);
