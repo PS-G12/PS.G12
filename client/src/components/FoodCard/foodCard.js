@@ -29,16 +29,16 @@ function FoodCard({ selectedItem: food, quantity }) {
         </p>
       </div>
       <div className="details-container-food">
-        {renderFoodDetail("Serving Size", `${food.serving_size_g} g`)}
-        {renderFoodDetail("Total Fat", `${food.fat_total_g} g`)}
-        {renderFoodDetail("Saturated Fat", `${food.fat_saturated_g} g`)}
-        {renderFoodDetail("Protein", `${food.protein_g} g`)}
-        {renderFoodDetail("Sodium", `${food.sodium_mg} mg`)}
-        {renderFoodDetail("Potassium", `${food.potassium_mg} mg`)}
-        {renderFoodDetail("Cholesterol", `${food.cholesterol_mg} mg`)}
-        {renderFoodDetail("Carbohydrates", `${food.carbohydrates_total_g} g`)}
-        {renderFoodDetail("Dietary Fiber", `${food.fiber_g} g`)}
-        {renderFoodDetail("Sugar", `${food.sugar_g} g`)}
+        {renderFoodDetail("Serving Size", `${food.serving_size_g}g\n`)}
+        {renderFoodDetail("Total Fat", `${food.fat_total_g}g\n`)}
+        {renderFoodDetail("Saturated Fat", `${food.fat_saturated_g}g\n`)}
+        {renderFoodDetail("Protein", `${food.protein_g}g\n`)}
+        {renderFoodDetail("Sodium", `${food.sodium_mg}mg\n`)}
+        {renderFoodDetail("Potassium", `${food.potassium_mg}mg\n`)}
+        {renderFoodDetail("Cholesterol", `${food.cholesterol_mg}mg\n`)}
+        {renderFoodDetail("Carbohydrates", `${food.carbohydrates_total_g}g\n`)}
+        {renderFoodDetail("Dietary Fiber", `${food.fiber_g}g\n`)}
+        {renderFoodDetail("Sugar", `${food.sugar_g}g\n`)}
       </div>
     </div>
   );

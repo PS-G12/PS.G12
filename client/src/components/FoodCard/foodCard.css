@@ -8,6 +8,8 @@
 
 .food-card{
   font-size: 1.2rem;
+  margin-top: 60%;
+  margin-left: 50%;
 }
   
 .alimento-agregar { /*No lo quito por si se usa para algo en otro componente u otra página*/
@@ -27,8 +29,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
-
 
 .food-info p,
 h3 {

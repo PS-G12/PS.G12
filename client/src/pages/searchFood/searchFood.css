@@ -91,9 +91,10 @@
   margin-top: 12%;
 }
 
-.details-container {
+.details-container { 
   width: 40%;
   padding: 10px;
+  height: 47%;
   border: 1px solid #ddd;
   border-radius: 8px;
   background-color: #fff;
@@ -102,6 +103,7 @@
   top: 30%;
   left: 50%;
   transform: translate(150%, -50%);
+  justify-content: center;
 }
 
 /* Estilos para cada food-item */

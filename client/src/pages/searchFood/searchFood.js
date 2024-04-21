@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "../../components/Header/header.js";
 import AddFood from "../../components/AddFood/addFood.js";
+import FoodCard from "../../components/FoodCard/foodCard.js"; 
 import { Link, useLocation } from "react-router-dom";
 import "./searchFood.css";
 
@@ -12,6 +13,7 @@ const FoodSearch = () => {
   const [savedMessage, setSavedMessage] = useState("");
   const [queryType, setQuerytype] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showDetails, setShowDetails] = useState(false); 
 
   const location = useLocation();
 
@@ -122,6 +124,10 @@ const FoodSearch = () => {
           console.error("Error fetching exercises data:", error);
         });
     }
+  };
+
+  const handleShowDetails = () => {
+    setShowDetails(!showDetails); 
   };
   
 
@@ -280,7 +286,7 @@ const FoodSearch = () => {
                     g
                   </p>
                   <p>
-                    Cantidad:{" "}
+                    Quantity:{" "}
                     <input
                       type="number"
                       value={quantity}
@@ -295,6 +301,13 @@ const FoodSearch = () => {
                   {savedMessage && <p>{savedMessage}</p>}
                 </div>
               )}
+
+              <button onClick={handleShowDetails}>
+                {showDetails ? "Hide Details" : "See More Details"}
+              </button>
+
+              {showDetails && <FoodCard selectedItem={selectedItem} quantity={quantity} />}
+              {savedMessage && <p>{savedMessage}</p>}
 
               {searchResult.items.length === 0 && (
                 <p>No se encontraron resultados.</p>
