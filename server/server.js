@@ -27,6 +27,7 @@ const {
   updateAge,
   updateCal,
   updateGender,
+  updatePass
 } = require("./api/db.mongo");
 const { getUser } = require("./api/db.mongo");
 const jsonData = require("./api/foodData.json");
@@ -591,6 +592,45 @@ app.post("/user/data/update/info/gender", verifyToken, async (req, res) => {
     res.status(500).json({ error: "An error ocurred while getting the users data"});
   }
 });
+
+
+app.post("/user/data/update/info/pass", verifyToken, async (req, res) => {
+  const user = req.user;
+  const { formData } = req.body;
+
+  try{
+    const prevUser = await getPrevUserData(user);
+
+    const passwordCompare = await bcrypt.compare(
+      formData.userData.passwordIn,
+      prevUser.password,
+    );
+
+
+    if (passwordCompare){
+      return res.status(401).json({ success: false, message: "The new password cannot be the same as the previous one" });
+    }
+
+    if ( formData.userData.passwordIn !== formData.userData.passwordRepeat){
+      return res.status(401).json({ success: false, message: "The passwords should match" });
+    }
+
+    const encryptedPassword = await bcrypt.hash(formData.userData.passwordIn, 10);
+    const update = await updatePass(user, encryptedPassword); 
+       
+
+    if (!prevUser || !update){
+      return res.status(401).json({ success: false, message: "No user found" });
+    }
+
+    console.log("Updated the password");
+    return res.status(200).json({success: true, message: "Update sucessfull"});
+  }
+  catch (error){
+    res.status(500).json({ error: "An error ocurred while getting the users data"});
+  }
+});
+
 
 app.get(
   "/auth/google",

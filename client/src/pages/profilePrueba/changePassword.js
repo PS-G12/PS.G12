@@ -11,6 +11,18 @@ const ChangePassword = () => {
     const [previousPassword, setPreviousPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [repeatNewPassword, setRepeatNewPassword] = useState("");
+    const [tokenFetched, setTokenFetched] = useState(false);
+
+    const [formData, setFormData] = useState(
+        {
+            userData:{
+                username: "",
+                passwordIn:"",
+                passwordDb: "",
+                passwordRepeat: "",
+            }
+        }
+    );
 
     useEffect(() => {
         const token = sessionStorage.getItem('token');
@@ -25,6 +37,7 @@ const ChangePassword = () => {
             .then(response => {
                 if (response.ok) {
                     setIsLoggedIn(true);
+                    setTokenFetched(true);
                 } else {
                     setIsLoggedIn(false);
                     console.error('Invalid token');
@@ -39,22 +52,107 @@ const ChangePassword = () => {
         }
     }, []);
 
+    useEffect(() => {
+        if (tokenFetched){
+
+            const getUserData = async () => {
+                try{
+                    const response = await fetch("/user/data/info", {
+                        method: "GET",
+                        headers:{
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`
+                        }
+                    });
+            
+                    const data = await response.json();
+            
+                    if (response.ok && data){
+                        setFormData(prevState => ({
+                            ...prevState,
+                            userData: {
+                                ...prevState.userData,
+                                username: data.userData.username,
+                            }
+                        }));
+                    }
+                    else{
+                        console.error("Could not fetch the users data");
+                    }
+                }
+                catch (error){
+                    console.error("Run into an error while getting the users data: ", error);
+                    throw error;
+                }
+            };
+
+            getUserData();
+        }
+    }, [tokenFetched]);
+
+
+
     const handlePreviousPasswordChange = (e) => {
         setPreviousPassword(e.target.value);
+
     };
 
     const handleNewPasswordChange = (e) => {
         setNewPassword(e.target.value);
+
+
+
     };
 
     const handleRepeatNewPasswordChange = (e) => {
         setRepeatNewPassword(e.target.value);
+
     };
 
+
+    
     const handleSaveClick = () => {
-        handlePreviousPasswordChange();
-        handleNewPasswordChange();
-        handleRepeatNewPasswordChange();
+
+        if( previousPassword && newPassword && repeatNewPassword ){
+
+            formData.userData.passwordIn = newPassword;
+            formData.userData.passwordDb = previousPassword;
+            formData.userData.passwordRepeat = repeatNewPassword;
+
+
+            const upDatePassword = async() => {
+                try{
+                    const response = await fetch("/user/data/update/info/pass", {
+                        method: "POST",
+                        headers:{
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`
+                        },
+
+                        body: JSON.stringify({formData})
+                    });
+            
+                    const data = await response.json();
+                    console.log(data);
+            
+                    if (response.ok && data){
+                        console.log("Password updated correctly")
+                        return
+                    }
+                    else{
+                        console.error("Could not fetch the users data");
+                    }
+                }
+                catch (error){
+                    console.error("Run into an error while getting the users data: ", error);
+                    throw error;
+                }
+            }
+
+            upDatePassword();
+
+        }
+
     };
 
     return (
@@ -74,8 +172,8 @@ const ChangePassword = () => {
                 <div className="table-info-section">
 
                     <div className="username-section">
-                        <h1>username</h1>
-                        <h2>@username</h2>
+                        <h1>{formData.userData.username === null ? "username" : formData.userData.username}</h1>
+                        <h2>{formData.userData.username === null ? "@username" : "@" + formData.userData.username}</h2>
                     </div>
 
                     <div className="tables-profile">
@@ -90,11 +188,10 @@ const ChangePassword = () => {
                                                 <input 
                                                     type="password" 
                                                     value={previousPassword} 
-                                                    onChange={handlePreviousPasswordChange} 
+                                                    onChange={(e) => handlePreviousPasswordChange(e)} 
                                                     className="value-resetPassword" 
                                                     />
                                             </td>
-
                                             
                                         </tr>
                                         <tr>
@@ -103,7 +200,7 @@ const ChangePassword = () => {
                                                 <input 
                                                     type="password" 
                                                     value={newPassword} 
-                                                    onChange={handleNewPasswordChange} 
+                                                    onChange={(e) => handleNewPasswordChange(e)} 
                                                     className="value-resetPassword" 
                                                 />
                                             </td>
@@ -114,7 +211,7 @@ const ChangePassword = () => {
                                                 <input 
                                                     type="password" 
                                                     value={repeatNewPassword} 
-                                                    onChange={handleRepeatNewPasswordChange} 
+                                                    onChange={(e) => handleRepeatNewPasswordChange(e)} 
                                                     className="value-resetPassword" 
                                                 />
                                             </td>

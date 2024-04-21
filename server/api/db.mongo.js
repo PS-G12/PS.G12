@@ -663,6 +663,39 @@ const updateGender = async (user, gender) => {
   }
 };
 
+const updatePass = async (user, password) => {
+
+  try {
+
+    const collection = database.collection('user_data');
+    const document = await collection.findOne({"userData.username": user});
+    
+    if (!document){
+      console.error("No user records found");
+      return false;
+    }
+  
+    const update = {
+      $set: {"userData.password": password}
+    };
+    
+    const result = await collection.updateOne({"userData.username":user}, update);
+
+    if (result.modifiedCount === 1){
+      console.log("Password updated");
+      return true;
+    }
+
+    console.error("Could not update the password");
+    return false;
+
+  } catch (error) {
+    console.error("Run into an error updating the password: ", error);
+    throw error;
+  }
+
+}
+
 module.exports = {
   getUser,
   getQuery,
@@ -686,5 +719,6 @@ module.exports = {
   updateHeight,
   updateAge,
   updateCal,
-  updateGender
+  updateGender,
+  updatePass
 };
