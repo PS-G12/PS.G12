@@ -1,5 +1,6 @@
 const { ServerApiVersion } = require("mongodb");
 const { MongoClient } = require("mongodb");
+const { use } = require("passport");
 require("dotenv").config();
 const uri = process.env.MONGO_CLIENT_ID;
 
@@ -445,6 +446,219 @@ const resetProgress = async (user) => {
     return 1;
   } catch (error) {
     console.error("Error while getting the user's data: ", error);
+    throw error;
+  }
+};
+
+const updateUsername = async (user, username) => {
+  try{
+    const collection = database.collection('user_data');
+    const document = await collection.findOne({"userData.username": user});
+    const collectionToExpand = database.collection('objective_records');
+    const documentToExpand = await collectionToExpand.findOne({userId: user});
+
+    console.log("puta ",documentToExpand)
+  
+    if (!document || !documentToExpand){
+      console.error("No user records found");
+      return false;
+    }
+  
+    update = {
+      $set: {"userData.username": username}
+    };
+
+    expandUpdate = {
+      $set: {userId: username}
+    };
+  
+    const updateExpansion = await collection.updateOne({userId: user}, expandUpdate);
+    if (updateExpansion.modifiedCount === 1){
+      const result = await collection.updateOne({"userData.username":user}, update);
+      if (result.modifiedCount === 1){
+        console.log("Username updated");
+        return true;
+      }
+      else{
+        console.error("Could not update the username");
+        return false
+      }
+    }
+    else{
+      console.error("Could not update expand the update to the other collection");
+      return false;
+    }
+  }
+  catch (error){
+    console.error("Run into an error updating the username: ", error);
+    throw error;
+  }
+};
+
+const updateMail = async (user, email) => {
+  try{
+    const collection = database.collection('user_data');
+    const document = await collection.findOne({"userData.username": user});
+  
+    if (!document){
+      console.error("No user records found");
+      return false;
+    }
+  
+    update = {
+      $set: {"userData.email": email}
+    };
+  
+    const result = await collection.updateOne({"userData.username":user}, update);
+    if (result.modifiedCount === 1){
+      console.log("Email updated");
+      return true;
+    }
+    console.error("Could not update the email");
+    return false;
+  }
+  catch (error){
+    console.error("Run into an error updating the email: ", error);
+    throw error;
+  }
+};
+
+const updateWeight = async (user, weight) => {
+  try{
+    const collection = database.collection('user_data');
+    const document = await collection.findOne({"userData.username": user});
+  
+    if (!document){
+      console.error("No user records found");
+      return false;
+    }
+  
+    update = {
+      $set: {"userData.weight": weight}
+    };
+  
+    const result = await collection.updateOne({"userData.username":user}, update);
+    if (result.modifiedCount === 1){
+      console.log("Weight updated");
+      return true;
+    }
+    console.error("Could not update the weight");
+    return false;
+  }
+  catch (error){
+    console.error("Run into an error updating the weight: ", error);
+    throw error;
+  }
+};
+
+const updateHeight = async (user, height) => {
+  try{
+    const collection = database.collection('user_data');
+    const document = await collection.findOne({"userData.username": user});
+  
+    if (!document){
+      console.error("No user records found");
+      return false;
+    }
+  
+    update = {
+      $set: {"userData.height": height}
+    };
+  
+    const result = await collection.updateOne({"userData.username":user}, update);
+    if (result.modifiedCount === 1){
+      console.log("Height updated");
+      return true;
+    }
+    console.error("Could not update the height");
+    return false;
+  }
+  catch (error){
+    console.error("Run into an error updating the height: ", error);
+    throw error;
+  }
+};
+
+const updateAge = async (user, age) => {
+  try{
+    const collection = database.collection('user_data');
+    const document = await collection.findOne({"userData.username": user});
+  
+    if (!document){
+      console.error("No user records found");
+      return false;
+    }
+  
+    update = {
+      $set: {"userData.age": age}
+    };
+  
+    const result = await collection.updateOne({"userData.username":user}, update);
+    if (result.modifiedCount === 1){
+      console.log("Age updated");
+      return true;
+    }
+    console.error("Could not update the age");
+    return false;
+  }
+  catch (error){
+    console.error("Run into an error updating the age: ", error);
+    throw error;
+  }
+};
+
+const updateCal = async (user, cal) => {
+  try{
+    const collection = database.collection('objective_records');
+    const document = await collection.findOne({userId: user});
+  
+    if (!document){
+      console.error("No user records found");
+      return false;
+    }
+  
+    update = {
+      $set: {"objectiveData.kcalObjective": cal}
+    };
+  
+    const result = await collection.updateOne({userId:user}, update);
+    if (result.modifiedCount === 1){
+      console.log("Kcal Objective updated");
+      return true;
+    }
+    console.error("Could not update the Kcal Objective");
+    return false;
+  }
+  catch (error){
+    console.error("Run into an error updating the Kcal Objective: ", error);
+    throw error;
+  }
+};
+
+const updateGender = async (user, gender) => {
+  try{
+    const collection = database.collection('user_data');
+    const document = await collection.findOne({"userData.username": user});
+  
+    if (!document){
+      console.error("No user records found");
+      return false;
+    }
+  
+    update = {
+      $set: {"userData.gender": gender}
+    };
+  
+    const result = await collection.updateOne({"userData.username":user}, update);
+    if (result.modifiedCount === 1){
+      console.log("Gender updated");
+      return true;
+    }
+    console.error("Could not update the gender");
+    return false;
+  }
+  catch (error){
+    console.error("Run into an error updating the gender: ", error);
     throw error;
   }
 };

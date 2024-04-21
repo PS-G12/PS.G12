@@ -12,6 +12,17 @@ const ProfilePrueba = () => {
     const [editedGender, setEditedGender] = useState("Male");
     //const [editedSystem, setEditedSystem] = useState("Metric");
     const [tokenFetched, setTokenFetched] = useState(false);
+    const [updateTookPlace, setUpdateTookPlace] = useState(false);
+
+    const [username, setUsername] = useState(false);
+    const [newUsername, setNewUsername] = useState(false);
+    const [newToken, setNewToken] = useState(false);
+    const [email, setEmail] = useState(false);
+    const [weight, setWeight] = useState(false);
+    const [height, setHeight] = useState(false);
+    const [age, setAge] = useState(false);
+    const [cal, setCal] = useState(false);
+    const [gender, setGender] = useState(false);
 
     const [formData, setFormData] = useState(
         {
@@ -76,7 +87,8 @@ const ProfilePrueba = () => {
     }, []);
 
     useEffect(() => {
-        if (tokenFetched){
+        if (tokenFetched || updateTookPlace || newToken){
+            setUpdateTookPlace(false);
             const getUserkcalGoal = async () => {
                 try{
                     const response = await fetch("/user/data", {
@@ -90,7 +102,6 @@ const ProfilePrueba = () => {
                     const data = await response.json();
             
                     if (response.ok && data){
-                        console.log(data);
                         setFormData(prevState => ({
                             ...prevState,
                             userData: {
@@ -148,33 +159,273 @@ const ProfilePrueba = () => {
             getUserkcalGoal();
             getUserData();
         }
-    }, [tokenFetched]);
+    }, [tokenFetched, updateTookPlace, newToken]);
 
-    const updateUserData = async () => {
-        try{
-            const response = await fetch("/user/data/update/info", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                },
-                body: JSON.stringify({ formDataUpdate })
-            });
-    
-            const data = await response.json();
-    
-            if (response.ok){
-                console.log("Users data updated");
-            }
-            else{
-                console.error("Could not update the users data");
-            }
+    useEffect(() => {
+        if (username){
+            setUsername(false);
+            const updateUsername = async () => {
+                try{
+                    console.log(formDataUpdate.userData.username);
+                    const response = await fetch("/user/data/update/info/username", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ formDataUpdate })
+                    });
+
+                    const data = await response.json();
+            
+                    if (response.ok && data){
+                        console.log("Users data updated");
+                    }
+                    else{
+                        console.error("Could not update the users data");
+                    }
+                }
+                catch (error){
+                    console.error("Run into an error updating the data: ", error);
+                    throw error;
+                }
+            };
+            updateUsername();
+            setNewUsername(true);
         }
-        catch (error){
-            console.error("Run into an error updating the data: ", error);
-            throw error;
+    }, [username]);
+
+    useEffect(() => {
+        if (newUsername){
+            setNewUsername(false);
+            const updateToken = async () => {
+                try{
+                    sessionStorage.removeItem('token');
+                    const response = await fetch("/user/data/update/token", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ formData })
+                    });
+        
+                    const data = await response.json();
+        
+                    if (response.ok){
+                        console.log("New token generated: ", data);
+                        sessionStorage.setItem("token", data.token);
+                    }
+                    else{
+                        console.error("An error ocurred while sending the data: ", data);
+                    }
+        
+                }
+                catch (error){
+                    console.error('Run into an error updating the token: ', error);
+                }
+            }
+            updateToken();
+            setNewToken(true);
         }
-    };
+    }, [newUsername]);
+
+    useEffect(() => {
+        if (email){
+            setEmail(false);
+            const updateEmail = async () => {
+                try{
+                    console.log(formDataUpdate.userData.email);
+                    const response = await fetch("/user/data/update/info/email", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ formDataUpdate })
+                    });
+
+                    const data = await response.json();
+            
+                    if (response.ok && data){
+                        console.log("Users data updated");
+                    }
+                    else{
+                        console.error("Could not update the users data");
+                    }
+                }
+                catch (error){
+                    console.error("Run into an error updating the data: ", error);
+                    throw error;
+                }
+            };
+            updateEmail();
+        }
+    }, [email]);
+
+    useEffect(() => {
+        if (weight){
+            setWeight(false);
+            const updateWeight = async () => {
+                try{
+                    console.log(formDataUpdate.userData.weight);
+                    const response = await fetch("/user/data/update/info/weight", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ formDataUpdate })
+                    });
+
+                    const data = await response.json();
+            
+                    if (response.ok && data){
+                        console.log("Users data updated");
+                    }
+                    else{
+                        console.error("Could not update the users data");
+                    }
+                }
+                catch (error){
+                    console.error("Run into an error updating the data: ", error);
+                    throw error;
+                }
+            };
+            updateWeight();
+        }
+    }, [weight]);
+
+    useEffect(() => {
+        if (height){
+            setHeight(false);
+            const updateHeight = async () => {
+                try{
+                    console.log(formDataUpdate.userData.height);
+                    const response = await fetch("/user/data/update/info/height", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ formDataUpdate })
+                    });
+
+                    const data = await response.json();
+            
+                    if (response.ok && data){
+                        console.log("Users data updated");
+                    }
+                    else{
+                        console.error("Could not update the users data");
+                    }
+                }
+                catch (error){
+                    console.error("Run into an error updating the data: ", error);
+                    throw error;
+                }
+            };
+            updateHeight();
+        }
+    }, [height]);
+
+    useEffect(() => {
+        if (age){
+            setAge(false);
+            const updateAge = async () => {
+                try{
+                    console.log(formDataUpdate.userData.age);
+                    const response = await fetch("/user/data/update/info/age", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ formDataUpdate })
+                    });
+
+                    const data = await response.json();
+            
+                    if (response.ok && data){
+                        console.log("Users data updated");
+                    }
+                    else{
+                        console.error("Could not update the users data");
+                    }
+                }
+                catch (error){
+                    console.error("Run into an error updating the data: ", error);
+                    throw error;
+                }
+            };
+            updateAge();
+        }
+    }, [age]);
+
+    useEffect(() => {
+        if (cal){
+            setCal(false);
+            const updateAge = async () => {
+                try{
+                    console.log(formDataUpdate.userData.kcalGoal);
+                    const response = await fetch("/user/data/update/info/cal", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ formDataUpdate })
+                    });
+
+                    const data = await response.json();
+            
+                    if (response.ok && data){
+                        console.log("Users data updated");
+                    }
+                    else{
+                        console.error("Could not update the users data");
+                    }
+                }
+                catch (error){
+                    console.error("Run into an error updating the data: ", error);
+                    throw error;
+                }
+            };
+            updateAge();
+        }
+    }, [cal]);
+
+    useEffect(() => {
+        if (gender){
+            setGender(false);
+            const updateAge = async () => {
+                try{
+                    console.log(formDataUpdate.userData.gender);
+                    const response = await fetch("/user/data/update/info/gender", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ formDataUpdate })
+                    });
+
+                    const data = await response.json();
+            
+                    if (response.ok && data){
+                        console.log("Users data updated");
+                    }
+                    else{
+                        console.error("Could not update the users data");
+                    }
+                }
+                catch (error){
+                    console.error("Run into an error updating the data: ", error);
+                    throw error;
+                }
+            };
+            updateAge();
+        }
+    }, [gender]);
 
     const TableRow = ({ title, value, isSelector = false, options = [], onChange }) => {
         const [editMode, setEditMode] = useState(false);
@@ -197,6 +448,9 @@ const ProfilePrueba = () => {
                             username: editedValue
                         }
                     }));
+                    console.log(editedValue)
+                    setUsername(true);
+                    
                     break;
                 case "Mail":
                     setFormDataUpdate(prevState => ({
@@ -206,6 +460,7 @@ const ProfilePrueba = () => {
                             email: editedValue
                         }
                     }));
+                    setEmail(true);
                     break;
                 case "Weight":
                     setFormDataUpdate(prevState => ({
@@ -215,6 +470,7 @@ const ProfilePrueba = () => {
                             weight: editedValue
                         }
                     }));
+                    setWeight(true);
                     break;
                 case "Height":
                     setFormDataUpdate(prevState => ({
@@ -224,6 +480,7 @@ const ProfilePrueba = () => {
                             height: editedValue
                         }
                     }));
+                    setHeight(true);
                     break;
                 case "Age":
                     setFormDataUpdate(prevState => ({
@@ -233,6 +490,7 @@ const ProfilePrueba = () => {
                             age: editedValue
                         }
                     }));
+                    setAge(true);
                     break;
                 case "Kcals Goal":
                     setFormDataUpdate(prevState => ({
@@ -242,6 +500,7 @@ const ProfilePrueba = () => {
                             kcalGoal: editedValue
                         }
                     }));
+                    setCal(true);
                     break;
                 case "Gender":
                     setFormDataUpdate(prevState => ({
@@ -251,10 +510,12 @@ const ProfilePrueba = () => {
                             gender: editedValue
                         }
                     }));
+                    setGender(true);
                     break;
                 default:
                     break;
             }
+            setUpdateTookPlace(true);
         };
 
         return (
@@ -343,10 +604,10 @@ const ProfilePrueba = () => {
                                         <TableRow title="Weight" value={formData.userData.weight === null ? "XX" : formData.userData.weight + " kg"} />
                                         <TableRow title="Height" value={formData.userData.height === null ? "XX" : formData.userData.height + " cm"} />
                                         <TableRow title="Age" value={formData.userData.age === null ? "XX" : formData.userData.age} />
-                                        <TableRow title="Kcals Goal" value={formData.userData.kcalGoal === null ? "xxxx" : formData.userData.kcalGoal + " Kcal"} />
+                                        <TableRow title="Kcals Goal" value={formData.userData.kcalGoal === null ? "xxxx" : formData.userData.kcalGoal} />
                                         <TableRow
                                             title="Gender"
-                                            value={editedGender}
+                                            value={formData.userData.gender === null ? editedGender : formData.userData.gender}
                                             isSelector={true}
                                             options={[
                                                 "Male",

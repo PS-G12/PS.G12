@@ -12,7 +12,6 @@ const {
   getUserWeightHeight,
   getUserMacros,
   getPrevUserData,
-  updateUser,
   setUserData,
   registerUserDataPulse,
   registerUserDataWeight,
@@ -21,6 +20,14 @@ const {
   getUserInfo,
   addNewFood,
   searchOwnFood,
+  getUserInfo,
+  updateUsername,
+  updateMail,
+  updateWeight,
+  updateHeight,
+  updateAge,
+  updateCal,
+  updateGender,
 } = require("./api/db.mongo");
 const { getUser } = require("./api/db.mongo");
 const jsonData = require("./api/foodData.json");
@@ -429,136 +436,6 @@ app.get("/user/data/macros", verifyToken, async (req, res) => {
   }
 });
 
-//ARREGLAR CONDICIONES
-
-app.post("/user/data/change", verifyToken, async (req, res) => {
-  const user = req.user;
-  const { formData } = req.body;
-  try {
-    const prevUserData = await getPrevUserData(user);
-    if (prevUserData) {
-      const passCompare = await bcrypt.compare(
-        formData.userData.password_old,
-        prevUserData.password
-      );
-
-      if (
-        passCompare === false &&
-        formData.userData.password !== "" &&
-        formData.userData.password_dup !== ""
-      ) {
-        return res
-          .status(401)
-          .json({ success: false, message: "The old password desn't match" });
-      }
-
-      const currentPassCompare = await bcrypt.compare(
-        formData.userData.password,
-        prevUserData.password
-      );
-
-      if (
-        currentPassCompare &&
-        formData.userData.password_old !== "" &&
-        formData.userData.password !== "" &&
-        formData.userData.password_dup !== ""
-      ) {
-        return res.status(401).json({
-          success: false,
-          message: "The new password can't be the same as the previous one!",
-        });
-      }
-
-      if (
-        formData.userData.password !== formData.userData.password_dup &&
-        formData.userData.password_old !== "" &&
-        formData.userData.password !== "" &&
-        formData.userData.password_dup !== ""
-      ) {
-        return res
-          .status(401)
-          .json({ success: false, message: "The new passwords don't match" });
-      }
-
-      if (
-        prevUserData.email === formData.userData.email &&
-        formData.userData.email !== ""
-      ) {
-        return res.status(401).json({
-          success: false,
-          message: "New email must be different than the previous one",
-        });
-      }
-
-      if (
-        formData.userData.email !== formData.userData.email_dup &&
-        formData.userData.email !== "" &&
-        formData.userData.email_dup !== ""
-      ) {
-        return res
-          .status(401)
-          .json({ success: false, message: "New emails don't match" });
-      }
-
-      if (
-        prevUserData.username === formData.userData.username &&
-        formData.userData.username !== ""
-      ) {
-        return res.status(401).json({
-          success: false,
-          message: "New username must be different than the previous one",
-        });
-      }
-
-      if (
-        formData.userData.password_old !== "" &&
-        formData.userData.password !== "" &&
-        formData.userData.password_dup !== ""
-      ) {
-        const hashedPassword = await bcrypt.hash(
-          formData.userData.password,
-          10
-        );
-        formData.userData.password = hashedPassword;
-      }
-
-      const updateUserData = await updateUser(formData, user);
-      if (!updateUserData) {
-        return res
-          .status(401)
-          .json({ success: false, message: "Could not update the user" });
-      }
-      return res.status(200).json({
-        success: true,
-        message: "User updated successfully",
-        usernameChanged: updateUserData,
-      });
-    } else {
-      return res
-        .status(401)
-        .json({ success: false, message: "No user records found" });
-    }
-  } catch (error) {
-    console.error("Error updating the users data:", error);
-    res.status(500).json({ error: "Error updating the users data" });
-  }
-});
-
-app.get("/user/data/username", verifyToken, async (req, res) => {
-  const user = req.user;
-  try {
-    const userData = await getUser(user);
-    if (!userData) {
-      return res.status(401).json({ success: false, message: "No user found" });
-    }
-    console.log("Obtained the data from the user succesfully");
-    return res.status(200).json(userData);
-  } catch (error) {
-    console.error("Run into an error while looking for the user");
-    res.status(500).json({ error: "Error geting the users data" });
-  }
-});
-
 app.post("/user/data/update/token", async (req, res) => {
   const { formData } = req.body;
   try {
@@ -583,9 +460,136 @@ app.get("/user/data/info", verifyToken, async (req, res) => {
     return res.status(200).json(userInfo);
   } catch (error) {
     console.error("The users data could not be found: ", error);
-    res
-      .status(500)
-      .json({ error: "An error ocurred while getting the users data" });
+    res.status(500).json({ error: "An error ocurred while getting the users data"});
+  }
+});
+
+app.post("/user/data/update/info/username", verifyToken, async (req, res) => {
+  const user = req.user;
+  const { formDataUpdate } = req.body;
+  try{
+    const prevData = await getPrevUserData(user);
+    const update = await updateUsername(user, formDataUpdate.userData.username);
+    if (!update || !prevData){
+      return res.status(401).json({ success: false, message: "No user found" });
+    }
+
+    if (prevData.userData.username === formDataUpdate.userData.username){
+      return res.status(401).json({ success: false, message: "The new username can't be the same as the previous one" });
+    }
+
+    console.log("Updated the username");
+    return res.status(200).json({success: true, message: "Update sucessfull"});
+  }
+  catch (error){
+    res.status(500).json({ error: "An error ocurred while getting the users data"});
+  }
+});
+
+app.post("/user/data/update/info/email", verifyToken, async (req, res) => {
+    const user = req.user;
+    const { formDataUpdate } = req.body;
+    try{
+      const prevData = await getPrevUserData(user);
+      const update = await updateMail(user, formDataUpdate.userData.email);
+      if (!update || !prevData){
+        return res.status(401).json({ success: false, message: "No user found" });
+      }
+
+      if (prevData.userData.email === formDataUpdate.userData.email){
+        return res.status(401).json({ success: false, message: "The new email can't be the same as the previous one" });
+      }
+
+      console.log("Updated the email");
+      return res.status(200).json({success: true, message: "Update sucessfull"});
+    }
+    catch (error){
+      res.status(500).json({ error: "An error ocurred while getting the users data"});
+    }
+});
+
+app.post("/user/data/update/info/weight", verifyToken, async (req, res) => {
+  const user = req.user;
+  const { formDataUpdate } = req.body;
+  try{
+    const update = await updateWeight(user, formDataUpdate.userData.weight);
+    if (!update){
+      return res.status(401).json({ success: false, message: "No user found" });
+    }
+
+    console.log("Updated the weight");
+    return res.status(200).json({success: true, message: "Update sucessfull"});
+  }
+  catch (error){
+    res.status(500).json({ error: "An error ocurred while getting the users data"});
+  }
+});
+
+app.post("/user/data/update/info/height", verifyToken, async (req, res) => {
+  const user = req.user;
+  const { formDataUpdate } = req.body;
+  try{
+    const update = await updateHeight(user, formDataUpdate.userData.height);
+    if (!update){
+      return res.status(401).json({ success: false, message: "No user found" });
+    }
+
+    console.log("Updated the height");
+    return res.status(200).json({success: true, message: "Update sucessfull"});
+  }
+  catch (error){
+    res.status(500).json({ error: "An error ocurred while getting the users data"});
+  }
+});
+
+app.post("/user/data/update/info/age", verifyToken, async (req, res) => {
+  const user = req.user;
+  const { formDataUpdate } = req.body;
+  try{
+    const update = await updateAge(user, formDataUpdate.userData.age);
+    if (!update){
+      return res.status(401).json({ success: false, message: "No user found" });
+    }
+
+    console.log("Updated the age");
+    return res.status(200).json({success: true, message: "Update sucessfull"});
+  }
+  catch (error){
+    res.status(500).json({ error: "An error ocurred while getting the users data"});
+  }
+});
+
+app.post("/user/data/update/info/cal", verifyToken, async (req, res) => {
+  const user = req.user;
+  const { formDataUpdate } = req.body;
+  try{
+    const update = await updateCal(user, formDataUpdate.userData.kcalGoal);
+    if (!update){
+      return res.status(401).json({ success: false, message: "No user found" });
+    }
+
+    console.log("Updated the Kcal");
+    return res.status(200).json({success: true, message: "Update sucessfull"});
+  }
+  catch (error){
+    res.status(500).json({ error: "An error ocurred while getting the users data"});
+  }
+});
+
+app.post("/user/data/update/info/gender", verifyToken, async (req, res) => {
+  const user = req.user;
+  const { formDataUpdate } = req.body;
+  try{
+    const update = await updateGender(user, formDataUpdate.userData.gender);
+    if (!update){
+      return res.status(401).json({ success: false, message: "No user found" });
+    }
+
+    console.log("Updated the gender");
+    return res.status(200).json({success: true, message: "Update sucessfull"});
+  }
+  catch (error){
+    res.status(500).json({ error: "An error ocurred while getting the users data"});
   }
 });
 
