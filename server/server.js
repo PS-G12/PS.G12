@@ -20,7 +20,6 @@ const {
   getUserInfo,
   addNewFood,
   searchOwnFood,
-  getUserInfo,
   updateUsername,
   updateMail,
   updateWeight,

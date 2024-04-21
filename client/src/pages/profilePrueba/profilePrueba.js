@@ -519,7 +519,7 @@ const ProfilePrueba = () => {
         };
 
         return (
-<tr>
+            <tr>
                 <th>{title}</th>
                 <td>
                     {editMode ? (
@@ -601,8 +601,8 @@ const ProfilePrueba = () => {
                             <div className="table-container-profile">
                                 <table>
                                     <tbody>
-                                        <TableRow title="Weight" value={formData.userData.weight === null ? "XX" : formData.userData.weight + " kg"} />
-                                        <TableRow title="Height" value={formData.userData.height === null ? "XX" : formData.userData.height + " cm"} />
+                                        <TableRow title="Weight (Kg)" value={formData.userData.weight === null ? "XX" : formData.userData.weight} />
+                                        <TableRow title="Height (cm)" value={formData.userData.height === null ? "XX" : formData.userData.height} />
                                         <TableRow title="Age" value={formData.userData.age === null ? "XX" : formData.userData.age} />
                                         <TableRow title="Kcals Goal" value={formData.userData.kcalGoal === null ? "xxxx" : formData.userData.kcalGoal} />
                                         <TableRow

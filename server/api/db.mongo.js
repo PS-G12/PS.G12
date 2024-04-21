@@ -679,5 +679,12 @@ module.exports = {
   resetProgress,
   getUserInfo,
   addNewFood,
-  searchOwnFood
+  searchOwnFood,
+  updateUsername,
+  updateMail,
+  updateWeight,
+  updateHeight,
+  updateAge,
+  updateCal,
+  updateGender
 };
