@@ -12,7 +12,7 @@ function capitalizedCase(key) {
     sodium_mg: "Sodium (mg)",
     potassium_mg: "Potassium (mg)",
     cholesterol_mg: "Cholesterol (mg)",
-    carbohydrates_total_g: "Carbohydrates (g)",
+    carbohydrates_total_g: "Carbohydrates total (g)",
     fiber_g: "Fiber (g)",
     sugar_g: "Sugar (g)",
   };
@@ -43,7 +43,6 @@ const AddFood = (props) => {
   const [showForm, setShowForm] = useState(false);
   const [showAddButton, setShowAddButton] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(props.isAuthenticated);
-  const [error, setError] = useState("");
 
   const handleToggleForm = () => {
     setShowForm(!showForm);
@@ -58,93 +57,106 @@ const AddFood = (props) => {
     }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!foodData.name.trim()) {
-      setError("Introduce a valid name");
-      return;
-    } else if (isNaN(parseFloat(foodData.calories.trim()))) {
-      setError("Introduce a valid value for calories");
-      return;
-    }
-
-    setError("");
-
-    sendData();
-  };
-
-  const sendData = async () => {
-    const token = sessionStorage.getItem("token");
-    if (!token) {
-      setIsLoggedIn(false);
-      return;
-    }
-
-    try {
-      const response = await fetch("/user/data/add-food", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ foodData }),
-      });
-      if (response.ok) {
-        setFoodData({
-          name: "",
-          calories: "",
-          serving_size_g: "",
-          fat_total_g: "",
-          fat_saturated_g: "",
-          protein_g: "",
-          sodium_mg: "",
-          potassium_mg: "",
-          cholesterol_mg: "",
-          carbohydrates_total_g: "",
-          fiber_g: "",
-          sugar_g: "",
-        });
-        handleToggleForm();
-        return;
-      } else if (response.status === 401) {
-        getLocalData(foodData);
-        setIsLoggedIn(false);
-        setFoodData({
-          name: "",
-          calories: "",
-          serving_size_g: "",
-          fat_total_g: "",
-          fat_saturated_g: "",
-          protein_g: "",
-          sodium_mg: "",
-          potassium_mg: "",
-          cholesterol_mg: "",
-          carbohydrates_total_g: "",
-          fiber_g: "",
-          sugar_g: "",
-        });
-        handleToggleForm();
-        throw new Error("User data not available");
-      } else {
-        throw new Error("User data not available");
-      }
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-      setIsLoggedIn(true);
-    }
-  };
-
   const getLocalData = (foodData) => {
     let existingData = JSON.parse(localStorage.getItem("foodData"));
     if (!existingData) {
       existingData = [];
     }
-  
+
+    // Convertir foodData a un objeto
     const newFoodData = { ...foodData };
-  
+
     const newData = [...existingData, newFoodData];
     localStorage.setItem("foodData", JSON.stringify(newData));
+
+    setFoodData({
+      name: "",
+      calories: "",
+      serving_size_g: "",
+      fat_total_g: "",
+      fat_saturated_g: "",
+      protein_g: "",
+      sodium_mg: "",
+      potassium_mg: "",
+      cholesterol_mg: "",
+      carbohydrates_total_g: "",
+      fiber_g: "",
+      sugar_g: "",
+    });
+
+    handleToggleForm();
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!foodData.name.trim() || !foodData.calories.trim()) {
+      alert("Name and calories are required fields");
+      return;
+    }
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      setIsLoggedIn(false);
+    }
+    console.log(isLoggedIn ? "Is logged in" : "Not logged in");
+    if (isLoggedIn) {
+      try {
+        const response = await fetch("/user/data/add-food", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ foodData: foodData }),
+        });
+        if (response.ok) {
+          setFoodData({
+            name: "",
+            calories: "",
+            serving_size_g: "",
+            fat_total_g: "",
+            fat_saturated_g: "",
+            protein_g: "",
+            sodium_mg: "",
+            potassium_mg: "",
+            cholesterol_mg: "",
+            carbohydrates_total_g: "",
+            fiber_g: "",
+            sugar_g: "",
+          });
+          handleToggleForm();
+          return;
+        } else if (response.status === 401) {
+          console.log("llegue dos");
+          getLocalData([foodData]);
+          setIsLoggedIn(false);
+          setFoodData({
+            name: "",
+            calories: "",
+            serving_size_g: "",
+            fat_total_g: "",
+            fat_saturated_g: "",
+            protein_g: "",
+            sodium_mg: "",
+            potassium_mg: "",
+            cholesterol_mg: "",
+            carbohydrates_total_g: "",
+            fiber_g: "",
+            sugar_g: "",
+          });
+          handleToggleForm();
+          throw new Error("User data not available");
+        } else {
+          throw new Error("User data not available");
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        setIsLoggedIn(true);
+      }
+    } else {
+      console.log("entre");
+      getLocalData([foodData]);
+    }
   };
 
   return (
@@ -161,7 +173,10 @@ const AddFood = (props) => {
             <h2>Register your food</h2>
             {Object.keys(foodData).map((param) => (
               <div key={param} className="form-row">
-                <label htmlFor={param}>{capitalizedCase(param)}:</label>
+                <label htmlFor={param}>
+                  {capitalizedCase(param)}
+                  {param === "name" || param === "calories" ? "*" : ""}:
+                </label>
                 <input
                   type="text"
                   id={param}
@@ -170,8 +185,8 @@ const AddFood = (props) => {
                 />
               </div>
             ))}
-            {error && <p style={{ color: "red" }}>{error}</p>}
           </div>
+          <p className="required-text">* Required fields</p>
           <button type="submit" className="submit-food">
             Add Food
           </button>
