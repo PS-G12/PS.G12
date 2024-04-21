@@ -478,7 +478,6 @@ const updateUsername = async (user, username) => {
     };
   
     const updateExpansion = await collectionToExpand.updateOne({userId: user}, expandUpdate);
-    const updateExpansion = await collectionToExpand.updateOne({userId: user}, expandUpdate);
     if (updateExpansion.modifiedCount === 1){
       const result = await collection.updateOne({"userData.username":user}, update);
       if (result.modifiedCount === 1){
