@@ -13,7 +13,7 @@ const RegisterForm = () => {
       height: "",
       system: "metric",
       age: "",
-      gender: "Male",
+      gender: "male",
     },
     objectiveData: {
       activityLevel: "sedentary",
@@ -63,6 +63,7 @@ const RegisterForm = () => {
     };
   }, []);
 
+
   const handleCheckboxChange = (e) => {
     const marked = e.target.checked;
     const checkboxes = document.querySelectorAll("input[type=checkbox]");
@@ -99,6 +100,12 @@ const RegisterForm = () => {
   };
 
   const handleSignUpForm = async () => {
+
+    if(step === 4){
+      calculateAndSetMacros();
+    }
+
+
     try {
       const response = await fetch("/auth/register", {
         method: "POST",
@@ -133,11 +140,6 @@ const RegisterForm = () => {
         } else if (formData.userData.username.length < 4) {
           setErrors({
             signUpUsername: "Username must be at least 4 characters long.",
-          });
-          return -1;
-        } else if (formData.userData.username.length > 9) {
-          setErrors({
-            signUpUsername: "Username must be at most 9 characters long.",
           });
           return -1;
         } else {
@@ -286,6 +288,14 @@ const RegisterForm = () => {
     if (step === 1 && formData.userData.username.length < 4) {
       newErrors.signUpUsername = "Username must be at least 4 characters long.";
     }
+    if (step === 1 && formData.userData.username.length > 9) {
+      newErrors.signUpUsername = "Username must be at most 9 characters long.";
+    }
+
+    if (step === 2 && formData.userData.username.length > 9) {
+      newErrors.signUpUsername = "Username must be at most 9 characters long.";
+    }
+
 
     if (step === 3 && formData.userData.password.length < 5) {
       newErrors.signUpPassword =
@@ -317,6 +327,7 @@ const RegisterForm = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name in formData.userData) {
+
       setFormData((prevState) => ({
         ...prevState,
         userData: {
@@ -333,8 +344,6 @@ const RegisterForm = () => {
         }
       }));
     }
-  
-    calculateAndSetMacros();
 
     setErrors({
       ...errors,
@@ -384,33 +393,26 @@ const RegisterForm = () => {
       default:
         userGoal = -500;
     }
-    const calories = Math.round((BMR * factor + userGoal).toFixed(2));
 
+    const calories = Math.round((BMR * factor + userGoal).toFixed(2));
     const proteins = Math.round(((calories * 0.25) / 4).toFixed(2));
-    
     const fats = Math.round(((calories * 0.25) / 9).toFixed(2));
-    
     const carbs = Math.round(((calories - proteins * 4 - fats * 9) / 4).toFixed(2));
-    
-    return { calories, proteins, fats, carbs };    
+
+    return { calories, proteins, fats, carbs };
   };
 
   const calculateAndSetMacros = () => {
-    const { calories, proteins, fats, carbs } = calculateMacrosRegister(formData.userData.weight, formData.userData.height,
-       formData.userData.age, formData.userData.gender, formData.objectiveData.activityLevel, formData.objectiveData.goal);
-
-    setFormData((prevState) => ({
-      ...prevState,
-      objectiveData: {
-        ...prevState.objectiveData,
-        kcalObjective: calories,
-        proteinsObjective: proteins,
-        fatsObjective: fats,
-        carbsObjective: carbs,
-      }
-    }));
+    formData.objectiveData.kcalObjective = calories;
+    formData.objectiveData.proteinsObjective = proteins;
+    formData.objectiveData.fatsObjective = fats;
+    formData.objectiveData.carbsObjective = carbs;
   };
-  
+
+  const { calories, proteins, fats, carbs } = calculateMacrosRegister(formData.userData.weight, formData.userData.height,
+    formData.userData.age, formData.userData.gender, formData.objectiveData.activityLevel, formData.objectiveData.goal);
+
+
   const handleGoogleSignUp = async () => {
     console.log("Signing up with Google...");
   };
@@ -467,6 +469,7 @@ const RegisterForm = () => {
                       {errors.signUpUsername && (
                         <span className="error">{errors.signUpUsername}</span>
                       )}
+                      {console.log(errors)}
                     </p>
                   </>
                 )}

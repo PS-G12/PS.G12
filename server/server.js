@@ -18,6 +18,9 @@ const {
   registerUserDataWater,
   resetProgress,
   getUserInfo,
+  addNewFood,
+  searchOwnFood,
+  getUserInfo,
   updateUsername,
   updateMail,
   updateWeight,
@@ -76,12 +79,19 @@ function getRandomExercises(exercises, count) {
   return shuffledExercises.slice(0, count);
 }
 
-async function fetchFood(query) {
+async function fetchFood(query, user) {
   try {
     const searchQueryNormalized = query.trim().toLowerCase();
     const searchWords = searchQueryNormalized.split(/\s+/);
-
+    let ownFood = null;
     const foundItems = [];
+
+    if (user) {
+      ownFood = await searchOwnFood(user, query);
+      if (ownFood) {
+        foundItems.push(...ownFood);
+      }
+    }
 
     for (const category of jsonData) {
       for (const item of category.items) {
@@ -104,6 +114,7 @@ async function fetchFood(query) {
   }
 }
 
+
 const verifyToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -124,11 +135,20 @@ const verifyToken = (req, res, next) => {
     req.user = decoded.userId;
     next();
   } catch (error) {
-    console.log(token);
     console.error("Error validating token:", error.message);
     return res.status(401).json({ success: false, message: "Invalid token" });
   }
 };
+
+function decodeToken(token) {
+  try {
+    const decoded = jwt.verify(token, '_N0C0mpaRt1r');
+    return decoded;
+  } catch (error) {
+    console.error('Error decoding token:', error.message);
+    return null;
+  }
+}
 
 app.use("/gifs", express.static(path.join(__dirname, "gifs")));
 
@@ -199,18 +219,18 @@ app.get("/api/exercises", (req, res) => {
   res.json(data);
 });
 
-app.get("/api/food/", (req, res) => {
-  const { search } = req.query;
-
-  fetchFood(search)
-    .then((result) => {
-      res.json(result);
-      console.log(result);
-    })
-    .catch((error) => {
-      console.error("Error al buscar alimentos:", error.message);
-      res.status(500).json({ error: "Error al buscar alimentos" });
-    });
+app.get("/api/food/", async (req, res) => {
+  const { search} = req.query;
+  const token = req.headers.authorization.split(' ')[1];
+  let result;
+  try {
+    const userId = decodeToken(token).userId;
+    result = await fetchFood(search, userId);
+    return res.json(result);
+  } catch (error) {
+    console.error("Error al buscar alimentos:", error.message);
+    return res.status(500).json({ error: "Error al buscar alimentos" });
+  }
 });
 
 app.post("/auth/login", async (req, res) => {
@@ -252,7 +272,6 @@ app.post("/auth/register", async (req, res) => {
     const hashedPassword = await bcrypt.hash(formData.userData.password, 10);
     formData.userData.password = hashedPassword;
     delete formData.userData.password_dup;
-    console.log(formData);
     const result = await registerUser(formData);
     const token = generateAccessToken(formData.userData.username);
     return res.status(200).json({ success: true, token });
@@ -278,7 +297,6 @@ app.post("/auth/check", async (req, res) => {
 app.get("/user/data", verifyToken, async (req, res) => {
   const userId = req.user;
   try {
-    console.log("userId", userId);
     const userData = await getUserData(userId);
     res.status(200).json(userData);
   } catch (error) {
@@ -361,6 +379,19 @@ app.post("/user/data/food", verifyToken, async (req, res) => {
   }
 });
 
+app.post("/user/data/add-food", verifyToken, async (req, res) => {
+  const userId = req.user;
+  const { foodData } = req.body;
+
+  try {
+    const userData = await addNewFood(userId, foodData);
+    res.status(200).json("ok");
+  } catch (error) {
+    console.error("Error al obtaining the users data:", error);
+    res.status(500).json({ error: "Error al obtaining the users data" });
+  }
+});
+
 app.post("/verify-token", verifyToken, async (req, res) => {
   try {
     res.status(200).json({ message: "Token válido" });
@@ -373,7 +404,6 @@ app.post("/verify-token", verifyToken, async (req, res) => {
 app.get("/user/data/weightHeight", verifyToken, async (req, res) => {
   const username = req.user;
   try {
-    console.log("username", username);
     const userData = await getUserWeightHeight(username);
     if (!userData) {
       return res.status(404).json({ error: "No user records found" });
@@ -421,15 +451,14 @@ app.post("/user/data/update/token", async (req, res) => {
 
 app.get("/user/data/info", verifyToken, async (req, res) => {
   const user = req.user;
-  try{
+  try {
     const userInfo = await getUserInfo(user);
-    if (!userInfo){
+    if (!userInfo) {
       return res.status(401).json({ success: false, message: "No user found" });
     }
-    console.log('Obtained the data from the user succesfully');
+    console.log("Obtained the data from the user succesfully");
     return res.status(200).json(userInfo);
-  }
-  catch (error){
+  } catch (error) {
     console.error("The users data could not be found: ", error);
     res.status(500).json({ error: "An error ocurred while getting the users data"});
   }
