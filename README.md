@@ -1,4 +1,3 @@
-
 ![Logo](client/src/images/icons/icon-app/icon-3-git.png)
 
 ## 
@@ -7,19 +6,21 @@ Esta aplicación web está diseñada para proporcionar a los usuarios una herram
 
 ## Funcionalidades
 
-- **Calculadora de Macros y BMI**: Permite calcular las kilocalorías presentes en los alimentos consumidos y determinar el índice de masa corporal (BMI) de los usuarios.
-
-- **Visualización de Rutinas de Ejercicio**: Los usuarios pueden visualizar varias rutinas de ejercicio y buscar según sus preferencias.
-
-- **Determinación de Macronutrientes**: Los usuarios pueden obtener los macronutrientes de una gran variedad de alimentos.
-
-- **Añadir alimentos a la base de datos**: Los usuarios pueden registrar las calorías de platos o alimentos propios además de sus macronutrientes.
-
-- **Interfaz de Usuario con React**: Implementación de una interfaz de usuario utilizando la biblioteca React para una experiencia de desarrollo modular y cómoda.
+- Registro de dietas, ingesta de agua y pulsaciones.
+- Seguimiento y análisis de tendencias de peso 
+- Establecer meta de calorías.
+- Introducir alimentos.
+- Inicio de sesión, registrar y cambiar datos de usuario.
+- Determinar IMC a partir de los datos del usuario.
+- Filtro de número de tarjetas de rutinas
+- Visualización de detalles de kilocalorías y macronutrientes.
+- Análisis de tendencias cardiovasculares.
+- Pantalla de carga con animación.
+- Filtro de búsqueda y recomendación de rutinas.
 
 ## Cómo Usar
 
-Esta demo no requiere registro. Todas las funcionalidades están diseñadas para que cualquier usuario pueda consultar información sobre los alimentos o utilizar la calculadora sin ningún tipo de restricción.
+Se ha añadido la opción de registrarse e iniciar sesión. Para poder visualizar la homepage es necesario estar registrado. El resto de funcionalidades se pueden seguir usando sin estar registrado.
 
 ## Authors
 
