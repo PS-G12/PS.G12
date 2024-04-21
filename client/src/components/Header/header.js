@@ -84,7 +84,7 @@ function Header({ isAuthenticated }) {
               </summary>
               <ul>
                 <li>
-                  <Link to = '/profilePrueba'>
+                  <Link to = '/profile'>
                   <FontAwesomeIcon icon={faUser} />
                     Profile
                   </Link>

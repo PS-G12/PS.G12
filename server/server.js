@@ -295,6 +295,7 @@ app.post("/auth/check", async (req, res) => {
 
 app.get("/user/data", verifyToken, async (req, res) => {
   const userId = req.user;
+  console.log(userId);
   try {
     const userData = await getUserData(userId);
     res.status(200).json(userData);
@@ -437,9 +438,9 @@ app.get("/user/data/macros", verifyToken, async (req, res) => {
 });
 
 app.post("/user/data/update/token", async (req, res) => {
-  const { formData } = req.body;
+  const { formDataUpdate } = req.body;
   try {
-    const token = generateAccessToken(formData.userData.username);
+    const token = generateAccessToken(formDataUpdate.userData.username);
     return res.status(200).json({ success: true, token });
   } catch (error) {
     console.error("Could not update the users token");
