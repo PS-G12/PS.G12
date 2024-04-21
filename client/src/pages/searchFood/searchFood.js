@@ -298,16 +298,16 @@ const FoodSearch = () => {
                     <button onClick={handleAddToMeal}>Add to {type}</button>
                   ) : null}
 
-                  {savedMessage && <p>{savedMessage}</p>}
+                <button onClick={handleShowDetails}>
+                  {showDetails ? "Hide Details" : "See More Details"}
+                </button>
+
+                {showDetails && <FoodCard selectedItem={selectedItem} quantity={quantity} />}
+                {savedMessage && <p>{savedMessage}</p>}
                 </div>
               )}
 
-              <button onClick={handleShowDetails}>
-                {showDetails ? "Hide Details" : "See More Details"}
-              </button>
 
-              {showDetails && <FoodCard selectedItem={selectedItem} quantity={quantity} />}
-              {savedMessage && <p>{savedMessage}</p>}
 
               {searchResult.items.length === 0 && (
                 <p>No se encontraron resultados.</p>
