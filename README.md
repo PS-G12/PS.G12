@@ -1,6 +1,5 @@
 
-![Logo](./src/images/icons/icon-3-git.png)
-
+![Logo](client/src/images/icons/icon-app/icon-3-git.png)
 
 ## 
 # Fitness Web App
