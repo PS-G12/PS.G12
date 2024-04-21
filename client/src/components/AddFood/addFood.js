@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./addFood.css";
 
 function capitalizedCase(key) {
-  //Maps the keys to the desired phrases
   const conversions = {
     name: "Name",
     calories: "Calories",
@@ -15,7 +14,7 @@ function capitalizedCase(key) {
     cholesterol_mg: "Cholesterol (mg)",
     carbohydrates_total_g: "Carbohydrates total (g)",
     fiber_g: "Fiber (g)",
-    sugar_g: "Sugar (g)"
+    sugar_g: "Sugar (g)",
   };
 
   if (key in conversions) {
@@ -25,7 +24,7 @@ function capitalizedCase(key) {
   return capitalizedCase(key);
 }
 
-const AddFood = () => {
+const AddFood = (isAuthenticated) => {
   const [foodData, setFoodData] = useState({
     name: "",
     calories: "",
@@ -43,6 +42,7 @@ const AddFood = () => {
 
   const [showForm, setShowForm] = useState(false);
   const [showAddButton, setShowAddButton] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(isAuthenticated);
 
   const handleToggleForm = () => {
     setShowForm(!showForm);
@@ -57,39 +57,81 @@ const AddFood = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!foodData.name.trim() || !foodData.calories.trim()) {
       alert("Name and calories are required fields");
       return;
     }
-
-    let existingData = JSON.parse(localStorage.getItem("foodData"));
-    if (!existingData) {
-      existingData = [];
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      setIsLoggedIn(false);
     }
+    if (isLoggedIn) {
+      try {
+        const response = await fetch("/user/data/add-food", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ foodData: foodData }),
+        })
+        if (response.ok) {
+          setFoodData({
+            name: "",
+            calories: "",
+            serving_size_g: "",
+            fat_total_g: "",
+            fat_saturated_g: "",
+            protein_g: "",
+            sodium_mg: "",
+            potassium_mg: "",
+            cholesterol_mg: "",
+            carbohydrates_total_g: "",
+            fiber_g: "",
+            sugar_g: "",
+          });
+          handleToggleForm();
+          return;
+        } else if (response.status === 401) {
+          setIsLoggedIn(false);
+          throw new Error("User data not available");
+        } else {
+          throw new Error("User data not available");
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        setIsLoggedIn(true);
+      }
+    } else {
+      let existingData = JSON.parse(localStorage.getItem("foodData"));
+      if (!existingData) {
+        existingData = [];
+      }
 
-    const newData = [...existingData, foodData];
-    console.log(newData);
-    localStorage.setItem("foodData", JSON.stringify(newData));
+      const newData = [...existingData, foodData];
+      console.log(newData);
+      localStorage.setItem("foodData", JSON.stringify(newData));
 
-    setFoodData({
-      name: "",
-      calories: "",
-      serving_size_g: "",
-      fat_total_g: "",
-      fat_saturated_g: "",
-      protein_g: "",
-      sodium_mg: "",
-      potassium_mg: "",
-      cholesterol_mg: "",
-      carbohydrates_total_g: "",
-      fiber_g: "",
-      sugar_g: "",
-    });
+      setFoodData({
+        name: "",
+        calories: "",
+        serving_size_g: "",
+        fat_total_g: "",
+        fat_saturated_g: "",
+        protein_g: "",
+        sodium_mg: "",
+        potassium_mg: "",
+        cholesterol_mg: "",
+        carbohydrates_total_g: "",
+        fiber_g: "",
+        sugar_g: "",
+      });
 
-    handleToggleForm();
+      handleToggleForm();
+    }
   };
 
   return (

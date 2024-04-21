@@ -57,13 +57,13 @@
   all: unset;
   font: 16px system-ui;
   color: #fff;
-  flex: 1; /* El input ocupa todo el espacio disponible */
-  padding: 6px 10px;
+  flex: 1;
+  padding: 6px 18px;
 }
 
 .searchbar-container:hover,
 .searchbar-container:focus {
-  background-color: #0077ff; /* Fondo azul claro al pasar el mouse o al estar en foco */
+  background-color: #0077ff;
 }
 
 

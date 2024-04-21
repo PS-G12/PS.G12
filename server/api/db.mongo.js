@@ -125,8 +125,8 @@ const setUserData = async (userId, food) => {
     if (!userData.objectiveData.foodRecords) {
       userData.objectiveData.foodRecords = [];
     }
-    console.log(food);
-    console.log(userData);
+    //console.log(food);
+    //console.log(userData);
 
     const calories = parseFloat(food.calorias);
     const proteins = parseFloat(food.protein);
@@ -138,7 +138,7 @@ const setUserData = async (userId, food) => {
     const validFats = isNaN(fats) || !isFinite(fats) ? 0 : fats;
     const validCarbs = isNaN(carbs) || !isFinite(carbs) ? 0 : carbs;
 
-    console.log(validCalories, validProteins, validFats, validCarbs);
+    //console.log(validCalories, validProteins, validFats, validCarbs);
 
     const kcalConsumed =
       isNaN(userData.objectiveData.kcalConsumed) ||
@@ -195,6 +195,66 @@ const setUserData = async (userId, food) => {
     throw error;
   }
 };
+const addNewFood = async (userId, food) => {
+  try {
+    const collection = database.collection("objective_records");
+    const userData = await collection.findOne({ userId: userId });
+    if (!userData) {
+      console.error("No user records found");
+      return;
+    }
+    if (!userData.objectiveData.ownFood) {
+      userData.objectiveData.ownFood = [];
+    }
+    userData.objectiveData.ownFood.push(food);
+    //console.log(userData.objectiveData.ownFood);
+
+    await collection.updateOne(
+      { userId: userId },
+      {
+        $set: {
+          "objectiveData.ownFood": userData.objectiveData.ownFood,
+        },
+      }
+    );
+
+    return 1;
+  } catch (error) {
+    console.error("Error fetching/updating user data:", error);
+    throw error;
+  }
+};
+
+const searchOwnFood = async (user, query) => {
+  const foundItems = [];
+  try {
+    const collection = database.collection("objective_records");
+    const userData = await collection.findOne({ userId: user });
+    if (!userData) {
+      console.error("No user records found");
+      return foundItems;
+    }
+    if (!userData.objectiveData || !userData.objectiveData.ownFood) {
+      return foundItems;
+    }
+    
+    for (const item of userData.objectiveData.ownFood) {
+      if (
+        item.name.toLowerCase().startsWith(query) &&
+        !foundItems.some((foundItem) => foundItem.name === item.name)
+      ) {
+        foundItems.push(item);
+      }
+    }
+  } catch (error) {
+    console.error("Error finding matching items:", error);
+    throw error;
+  }
+
+  return foundItems;
+};
+
+
 
 const registerUserDataPulse = async (pulseDate, pulse, user) => {
   try {
@@ -313,7 +373,6 @@ const getUserMacros = async (username) => {
 
 const getPrevUserData = async (user) => {
   try {
-    console.log(user);
     const collection = database.collection("user_data");
     const result = await collection.findOne({ "userData.username": user });
     if (!result) {
@@ -336,7 +395,7 @@ const getUserInfo = async (user) => {
             console.error("No user records found");
             return null;
         }
-        console.log("Returning users data...");
+        //console.log("Returning users data...");
         return info;
     }
     catch (error){
@@ -363,9 +422,9 @@ const resetProgress = async (user) => {
         lastLoginDate.getMonth() === currentDate.getMonth() &&
         lastLoginDate.getFullYear() === currentDate.getFullYear()
       ) {
-        console.log("El último inicio de sesión ocurrió hoy.");
+        //console.log("El último inicio de sesión ocurrió hoy.");
       } else {
-        console.log("El último inicio de sesión no ocurrió hoy.");
+        //console.log("El último inicio de sesión no ocurrió hoy.");
         result.objectiveData.proteinsConsumed = 0;
         result.objectiveData.kcalConsumed = 0;
         result.objectiveData.carbsConsumed = 0;
@@ -377,8 +436,8 @@ const resetProgress = async (user) => {
       ...objectiveData,
       userLastLogin: currentDate.toISOString(),
     };
-    console.log("result");
-    console.log(result);
+    //console.log("result");
+    //console.log(result);
     await collection.updateOne(
       { "userId": user },
       { $set: { "objectiveData": result.objectiveData } }
@@ -404,5 +463,7 @@ module.exports = {
   registerUserDataWeight,
   registerUserDataWater,
   resetProgress,
-  getUserInfo
+  getUserInfo,
+  addNewFood,
+  searchOwnFood
 };

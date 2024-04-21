@@ -449,11 +449,11 @@ const IndexPage = () => {
                 <div className="cards">
                   <div className="card-container-top">
                     <ObjectiveCard
-                      remaining={1000}
+                      remaining={35}
                       kcalObjective={2000}
-                      food={1300}
+                      food={1000}
                       exercise={0}
-                      value={133}
+                      value={200}
                     />
 
                     <MacrosCard

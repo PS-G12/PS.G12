@@ -53,7 +53,6 @@ const FoodSearch = () => {
           return response.json();
         })
         .then((data) => {
-          console.log(data);
           setSearchResult(data);
         })
         .catch((error) => {
@@ -66,8 +65,15 @@ const FoodSearch = () => {
   
 
   const handleSearch = () => {
+    const token = sessionStorage.getItem("token");
+    const requestOptions = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+  
     if (type === "none" || !queryType) {
-      fetch(`/api/food?search=${searchQuery}`)
+      fetch(`/api/food?search=${searchQuery}`, requestOptions)
         .then((response) => {
           if (!response.ok) {
             throw new Error("Network response was not ok");
@@ -75,28 +81,28 @@ const FoodSearch = () => {
           return response.json();
         })
         .then((data) => {
-          console.log("Entre");
           setSearchResult(data);
         })
         .catch((error) => {
           console.error("Error fetching food data:", error);
         });
-        return;
-      }
-    fetch(`/api/food?search=${searchQuery}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setSearchResult(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching exercises data:", error);
-      });
+    } else {
+      fetch(`/api/food?search=${searchQuery}`, requestOptions)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          setSearchResult(data);
+        })
+        .catch((error) => {
+          console.error("Error fetching exercises data:", error);
+        });
+    }
   };
+  
 
   const handleRowClick = (item) => {
     setSelectedItem(item);
@@ -125,7 +131,6 @@ const FoodSearch = () => {
       fiber: selectedItem.fiber_g*quantity/100,
       sugar: selectedItem.sugar_g*quantity/100
     };
-    console.log(nuevoAlimento); 
     if (isLoggedIn) {
       const token = sessionStorage.getItem('token');
       fetch('/user/data/food', {
@@ -192,7 +197,7 @@ const FoodSearch = () => {
         <button>Go to Food Log</button>
       </Link>
 
-      <AddFood></AddFood>
+      <AddFood isAuthenticated={isLoggedIn}></AddFood>
 
       <div className="resultSearchFood">
         <div className="search-result">
