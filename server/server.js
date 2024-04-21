@@ -17,7 +17,8 @@ const {
   registerUserDataPulse,
   registerUserDataWeight,
   registerUserDataWater,
-  resetProgress
+  resetProgress,
+  getUserInfo
 } = require("./api/db.mongo");
 const { getUser } = require("./api/db.mongo");
 const jsonData = require("./api/foodData.json");

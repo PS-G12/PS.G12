@@ -328,6 +328,22 @@ const getPrevUserData = async (user) => {
   }
 };
 
+const getUserInfo = async (user) => {
+    try{
+        const collection = database.collection("user_data");
+        const info = await collection.findOne({"userData.username": user});
+        if (!info){
+            console.error("No user records found");
+            return null;
+        }
+        console.log("Returning users data...");
+        return info;
+    }
+    catch (error){
+        console.error("Error while updating the users data: ", error)
+        throw error;
+    }
+}
 
 const resetProgress = async (user) => {
   try {
@@ -374,131 +390,6 @@ const resetProgress = async (user) => {
   }
 };
 
-const getUserInfo = async (user) => {
-  try{
-    const collection = database.collection("user_data");
-    const info = await collection.findOne({"userData.username": user});
-    if (!info){
-      console.error("No user records found");
-      return null;
-    }
-    console.log("Returning users data...");
-    return info;
-  }
-  catch (error){
-    console.error("Error while updating the users data: ", error)
-    throw error;
-  }
-}
-
-
-const updateUser = async (formData, user) => {
-  try {
-    const collection = database.collection("user_data");
-    const collection_to_expand = database.collection("objective_records");
-    const document = collection.findOne({ "userData.username": user });
-    if (!document) {
-      console.error("No user records foundE");
-      return null;
-    }
-
-    let updateCases = [0, 0, 0];
-    updateCases[0] = (formData.userData.username !== "") + 0;
-    updateCases[1] = (formData.userData.password !== "") + 0;
-    updateCases[2] = (formData.userData.email !== "") + 0;
-    console.log("Update case: ", updateCases.join(""));
-    let updateDocument;
-    switch (updateCases.join("")) {
-      //UPE
-      case "000":
-        console.error("Nothing to update");
-        break;
-      case "001":
-        updateDocument = {
-          $set: { "userData.email": formData.userData.email },
-        };
-        break;
-      case "010":
-        updateDocument = {
-          $set: { "userData.password": formData.userData.password },
-        };
-        break;
-      case "011":
-        updateDocument = {
-          $set: {
-            "userData.password": formData.userData.password,
-            "userData.email": formData.userData.email,
-          },
-        };
-        break;
-      case "100":
-        updateDocument = {
-          $set: { "userData.username": formData.userData.username },
-        };
-        break;
-      case "101":
-        updateDocument = {
-          $set: {
-            "userData.username": formData.userData.username,
-            "userData.email": formData.userData.email,
-          },
-        };
-        break;
-      case "110":
-        updateDocument = {
-          $set: {
-            "userData.username": formData.userData.username,
-            "userData.password": formData.userData.password,
-          },
-        };
-        break;
-      case "111":
-        updateDocument = {
-          $set: {
-            "userData.username": formData.userData.username,
-            "userData.password": formData.userData.password,
-            "userData.email": formData.userData.email,
-          },
-        };
-        break;
-    }
-
-    if (!updateDocument) {
-      return null;
-    }
-    const result = await collection.updateOne(
-      { "userData.username": user },
-      updateDocument
-    );
-    let modifiedCollectiontoExpand = false;
-    if (formData.userData.username) {
-      const expandUpdate = {
-        $set: { userId: formData.userData.username },
-      };
-      const expandUpdateToCollection = await collection_to_expand.updateOne(
-        { userId: user },
-        expandUpdate
-      );
-      if (expandUpdateToCollection.modifiedCount === 1) {
-        modifiedCollectiontoExpand = true;
-      }
-    }
-
-    if (result.modifiedCount === 1 && modifiedCollectiontoExpand) {
-      console.log("Update and update expansion were successfull");
-      return modifiedCollectiontoExpand;
-    } else if (result.modifiedCount === 1) {
-      console.log("Update was successful");
-      return modifiedCollectiontoExpand;
-    } else {
-      //console.log('Something went wrong updating the user');
-    }
-  } catch (error) {
-    console.error("Error while updating the users data: ", error);
-    throw error;
-  }
-};
-
 module.exports = {
   getUser,
   getQuery,
@@ -513,5 +404,6 @@ module.exports = {
   registerUserDataPulse,
   registerUserDataWeight,
   registerUserDataWater,
-  resetProgress
+  resetProgress,
+  getUserInfo
 };
