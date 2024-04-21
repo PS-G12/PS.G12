@@ -12,6 +12,9 @@ const ChangePassword = () => {
     const [newPassword, setNewPassword] = useState("");
     const [repeatNewPassword, setRepeatNewPassword] = useState("");
     const [tokenFetched, setTokenFetched] = useState(false);
+    const [error, setError] = useState(null);
+    const [correct, setCorrect] = useState(null);
+    const [showMessage, setShowMessage] = useState(false);
 
     const [formData, setFormData] = useState(
         {
@@ -112,6 +115,7 @@ const ChangePassword = () => {
 
     
     const handleSaveClick = () => {
+        setShowMessage(true);
 
         if( previousPassword && newPassword && repeatNewPassword ){
 
@@ -137,14 +141,17 @@ const ChangePassword = () => {
             
                     if (response.ok && data){
                         console.log("Password updated correctly")
+                        setCorrect("Password updated correctly");
                         return
                     }
                     else{
                         console.error("Could not fetch the users data");
+                        setError("Password error");
                     }
                 }
                 catch (error){
                     console.error("Run into an error while getting the users data: ", error);
+                    setError("Password error");
                     throw error;
                 }
             }
@@ -220,6 +227,20 @@ const ChangePassword = () => {
                                 </table>
                             </div>
                         </div>
+
+                        {showMessage && (
+                            correct ? (
+                                <p className="correct">
+                                    <i className="success-icon fas fa-check-circle"></i>
+                                    Password updated correctly
+                                </p>
+                            ) : (
+                                <p className="error">
+                                    <i className="error-icon fas fa-exclamation-circle"></i>
+                                    The previous password does not match or the proposed passwords do not match
+                                </p>
+                            )
+                        )}
 
                         <button className="save-changePassword" onClick={handleSaveClick}>
                             <span className="icon-margin">
