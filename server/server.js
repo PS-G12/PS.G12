@@ -475,7 +475,7 @@ app.post("/user/data/update/info/username", verifyToken, async (req, res) => {
       return res.status(401).json({ success: false, message: "No user found" });
     }
 
-    if (prevData.userData.username === formDataUpdate.userData.username){
+    if (prevData.username === formDataUpdate.userData.username){
       return res.status(401).json({ success: false, message: "The new username can't be the same as the previous one" });
     }
 
@@ -497,7 +497,7 @@ app.post("/user/data/update/info/email", verifyToken, async (req, res) => {
         return res.status(401).json({ success: false, message: "No user found" });
       }
 
-      if (prevData.userData.email === formDataUpdate.userData.email){
+      if (prevData.email === formDataUpdate.userData.email){
         return res.status(401).json({ success: false, message: "The new email can't be the same as the previous one" });
       }
 

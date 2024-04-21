@@ -462,7 +462,7 @@ const ProfilePrueba = () => {
                     }));
                     setEmail(true);
                     break;
-                case "Weight":
+                case "Weight (Kg)":
                     setFormDataUpdate(prevState => ({
                         ...prevState,
                         userData: {
@@ -472,7 +472,7 @@ const ProfilePrueba = () => {
                     }));
                     setWeight(true);
                     break;
-                case "Height":
+                case "Height (cm)":
                     setFormDataUpdate(prevState => ({
                         ...prevState,
                         userData: {
