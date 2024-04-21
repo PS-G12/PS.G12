@@ -2,3 +2,12 @@
     display: flex;
     justify-content: center;
 }
+.main-specifications{
+    display: flex;
+    flex-direction: column;
+}
+
+.card-component{
+    flex: 1 1;
+    min-height: 76.7vh;
+}

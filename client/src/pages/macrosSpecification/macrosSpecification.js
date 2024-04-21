@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import MacrosHeader from '../../components/macrosHeader/macrosHeader';
+import Footer from "../../components/Footer/footer";
 import MacrosSpecificationCard from '../../components/macrosSpecificationCard/macrosSpecificationCard';
 import './macrosSpecification.css'
 
@@ -37,6 +38,7 @@ const MacrosSpecification = ({specificationName}) => {
       <div className="card-component">
         <MacrosSpecificationCard specificationName={specificationName}/>
       </div>
+      <Footer />
     </div>
   );
 };

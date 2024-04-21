@@ -63,6 +63,7 @@ const RegisterForm = () => {
     };
   }, []);
 
+
   const handleCheckboxChange = (e) => {
     const marked = e.target.checked;
     const checkboxes = document.querySelectorAll("input[type=checkbox]");
@@ -139,11 +140,6 @@ const RegisterForm = () => {
         } else if (formData.userData.username.length < 4) {
           setErrors({
             signUpUsername: "Username must be at least 4 characters long.",
-          });
-          return -1;
-        } else if (formData.userData.username.length > 9) {
-          setErrors({
-            signUpUsername: "Username must be at most 9 characters long.",
           });
           return -1;
         } else {
@@ -292,6 +288,14 @@ const RegisterForm = () => {
     if (step === 1 && formData.userData.username.length < 4) {
       newErrors.signUpUsername = "Username must be at least 4 characters long.";
     }
+    if (step === 1 && formData.userData.username.length > 9) {
+      newErrors.signUpUsername = "Username must be at most 9 characters long.";
+    }
+
+    if (step === 2 && formData.userData.username.length > 9) {
+      newErrors.signUpUsername = "Username must be at most 9 characters long.";
+    }
+
 
     if (step === 3 && formData.userData.password.length < 5) {
       newErrors.signUpPassword =
@@ -465,6 +469,7 @@ const RegisterForm = () => {
                       {errors.signUpUsername && (
                         <span className="error">{errors.signUpUsername}</span>
                       )}
+                      {console.log(errors)}
                     </p>
                   </>
                 )}

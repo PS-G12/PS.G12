@@ -66,7 +66,6 @@ const FoodSearch = () => {
 
   const handleSearch = () => {
     if (type === "none" || !queryType) {
-      console.log("Soy gay");
       fetch(`/api/food?search=${searchQuery}`)
         .then((response) => {
           if (!response.ok) {
@@ -108,24 +107,24 @@ const FoodSearch = () => {
       console.error("No se ha seleccionado ningún alimento.");
       return;
     }
-    
+
     const nuevoAlimento = {
       typeComida: type,
       nombre: selectedItem.name,
-      calorias: selectedItem.calories,
+      calorias: selectedItem.calories*quantity/100,
       cantidad: quantity,
-      servingSize: selectedItem.serving_size_g,
-      fatTotal: selectedItem.fat_total_g,
-      fatSaturated: selectedItem.fat_saturated_g,
-      protein: selectedItem.protein_g,
-      sodium: selectedItem.sodium_mg,
-      potassium: selectedItem.potassium_mg,
-      cholesterol: selectedItem.cholesterol_mg,
-      carbohydratesTotal: selectedItem.carbohydrates_total_g,
-      fiber: selectedItem.fiber_g,
-      sugar: selectedItem.sugar_g
+      servingSize: selectedItem.serving_size_g*quantity/100,
+      fatTotal: selectedItem.fat_total_g*quantity/100,
+      fatSaturated: selectedItem.fat_saturated_g*quantity/100,
+      protein: selectedItem.protein_g*quantity/100,
+      sodium: selectedItem.sodium_mg*quantity/100,
+      potassium: selectedItem.potassium_mg*quantity/100,
+      cholesterol: selectedItem.cholesterol_mg*quantity/100,
+      carbohydratesTotal: selectedItem.carbohydrates_total_g*quantity/100,
+      fiber: selectedItem.fiber_g*quantity/100,
+      sugar: selectedItem.sugar_g*quantity/100
     };
-    
+    console.log(nuevoAlimento); 
     if (isLoggedIn) {
       const token = sessionStorage.getItem('token');
       fetch('/user/data/food', {

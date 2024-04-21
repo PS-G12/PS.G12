@@ -60,7 +60,6 @@ const IndexPage = () => {
         },
       })
         .then((response) => {
-          console.log("set loading false");
           if (response.ok) {
             setIsLoggedIn(true);
             return response.json();
@@ -71,7 +70,6 @@ const IndexPage = () => {
         })
         .then((data) => {
           setLoading(false);
-          console.log(data);
           setObjectiveData({
             value: data.objectiveData.kcalConsumed,
             kcalObjective: data.objectiveData.kcalObjective,
@@ -106,6 +104,17 @@ const IndexPage = () => {
           );
           pulseProgressionratio = Object.values(
             data.objectiveData.pulseProgression
+          );
+
+          console.log(
+            "Datos de weightProgressionData:",
+            weightProgressionDates,
+            weightProgressionWeights
+          );
+          console.log(
+            "Datos de PulseProgressionData:",
+            pulseProgressionDates,
+            pulseProgressionratio
           );
 
           setWeightProgressionData({
@@ -253,7 +262,7 @@ const IndexPage = () => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const waterAmount = parseInt(formData.get("waterAmount"));
-    
+
     if (waterAmount > 0) {
       const token = sessionStorage.getItem("token");
       if (token) {
@@ -265,23 +274,22 @@ const IndexPage = () => {
           },
           body: JSON.stringify({ waterAmount }),
         })
-        .then((response) => {
-          if (response.ok) {
-            setwaterCount(waterAmount+waterCount);
-            setPopupData(null);
-          } else {
-            console.error("Failed to add water");
-          }
-        })
-        .catch(error => {
-          console.error("Error adding water:", error);
-        });
+          .then((response) => {
+            if (response.ok) {
+              setwaterCount(waterAmount + waterCount);
+              setPopupData(null);
+            } else {
+              console.error("Failed to add water");
+            }
+          })
+          .catch((error) => {
+            console.error("Error adding water:", error);
+          });
       }
     } else {
       console.error("Invalid water amount");
     }
   };
-  
 
   const handleWaterSubmit = (event) => {
     event.preventDefault();
@@ -290,7 +298,13 @@ const IndexPage = () => {
         <h3>Add Water</h3>
         <form className="water-form">
           <label htmlFor="waterAmount">Amount (ml):</label>
-          <input type="number" id="waterAmount" name="waterAmount" min="0" required />
+          <input
+            type="number"
+            id="waterAmount"
+            name="waterAmount"
+            min="0"
+            required
+          />
           <div className="button-space">
             <button type="submit" className="submit-button">
               Submit
@@ -308,8 +322,6 @@ const IndexPage = () => {
     setPopupData(waterPopup);
   };
 
-  
-  
   return (
     <div className="index-page">
       <Header isAuthenticated={isLoggedIn} />
@@ -322,22 +334,15 @@ const IndexPage = () => {
           {isLoggedIn ? (
             <div className="cards">
               <div className="card-container-top">
-                {console.log(`kcalObjective : ${objectiveData.kcalObjective}` )}
-                {console.log(`kcalConsumed : ${objectiveData.value}` )}
-                {console.log(`Remaining : ${objectiveData.remaining}` )}
-
                 <ObjectiveCard
                   remaining={Math.round(
                     parseFloat(
-                            (objectiveData.value /
-                            objectiveData.kcalObjective) *
-                            100
+                      (objectiveData.value / objectiveData.kcalObjective) * 100
                     )
                   )}
                   kcalObjective={Math.round(
                     parseFloat(objectiveData.kcalObjective)
                   )}
-                  
                   food={Math.round(parseFloat(objectiveData.food))}
                   exercise={Math.round(parseFloat(objectiveData.exercise))}
                   value={Math.round(parseFloat(objectiveData.remaining))}
@@ -392,39 +397,42 @@ const IndexPage = () => {
                     }}
                   />
                 </div>
-              
-              <div className="chart-container2" onClick={handlePulseChartClick}>
-                <p>
-                  Your Pulse Progression <FontAwesomeIcon icon={faHeart} />
-                </p>
-                <Line
-                  data={{
-                    labels: PulseProgressionData.dates,
-                    datasets: [
-                      {
-                        label: "Pulse Progression",
-                        data: PulseProgressionData.ratio,
-                        fill: false,
-                        borderColor: "rgb(12, 374, 12)",
-                        tension: 0.1,
-                      },
-                    ],
-                  }}
-                  options={{
-                    plugins: {
-                      scales: {
-                        y: {
-                          beginAtZero: true,
+
+                <div
+                  className="chart-container2"
+                  onClick={handlePulseChartClick}
+                >
+                  <p>
+                    Your Pulse Progression <FontAwesomeIcon icon={faHeart} />
+                  </p>
+                  <Line
+                    data={{
+                      labels: PulseProgressionData.dates,
+                      datasets: [
+                        {
+                          label: "Pulse Progression",
+                          data: PulseProgressionData.ratio,
+                          fill: false,
+                          borderColor: "rgb(12, 374, 12)",
+                          tension: 0.1,
+                        },
+                      ],
+                    }}
+                    options={{
+                      plugins: {
+                        scales: {
+                          y: {
+                            beginAtZero: true,
+                          },
+                        },
+                        legend: {
+                          display: true,
                         },
                       },
-                      legend: {
-                        display: true,
-                      },
-                    },
-                  }}
-                />
+                    }}
+                  />
+                </div>
               </div>
-            </div>
             </div>
           ) : (
             <div className="cards default">
@@ -438,21 +446,117 @@ const IndexPage = () => {
                 </p>
               </div>
               <div className="blur-content">
-                <ObjectiveCard
-                  value={50}
-                  kcalObjective={2000}
-                  food={0}
-                  exercise={0}
-                  remaining={1000}
-                />
-                <MacrosCard
-                  value={60}
-                  max={150}
-                  value2={40}
-                  max2={50}
-                  value3={30}
-                  max3={80}
-                />
+                <div className="cards">
+                  <div className="card-container-top">
+                    <ObjectiveCard
+                      remaining={1000}
+                      kcalObjective={2000}
+                      food={1300}
+                      exercise={0}
+                      value={133}
+                    />
+
+                    <MacrosCard
+                      value={40}
+                      max={110}
+                      value2={50}
+                      max2={70}
+                      value3={35}
+                      max3={100}
+                    />
+                    <div
+                      className="water-container"
+                      onClick={handleWaterSubmit}
+                    >
+                      <WaterGlass waterCount={0} waterGoal={1500} />
+                    </div>
+                  </div>
+                  <div className="chart-container-main">
+                    <div
+                      className="chart-container"
+                      onClick={handleWeightChartClick}
+                    >
+                      <p>
+                        {" "}
+                        Your Weight Progression{" "}
+                        <FontAwesomeIcon icon={faDumbbell} />
+                      </p>
+                      <Line
+                        data={{
+                          labels: [
+                            "2024-02-05",
+                            "2024-03-11",
+                            "2024-03-26",
+                            "2024-03-31",
+                          ],
+                          datasets: [
+                            {
+                              label: "Weight Progression",
+                              data: [66, 67, 67.4, 68, 70],
+                              fill: false,
+                              borderColor: "rgb(75, 192, 192)",
+                              tension: 0.1,
+                            },
+                          ],
+                        }}
+                        options={{
+                          plugins: {
+                            scales: {
+                              y: {
+                                beginAtZero: true,
+                              },
+                            },
+                            legend: {
+                              display: true,
+                            },
+                          },
+                        }}
+                      />
+                    </div>
+
+                    <div
+                      className="chart-container2"
+                      onClick={handlePulseChartClick}
+                    >
+                      <p>
+                        Your Pulse Progression{" "}
+                        <FontAwesomeIcon icon={faHeart} />
+                      </p>
+                      <Line
+                        data={{
+                          labels: [
+                            "2024-02-03",
+                            "2024-03-10",
+                            "2024-03-20",
+                            "2024-03-31",
+                            "2024-04-11",
+                          ],
+                          datasets: [
+                            {
+                              label: "Pulse Progression",
+                              data: [54, 63, 78, 74, 79],
+                              fill: false,
+                              borderColor: "rgb(12, 374, 12)",
+                              tension: 0.1,
+                            },
+                          ],
+                        }}
+                        options={{
+                          plugins: {
+                            scales: {
+                              y: {
+                                beginAtZero: true,
+                              },
+                            },
+                            legend: {
+                              display: true,
+                            },
+                          },
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           )}

@@ -399,7 +399,6 @@ module.exports = {
   getUserWeightHeight,
   getUserMacros,
   getPrevUserData,
-  updateUser,
   setUserData,
   registerUserDataPulse,
   registerUserDataWeight,
