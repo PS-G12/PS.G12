@@ -374,7 +374,22 @@ const resetProgress = async (user) => {
   }
 };
 
-
+const getUserInfo = async (user) => {
+  try{
+    const collection = database.collection("user_data");
+    const info = await collection.findOne({"userData.username": user});
+    if (!info){
+      console.error("No user records found");
+      return null;
+    }
+    console.log("Returning users data...");
+    return info;
+  }
+  catch (error){
+    console.error("Error while updating the users data: ", error)
+    throw error;
+  }
+}
 
 
 const updateUser = async (formData, user) => {

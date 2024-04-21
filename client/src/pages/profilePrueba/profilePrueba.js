@@ -9,8 +9,37 @@ const ProfilePrueba = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [token, setToken] = useState();
     const [selectedImage, setSelectedImage] = useState("");
-    const [editedGender, setEditedGender] = useState("Male"); // Valor predeterminado
-    const [editedSystem, setEditedSystem] = useState("Metric");
+    const [editedGender, setEditedGender] = useState("Male");
+    //const [editedSystem, setEditedSystem] = useState("Metric");
+    const [tokenFetched, setTokenFetched] = useState(false);
+
+    const [formData, setFormData] = useState(
+        {
+            userData:{
+                username: "",
+                email: "",
+                weight: "",
+                height:"",
+                kcalGoal:"",
+                gender:"",
+                age:"",
+            }
+        }
+    );
+
+    const [formDataUpdate, setFormDataUpdate] = useState(
+        {
+            userData:{
+                username: "",
+                email: "",
+                weight: "",
+                height:"",
+                kcalGoal:"",
+                gender:"",
+                age:"",
+            }
+        }
+    );
 
     const handleImageChange = (event) => {
         const file = event.target.files[0];
@@ -31,6 +60,7 @@ const ProfilePrueba = () => {
             .then(response => {
                 if (response.ok) {
                     setIsLoggedIn(true);
+                    setTokenFetched(true);
                 } else {
                     setIsLoggedIn(false);
                     console.error('Invalid token');
@@ -45,6 +75,107 @@ const ProfilePrueba = () => {
         }
     }, []);
 
+    useEffect(() => {
+        if (tokenFetched){
+            const getUserkcalGoal = async () => {
+                try{
+                    const response = await fetch("/user/data", {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`
+                        }
+                    });
+            
+                    const data = await response.json();
+            
+                    if (response.ok && data){
+                        console.log(data);
+                        setFormData(prevState => ({
+                            ...prevState,
+                            userData: {
+                                ...prevState.userData,
+                                kcalGoal: data.objectiveData.kcalObjective
+                            }
+                        }));
+                    }
+                    else{
+                        console.error("Could not fetch the users kcal goal");
+                    }
+                }
+                catch (error){
+                    console.error("Run into an error while getting the user kcal goal: ", error);
+                    throw error
+                }
+            };
+
+            const getUserData = async () => {
+                try{
+                    const response = await fetch("/user/data/info", {
+                        method: "GET",
+                        headers:{
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`
+                        }
+                    });
+            
+                    const data = await response.json();
+            
+                    if (response.ok && data){
+                        setFormData(prevState => ({
+                            ...prevState,
+                            userData: {
+                                ...prevState.userData,
+                                username: data.userData.username,
+                                email: data.userData.email,
+                                weight: data.userData.weight,
+                                height: data.userData.height,
+                                gender: data.userData.gender,
+                                age: data.userData.age
+                            }
+                        }));
+                    }
+                    else{
+                        console.error("Could not fetch the users data");
+                    }
+                }
+                catch (error){
+                    console.error("Run into an error while getting the users data: ", error);
+                    throw error;
+                }
+            };
+
+            getUserkcalGoal();
+            getUserData();
+        }
+    }, [tokenFetched]);
+
+    const updateUserData = async () => {
+        try{
+            const response = await fetch("/user/data/update/info", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({ formDataUpdate })
+            });
+    
+            const data = await response.json();
+    
+            if (response.ok){
+                console.log("Users data updated");
+            }
+            else{
+                console.error("Could not update the users data");
+            }
+        }
+        catch (error){
+            console.error("Run into an error updating the data: ", error);
+            throw error;
+        }
+    };
+
     const TableRow = ({ title, value, isSelector = false, options = [], onChange }) => {
         const [editMode, setEditMode] = useState(false);
         const [editedValue, setEditedValue] = useState(value);
@@ -57,6 +188,73 @@ const ProfilePrueba = () => {
 
         const handleSaveClick = () => {
             setEditMode(false);
+            switch (title) {
+                case "UserName":
+                    setFormDataUpdate(prevState => ({
+                        ...prevState,
+                        userData: {
+                            ...prevState.userData,
+                            username: editedValue
+                        }
+                    }));
+                    break;
+                case "Mail":
+                    setFormDataUpdate(prevState => ({
+                        ...prevState,
+                        userData: {
+                            ...prevState.userData,
+                            email: editedValue
+                        }
+                    }));
+                    break;
+                case "Weight":
+                    setFormDataUpdate(prevState => ({
+                        ...prevState,
+                        userData: {
+                            ...prevState.userData,
+                            weight: editedValue
+                        }
+                    }));
+                    break;
+                case "Height":
+                    setFormDataUpdate(prevState => ({
+                        ...prevState,
+                        userData: {
+                            ...prevState.userData,
+                            height: editedValue
+                        }
+                    }));
+                    break;
+                case "Age":
+                    setFormDataUpdate(prevState => ({
+                        ...prevState,
+                        userData: {
+                            ...prevState.userData,
+                            age: editedValue
+                        }
+                    }));
+                    break;
+                case "Kcals Goal":
+                    setFormDataUpdate(prevState => ({
+                        ...prevState,
+                        userData: {
+                            ...prevState.userData,
+                            kcalGoal: editedValue
+                        }
+                    }));
+                    break;
+                case "Gender":
+                    setFormDataUpdate(prevState => ({
+                        ...prevState,
+                        userData: {
+                            ...prevState.userData,
+                            gender: editedValue
+                        }
+                    }));
+                    break;
+                default:
+                    break;
+            }
         };
 
         return (
@@ -120,8 +318,8 @@ const ProfilePrueba = () => {
                 <div className="table-info-section">
 
                     <div className="username-section">
-                        <h1>username</h1>
-                        <h2>@username</h2>
+                        <h1>{formData.userData.username === null ? "username" : formData.userData.username}</h1>
+                        <h2>{formData.userData.username === null ? "@username" : "@" + formData.userData.username}</h2>
                     </div>
 
                     <div className="tables-profile">
@@ -130,8 +328,8 @@ const ProfilePrueba = () => {
                             <div className="table-container-profile">
                                 <table>
                                     <tbody>
-                                        <TableRow title="UserName" value="TuNombreAquí" />
-                                        <TableRow title="Mail" value="mail@gmail.com" />
+                                        <TableRow title="UserName" value={formData.userData.username === null ? "username" : formData.userData.username} />
+                                        <TableRow title="Mail" value={formData.userData.email === null ? "mail@gmail.com" : formData.userData.email} />
                                     </tbody>
                                 </table>
                             </div>
@@ -142,186 +340,18 @@ const ProfilePrueba = () => {
                             <div className="table-container-profile">
                                 <table>
                                     <tbody>
-                                        <TableRow title="Weight" value="XX" />
-                                        <TableRow title="Height" value="XX" />
-                                        <TableRow title="Age" value="20" />
-                                        <TableRow title="Kcals Goal" value="xxxx" />
+                                        <TableRow title="Weight" value={formData.userData.weight === null ? "XX" : formData.userData.weight + " kg"} />
+                                        <TableRow title="Height" value={formData.userData.height === null ? "XX" : formData.userData.height + " cm"} />
+                                        <TableRow title="Age" value={formData.userData.age === null ? "XX" : formData.userData.age} />
+                                        <TableRow title="Kcals Goal" value={formData.userData.kcalGoal === null ? "xxxx" : formData.userData.kcalGoal + " Kcal"} />
                                         <TableRow
                                             title="Gender"
                                             value={editedGender}
                                             isSelector={true}
                                             options={[
                                                 "Male",
-                                                "Female",
-                                                "Other",
-                                                "Transgender Male",
-                                                "Transgender Female",
-                                                "Genderqueer",
-                                                "Non-binary",
-                                                "Agender",
-                                                "Bigender",
-                                                "Genderfluid",
-                                                "Two-Spirit",
-                                                "Questioning",
-                                                "Prefer not to say",
-                                                "Androgynous",
-                                                "Neutrois",
-                                                "Demiboy",
-                                                "Demigirl",
-                                                "Multigender",
-                                                "Pangender",
-                                                "Intergender",
-                                                "Femandrogyne",
-                                                "Mascanine",
-                                                "Femuline",
-                                                "Androgyne",
-                                                "Epicene",
-                                                "Ambigender",
-                                                "Quoigender",
-                                                "Libragender",
-                                                "Exgender",
-                                                "Ceterogender",
-                                                "Novigender",
-                                                "Fluxgender",
-                                                "Nebulagender",
-                                                "Aliengender",
-                                                "Voidgender",
-                                                "Galaxygender",
-                                                "Stargender",
-                                                "Mythogender",
-                                                "Aerogender",
-                                                "Hydrogender",
-                                                "Pyrogender",
-                                                "Terragender",
-                                                "Lunagender",
-                                                "Solargender",
-                                                "Chronogender",
-                                                "Technogender",
-                                                "Robogender",
-                                                "Pixelgender",
-                                                "Cybergender",
-                                                "Glowgender",
-                                                "Toxicgender",
-                                                "Cosmicgender",
-                                                "Cryptogender",
-                                                "Frostgender",
-                                                "Flamegender",
-                                                "Sparklegender",
-                                                "Glitchgender",
-                                                "Fantasygender",
-                                                "Wondergender",
-                                                "Dreamgender",
-                                                "Mirrorgender",
-                                                "Infinitygender",
-                                                "Plasmagender",
-                                                "Spectragender",
-                                                "Radiogender",
-                                                "Ultravioletgender",
-                                                "Infraredgender",
-                                                "Diamogender",
-                                                "Crystalgender",
-                                                "Marblegender",
-                                                "Lavagender",
-                                                "Crystallogender",
-                                                "Vortexgender",
-                                                "Echoicgender",
-                                                "Sonogender",
-                                                "Cacogender",
-                                                "Aerogender",
-                                                "Oceangender",
-                                                "Meteorogender",
-                                                "Zephyrgender",
-                                                "Cyclonegender",
-                                                "Monsoongender",
-                                                "Tornadogender",
-                                                "Hurricanegender",
-                                                "Blizzardgender",
-                                                "Avalanchegender",
-                                                "Arcticgender",
-                                                "Glaciergender",
-                                                "Alpengender",
-                                                "Polarisgender",
-                                                "Auroragender",
-                                                "Quasargender",
-                                                "Nebulagender",
-                                                "Supernovagender",
-                                                "Blackholegender",
-                                                "Neutrongender",
-                                                "Photonogender",
-                                                "Waviclegender",
-                                                "Cosmogender",
-                                                "Astrogender",
-                                                "Starlightgender",
-                                                "Galaxiagender",
-                                                "Moonlightgender",
-                                                "Sunlightgender",
-                                                "Starburstgender",
-                                                "Asteroidgender",
-                                                "Nebulagender",
-                                                "Milkywaygender",
-                                                "Spacegender",
-                                                "Aliengender",
-                                                "Exoplanetgender",
-                                                "Meteoritegender",
-                                                "Saturngender",
-                                                "Jupitergender",
-                                                "Marsgender",
-                                                "Earthgender",
-                                                "Venusgender",
-                                                "Plutogender",
-                                                "Uranusgender",
-                                                "Neptunegender",
-                                                "Interstellargender",
-                                                "Cosmicagender",
-                                                "Cosmofluid",
-                                                "Stellargender",
-                                                "Galacticgender",
-                                                "Meteorogender",
-                                                "Meteoritogender",
-                                                "Solarisgender",
-                                                "Solgender",
-                                                "Solargender",
-                                                "Celestialgender",
-                                                "Cometgender",
-                                                "Spacestationgender",
-                                                "Cosmonautgender",
-                                                "Astronautgender",
-                                                "Sputnikgender",
-                                                "Lunargender",
-                                                "Orbitgender",
-                                                "Blackholegender",
-                                                "Darkmattergender",
-                                                "Supernovagender",
-                                                "Quasargender",
-                                                "Astrologender",
-                                                "Telescopogender",
-                                                "Observatorygender",
-                                                "Galaxgender",
-                                                "Planetarygender",
-                                                "Constellationgender",
-                                                "Cosmicgender",
-                                                "Multiversegender",
-                                                "Dimensiongender",
-                                                "Extragalacticgender",
-                                                "Nebulogender",
-                                                "Voidgender",
-                                                "Interdimensiongender",
-                                                "Singularitygender",
-                                                "Interplanetarygender",
-                                                "Astrogender",
-                                                "Supergender",
-                                                "Hypergender"
-                                            ]}
-                                            
-
+                                                "Female"]}
                                             onChange={setEditedGender}
-                                        />
-                                        <TableRow
-                                            title="System"
-                                            value={editedSystem}
-                                            isSelector={true}
-                                            options={["Metric", "Imperial"]}
-                                            onChange={setEditedSystem}
                                         />
                                     </tbody>
                                 </table>
