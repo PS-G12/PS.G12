@@ -18,9 +18,7 @@ import Cookies from './pages/footerPages/cookies.js';
 import API from './pages/footerPages/apis.js';
 import WhoWeAre from './pages/footerPages/whoweare.js';
 import GetInTouchWithUs from './pages/footerPages/getintouchwithus.js';
-
-import ProfilePrueba from './pages/profilePrueba/profilePrueba.js';
-import ChangePassword from './pages/profilePrueba/changePassword.js';
+import ChangePassword from './pages/profile/changePassword.js';
 
 
 function App() {
@@ -39,8 +37,6 @@ function App() {
         <Route path="/registerFood" element={<RegisterFood />} />
         <Route path="/MacrosCalculation" element={<MacrosCalculator />} />
         <Route path="/profile" element={<UserProfile />} />
-
-        <Route path="/profilePrueba" element={<ProfilePrueba />} />
         <Route path="/changePassword" element={<ChangePassword />} />
 
         <Route path="/calories" element={<MacrosSpecification specificationName="calories"/>} />

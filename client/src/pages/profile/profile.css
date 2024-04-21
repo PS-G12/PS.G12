@@ -1,100 +1,106 @@
-.profile-data-container{
-    background-color: white;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    width: 50%;
-    height: 600px;
-    margin: 0 auto;
-    margin-bottom: 4%;
-}
 
-.profile-image-container{
+.photo-table{
     display: flex;
-    border: 2px solid #0066EE;
-    width: 69%;
-    height: 70px;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-    border-radius: 10px;
-}
-
-.profile-image-container h1{
-    margin-left: 2%;
-    margin-right: 2%;
-}
-
-.profile-image-container input{
-    display: none;
-}
-
-.img-buttons{
-    margin-top: 1%;
-}
-
-#file-button{
-    text-align: center;
-    margin-right: 10px;
-}
-
-.profile-image-container span{
-    margin-right: 10px;
-    font-weight: bold;
-}
-
-#save-img{
-    background-color: white;
-    color: #0066EE;
-    border: 2px solid #0066EE;
-}
-
-.profile-image{
-    border-radius: 100%;
-    width: 4rem;
-    height: 4rem;
-    border: 2px solid #0066EE;
-}
-
-.forms-and-stats{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 1%;
-}
-
-.forms-and-stats .user-data-container{
-    margin: 0;
-    margin-top: -2%;
-}
-
-.profile-forms{
-    text-align: center;
-    margin-right: 3%;
-}
-
-.profile-forms label{
-    font-weight: bold;
-}
-
-.profile-forms input{
-    margin: 5px 0px;
+  }
+  
+  
+  .photo-username-section  {
+      text-align: center;
+      width: 30%;
+  }
+  
+  .photo-username-section img {
+      max-width: 50%;
+      height: auto;
+  }
+  
+  
+  .tables-profile{
+      height: 70%;
+  }
+  
+  .table-info-section{
+      width: 70%;
+  }
+  
+  
+  .other-info{
+      margin-top: 4%;
+  }
+  
+  .username-section{
+      margin-bottom: 5%;
+  }
+  
+  .table-info-section .username-section h1 {
+      color: #0066ee;
+      font-weight: 300;
+      font-size: 60px;
+      margin-bottom: 0;
+  }
+  
+  .table-info-section .username-section h2 {
+      color: gray;
+      font-weight: 300;
+      font-size: xx-large;
+      margin-top: 0;
+  }
+  
+  .table-container-profile {
+      width: 60%;
+      margin-top: 20px; 
+  }
+  
+  
+  .table-container-profile table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+  }
+  
+  
+  .table-container-profile tr td{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  }
+  
+  .table-container-profile tr td .value{
+      margin:0;
+  }
+  
+  .table-container-profile th,
+  .table-container-profile td {
+      padding: 8px;
+      text-align: left; 
+  }
+  
+  .table-container-profile th {
+      background-color: #f2f2f2;
+      width: 40%;
+  }
+  
+  
+  .table-container-profile tr:first-child th, .table-container-profile tr:first-child td {
+      border-top: 1px solid #000000;
+  }
+  
+  .table-container-profile td, .table-container-profile th {
+      border: none;
+  }
+  
+  .table-container-profile tr th, .table-container-profile tr td {
+      border-bottom: 1px solid #000000;
+  }
+  
+  .input-edit-mode {
     border: none;
-    padding: 15px;
-    background-color: #efefef;
-    border-radius: 5px;
-}
+    outline: none;
+    background-color: transparent;
+    font-size: inherit;
+    color: inherit;
+    }
 
-.change-nickname{
-    margin-bottom: 1%;
-}
-
-.old-password{
-    margin-bottom: 1%;
-}
-
-.new-password{
-    margin-bottom: 1%;
-}
-
-.applay-changes-button{
-    margin-top: 2%;
+.input-edit-mode-input{
+    width: 80%;
 }
