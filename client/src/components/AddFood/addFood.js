@@ -58,7 +58,7 @@ const AddFood = (props) => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!foodData.name.trim()) {
