@@ -17,7 +17,8 @@ const {
   registerUserDataPulse,
   registerUserDataWeight,
   registerUserDataWater,
-  resetProgress
+  resetProgress,
+  getUserInfo
 } = require("./api/db.mongo");
 const { getUser } = require("./api/db.mongo");
 const jsonData = require("./api/foodData.json");
@@ -550,6 +551,22 @@ app.post("/user/data/update/token", async (req, res) => {
     res
       .status(500)
       .json({ error: "An error ocurred while updating the users token" });
+  }
+});
+
+app.get("/user/data/info", verifyToken, async (req, res) => {
+  const user = req.user;
+  try{
+    const userInfo = await getUserInfo(user);
+    if (!userInfo){
+      return res.status(401).json({ success: false, message: "No user found" });
+    }
+    console.log('Obtained the data from the user succesfully');
+    return res.status(200).json(userInfo);
+  }
+  catch (error){
+    console.error("The users data could not be found: ", error);
+    res.status(500).json({ error: "An error ocurred while getting the users data" });
   }
 });
 
