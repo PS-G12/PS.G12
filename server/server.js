@@ -20,7 +20,6 @@ const {
   getUserInfo,
   addNewFood,
   searchOwnFood,
-  getUserInfo,
   updateUsername,
   updateMail,
   updateWeight,
@@ -296,6 +295,7 @@ app.post("/auth/check", async (req, res) => {
 
 app.get("/user/data", verifyToken, async (req, res) => {
   const userId = req.user;
+  console.log(userId);
   try {
     const userData = await getUserData(userId);
     res.status(200).json(userData);
@@ -437,9 +437,9 @@ app.get("/user/data/macros", verifyToken, async (req, res) => {
 });
 
 app.post("/user/data/update/token", async (req, res) => {
-  const { formData } = req.body;
+  const { formDataUpdate } = req.body;
   try {
-    const token = generateAccessToken(formData.userData.username);
+    const token = generateAccessToken(formDataUpdate.userData.username);
     return res.status(200).json({ success: true, token });
   } catch (error) {
     console.error("Could not update the users token");
@@ -474,7 +474,7 @@ app.post("/user/data/update/info/username", verifyToken, async (req, res) => {
       return res.status(401).json({ success: false, message: "No user found" });
     }
 
-    if (prevData.userData.username === formDataUpdate.userData.username){
+    if (prevData.username === formDataUpdate.userData.username){
       return res.status(401).json({ success: false, message: "The new username can't be the same as the previous one" });
     }
 
@@ -496,7 +496,7 @@ app.post("/user/data/update/info/email", verifyToken, async (req, res) => {
         return res.status(401).json({ success: false, message: "No user found" });
       }
 
-      if (prevData.userData.email === formDataUpdate.userData.email){
+      if (prevData.email === formDataUpdate.userData.email){
         return res.status(401).json({ success: false, message: "The new email can't be the same as the previous one" });
       }
 

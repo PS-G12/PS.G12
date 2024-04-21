@@ -36,7 +36,10 @@ const getUser = async (findQuery) => {
         { "userData.email": findQuery },
       ],
     });
-    if (!userquery) throw err;
+    if (!userquery){
+      console.error('No user found');
+      throw Error('Could not find the user');
+    }
     return userquery.userData;
   } catch (error) {
     console.error("Something went wrong trying to find the documents: ", error);
@@ -456,8 +459,6 @@ const updateUsername = async (user, username) => {
     const document = await collection.findOne({"userData.username": user});
     const collectionToExpand = database.collection('objective_records');
     const documentToExpand = await collectionToExpand.findOne({userId: user});
-
-    console.log("puta ",documentToExpand)
   
     if (!document || !documentToExpand){
       console.error("No user records found");
@@ -472,7 +473,7 @@ const updateUsername = async (user, username) => {
       $set: {userId: username}
     };
   
-    const updateExpansion = await collection.updateOne({userId: user}, expandUpdate);
+    const updateExpansion = await collectionToExpand.updateOne({userId: user}, expandUpdate);
     if (updateExpansion.modifiedCount === 1){
       const result = await collection.updateOne({"userData.username":user}, update);
       if (result.modifiedCount === 1){
@@ -679,5 +680,12 @@ module.exports = {
   resetProgress,
   getUserInfo,
   addNewFood,
-  searchOwnFood
+  searchOwnFood,
+  updateUsername,
+  updateMail,
+  updateWeight,
+  updateHeight,
+  updateAge,
+  updateCal,
+  updateGender,
 };
