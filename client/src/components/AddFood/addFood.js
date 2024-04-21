@@ -65,10 +65,12 @@ const AddFood = () => {
       return;
     }
 
-    const existingData = JSON.parse(localStorage.getItem("foodData"));
-    var newData = null;
-    if (existingData) newData = { items: [...existingData.items, foodData] };
-    else newData = { items: [foodData] };
+    let existingData = JSON.parse(localStorage.getItem("foodData"));
+    if (!existingData) {
+      existingData = [];
+    }
+
+    const newData = [...existingData, foodData];
     console.log(newData);
     localStorage.setItem("foodData", JSON.stringify(newData));
 
