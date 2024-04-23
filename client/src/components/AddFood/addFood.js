@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./addFood.css";
 
 function capitalizedCase(key) {
-  //Maps the keys to the desired phrases
   const conversions = {
     name: "Name",
     calories: "Calories",
@@ -15,7 +14,7 @@ function capitalizedCase(key) {
     cholesterol_mg: "Cholesterol (mg)",
     carbohydrates_total_g: "Carbohydrates total (g)",
     fiber_g: "Fiber (g)",
-    sugar_g: "Sugar (g)"
+    sugar_g: "Sugar (g)",
   };
 
   if (key in conversions) {
@@ -25,7 +24,7 @@ function capitalizedCase(key) {
   return capitalizedCase(key);
 }
 
-const AddFood = () => {
+const AddFood = (props) => {
   const [foodData, setFoodData] = useState({
     name: "",
     calories: "",
@@ -43,6 +42,7 @@ const AddFood = () => {
 
   const [showForm, setShowForm] = useState(false);
   const [showAddButton, setShowAddButton] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(props.isAuthenticated);
 
   const handleToggleForm = () => {
     setShowForm(!showForm);
@@ -57,19 +57,16 @@ const AddFood = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (!foodData.name.trim() || !foodData.calories.trim()) {
-      alert("Name and calories are required fields");
-      return;
+  const getLocalData = (foodData) => {
+    let existingData = JSON.parse(localStorage.getItem("foodData"));
+    if (!existingData) {
+      existingData = [];
     }
 
-    const existingData = JSON.parse(localStorage.getItem("foodData"));
-    var newData = null;
-    if (existingData) newData = { items: [...existingData.items, foodData] };
-    else newData = { items: [foodData] };
-    console.log(newData);
+    // Convertir foodData a un objeto
+    const newFoodData = { ...foodData };
+
+    const newData = [...existingData, newFoodData];
     localStorage.setItem("foodData", JSON.stringify(newData));
 
     setFoodData({
@@ -90,6 +87,78 @@ const AddFood = () => {
     handleToggleForm();
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!foodData.name.trim() || !foodData.calories.trim()) {
+      alert("Name and calories are required fields");
+      return;
+    }
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      setIsLoggedIn(false);
+    }
+    console.log(isLoggedIn ? "Is logged in" : "Not logged in");
+    if (isLoggedIn) {
+      try {
+        const response = await fetch("/user/data/add-food", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ foodData: foodData }),
+        });
+        if (response.ok) {
+          setFoodData({
+            name: "",
+            calories: "",
+            serving_size_g: "",
+            fat_total_g: "",
+            fat_saturated_g: "",
+            protein_g: "",
+            sodium_mg: "",
+            potassium_mg: "",
+            cholesterol_mg: "",
+            carbohydrates_total_g: "",
+            fiber_g: "",
+            sugar_g: "",
+          });
+          handleToggleForm();
+          return;
+        } else if (response.status === 401) {
+          console.log("llegue dos");
+          getLocalData([foodData]);
+          setIsLoggedIn(false);
+          setFoodData({
+            name: "",
+            calories: "",
+            serving_size_g: "",
+            fat_total_g: "",
+            fat_saturated_g: "",
+            protein_g: "",
+            sodium_mg: "",
+            potassium_mg: "",
+            cholesterol_mg: "",
+            carbohydrates_total_g: "",
+            fiber_g: "",
+            sugar_g: "",
+          });
+          handleToggleForm();
+          throw new Error("User data not available");
+        } else {
+          throw new Error("User data not available");
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        setIsLoggedIn(true);
+      }
+    } else {
+      console.log("entre");
+      getLocalData([foodData]);
+    }
+  };
+
   return (
     <div className="add-food">
       {showAddButton && (
@@ -104,7 +173,10 @@ const AddFood = () => {
             <h2>Register your food</h2>
             {Object.keys(foodData).map((param) => (
               <div key={param} className="form-row">
-                <label htmlFor={param}>{capitalizedCase(param)}:</label>
+                <label htmlFor={param}>
+                  {capitalizedCase(param)}
+                  {param === "name" || param === "calories" ? "*" : ""}:
+                </label>
                 <input
                   type="text"
                   id={param}
@@ -114,6 +186,7 @@ const AddFood = () => {
               </div>
             ))}
           </div>
+          <p className="required-text">* Required fields</p>
           <button type="submit" className="submit-food">
             Add Food
           </button>

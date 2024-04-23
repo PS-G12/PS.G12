@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./macrosCalculator.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -42,22 +42,15 @@ function MacrosCalculator() {
   };
 
   function validateValues(age, height, weight) {
-    if (isNaN(age) || isNaN(height) || isNaN(weight)) {
-      alert(
-        "Please, make sure that the age, height and weight fields are numbers."
-      );
-      return false;
-    } else if (age <= 0 || height <= 0 || weight <= 0) {
-      alert(
-        "Please, introduce a greater than zero value for the age, height and weight fields."
-      );
-      return false;
-    } else if (Number.isInteger(age) === false) {
-      alert("Please use a natural number (1-9) for the age value");
-      return false;
-    } else {
-      return true;
-    }
+    const isAgeValid = !isNaN(age) && parseFloat(age) > 0 && Number.isInteger(parseFloat(age));
+    const isHeightValid = !isNaN(height) && parseFloat(height) > 0;
+    const isWeightValid = !isNaN(weight) && parseFloat(weight) > 0;
+    
+    setAgeValid(isAgeValid);
+    setHeightValid(isHeightValid);
+    setWeightValid(isWeightValid);
+  
+    return isAgeValid && isHeightValid && isWeightValid;
   }
 
   const calculateMacros = (event) => {
@@ -301,9 +294,11 @@ function MacrosCalculator() {
               </ul>
             </div>
           </div>
-          <button type="submit" className="calculateMacros">
-            Calculate
-          </button>
+          <div className="buttons-macros-calculator">
+            <button className="calculateMacros" onClick={calculateMacros}>
+              Calculate
+            </button>
+          </div>
           <div className="result-macros">
             <div className="result-label">
               The necessary macronutrients are:

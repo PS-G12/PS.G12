@@ -10,30 +10,40 @@
 
 .objectives{
     width: 30%;
-    margin-left: 10%;
-    margin-top: 5%;
-    margin-bottom: 5%;
+    margin-top: 3%;
+}
+
+.objective span{
+    margin-right: 5px;
+}
+.objective svg{
+    margin-right: 5px;
 }
 
 .card-containerobj span{
-    margin-left: 10%;
     font-size: 16px;
 }
 .card-containerobj p{
     font-weight: bold;
-    margin-top: 0%;
-    margin-left: 20%;
     font-size: 16px;
+    margin: 2% 10% 10%;
 }
 
 .circularProgression{
     width: 12em;
     height: 12em;
-    margin-top: 1.5%;
-    margin-left: 5%;
+    margin: 10px 52px 10px 32px;
 }
+
 
 .CircularProgressbar-text {
     dominant-baseline: middle;
     text-anchor: middle;
  }
+
+.cards-container-main{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+

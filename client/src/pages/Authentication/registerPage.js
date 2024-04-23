@@ -1,16 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./authentication.css";
 
 const RegisterForm = () => {
   const [formData, setFormData] = useState({
-    signUpUsername: "",
-    signUpWeight: "",
-    signUpHeight: "",
-    signUpEmail: "",
-    signUpPassword: "",
-    signUpPassword_dup: "",
+    userData: {
+      username: "",
+      email: "",
+      password: "",
+      password_dup: "",
+      weight: "",
+      height: "",
+      system: "metric",
+      age: "",
+      gender: "male",
+    },
+    objectiveData: {
+      activityLevel: "sedentary",
+      goal:"loseWeight",
+      weightGoal: 0,
+      kcalObjective: 0,
+      proteinsObjective: 0,
+      fatsObjective: 0,
+      carbsObjective: 0,
+      kcalConsumed: 0,
+      proteinsConsumed: 0,
+      fatsConsumed: 0,
+      carbsConsumed: 0,
+      waterAmount: 0,
+      weightProgression: {
+        // date: "",
+        // weight: "",
+      },
+      pulseProgression: {
+        // date: "",
+        // pulse: "",
+      },
+    },
   });
+
   const [errors, setErrors] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
 
@@ -21,77 +49,228 @@ const RegisterForm = () => {
     return emailRegex.test(email);
   };
 
-  const handleNextStep = () => {
+  const [system, setSystem] = useState("metric");
+
+  useEffect(() => {
+    const checkboxes = document.querySelectorAll("input[type=checkbox]");
+    checkboxes.forEach((check) =>
+      check.addEventListener("change", handleCheckboxChange)
+    );
+    return () => {
+      checkboxes.forEach((check) =>
+        check.removeEventListener("change", handleCheckboxChange)
+      );
+    };
+  }, []);
+
+
+  const handleCheckboxChange = (e) => {
+    const marked = e.target.checked;
+    const checkboxes = document.querySelectorAll("input[type=checkbox]");
+    checkboxes.forEach((check) => (check.checked = false));
+    e.target.checked = marked;
+  };
+
+  const typeOfSystem = (value) => {
+    setSystem(value);
+    formData.userData.system = value;
+  };
+
+  const checkEmailUser = async (username, email) => {
+    try {
+      const response = await fetch("/auth/check", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, email }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error("Error occurred while registering user:", error);
+      return false;
+    }
+  };
+
+  const handleSignUpForm = async () => {
+
+    if(step === 4){
+      calculateAndSetMacros();
+    }
+
+
+    try {
+      const response = await fetch("/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ formData }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        sessionStorage.setItem("token", data.token);
+        setLoggedIn(true);
+        navigate("/");
+      } else {
+        console.error(data.message);
+        setLoggedIn(false);
+      }
+    } catch (error) {
+      console.error("Error occurred while registering user:", error);
+      setLoggedIn(false);
+    }
+  };
+
+  const handleStep = async () => {
     if (step < 4) {
       if (step === 1) {
-        if (formData.signUpUsername === "") {
+        if (formData.userData.username === "") {
           setErrors({ signUpUsername: "Please fill out this field." });
-          return;
-        } else if (formData.signUpUsername.length < 4) {
+          return -1;
+        } else if (formData.userData.username.length < 4) {
           setErrors({
             signUpUsername: "Username must be at least 4 characters long.",
           });
-          return;
+          return -1;
+        } else {
+          const usernameExists = await checkEmailUser(
+            formData.userData.username,
+            null
+          );
+          if (!usernameExists) {
+            setErrors({
+              signUpUsername:
+                "Username already taken, please use a different username.",
+            });
+            return -1;
+          }
         }
+        console.log(
+          "Ningun error con el username: " + formData.userData.username
+        );
+        return 0;
       }
       if (step === 2) {
-        if (formData.signUpWeight === "" || formData.signUpHeight === "") {
-          setErrors({
-            signUpWeight: "Please fill out this field.",
-            signUpHeight: "Please fill out this field.",
-          });
-          return;
-        } else {
-          const letterRegex = /^\d+(\.\d+)?$/;
-          if (!letterRegex.test(formData.signUpWeight)) {
-            setErrors({ signUpWeight: "Weight must be a valid number." });
-            return;
-          }
-          if (!letterRegex.test(formData.signUpHeight)) {
-            setErrors({ signUpHeight: "Height must be a valid number." });
-            return;
-          }
-        }
-      }
-      if (step === 3) {
-        if (
-          formData.signUpEmail === "" ||
-          formData.signUpPassword === "" ||
-          formData.signUpPassword_dup === ""
-        ) {
-          setErrors({
-            signUpEmail: "Please fill out this field.",
-            signUpPassword: "Please fill out this field.",
-            signUpPassword_dup: "Please fill out this field.",
-          });
-          return;
-        } else {
-          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          if (!emailRegex.test(formData.signUpEmail)) {
-            setErrors({ signUpEmail: "Please enter a valid email address." });
-            return;
-          }
-          if (formData.signUpPassword.length < 5) {
-            setErrors({
-              signUpPassword: "Password must be at least 5 characters long.",
-            });
-            return;
-          } else if (!/[A-Z].*[A-Z]/.test(formData.signUpPassword)) {
-            setErrors({
-              signUpPassword:
-                "Password must contain at least two uppercase letters.",
-            });
-            return;
-          }
-          if (formData.signUpPassword !== formData.signUpPassword_dup) {
-            setErrors({
-              signUpPassword_dup: "Please make sure your passwords match.",
-            });
-            return;
-          }
-        }
-      }
+        let newErrors = {};
 
+        if (
+          formData.objectiveData.age === "" ||
+          formData.userData.weight === "" ||
+          formData.userData.height === ""
+        ) {
+          if (formData.userData.age === "") {
+            newErrors.signUpAge = "Please fill out this field.";
+          }
+          if (formData.userData.weight === "") {
+            newErrors.signUpWeight = "Please fill out this field.";
+          }
+          if (formData.userData.height === "") {
+            newErrors.signUpHeight = "Please fill out this field.";
+          }
+          if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return -1;
+          }
+        }
+
+        if (formData.userData.system === "metric") {
+          if (
+            formData.userData.age <= 0 ||
+            formData.userData.age > 120 ||
+            !/^\d+$/.test(formData.userData.age)
+          ) {
+            newErrors.signUpAge = "Age must be a valid number.";
+          }
+
+          const testRegex = /^\d{1,3}(?:\.\d{1,3})?$/;
+          if (
+            !testRegex.test(formData.userData.weight) ||
+            parseFloat(formData.userData.weight) >= 600
+          ) {
+            newErrors.signUpWeight = "Weight must be a valid number.";
+          }
+
+          if (!testRegex.test(formData.userData.height)) {
+            newErrors.signUpHeight = "Height must be a valid number.";
+          }
+        } else if (formData.userData.system === "imperial") {
+          if (
+            formData.userData.age <= 0 ||
+            formData.userData.age > 120 ||
+            !/^\d+$/.test(formData.userData.age)
+          ) {
+            newErrors.signUpAge = "Age must be a valid number.";
+          }
+
+          const weightRegex = /^\d{1,3}(?:\.\d{1,3})?$/;
+          const heightRegex = /^\d{1,2}'\d{1,2}"?$/;
+
+          if (
+            !weightRegex.test(formData.userData.weight) ||
+            parseFloat(formData.userData.weight) >= 1322
+          ) {
+            newErrors.signUpWeight =
+              "Weight must be a valid number less than 1322 lbs.";
+          }
+
+          if (!heightRegex.test(formData.userData.height)) {
+            newErrors.signUpHeight =
+           "Please enter the height in feet and inches format: X'Y."
+          }
+        }
+        if (Object.keys(newErrors).length > 0) {
+          setErrors(newErrors);
+          return -1;
+        }
+        return 0;
+      }
+    }
+    if (step === 3) {
+      const newErrors = {};
+      if (formData.userData.email === "" || formData.userData.password === "") {
+        newErrors.signUpEmail = "Please fill out this field.";
+        newErrors.signUpPassword = "Please fill out this field.";
+        return;
+      } else {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(formData.userData.email)) {
+          newErrors.signUpEmail = "Please enter a valid email address.";
+        }
+        const emailRe = await checkEmailUser(null, formData.userData.email);
+        if (!emailRe) {
+          newErrors.signUpEmail =
+            "Email already taken, please use a different email.";
+        }
+        if (formData.userData.password.length < 5) {
+          newErrors.signUpPassword =
+            "Password must be at least 5 characters long.";
+        }
+        if (formData.userData.password !== formData.userData.password_dup) {
+          newErrors.signUpPassword_dup =
+            "Please make sure your passwords match.";
+        }
+      }
+      if (Object.keys(newErrors).length > 0) {
+        setErrors(newErrors);
+        return -1;
+      }
+      return 0;
+    }
+  };
+
+  const handleNextStep = async () => {
+    const result = await handleStep();
+    if (result !== -1) {
       setStep(step + 1);
     }
   };
@@ -101,24 +280,35 @@ const RegisterForm = () => {
       setStep(step - 1);
     }
   };
-
   const handleSignUp = async (e) => {
     e.preventDefault();
+    setErrors({});
     const newErrors = {};
 
-    if (step === 1 && formData.signUpUsername.length < 4) {
+    if (step === 1 && formData.userData.username.length < 4) {
       newErrors.signUpUsername = "Username must be at least 4 characters long.";
     }
+    if (step === 1 && formData.userData.username.length > 9) {
+      newErrors.signUpUsername = "Username must be at most 9 characters long.";
+    }
 
-    if (step === 3 && formData.signUpPassword.length < 6) {
+    if (step === 2 && formData.userData.username.length > 9) {
+      newErrors.signUpUsername = "Username must be at most 9 characters long.";
+    }
+
+
+    if (step === 3 && formData.userData.password.length < 5) {
       newErrors.signUpPassword =
         "Passwords must be at least 5 characters long.";
     }
 
-    if (step === 3 && formData.signUpPassword !== formData.signUpPassword_dup) {
+    if (
+      step === 3 &&
+      formData.userData.password !== formData.userData.password_dup
+    ) {
       newErrors.signUpPassword_dup = "Please make sure your passwords match.";
     }
-    if (step === 3 && !validateEmail(formData.signUpEmail)) {
+    if (step === 3 && !validateEmail(formData.userData.email)) {
       newErrors.signUpEmail = "Please enter a valid email address.";
     }
 
@@ -128,60 +318,100 @@ const RegisterForm = () => {
     }
 
     if (step === 4) {
-      try {
-        const response = await fetch("/auth/register", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-          sessionStorage.setItem("token", data.token);
-          navigate("/registration-success");
-        } else {
-          console.error(data.message);
-        }
-      } catch (error) {
-        console.error("Error occurred while registering user:", error);
-      }
+      return;
     } else {
-      handleNextStep();
+
     }
   };
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+    if (name in formData.userData) {
+
+      setFormData((prevState) => ({
+        ...prevState,
+        userData: {
+          ...prevState.userData,
+          [name]: value,
+        }
+      }));
+    } else if (name in formData.objectiveData) {
+      setFormData((prevState) => ({
+        ...prevState,
+        objectiveData: {
+          ...prevState.objectiveData,
+          [name]: value,
+        }
+      }));
+    }
 
     setErrors({
       ...errors,
-      [e.target.name]: undefined,
     });
-
-    // if (name === 'signUpWeight') {
-    //   if (!(/^\d*\.?\d+$/.test(value))) {
-    //     setErrors({
-    //       ...errors,
-    //       [name]: "Weight must be a valid number"
-    //     });
-    //   }
-    // }
-
-    // if (name === 'signUpHeight') {
-    //   if (!(/^\d*\.?\d+$/.test(value))) {
-    //     setErrors({
-    //       ...errors,
-    //       [name]: "Height must be a valid number"
-    //     });
-    //   }
-    // }
   };
+
+  const calculateMacrosRegister = (weight, height, age, gender, activityLevel, fitnessGoal) => {
+    let factor;
+    switch (activityLevel){
+      case "sedentary":
+        factor = 1.2;
+        break;
+      case "moderate":
+        factor = 1.375;
+        break;
+      case "intense":
+        factor = 1.6;
+        break;
+      default:
+        factor = 1.2;
+        break;
+    }
+
+    let ageUser = parseInt(age);
+    let weightUser = parseFloat(weight.replace(",", "."));
+    let heightUser = parseFloat(height.replace(",", "."));
+
+    let BMR;
+    if (gender === 'male'){
+      BMR = 10 * weightUser + 6.25 * heightUser - 5 * ageUser + 5;
+    }
+    else{
+      BMR = 10 * weightUser + 6.25 * heightUser - 5 * ageUser - 161;
+    }
+
+    let userGoal;
+    switch (fitnessGoal){
+      case "loseWeight":
+        userGoal = -500;
+        break;
+      case "maintainWeight":
+        userGoal = 0;
+        break;
+      case "gainWeight":
+        userGoal = 500;
+        break;
+      default:
+        userGoal = -500;
+    }
+
+    const calories = Math.round((BMR * factor + userGoal).toFixed(2));
+    const proteins = Math.round(((calories * 0.25) / 4).toFixed(2));
+    const fats = Math.round(((calories * 0.25) / 9).toFixed(2));
+    const carbs = Math.round(((calories - proteins * 4 - fats * 9) / 4).toFixed(2));
+
+    return { calories, proteins, fats, carbs };
+  };
+
+  const calculateAndSetMacros = () => {
+    formData.objectiveData.kcalObjective = calories;
+    formData.objectiveData.proteinsObjective = proteins;
+    formData.objectiveData.fatsObjective = fats;
+    formData.objectiveData.carbsObjective = carbs;
+  };
+
+  const { calories, proteins, fats, carbs } = calculateMacrosRegister(formData.userData.weight, formData.userData.height,
+    formData.userData.age, formData.userData.gender, formData.objectiveData.activityLevel, formData.objectiveData.goal);
+
 
   const handleGoogleSignUp = async () => {
     console.log("Signing up with Google...");
@@ -223,13 +453,14 @@ const RegisterForm = () => {
                           "input-signin" +
                           (errors.signUpUsername ? " error" : "")
                         }
-                        name="signUpUsername"
+                        name="username"
                         autoComplete="off"
-                        value={formData.signUpUsername}
+                        value={formData.userData.username}
                         onChange={handleChange}
                         required
                       />
-                      <label for="signUpUsername">Username</label>
+
+                      <label hmtlFor="signUpUsername">Username</label>
                     </div>
                     <p className="error">
                       {errors.signUpUsername && (
@@ -238,6 +469,7 @@ const RegisterForm = () => {
                       {errors.signUpUsername && (
                         <span className="error">{errors.signUpUsername}</span>
                       )}
+                      {console.log(errors)}
                     </p>
                   </>
                 )}
@@ -247,15 +479,39 @@ const RegisterForm = () => {
                       <input
                         type="text"
                         className={
-                          "input-signin" + (errors.signUpWeight ? " error" : "")
+                          "input-signin" + (errors.signUpAge ? " error" : "")
                         }
-                        name="signUpWeight"
+                        name="age"
                         autoComplete="off"
-                        value={formData.signUpWeight}
+                        value={formData.objectiveData.age}
                         onChange={handleChange}
                         required
                       />
-                      <label for="signUpWeight">Weight</label>
+                      <label htmlFor="signUpAge">Age</label>
+                    </div>
+                    <p className="error">
+                      {errors.signUpAge && (
+                        <i className="error-icon fas fa-exclamation-circle"></i>
+                      )}
+                      {errors.signUpAge && (
+                        <span className="error">{errors.signUpAge}</span>
+                      )}
+                    </p>
+                    <div className="form-item">
+                      <input
+                        type="text"
+                        className={
+                          "input-signin" + (errors.signUpWeight ? " error" : "")
+                        }
+                        name="weight"
+                        autoComplete="off"
+                        value={formData.userData.weight}
+                        onChange={handleChange}
+                        required
+                      />
+                      <label htmlFor="signUpWeight">
+                        {system === "metric" ? "Weight (Kg)" : "Weight (lb)"}
+                      </label>
                     </div>
                     <p className="error">
                       {errors.signUpWeight && (
@@ -271,13 +527,15 @@ const RegisterForm = () => {
                         className={
                           "input-signin" + (errors.signUpHeight ? " error" : "")
                         }
-                        name="signUpHeight"
+                        name="height"
                         autoComplete="off"
-                        value={formData.signUpHeight}
+                        value={formData.userData.height}
                         onChange={handleChange}
                         required
                       />
-                      <label for="signUpHeight">Height</label>
+                      <label htmlFor="signUpHeight">
+                        {system === "metric" ? "Height (cm)" : "Height (ft)"}
+                      </label>
                     </div>
                     <p className="error">
                       {errors.signUpHeight && (
@@ -287,6 +545,47 @@ const RegisterForm = () => {
                         <span className="error">{errors.signUpHeight}</span>
                       )}
                     </p>
+
+                    <div className="gender-options">
+                      <h3>Select your gender:</h3>
+                      <div className="form-item">
+                        <select
+                          name="gender"
+                          value={formData.userData.gender}
+                          onChange={handleChange}
+                        >
+                          <option value="male">Male</option>
+                          <option value="female">Female</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="measurement-system-profile">
+                      <div className="radio-button-metric">
+                        <label>
+                          <input
+                            type="radio"
+                            value="metric"
+                            name="e"
+                            checked={system === "metric"}
+                            onChange={() => typeOfSystem("metric")}
+                          />
+                          Metric System
+                        </label>
+                      </div>
+                      <div className="radio-button-imperial">
+                        <label>
+                          <input
+                            type="radio"
+                            value="imperial"
+                            name="e"
+                            checked={system === "imperial"}
+                            onChange={() => typeOfSystem("imperial")}
+                          />
+                          Imperial System
+                        </label>
+                      </div>
+                    </div>
                   </>
                 )}
 
@@ -295,13 +594,16 @@ const RegisterForm = () => {
                     <div className="form-item">
                       <input
                         type="email"
-                        className="input-signin"
-                        name="signUpEmail"
-                        value={formData.signUpEmail}
+                        className={"input-signin" +
+                          (errors.signUpEmail
+                            ? " error"
+                            : "")}
+                        name="email"
+                        value={formData.userData.email}
                         onChange={handleChange}
                         required
                       />
-                      <label for="signUpEmail">Email Address</label>
+                      <label htmlFor="signUpEmail">Email Address</label>
                     </div>
                     <p className="error">
                       {errors.signUpEmail && (
@@ -321,12 +623,12 @@ const RegisterForm = () => {
                             ? " error"
                             : "")
                         }
-                        name="signUpPassword"
-                        value={formData.signUpPassword}
+                        name="password"
+                        value={formData.userData.password}
                         onChange={handleChange}
                         required
                       />
-                      <label for="signUpPassword">Password</label>
+                      <label htmlFor="signUpPassword">Password</label>
                     </div>
                     <p className="error">
                       {errors.signUpPassword && (
@@ -344,12 +646,14 @@ const RegisterForm = () => {
                           "input-signin" +
                           (errors.signUpPassword_dup ? " error" : "")
                         }
-                        name="signUpPassword_dup"
-                        value={formData.signUpPassword_dup}
+                        name="password_dup"
+                        value={formData.userData.password_dup}
                         onChange={handleChange}
                         required
                       />
-                      <label for="signUpPassword_dup">Repeat password</label>
+                      <label htmlFor="signUpPassword_dup">
+                        Repeat password
+                      </label>
                     </div>
                     <p className="error-dup">
                       {errors.signUpPassword_dup && (
@@ -371,7 +675,7 @@ const RegisterForm = () => {
                       <div className="form-item">
                         <select
                           name="activityLevel"
-                          value={formData.activityLevel}
+                          value={formData.objectiveData.activityLevel}
                           onChange={handleChange}
                         >
                           <option value="sedentary">Sedentary</option>
@@ -385,11 +689,11 @@ const RegisterForm = () => {
                       <h3>Choose your fitness goal:</h3>
                       <div className="form-item">
                         <select
-                          name="fitnessGoal"
-                          value={formData.fitnessGoal}
+                          name="goal"
+                          value={formData.objectiveData.goal}
                           onChange={handleChange}
                         >
-                          <option value="muscleGain">Gain Muscle</option>
+                          <option value="loseWeight">Lose Weight</option>
                           <option value="maintainWeight">
                             Maintain Weight
                           </option>
@@ -417,11 +721,17 @@ const RegisterForm = () => {
                       Continue
                     </button>
                   ) : (
-                    <button type="submit">Sign Up</button>
+                    <button type="submit" onClick={handleSignUpForm}>
+                      Sign Up
+                    </button>
                   )}
                 </div>
               </form>
-              <div className={"social-auth-container" + (step > 1 ? " hidden" : "")}>
+              <div
+                className={
+                  "social-auth-container" + (step > 1 ? " hidden" : "")
+                }
+              >
                 <div className="linea-horizontal"></div>
                 <span>or sign up with</span>
                 <div className="socials">

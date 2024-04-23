@@ -6,6 +6,7 @@
   align-items: center;
   justify-content: center;
   flex: 1;
+  margin-bottom: 2%;
 }
 
 .macros-boxcalc {
@@ -156,6 +157,10 @@
   margin: 4%;
 }
 
+.buttons-macros-calculator{
+  align-content: center;
+}
+
 .calculateMacros {
   position: relative;
   background-color: #23a6f0;
@@ -165,9 +170,25 @@
   border-radius: 5px;
   font-weight: bold;
   border-color: #23a6f0;
+  margin-right: 20px;
 }
 
 .calculateMacros:hover {
+  background-color: #0066ee;
+}
+
+.default-data-button-macros{
+  position: relative;
+  background-color: #23a6f0;
+  color: white;
+  width: fit-content;
+  height: 36px;
+  border-radius: 5px;
+  font-weight: bold;
+  border-color: #23a6f0;
+}
+
+.default-data-button-macros:hover{
   background-color: #0066ee;
 }
 

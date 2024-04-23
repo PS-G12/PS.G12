@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./BMIcalculator.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMale, faWeight } from "@fortawesome/free-solid-svg-icons";
@@ -8,6 +8,9 @@ const BMICalculator = () => {
   const [weight, setWeight] = useState("");
   const [resultBMI, setBMI] = useState("");
   const [system, setSystem] = useState("metric");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [token, setToken] = useState();
+  const [defaultValues, setDefaultValues] = useState(false);
 
   const [heightError, setHeightError] = useState("");
   const [weightError, setWeightError] = useState("");
@@ -33,6 +36,7 @@ const BMICalculator = () => {
 
     if (isNaN(weight)) {
       setWeightError("Please make sure that the weight field is a number.");
+      
       valid = false;
     } else if (weight <= 0) {
       setWeightError("Please introduce a value greater than zero for the weight field.");
@@ -44,22 +48,30 @@ const BMICalculator = () => {
     return valid;
   }
 
-  const calculateBMI = () => {
-    const heightUser = parseFloat(height.replace(",", "."));
-    const weightUser = parseFloat(weight.replace(",", "."));
+  const calculateBMI = (inputHeight, inputWeight) => {
+    if ((inputHeight === null || inputWeight == null) && !defaultValues){
+      var heightUser = parseFloat(height.replace(",", "."));
+      var weightUser = parseFloat(weight.replace(",", "."));
+    }
+    else{
+      heightUser = parseFloat(inputHeight.replace(",", "."));
+      weightUser = parseFloat(inputWeight.replace(",", "."));
+    }
 
     if (!validateValues(heightUser, weightUser)) {
       return;
     }
 
-    let resultado;
+    let result;
     if (system === "imperial") {
-      resultado = (weightUser * 0.453592) / (heightUser * 0.3048) ** 2;
-    } else {
-      resultado = weightUser / (heightUser / 100) ** 2;
+      result = (weightUser * 0.453592) / (heightUser * 0.3048) ** 2;
+    }
+    else{
+      result = weightUser / (heightUser / 100) ** 2;
     }
 
-    setBMI(resultado.toFixed(2));
+    setDefaultValues(false);
+    setBMI(result.toFixed(2));
   };
 
   const renderMeasurementCheckbox = (value, text) => (
@@ -96,13 +108,71 @@ const BMICalculator = () => {
         required
       ></input>
       {error && (
+      
         <p className="errorBMI">
           <i className="error-icon fas fa-exclamation-circle"></i>
           {error}
         </p>
       )}
+
     </div>
   );
+
+  useEffect(() => {
+    const token = sessionStorage.getItem('token');
+    if (token) {
+      setToken(token);
+      fetch('/verify-token', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+      })
+      .then(response => {
+      if (response.ok) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+        console.error('Invalid token');
+      }
+      })
+      .catch(error => {
+      console.error('Error verifying token:', error);
+      });
+    }
+    else {
+      console.error('Could not find the token, user not authenticated');
+    }
+  }, []);
+
+  async function getUserWeightHeightAndCalculateBMI() {
+    setDefaultValues(true);
+    try {
+      const response = await fetch("/user/data/weightHeight", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.weight && data.height) {
+        const { weight, height } = data;
+        calculateBMI(height, weight);
+        return true;
+      }
+      else {
+        console.error("Error occurred while getting user weight and height");
+        return false;
+      }
+    }
+    catch (error) {
+      console.error("Error occurred while getting user weight and height:", error);
+      return false;
+    }
+  }
 
   return (
     <div className="BMI-calculator">
@@ -136,9 +206,12 @@ const BMICalculator = () => {
           weightError
 
         )}
-        <button className="button-calculator" onClick={calculateBMI}>
-          Calculate
-        </button>
+        <div className="bmi-calculator-buttons">
+          <button className="button-calculator" onClick={calculateBMI}>
+            Calculate
+          </button>
+          {isLoggedIn && (<button className="default-data-button" onClick={getUserWeightHeightAndCalculateBMI}>Calculate with my default data</button>)}
+        </div>
         <div className="result-calc">
           <span>The BMI corresponding to the indicated height and weight is:</span>
           <div className="result-BMI">{resultBMI}</div>

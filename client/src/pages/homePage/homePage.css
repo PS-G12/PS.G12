@@ -1,18 +1,17 @@
-.cards,
+.cards {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  user-select: none;
+}
+
 .blur-content {
   display: flex;
   flex: 1;
   user-select: none;
 }
 
-.cards .card-containerobj {
-  margin-left: 15%;
-  margin-top: 5%;
-}
-
 .cards .macros-container {
-  margin-left: 15%;
-  margin-top: 5%;
   height: fit-content;
 }
 
@@ -48,5 +47,119 @@
 
 .lock-icon {
   font-size: 4rem;
-  margin-bottom: 1rem;
+}
+
+
+.chart-container {
+  width: 35%;
+  height: 30%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+
+.chart-container canvas {
+  width: 100% !important; 
+  height: auto !important;
+}
+
+.water-popup{
+  text-align: center;
+}
+
+.chart-container p, .chart-container2 p {
+  text-align: center;
+  font-weight: bold;
+}
+
+.chart-container2 {
+  width: 35%;
+  height: 30%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+
+.chart-container2 canvas {
+  width: 100% !important; 
+  height: auto !important;
+}
+
+.weight-popup, .pulse-popup, .water-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border: 2px solid #ccc;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.weight-form, .pulse-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+input[type="date"],
+input[type="number"] {
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+.button-space {
+  margin-top: 10px;
+}
+
+.submit-button,
+.cancel-button {
+  background-color: #23a6f0; 
+  color: #fff; 
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+
+.button-space {
+  margin-top: 10px;
+}
+
+.card-container-top {
+  display: flex;
+  justify-content:center;
+  align-items: center;
+}
+
+.card-container-top div{
+  margin: 0 20px 0;
+}
+
+.chart-container-main{
+  display: flex;
+  justify-content: center;
+}
+.chart-container-main div{
+  margin: 0 20px 0;
+  margin-bottom: 5%;
+}
+
+.blur-content .cards .card-container-top .card-containerobj{
+  height: fit-content;
+  padding: 3%;  
 }
