@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+
 import { Line } from "react-chartjs-2";
 import { CategoryScale, Chart, LineElement, PointElement } from "chart.js";
 import { LinearScale } from "chart.js";
