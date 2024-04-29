@@ -33,6 +33,7 @@ const ProfilePrueba = () => {
                 kcalGoal:"",
                 gender:"",
                 age:"",
+                pfp: "",
             }
         }
     );
@@ -47,6 +48,7 @@ const ProfilePrueba = () => {
                 kcalGoal:"",
                 gender:"",
                 age:"",
+                pfp:"",
             }
         }
     );
@@ -54,7 +56,8 @@ const ProfilePrueba = () => {
     const handleImageChange = (event) => {
         const file = event.target.files[0];
         const imageURL = URL.createObjectURL(file); 
-        setSelectedImage(imageURL); 
+        setSelectedImage(imageURL);
+        changePfp();
     };
 
     useEffect(() => {
@@ -143,7 +146,8 @@ const ProfilePrueba = () => {
                                 weight: data.userData.weight,
                                 height: data.userData.height,
                                 gender: data.userData.gender,
-                                age: data.userData.age
+                                age: data.userData.age,
+                                age: data.userData.pfp
                             }
                         }));
                     }
@@ -161,6 +165,32 @@ const ProfilePrueba = () => {
             getUserData();
         }
     }, [tokenFetched, updateTookPlace, newToken]);
+
+    const changePfp = async () => {
+        try{
+            const response = await fetch("/user/data/pfp", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({ formDataUpdate })
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data){
+                console.log("Users profile picture updated");
+            }
+            else{
+                console.error("Could not update the users profile picture");
+            }
+        }
+        catch (error){
+            console.error("Run into an error while changing the users profile picture", error);
+            throw error;
+        }
+    };
 
     useEffect(() => {
         if (username){
@@ -567,7 +597,7 @@ const ProfilePrueba = () => {
             <div className="photo-table">
                 <div className="photo-username-section">
                     <label htmlFor="upload-photo">
-                        <img src={selectedImage ? selectedImage : "https://previews.123rf.com/images/amitspro/amitspro1706/amitspro170600016/80099376-mandala-de-flor-abstracta-patr%C3%B3n-decorativo-fondo-azul-imagen-cuadrada-imagen-de-ilusi%C3%B3n-patr%C3%B3n.jpg"} alt="Descripción de la imagen"></img>
+                        <img src={formData.userData.pfp === '' ? "https://previews.123rf.com/images/amitspro/amitspro1706/amitspro170600016/80099376-mandala-de-flor-abstracta-patr%C3%B3n-decorativo-fondo-azul-imagen-cuadrada-imagen-de-ilusi%C3%B3n-patr%C3%B3n.jpg" : formData.userData.pfp} alt="Descripción de la imagen"></img>
                     </label>
                     <input type="file" id="upload-photo" style={{display: "none"}} onChange={handleImageChange} />
 
