@@ -693,13 +693,45 @@ const updatePass = async (user, password) => {
 
     console.error("Could not update the password");
     return false;
-
   } catch (error) {
     console.error("Run into an error updating the password: ", error);
     throw error;
   }
 
 }
+
+const updatePfp = async (user, newPfp) => {
+  try{
+    console.log("hola", user);
+    console.log(newPfp);
+    const collection = database.collection('user_data');
+    const document = await collection.findOne({"userData.username": user});
+    console.log("puta", document)
+
+    if (!document){
+      console.error("No users found");
+      return false;
+    }
+
+    const update = {
+      $set: {"userData.pfp": newPfp}
+    };
+
+    const result = await collection.updateOne({"userData.username": user}, update)
+
+    if (result.modifiedCount === 1){
+      console.log("Profile picture updated");
+      return true;
+    }
+
+    console.error("Could not update the profile picture");
+    return false
+  }
+  catch (error){
+    console.error("RUn into an error while updating the users profile picture");
+    throw error;
+  }
+};
 
 module.exports = {
   getUser,
@@ -725,5 +757,6 @@ module.exports = {
   updateAge,
   updateCal,
   updateGender,
-  updatePass
+  updatePass,
+  updatePfp
 };

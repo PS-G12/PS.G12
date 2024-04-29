@@ -33,6 +33,7 @@ const ProfilePrueba = () => {
                 kcalGoal:"",
                 gender:"",
                 age:"",
+                pfp: "",
             }
         }
     );
@@ -47,16 +48,67 @@ const ProfilePrueba = () => {
                 kcalGoal:"",
                 gender:"",
                 age:"",
+                pfp:"",
             }
         }
     );
 
-    const handleImageChange = (event) => {
+    const handleImageChange = async (event) => {
         const file = event.target.files[0];
-        const imageURL = URL.createObjectURL(file); 
-        setSelectedImage(imageURL); 
+        try {
+            const compressedFile = await compressImage(file, 800, 600, 0.8);
+            const reader = new FileReader();
+            reader.readAsDataURL(compressedFile);
+            reader.onload = function () {
+                setSelectedImage(reader.result);
+            };
+            reader.onerror = function (error) {
+                console.error("Run into an error converting the image to base64: ", error);
+            };
+        } catch (error) {
+            console.error("Error compressing the image:", error);
+        }
     };
 
+    const compressImage = (file, maxWidth, maxHeight, quality) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function(event) {
+                const img = new Image();
+                img.src = event.target.result;
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+    
+                    if (width > maxWidth) {
+                        height *= maxWidth / width;
+                        width = maxWidth;
+                    }
+    
+                    if (height > maxHeight) {
+                        width *= maxHeight / height;
+                        height = maxHeight;
+                    }
+    
+                    canvas.width = width;
+                    canvas.height = height;
+    
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+    
+                    canvas.toBlob((blob) => {
+                        resolve(blob);
+                    }, 'image/jpeg', quality);
+                };
+            };
+            reader.onerror = function (error) {
+                reject(error);
+            };
+        });
+    };
+    
     useEffect(() => {
         const token = sessionStorage.getItem('token');
         if (token) {
@@ -143,7 +195,8 @@ const ProfilePrueba = () => {
                                 weight: data.userData.weight,
                                 height: data.userData.height,
                                 gender: data.userData.gender,
-                                age: data.userData.age
+                                age: data.userData.age,
+                                pfp: data.userData.pfp
                             }
                         }));
                     }
@@ -161,6 +214,60 @@ const ProfilePrueba = () => {
             getUserData();
         }
     }, [tokenFetched, updateTookPlace, newToken]);
+
+    useEffect(() => {
+        if (selectedImage){
+            setFormDataUpdate(prevState => ({
+                ...prevState,
+                userData: {
+                    ...prevState.userData,
+                    pfp: selectedImage
+                }
+            }));
+        }
+    }, [selectedImage]);
+
+    useEffect(() => {
+        if (formDataUpdate.userData.pfp){
+            console.log("si entra al if de pfp");
+            changePfp();
+        }
+    }, [formDataUpdate.userData.pfp]);
+
+    useEffect(() => {
+            if (formData.userData.pfp !== "") {
+                console.log(formData.userData.pfp);
+              } else {
+                console.log('No image found');
+            }
+    }, [formData.userData.pfp]);
+
+    const changePfp = async () => {
+        try{
+            const response = await fetch("/user/data/pfp", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({ formDataUpdate })
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data){
+                console.log("Users profile picture updated");
+                setUpdateTookPlace(true);
+            }
+            else{
+                console.error("Could not update the users profile picture");
+            }
+        }
+        catch (error){
+            console.error("Run into an error while changing the users profile picture", error);
+            throw error;
+        }
+    };
 
     useEffect(() => {
         if (username){
@@ -567,7 +674,7 @@ const ProfilePrueba = () => {
             <div className="photo-table">
                 <div className="photo-username-section">
                     <label htmlFor="upload-photo">
-                        <img src={selectedImage ? selectedImage : "https://previews.123rf.com/images/amitspro/amitspro1706/amitspro170600016/80099376-mandala-de-flor-abstracta-patr%C3%B3n-decorativo-fondo-azul-imagen-cuadrada-imagen-de-ilusi%C3%B3n-patr%C3%B3n.jpg"} alt="Descripción de la imagen"></img>
+                        <img src={formData.userData.pfp === '' ? "https://previews.123rf.com/images/amitspro/amitspro1706/amitspro170600016/80099376-mandala-de-flor-abstracta-patr%C3%B3n-decorativo-fondo-azul-imagen-cuadrada-imagen-de-ilusi%C3%B3n-patr%C3%B3n.jpg" : formData.userData.pfp} alt="Descripción de la imagen"></img>
                     </label>
                     <input type="file" id="upload-photo" style={{display: "none"}} onChange={handleImageChange} />
 

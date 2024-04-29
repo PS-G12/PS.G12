@@ -27,7 +27,8 @@ const {
   updateAge,
   updateCal,
   updateGender,
-  updatePass
+  updatePass,
+  updatePfp
 } = require("./api/db.mongo");
 const { getUser } = require("./api/db.mongo");
 const jsonData = require("./api/foodData.json");
@@ -629,6 +630,24 @@ app.post("/user/data/update/info/pass", verifyToken, async (req, res) => {
   }
   catch (error){
     res.status(500).json({ error: "An error ocurred while getting the users data"});
+  }
+});
+
+app.post("/user/data/pfp", verifyToken, async (req, res) => {
+  const user = req.user;
+  const {formDataUpdate} = req.body;
+
+  try{
+    const update = await updatePfp(user, formDataUpdate.userData.pfp);
+    if (!update){
+      return res.status(401).json({ success: false, message: "No user found" });
+    }
+    
+    console.log("Users profile picture updated");
+    return res.status(200).json({success: true, message: "Update sucessfull"});
+  }
+  catch (error){
+    res.status(500).json({ error: "An error ocurred while updating the users profile picture"});
   }
 });
 
