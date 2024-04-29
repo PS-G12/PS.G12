@@ -14,6 +14,7 @@ import Footer from "../../components/Footer/footer";
 import "./homePage.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDumbbell, faHeart } from "@fortawesome/free-solid-svg-icons";
+import Tutorial from "../../components/Tutorial/tutorial";
 Chart.register(LineElement, CategoryScale, LinearScale, PointElement);
 
 const IndexPage = () => {
@@ -346,6 +347,8 @@ const IndexPage = () => {
                   value3={Math.round(parseFloat(macrosData.value3))}
                   max3={Math.round(parseFloat(macrosData.max3))}
                 />
+
+                <Tutorial></Tutorial>
                 <div className="water-container" onClick={handleWaterSubmit}>
                   <WaterGlass waterCount={waterCount} waterGoal={1500} />
                 </div>
