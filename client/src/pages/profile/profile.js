@@ -55,9 +55,9 @@ const ProfilePrueba = () => {
 
     const handleImageChange = (event) => {
         const file = event.target.files[0];
+        console.log(file);
         const imageURL = URL.createObjectURL(file); 
         setSelectedImage(imageURL);
-        changePfp();
     };
 
     useEffect(() => {
@@ -147,7 +147,7 @@ const ProfilePrueba = () => {
                                 height: data.userData.height,
                                 gender: data.userData.gender,
                                 age: data.userData.age,
-                                age: data.userData.pfp
+                                pfp: data.userData.pfp
                             }
                         }));
                     }
@@ -166,6 +166,33 @@ const ProfilePrueba = () => {
         }
     }, [tokenFetched, updateTookPlace, newToken]);
 
+    useEffect(() => {
+        if (selectedImage){
+            setFormDataUpdate(prevState => ({
+                ...prevState,
+                userData: {
+                    ...prevState.userData,
+                    pfp: selectedImage
+                }
+            }));
+        }
+    }, [selectedImage]);
+
+    useEffect(() => {
+        if (formDataUpdate.userData.pfp){
+            console.log("si entra al if de pfp");
+            changePfp();
+        }
+    }, [formDataUpdate.userData.pfp]);
+
+    useEffect(() => {
+            if (formData.userData.pfp !== "") {
+                console.log(formData.userData.pfp);
+              } else {
+                console.log('No image found');
+            }
+    }, [formData.userData.pfp]);
+
     const changePfp = async () => {
         try{
             const response = await fetch("/user/data/pfp", {
@@ -181,6 +208,7 @@ const ProfilePrueba = () => {
 
             if (response.ok && data){
                 console.log("Users profile picture updated");
+                setUpdateTookPlace(true);
             }
             else{
                 console.error("Could not update the users profile picture");
