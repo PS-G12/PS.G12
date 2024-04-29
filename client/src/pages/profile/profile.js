@@ -53,13 +53,62 @@ const ProfilePrueba = () => {
         }
     );
 
-    const handleImageChange = (event) => {
+    const handleImageChange = async (event) => {
         const file = event.target.files[0];
-        console.log(file);
-        const imageURL = URL.createObjectURL(file); 
-        setSelectedImage(imageURL);
+        try {
+            const compressedFile = await compressImage(file, 800, 600, 0.8);
+            const reader = new FileReader();
+            reader.readAsDataURL(compressedFile);
+            reader.onload = function () {
+                setSelectedImage(reader.result);
+            };
+            reader.onerror = function (error) {
+                console.error("Run into an error converting the image to base64: ", error);
+            };
+        } catch (error) {
+            console.error("Error compressing the image:", error);
+        }
     };
 
+    const compressImage = (file, maxWidth, maxHeight, quality) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function(event) {
+                const img = new Image();
+                img.src = event.target.result;
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+    
+                    if (width > maxWidth) {
+                        height *= maxWidth / width;
+                        width = maxWidth;
+                    }
+    
+                    if (height > maxHeight) {
+                        width *= maxHeight / height;
+                        height = maxHeight;
+                    }
+    
+                    canvas.width = width;
+                    canvas.height = height;
+    
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+    
+                    canvas.toBlob((blob) => {
+                        resolve(blob);
+                    }, 'image/jpeg', quality);
+                };
+            };
+            reader.onerror = function (error) {
+                reject(error);
+            };
+        });
+    };
+    
     useEffect(() => {
         const token = sessionStorage.getItem('token');
         if (token) {
