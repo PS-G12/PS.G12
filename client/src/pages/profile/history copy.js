@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ProfileNavBar from "../../components/profileNavBar/profileNavBar.js";
 import Header from "../../components/Header/header.js";
+import { CSVLink } from "react-csv";
 import "./history.css";
 
 const ProfileHistory = () => {
