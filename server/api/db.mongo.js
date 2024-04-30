@@ -753,7 +753,7 @@ const updatePfp = async (user, newPfp) => {
     return false
   }
   catch (error){
-    console.error("RUn into an error while updating the users profile picture");
+    console.error("Run into an error while updating the users profile picture");
     throw error;
   }
 };
@@ -761,7 +761,7 @@ const updatePfp = async (user, newPfp) => {
 const getHistory = async (user) => {
   try {
     const collection = database.collection("user_history");
-    const userData = await collection.findOne({ userId: user });
+    const userData = await collection.find({ userId: user }).toArray();
     if (!userData) {
       console.error("No user records foundA");
     }

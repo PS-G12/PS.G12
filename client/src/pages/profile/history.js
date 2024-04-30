@@ -17,20 +17,13 @@ const ProfileHistory = () => {
         {
             userData: {
                 username: "",
-                passwordIn: "",
-                passwordDb: "",
-                passwordRepeat: "",
                 pfp: "",
                 weight: "",
-                kcalConsumed: "",
-                carbsConsumed: "",
-                proteinsConsumed: "",
-                fatsConsumed: "",
-                waterAmount: "",
-                date: "",
             }
         }
     );
+
+    const [history, setHistory] = useState([]);
 
     
 
@@ -262,18 +255,7 @@ const ProfileHistory = () => {
                     const data = await response.json();
     
                     if (response.ok && data){
-                        setFormData(prevState => ({
-                            ...prevState,
-                            userData: {
-                                ...prevState.userData,
-                                kcalConsumed: data.userData.kcalConsumed,
-                                carbsConsumed: data.userData.carbsConsumed,
-                                proteinsConsumed: data.userData.proteinsConsumed,
-                                fatsConsumed: data.userData.fatsConsumed,
-                                waterAmount: data.userData.waterAmount,
-                                date: data.userData.userLastLogin
-                            }
-                        }));
+                        setHistory(data);
                     }
                     else{
                         console.error("Could not fetch the users history");
@@ -286,11 +268,15 @@ const ProfileHistory = () => {
             };
 
             getUserData();
-            //getHistory();
+            getHistory();
         }
     }, [tokenFetched]);
 
-
+    useEffect(() => {
+        if (history){
+            console.log(history);
+        }
+    }, [history]);
 
     const sortedDataObjects = [...dataObjects].sort((a, b) => {
         const valueA = a[sortBy];
