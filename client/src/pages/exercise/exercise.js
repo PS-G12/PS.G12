@@ -69,7 +69,7 @@ const ExercisePage = () => {
           <h1><span>{exercise.name.toUpperCase()}</span></h1>
           <img src={`/gifs/${exercise.id}.gif`} alt={exercise.name} />
         </div>
-        <StarRatingComponent rating={starRating}></StarRatingComponent>
+        <StarRatingComponent rating={starRating} type="big"></StarRatingComponent>
         <div className="separator"></div>
         <div className="instructions">
           <h2>Instructions:</h2>

@@ -701,6 +701,79 @@ const updatePass = async (user, password) => {
 
 }
 
+const getRates = async () => {
+  try {
+    const collection = database.collection('exercise');
+    const documents = await collection.aggregate([
+      {
+        "$match": {
+          "rating": { "$exists": true }
+        }
+      },
+      {
+        "$project": {
+          "_id": 0,
+          "id": 1,
+          "rating": 1
+        }
+      }
+    ]).toArray();    
+    
+    if (!documents || documents.length === 0){
+      console.error("No user records found");
+      return false;
+    }
+    
+    return documents;
+  } catch (error) {
+    console.error("Encountered an error while retrieving user data: ", error);
+    throw error;
+  }
+}
+
+
+
+const setRates = async (exerciseId, rating, userId) => {
+  try {
+    const collection = database.collection('exercise');
+    const exercise = await collection.findOne({ id: exerciseId });
+
+    if (!exercise) {
+      await collection.insertOne({
+        id: exerciseId,
+        rating: parseFloat(rating),
+        ratedBy: [userId]
+      });
+    } else {
+      if (exercise.ratedBy && exercise.ratedBy.includes(userId)) {
+        console.log("User", userId, "has already rated exercise with ID", exerciseId);
+        return false
+      }
+
+      const currentRating = parseFloat(exercise.rating);
+      const currentTotalRatings = exercise.ratedBy ? exercise.ratedBy.length : 0;
+
+      const newTotalRatings = currentTotalRatings + 1;
+      const newRating = ((currentRating * currentTotalRatings) + parseFloat(rating)) / newTotalRatings;
+
+      const updatedRatedBy = exercise.ratedBy ? [...exercise.ratedBy, userId] : [userId];
+
+      await collection.updateOne(
+        { id: exerciseId },
+        { $set: { rating: newRating, ratedBy: updatedRatedBy } }
+      );
+    }
+
+    console.log("Rating for exercise with ID", exerciseId, "has been updated/inserted.");
+    return true;
+  } catch (error) {
+    console.error("Encountered an error while updating/inserting exercise rating: ", error);
+    throw error;
+  }
+}
+
+
+
 module.exports = {
   getUser,
   getQuery,
@@ -725,5 +798,7 @@ module.exports = {
   updateAge,
   updateCal,
   updateGender,
-  updatePass
+  updatePass,
+  getRates,
+  setRates,
 };
