@@ -17,13 +17,28 @@ const Tutorial = ({ onClose }) => {
     }
   };
 
+  const getOverlayPosition = () => {
+    switch (step) {
+      case 1:
+        return { top: '20%', left: '20%' };
+      case 2:
+        return { top: '40%', left: '40%' };
+      case 3:
+        return { top: '60%', left: '60%' };
+      case 4:
+        return { top: '80%', left: '80%' };
+      default:
+        return { top: '20%', left: '20%' };
+    }
+  };
+
   const skipTutorial = () => {
     setShowTutorial(false); // Cierra el tutorial al saltarlo
   };
 
   return (
     showTutorial ? (
-      <div className="tutorial-overlay">
+      <div className="tutorial-overlay" style={getOverlayPosition()}>
         <div className="tutorial-popup">
         {step === 0 && (
             <div className='paso0'>
