@@ -1,6 +1,7 @@
 const { ServerApiVersion } = require("mongodb");
 const { MongoClient } = require("mongodb");
 const { use } = require("passport");
+const cron = require("node-cron");
 require("dotenv").config();
 const uri = process.env.MONGO_CLIENT_ID;
 
@@ -12,6 +13,30 @@ const client = new MongoClient(uri, {
   },
 });
 const database = client.db("Cluster0");
+
+try{
+  cron.schedule("0 0 * * *", async () => {
+    const sourceCollection = database.collection("objective_records");
+    const targetCollection = database.collection("user_history");
+
+    const fieldsToCopy = {userID:1, "objectiveData.kcalConsumed":1, "objectiveData.proteinsConsumed":1, "objectiveData.fatsConsumed":1, "objectiveData.carbsConsumed":1,
+     "objectiveData.waterAmount":1, "objectiveData.kcalOjective":1, "objectiveData.pulseProgression":1, "objectiveData.userLastLogin":1
+    };
+
+    const sourceData = await sourceCollection.find({}, fieldsToCopy).toArray();
+    await targetCollection.insertMany(sourceData);
+
+    if (targetCollection.countDocuments() === sourceData.length){
+      console.log("Data copied successfully");
+    }
+    else{
+      console.log("Could not copy the data");
+    }
+  });
+}
+catch (error){
+  console.error("Error could not copy the data: ", error);
+}
 
 const getQuery = async (collection, findQuery) => {
   try {
@@ -733,6 +758,24 @@ const updatePfp = async (user, newPfp) => {
   }
 };
 
+const getHistory = async (user) => {
+  try {
+    const collection = database.collection("user_history");
+    const userData = await collection.findOne({ userId: user });
+    if (!userData) {
+      console.error("No user records foundA");
+    }
+    else {
+      console.log('User data successfully fetched:', userData);
+      return userData;
+    }
+  }
+  catch (error) {
+    console.error("Error fetching user data:", error);
+    throw error;
+  }
+};
+
 module.exports = {
   getUser,
   getQuery,
@@ -758,5 +801,6 @@ module.exports = {
   updateCal,
   updateGender,
   updatePass,
-  updatePfp
+  updatePfp,
+  getHistory
 };
