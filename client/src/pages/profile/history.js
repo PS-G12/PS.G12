@@ -27,6 +27,7 @@ const ProfileHistory = () => {
                 proteinsConsumed: "",
                 fatsConsumed: "",
                 waterAmount: "",
+                date: "",
             }
         }
     );
@@ -269,7 +270,8 @@ const ProfileHistory = () => {
                                 carbsConsumed: data.userData.carbsConsumed,
                                 proteinsConsumed: data.userData.proteinsConsumed,
                                 fatsConsumed: data.userData.fatsConsumed,
-                                waterAmount: data.userData.waterAmount
+                                waterAmount: data.userData.waterAmount,
+                                date: data.userData.userLastLogin
                             }
                         }));
                     }
