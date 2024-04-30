@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import ProfileNavBar from "../../components/profileNavBar/profileNavBar.js";
 import Header from "../../components/Header/header.js";
 import FilterByTimeHistory from "../../components/filterByTimeHistory/filterByTimeHistory.js";
+import { CSVLink } from "react-csv";
 import "./history.css";
+import * as ExcelJS from "exceljs";
+import { saveAs } from "file-saver";
 
 const ProfileHistory = () => {
 
@@ -12,14 +15,16 @@ const ProfileHistory = () => {
 
     const [formData, setFormData] = useState(
         {
-            userData:{
+            userData: {
                 username: "",
-                passwordIn:"",
+                passwordIn: "",
                 passwordDb: "",
                 passwordRepeat: "",
             }
         }
     );
+
+    
 
     const dataObjects = [
         {
@@ -79,22 +84,98 @@ const ProfileHistory = () => {
         },
         // Agrega más objetos según sea necesario
     ];
+
+
+    const [sortBy, setSortBy] = useState('date');
+    const [sortOrder, setSortOrder] = useState('asc');
+    const [classBtn, setClassBtn] = useState("");
     
 
-      const [sortBy, setSortBy] = useState('date');
-      const [sortOrder, setSortOrder] = useState('asc');
-  
-      const handleSort = (key) => {
-          if (sortBy === key) {
-              setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
-          } else {
-              setSortBy(key);
-              setSortOrder('asc');
-          }
-      };
+    const handleSort = (key) => {
+        if (sortBy === key) {
+            setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+        } else {
+            setSortBy(key);
+            setSortOrder('asc');
+        }
+    };
 
+    const exportToExcel = () => {
+        const workbook = new ExcelJS.Workbook();
+        const worksheet = workbook.addWorksheet("Historial");
+
+        setClassBtn("downloaded");
+
+        // Agregar encabezados de columnas y anchos de columna
+        worksheet.columns = [
+            { header: "Fecha", key: "date", width: 15 },
+            { header: "Kcal llegadas", key: "value1", width: 15 },
+            { header: "Kcal quemadas", key: "value2", width: 15 },
+            { header: "Carbs llegados", key: "value3", width: 15 },
+            { header: "Proteínas llegadas", key: "value4", width: 15 },
+            { header: "Grasas llegadas", key: "value5", width: 15 },
+            { header: "Agua", key: "measurement1", width: 15 },
+            { header: "Peso", key: "measurement2", width: 15 },
+            { header: "Pulsaciones", key: "measurement3", width: 15 }
+        ];
+
+        // Agregar datos
+        dataObjects.forEach(data => {
+            worksheet.addRow(data);
+        });
+
+        // Aplicar formato estético al encabezado
+        const headerRow = worksheet.getRow(1);
+        headerRow.eachCell((cell) => {
+            cell.fill = {
+                type: 'pattern',
+                pattern: 'solid',
+                fgColor: { argb: 'D0D0D0' } // Color de gris 
+            };
+            cell.font = {
+                bold: true,
+                color: { argb: '000000' } // Color de texto negro
+            };
+            cell.border = {
+                top: { style: 'thin' },
+                left: { style: 'thin' },
+                bottom: { style: 'thin' },
+                right: { style: 'thin' }
+            };
+        });
+
+        // Aplicar formato estético a los datos
+        worksheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
+            row.eachCell((cell) => {
+                cell.alignment = { vertical: 'middle', horizontal: 'center' };
+                cell.border = {
+                    top: { style: 'thin' },
+                    left: { style: 'thin' },
+                    bottom: { style: 'thin' },
+                    right: { style: 'thin' }
+                };
+            });
+        });
+        worksheet.eachRow({ includeEmpty: false }, (row) => {
+            row.height = 20;
+        });
+
+
+        workbook.xlsx.writeBuffer().then(buffer => {
+            const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+            saveAs(blob, "profile_history.xlsx");
+        });
+
+    };
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setClassBtn("");
+        }, 3000);
       
-
+        
+        return () => clearTimeout(timer);
+      }, [classBtn]);
 
     useEffect(() => {
         const token = sessionStorage.getItem('token');
@@ -106,18 +187,18 @@ const ProfileHistory = () => {
                     'Authorization': `Bearer ${token}`
                 }
             })
-            .then(response => {
-                if (response.ok) {
-                    setIsLoggedIn(true);
-                    setTokenFetched(true);
-                } else {
-                    setIsLoggedIn(false);
-                    console.error('Invalid token');
-                }
-            })
-            .catch(error => {
-                console.error('Error verifying token:', error);
-            });
+                .then(response => {
+                    if (response.ok) {
+                        setIsLoggedIn(true);
+                        setTokenFetched(true);
+                    } else {
+                        setIsLoggedIn(false);
+                        console.error('Invalid token');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error verifying token:', error);
+                });
         }
         else {
             console.error('Could not find the token, user not authenticated');
@@ -125,21 +206,21 @@ const ProfileHistory = () => {
     }, []);
 
     useEffect(() => {
-        if (tokenFetched){
+        if (tokenFetched) {
 
             const getUserData = async () => {
-                try{
+                try {
                     const response = await fetch("/user/data/info", {
                         method: "GET",
-                        headers:{
+                        headers: {
                             "Content-Type": "application/json",
                             "Authorization": `Bearer ${token}`
                         }
                     });
-            
+
                     const data = await response.json();
-            
-                    if (response.ok && data){
+
+                    if (response.ok && data) {
                         setFormData(prevState => ({
                             ...prevState,
                             userData: {
@@ -148,11 +229,11 @@ const ProfileHistory = () => {
                             }
                         }));
                     }
-                    else{
+                    else {
                         console.error("Could not fetch the users data");
                     }
                 }
-                catch (error){
+                catch (error) {
                     console.error("Run into an error while getting the users data: ", error);
                     throw error;
                 }
@@ -185,13 +266,13 @@ const ProfileHistory = () => {
 
     return (
         <div className="profile-box-history">
-            <Header isAuthenticated={isLoggedIn}/>
+            <Header isAuthenticated={isLoggedIn} />
             <div className="photo-table-history">
                 <div className="photo-username-section-history">
                     <label htmlFor="upload-photo">
                         <img src="https://previews.123rf.com/images/amitspro/amitspro1706/amitspro170600016/80099376-mandala-de-flor-abstracta-patr%C3%B3n-decorativo-fondo-azul-imagen-cuadrada-imagen-de-ilusi%C3%B3n-patr%C3%B3n.jpg" alt="Descripción de la imagen"></img>
                     </label>
-                    <ProfileNavBar/>
+                    <ProfileNavBar />
                 </div>
                 <div className="table-info-section">
                     <div className="username-section">
@@ -201,12 +282,15 @@ const ProfileHistory = () => {
                     <div className="tables-history">
                         <div className="basic-info-history information-box-history">
                             <h1>History</h1>
-                            <FilterByTimeHistory/>
+                            <div className="botones-history">
+                                <FilterByTimeHistory />
+                                <a class="credit" href="https://dribbble.com/shots/4570587-Download-micro-interaction" target="_blank"><img src="https://cdn.dribbble.com/assets/logo-footer-hd-a05db77841b4b27c0bf23ec1378e97c988190dfe7d26e32e1faea7269f9e001b.png" alt=""></img></a>
+                            </div>
                             <div className="table-container-history">
                                 <table>
                                     <thead>
                                         <tr>
-                                        <th onClick={() => handleSort('date')}>
+                                            <th onClick={() => handleSort('date')}>
                                                 Fecha {renderSortIcon('date')}
                                             </th>
                                             <th onClick={() => handleSort('value1')}>
@@ -251,6 +335,13 @@ const ProfileHistory = () => {
                                         ))}
                                     </tbody>
                                 </table>
+                            </div>
+                            <div className = {classBtn} id="btn-download" onClick={exportToExcel}>
+                                <svg width="22px" height="16px" viewBox="0 0 22 16">
+                                    <path d="M2,10 L6,13 L12.8760559,4.5959317 C14.1180021,3.0779974 16.2457925,2.62289624 18,3.5 L18,3.5 C19.8385982,4.4192991 21,6.29848669 21,8.35410197 L21,10 C21,12.7614237 18.7614237,15 16,15 L1,15" id="check"></path>
+                                    <polyline points="4.5 8.5 8 11 11.5 8.5" class="svg-out"></polyline>
+                                    <path d="M8,1 L8,11" class="svg-out"></path>
+                                </svg>
                             </div>
                         </div>
                     </div>
