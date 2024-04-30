@@ -23,6 +23,7 @@ const ChangePassword = () => {
                 passwordIn:"",
                 passwordDb: "",
                 passwordRepeat: "",
+                pfp: "",
             }
         }
     );
@@ -76,6 +77,7 @@ const ChangePassword = () => {
                             userData: {
                                 ...prevState.userData,
                                 username: data.userData.username,
+                                pfp: data.userData.pfp
                             }
                         }));
                     }
@@ -169,7 +171,7 @@ const ChangePassword = () => {
             <div className="photo-table">
                 <div className="photo-username-section">
                     <label htmlFor="upload-photo">
-                        <img src="https://previews.123rf.com/images/amitspro/amitspro1706/amitspro170600016/80099376-mandala-de-flor-abstracta-patr%C3%B3n-decorativo-fondo-azul-imagen-cuadrada-imagen-de-ilusi%C3%B3n-patr%C3%B3n.jpg" alt="Descripción de la imagen"></img>
+                        <img src={formData.userData.pfp === '' ? "https://previews.123rf.com/images/amitspro/amitspro1706/amitspro170600016/80099376-mandala-de-flor-abstracta-patr%C3%B3n-decorativo-fondo-azul-imagen-cuadrada-imagen-de-ilusi%C3%B3n-patr%C3%B3n.jpg" : formData.userData.pfp} alt="Descripción de la imagen"></img>
                     </label>
 
                     <ProfileNavBar/>
