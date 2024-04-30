@@ -17,6 +17,12 @@ const ProfileHistory = () => {
                 passwordDb: "",
                 passwordRepeat: "",
                 pfp: "",
+                weight: "",
+                kcalConsumed: "",
+                carbsConsumed: "",
+                proteinsConsumed: "",
+                fatsConsumed: "",
+                waterAmount: "",
             }
         }
     );
@@ -71,7 +77,8 @@ const ProfileHistory = () => {
                             userData: {
                                 ...prevState.userData,
                                 username: data.userData.username,
-                                pfp: data.userData.pfp
+                                pfp: data.userData.pfp,
+                                weight: data.userData.weight
                             }
                         }));
                     }
@@ -85,7 +92,43 @@ const ProfileHistory = () => {
                 }
             };
 
+            const getHistory = async () => {
+                try{
+                    const response = await fetch("/user/data/history", {
+                        method: "GET",
+                        headers:{
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`
+                        }
+                    });
+    
+                    const data = await response.json();
+    
+                    if (response.ok && data){
+                        setFormData(prevState => ({
+                            ...prevState,
+                            userData: {
+                                ...prevState.userData,
+                                kcalConsumed: data.userData.kcalConsumed,
+                                carbsConsumed: data.userData.carbsConsumed,
+                                proteinsConsumed: data.userData.proteinsConsumed,
+                                fatsConsumed: data.userData.fatsConsumed,
+                                waterAmount: data.userData.waterAmount
+                            }
+                        }));
+                    }
+                    else{
+                        console.error("Could not fetch the users history");
+                    }
+                }
+                catch (error){
+                    console.error("Run into an error while getting the users history: ", error);
+                    throw error;
+                }
+            };
+
             getUserData();
+            //getHistory();
         }
     }, [tokenFetched]);
 

@@ -21,6 +21,7 @@
     "mongodb": "^6.5.0",
     "mongoose": "^8.3.0",
     "node-cache": "^5.1.2",
+    "node-cron": "^3.0.3",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
     "path": "^0.12.7",

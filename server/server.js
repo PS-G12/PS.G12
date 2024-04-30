@@ -28,7 +28,8 @@ const {
   updateCal,
   updateGender,
   updatePass,
-  updatePfp
+  updatePfp,
+  getHistory
 } = require("./api/db.mongo");
 const { getUser } = require("./api/db.mongo");
 const jsonData = require("./api/foodData.json");
@@ -648,6 +649,17 @@ app.post("/user/data/pfp", verifyToken, async (req, res) => {
   }
   catch (error){
     res.status(500).json({ error: "An error ocurred while updating the users profile picture"});
+  }
+});
+
+app.get("/user/data/history", verifyToken, async (req, res) => {
+  const user = req.user;
+  try {
+    const userData = await getHistory(user);
+    res.status(200).json(userData);
+  } catch (error) {
+    console.error("Error al obtener los datos del usuario:", error);
+    res.status(500).json({ error: "Error al obtener los datos del usuario" });
   }
 });
 
