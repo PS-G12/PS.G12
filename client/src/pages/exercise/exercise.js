@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 
 import BodyPart from '../../components/BodyPart/bodyPart';
 import ExerciseCard from "../../components/ExerciseCard/exerciseCard";
+import StarRatingComponent from "../../components/StarsRating/starsRating";
 
 const ExercisePage = () => {
   const location = useLocation();
@@ -14,6 +15,7 @@ const ExercisePage = () => {
   const bodyPart = exercise.bodyPart;
   const [loading, setLoading] = useState(false);
   const [filteredExercises, setFilteredExercises] = useState([]);
+  const [starRating, setStarRating] = useState(3.35);
 
 
   useEffect(() => {
@@ -67,7 +69,7 @@ const ExercisePage = () => {
           <h1><span>{exercise.name.toUpperCase()}</span></h1>
           <img src={`/gifs/${exercise.id}.gif`} alt={exercise.name} />
         </div>
-
+        <StarRatingComponent rating={starRating}></StarRatingComponent>
         <div className="separator"></div>
         <div className="instructions">
           <h2>Instructions:</h2>
