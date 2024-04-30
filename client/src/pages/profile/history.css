@@ -41,6 +41,7 @@
   
   table th,
   table td {
+    user-select: none;
     padding: 10px;
     text-align: center;
     border: 1px solid #ddd;
