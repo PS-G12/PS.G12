@@ -20,7 +20,7 @@ const Tutorial = ({ onClose }) => {
   const getOverlayPosition = () => {
     switch (step) {
       case 1:
-        return { top: '20%', left: '20%' };
+        return { top: '38%', left: '31%' };
       case 2:
         return { top: '40%', left: '40%' };
       case 3:
@@ -40,46 +40,58 @@ const Tutorial = ({ onClose }) => {
     showTutorial ? (
       <div className="tutorial-overlay" style={getOverlayPosition()}>
         <div className="tutorial-popup">
-        {step === 0 && (
-            <div className='paso0'>
-              <h2>Bienvenido a la aplicación</h2>
-              <p>Bienvenido a nuestra aplicación. Estamos encantados de tenerte aquí.</p>
-            </div>
-          )} 
           {step === 1 && (
-            <div className='paso1'>
-              <h2>Paso 1: Bienvenido a la aplicación</h2>
-              <p>Bienvenido a nuestra aplicación. Estamos encantados de tenerte aquí.</p>
+            <div>
+              <div className="arrow-up"></div>
+              <div className='paso1'>
+                <h2>Bienvenido a la aplicación</h2>
+                <p>Te vamos a enseñar brevemente como empezar.</p>
+              </div>
             </div>
           )}
+
           {step === 2 && (
-            <div className='paso2'>
-              <h2>Paso 2: Funcionalidad principal</h2>
-              <p>Esta es la funcionalidad principal de la aplicación.</p>
+            <div>
+              <div className="arrow-up"></div>
+              <div className='paso2'>
+                <h2>Paso 2: Funcionalidad principal</h2>
+                <p>Esta es la funcionalidad principal de la aplicación.</p>
+              </div>
             </div>
           )}
+
           {step === 3 && (
-            <div className='paso3'>
-              <h2>Paso 3: Configuración</h2>
-              <p>Aquí puedes configurar diferentes opciones según tus preferencias.</p>
+            <div>
+              <div className="arrow-up"></div>
+              <div className='paso3'>
+                <h2>Paso 3: Configuración</h2>
+                <p>Aquí puedes configurar diferentes opciones según tus preferencias.</p>
+              </div>
             </div>
           )}
+
           {step === 4 && (
-            <div className='paso4'>
-              <h2>Paso 4: ¡Listo para empezar!</h2>
-              <p>¡Felicidades! Ahora estás listo para comenzar a usar nuestra aplicación.</p>
+            <div>
+              <div className="arrow-up"></div>
+              <div className='paso4'>
+                <h2>Paso 4: ¡Listo para empezar!</h2>
+                <p>¡Felicidades! Ahora estás listo para comenzar a usar nuestra aplicación.</p>
+              </div>
             </div>
           )}
+
           <div className="tutorial-buttons">
             {step !== 1 && (
-                 <button className="flechaVolver" onClick={prevStep}>&larr;</button>
-            )}
-            <button onClick={skipTutorial}>Saltar Tutorial</button>
-            {step === 4 && (
-                <button className="flechaAvanzar" onClick={skipTutorial}>&#10003;</button>
+              <button className="flechaVolver" onClick={prevStep}>&larr;</button>
             )}
             {step !== 4 && (
-                 <button className="flechaAvanzar" onClick={nextStep}>&rarr;</button>
+              <button onClick={skipTutorial}>Saltar Tutorial</button>
+            )}
+            {step === 4 && (
+              <button className="checkMark" onClick={skipTutorial}>&#10003;</button>
+            )}
+            {step !== 4 && (
+              <button className="flechaAvanzar" onClick={nextStep}>&rarr;</button>
             )}
           </div>
         </div>

@@ -2,13 +2,14 @@
     position: absolute;
     z-index: 9999999999;
     background-color: white;
-    border: 3px solid black;
+    border: 3px solid #0066EE;
     border-radius: 70%;
     clip-path: circle(70% at center);
 }
 
 .tutorial-popup {
     width: fit-content;
+    text-align: center;
     padding: 20px;
     border-radius: 70%;
     clip-path: circle(70% at center);
@@ -18,7 +19,28 @@
 }
 
 .flechaAvanzar,
-.flechaVolver {
+.flechaVolver, checkMark{
     background-color: white;
     color: black;
 }
+
+.arrow-down, .arrow-up {
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    position: absolute;
+    left: 45%;
+    transform: translateX(-50%);
+  }
+  
+  .arrow-down {
+    border-top: 30px solid #0066EE; /* flecha hacia abajo */
+    bottom: -30px; /* Ajuste de posición para la flecha hacia abajo */
+  }
+  
+  .arrow-up {
+    border-bottom: 30px solid #0066EE; /* flecha hacia arriba */
+    top: -30px; /* Ajuste de posición para la flecha hacia arriba */
+  }
+  
