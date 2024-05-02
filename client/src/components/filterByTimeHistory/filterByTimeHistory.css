@@ -4,7 +4,7 @@
     margin-bottom: 20px;
   }
   
-  .filter-button {
+  .filter-button, .fire-button{
     background-color: #f0f0f0;
     border: none;
     border-radius: 5px;
@@ -14,12 +14,87 @@
     transition: background-color 0.3s ease;
   }
   
-  .filter-button.active {
+  .filter-button.active, .fire-button.active {
     background-color: #007bff;
     color: #fff;
+  }
+
+  .fire-button.active {
+    background-color: #f29d35;
+    animation: fire 0.5s infinite alternate, sparks 0.2s infinite;
+  }
+  
+  @keyframes fire {
+    0% {
+      transform: scale(1);
+      box-shadow: 0 0 10px #f29d35, inset 0 0 10px #f29d35;
+    }
+    50% {
+      transform: scale(1.1);
+      box-shadow: 0 0 20px #f29d35, inset 0 0 20px #f29d35;
+    }
+    100% {
+      transform: scale(1);
+      box-shadow: 0 0 10px #f29d35, inset 0 0 10px #f29d35;
+    }
+  }
+  
+  @keyframes sparks {
+    0% {
+      box-shadow: 0 0 10px #f29d35, inset 0 0 10px #f29d35;
+    }
+    50% {
+      box-shadow: 0 0 20px #ffcc00, inset 0 0 10px #f29d35;
+    }
+    100% {
+      box-shadow: 0 0 10px #f29d35, inset 0 0 10px #f29d35;
+    }
   }
   
   .filter-button:hover {
     background-color: #dcdcdc;
   }
+
+  .fire-button:hover {
+    background-color: #d88d31;
+  }
+
+
+  .select-container {
+    position: relative;
+    margin: 0 10px;
+  }
+  
+  .select-container select {
+    appearance: none;
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 150px; 
+  }
+  
+  .select-container select:hover {
+    background-color: #dcdcdc;
+  }
+  
+  .select-container select:focus {
+    outline: none;
+  }
+  
+  .select-container::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    border: solid #666;
+    border-width: 0 1px 1px 0;
+    padding: 3px;
+    pointer-events: none;
+  }
+  
+  
   
