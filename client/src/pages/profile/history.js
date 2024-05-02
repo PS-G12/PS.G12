@@ -32,6 +32,8 @@ const ProfileHistory = () => {
         }
     );
 
+
+
     
 
     const dataObjects = [
@@ -48,7 +50,7 @@ const ProfileHistory = () => {
         },
         {
             date: "29/04/2024",
-            value1: 2000,
+            value1: 2500,
             value2: 300,
             value3: 250,
             value4: 100,
@@ -142,7 +144,7 @@ const ProfileHistory = () => {
     const [classBtn, setClassBtn] = useState("");
     
 
-    const [filteredData, setFilteredData] = useState([]);
+    const [filteredData, setFilteredData] = useState(dataObjects);
 
     const handleFilter = (filteredData) => {
         setFilteredData(filteredData);
@@ -384,6 +386,7 @@ const ProfileHistory = () => {
                                     <polyline points="4.5 8.5 8 11 11.5 8.5" class="svg-out"></polyline>
                                     <path d="M8,1 L8,11" class="svg-out"></path>
                                 </svg>
+                                
                             </div>
                                 <a class="credit" href="https://dribbble.com/shots/4570587-Download-micro-interaction" target="_blank"><img src="https://cdn.dribbble.com/assets/logo-footer-hd-a05db77841b4b27c0bf23ec1378e97c988190dfe7d26e32e1faea7269f9e001b.png" alt=""></img></a>
                             </div>

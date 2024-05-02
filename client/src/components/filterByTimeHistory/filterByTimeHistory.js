@@ -1,10 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import './filterByTimeHistory.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFire } from '@fortawesome/free-solid-svg-icons';
+
 
 const FilterByTimeHistory = ({data, onFilter}) => {
-  const [selectedFilter, setSelectedFilter] = useState('week');
+
+  /*Variable provisional*/
+  const kcalObjective = 2100;
+
+
+  const [selectedFilter, setSelectedFilter] = useState('any');
   const [selectedMonth, setSelectedMonth] = useState(null);
   const [selectedYear, setSelectedYear] = useState(null);
+  const [isFired, setIsFired] = useState(false);
 
   const handleFilterChange = (filter) => {
     setSelectedFilter(filter);
@@ -23,7 +32,34 @@ const FilterByTimeHistory = ({data, onFilter}) => {
     applyFilter('year', year);
   };
 
-
+  const handleFireClick = () => {
+    setIsFired(!isFired);
+  
+    let filteredData = [...data];
+  
+    if (selectedFilter === 'month') {
+      filteredData = filteredData.filter(entry => {
+        const dateParts = entry.date.split('/');
+        return parseInt(dateParts[1]) === selectedMonth;
+      });
+    }
+  
+    if (selectedFilter === 'year') {
+      filteredData = filteredData.filter(entry => {
+        const dateParts = entry.date.split('/');
+        return parseInt(dateParts[2]) === selectedYear;
+      });
+    }
+  
+    if (!isFired) {
+      filteredData = filteredData.filter(entry => {
+        return entry.value1 > kcalObjective;
+      });
+    }
+  
+    onFilter(filteredData);
+  };
+  
 
 
   const currentYear = new Date().getFullYear();
@@ -63,6 +99,10 @@ const FilterByTimeHistory = ({data, onFilter}) => {
       if (filter === 'year') {
         return filterEntries(entry, 'year', value);
       }
+
+      if (filter === 'any') {
+        return filterEntries(entry, 'any');
+      }
     });
     
     onFilter(filteredData);
@@ -75,7 +115,6 @@ const FilterByTimeHistory = ({data, onFilter}) => {
       <div className={selectedFilter === 'month' || selectedFilter === 'year' ? "select-container" : ""}>
         {selectedFilter === 'month' && (
           <select value={selectedMonth} onChange={handleMonthChange}>
-            <option value={null}>All Months</option>
             <option value={1}>January</option>
             <option value={2}>February</option>
             <option value={3}>March</option>
@@ -93,7 +132,6 @@ const FilterByTimeHistory = ({data, onFilter}) => {
 
         {selectedFilter === 'year' && (
           <select value={selectedYear} onChange={handleYearChange}>
-            <option value={null}>All Years</option>
             {years.map((year) => (
               <option key={year} value={year}>
                 {year}
@@ -104,6 +142,12 @@ const FilterByTimeHistory = ({data, onFilter}) => {
       </div>
 
 
+      <button
+        className={`filter-button ${selectedFilter === 'any' ? 'active' : ''}`}
+        onClick={() => handleFilterChange('any')}
+      >
+        Any
+      </button>
       <button
         className={`filter-button ${selectedFilter === 'week' ? 'active' : ''}`}
         onClick={() => handleFilterChange('week')}
@@ -121,6 +165,11 @@ const FilterByTimeHistory = ({data, onFilter}) => {
         onClick={() => handleFilterChange('year')}
       >
         Year
+      </button>
+      <button
+        className={`fire-button ${isFired ? 'active' : ''}`}
+        onClick={handleFireClick}
+      ><FontAwesomeIcon icon={faFire} />
       </button>
     </div>
   );
