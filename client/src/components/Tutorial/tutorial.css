@@ -1,46 +1,51 @@
 .tutorial-overlay {
-    position: absolute;
-    z-index: 9999999999;
-    background-color: white;
-    border: 3px solid #0066EE;
-    border-radius: 70%;
-    clip-path: circle(70% at center);
+  position: absolute;
+  z-index: 9999999999;
+  background-color: white;
+  border: 3px solid #0066EE;
+  border-radius: 70%;
+  clip-path: circle(70% at center);
 }
 
 .tutorial-popup {
-    width: fit-content;
-    text-align: center;
-    padding: 20px;
-    border-radius: 70%;
-    clip-path: circle(70% at center);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: fit-content;
+  padding: 20px;
+  border-radius: 70%;
+  clip-path: circle(70% at center);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .flechaAvanzar,
-.flechaVolver, checkMark{
-    background-color: white;
-    color: black;
+.flechaVolver, .checkMark{
+  background-color: white;
+  color: black;
+}
+.flechaAvanzar:hover,
+.flechaVolver:hover, .checkMark:hover{
+  background-color: #005cd4;
+  color: black;
 }
 
 .arrow-down, .arrow-up {
-    width: 0;
-    height: 0;
-    border-left: 20px solid transparent;
-    border-right: 20px solid transparent;
-    position: absolute;
-    left: 45%;
-    transform: translateX(-50%);
-  }
-  
-  .arrow-down {
-    border-top: 30px solid #0066EE; /* flecha hacia abajo */
-    bottom: -30px; /* Ajuste de posición para la flecha hacia abajo */
-  }
-  
-  .arrow-up {
-    border-bottom: 30px solid #0066EE; /* flecha hacia arriba */
-    top: -30px; /* Ajuste de posición para la flecha hacia arriba */
-  }
-  
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  position: absolute;
+  left: 45%;
+  transform: translateX(-50%);
+}
+
+.arrow-down {
+  border-top: 30px solid #0066EE; 
+  bottom: -30px;
+}
+
+.arrow-up {
+  border-bottom: 30px solid #0066EE; 
+  top: -30px; 
+}
+
