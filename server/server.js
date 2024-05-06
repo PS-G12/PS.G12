@@ -1,8 +1,8 @@
 const express = require("express");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const passport = require("passport");
-require("dotenv").config();
 const exerciseData = require("./api/exercise_data_en.json");
+require("dotenv").config();
 const {
   registerUser,
   registerUserData,
@@ -29,14 +29,13 @@ const {
   updateGender,
   updatePass,
   updatePfp,
-  getHistory
+  getHistory,
+  setRates,
 } = require("./api/db.mongo");
 const { getUser } = require("./api/db.mongo");
 const jsonData = require("./api/foodData.json");
 const path = require("path");
-const NodeCache = require("node-cache");
 const bcrypt = require("bcrypt");
-const cache = new NodeCache();
 const jwt = require("jsonwebtoken");
 const { error } = require("console");
 const app = express();
@@ -150,16 +149,20 @@ function decodeToken(token) {
 
 app.use("/gifs", express.static(path.join(__dirname, "gifs")));
 
-app.get("/api/exercises", (req, res) => {
+app.get("/api/exercises", async (req, res) => {
   const { search, bodyPart, perPage, page, filter } = req.query;
-  const cacheKey = JSON.stringify(req.query);
-
-  const cachedData = cache.get(cacheKey);
-  if (cachedData) {
-    return res.json(cachedData);
-  }
 
   let filteredExercises = exerciseData;
+  const rates = await getRates();
+  rates.forEach((exerciseRate) => {
+    const exerciseIndex = filteredExercises.findIndex((exercise) => exercise.id === exerciseRate.id);
+    if (exerciseIndex !== -1) {
+        const rating = exerciseRate.rating;
+        filteredExercises[exerciseIndex].rating = rating;
+        console.log(rating);
+    }
+});
+
 
   if (search) {
     filteredExercises = filteredExercises.filter((exercise) =>
@@ -213,7 +216,6 @@ app.get("/api/exercises", (req, res) => {
   const results = filteredExercises.slice(startIndex, endIndex);
   const totalPages = Math.ceil(filteredExercises.length / perPage_fix);
   const data = { results, totalPages };
-  cache.set(cacheKey, data, 5 * 60);
   res.json(data);
 });
 
@@ -595,6 +597,32 @@ app.post("/user/data/update/info/gender", verifyToken, async (req, res) => {
     res.status(500).json({ error: "An error ocurred while getting the users data"});
   }
 });
+
+app.post("/user/rate", verifyToken, async (req, res) => {
+  const user = req.user;
+  const { exerciseId, rating } = req.body;
+
+  try {
+    const success = await setRates(exerciseId, rating, user);
+
+    if (success !== undefined) {
+      if (success) {
+        console.log("Exercise rated successfully by user", user);
+        return res.status(200).json({ success: true, message: "Exercise rated successfully" });
+      } else {
+        console.log("User", user, "has already rated exercise with ID", exerciseId);
+        return res.status(400).json({ success: false, message: "User has already rated this exercise" });
+      }
+    } else {
+      console.log("Failed to rate exercise with ID", exerciseId);
+      return res.status(500).json({ success: false, message: "Failed to rate exercise" });
+    }
+  } catch (error) {
+    console.error("An error occurred while rating exercise:", error);
+    return res.status(500).json({ success: false, message: "An error occurred while rating exercise" });
+  }
+});
+
 
 
 app.post("/user/data/update/info/pass", verifyToken, async (req, res) => {

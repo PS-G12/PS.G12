@@ -10,7 +10,7 @@
 .glass{
     width: 300px;
     height: 420px;
-    background-color: rgb(237, 237, 237);
+    background-color: rgb(214, 214, 214);
     position: absolute;
     -webkit-clip-path: polygon(0 0, 100% 0, 90% 100%, 10% 100%);
     clip-path: polygon(0 0, 100% 0, 90% 100%, 10% 100%);

@@ -33,6 +33,7 @@ const ExercisePage = () => {
       .then(response => response.json())
       .then(data => {
         setExerciseDataState(data);
+        console.log(data);
         setLoading(false);
       })
       .catch(error => {
