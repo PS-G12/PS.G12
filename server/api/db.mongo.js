@@ -275,6 +275,42 @@ const addNewFood = async (userId, food) => {
   }
 };
 
+const deleteFood = async (userId, foodName, meal) => {
+  try {
+    console.log("Este es el nombre de la comida a eliminar ", foodName);
+    console.log("Este es el tipo de comida a eliminar ", meal);
+
+    const collection = database.collection("objective_records");
+    const userData = await collection.findOne({ userId: userId });
+    if (!userData) {
+      console.error("No user records found");
+      return;
+    }
+
+
+
+    userData.objectiveData.foodRecords = userData.objectiveData.foodRecords.filter(
+      (item) => item.nombre !== foodName && item.typeComida !== meal
+    );
+    
+    console.log(userData.objectiveData.foodRecords);
+    
+    await collection.updateOne(
+      { userId: userId },
+      {
+        $set: {
+          "objectiveData.ownFood": userData.objectiveData.foodRecords,
+        },
+      }
+    );
+
+    return 1;
+  } catch (error) {
+    console.error("Error fetching/updating user data:", error);
+    throw error;
+  }
+}
+
 const searchOwnFood = async (user, query) => {
   const foundItems = [];
   try {
@@ -480,6 +516,9 @@ const resetProgress = async (user) => {
         result.objectiveData.carbsConsumed = 0;
         result.objectiveData.fatsConsumed = 0;
         result.objectiveData.waterAmount = 0;       
+
+        result.foodRecords? result.foodRecords = [] || null : null;
+      
       }
     }
     result.objectiveData = {
@@ -819,5 +858,6 @@ module.exports = {
   updateGender,
   updatePass,
   updatePfp,
-  getHistory
+  getHistory, 
+  deleteFood
 };

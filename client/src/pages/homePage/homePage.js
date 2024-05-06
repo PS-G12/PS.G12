@@ -44,8 +44,6 @@ const IndexPage = () => {
     ratio: [],
   });
 
-  const [loading, setLoading] = useState(true);
-
   const [popupData, setPopupData] = useState(null);
 
   const [waterCount, setwaterCount] = useState(0);
@@ -53,7 +51,7 @@ const IndexPage = () => {
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     if (token) {
-      setLoading(true);
+      
       fetch("/user/data", {
         method: "GET",
         headers: {
@@ -61,6 +59,7 @@ const IndexPage = () => {
         },
       })
         .then((response) => {
+          
           if (response.ok) {
             setIsLoggedIn(true);
             return response.json();
@@ -70,7 +69,6 @@ const IndexPage = () => {
           }
         })
         .then((data) => {
-          setLoading(false);
           setObjectiveData({
             value: data.objectiveData.kcalConsumed,
             kcalObjective: data.objectiveData.kcalObjective,
@@ -121,10 +119,10 @@ const IndexPage = () => {
         .catch((error) => {
           console.error("Error fetching user data:", error);
           setIsLoggedIn(false);
-          setLoading(false);
+          
         });
     } else {
-      setLoading(false);
+      
     }
   }, []);
 
@@ -315,7 +313,7 @@ const IndexPage = () => {
   return (
     <div className="index-page">
       <Header isAuthenticated={isLoggedIn} />
-      {loading ? (
+      {false ? (
         <div className="loader-container">
           <span className="loader"></span>
         </div>
