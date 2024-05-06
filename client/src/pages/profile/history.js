@@ -25,12 +25,8 @@ const ProfileHistory = () => {
 
     const [history, setHistory] = useState([]);
 
-
-
-    
-
     const dataObjects = [
-        {
+        /*{
             date: "28/01/2024",
             value1: 2000,
             value2: 300,
@@ -128,7 +124,7 @@ const ProfileHistory = () => {
             measurement1: "2.5L",
             measurement2: "75kg",
             measurement3: 90
-        },
+        },*/
     ];
 
 
@@ -324,7 +320,8 @@ const ProfileHistory = () => {
 
     useEffect(() => {
         if (history){
-            console.log(history);
+            console.log("Aqui esta", history);
+            dataObjects.push(...history);
         }
     }, [history]);
 
@@ -413,15 +410,15 @@ const ProfileHistory = () => {
                                     <tbody>
                                         {sortedDataObjects.map((data, index) => (
                                             <tr key={index}>
-                                                <td>{data.date}</td>
-                                                <td>{data.value1}</td>
-                                                <td>{data.value2}</td>
-                                                <td>{data.value3}</td>
-                                                <td>{data.value4}</td>
-                                                <td>{data.value5}</td>
-                                                <td>{data.measurement1}</td>
-                                                <td>{data.measurement2}</td>
-                                                <td>{data.measurement3}</td>
+                                                <td>{data.userLastLogin === null ? 'XX-XX-XXXX' : data.userLastLogin}</td>
+                                                <td>{data.userLastLogin === null ? 'XX-XX-XXXX' : data.userLastLogin}</td>
+                                                <td>{data.userLastLogin === null ? 'XX-XX-XXXX' : data.userLastLogin}</td>
+                                                <td>{data.userLastLogin === null ? 'XX-XX-XXXX' : data.userLastLogin}</td>
+                                                <td>{data.userLastLogin === null ? 'XX-XX-XXXX' : data.userLastLogin}</td>
+                                                <td>{data.userLastLogin === null ? 'XX-XX-XXXX' : data.userLastLogin}</td>
+                                                <td>{data.userLastLogin === null ? 'XX-XX-XXXX' : data.userLastLogin}</td>
+                                                <td>{data.userLastLogin === null ? 'XX-XX-XXXX' : data.userLastLogin}</td>
+                                                <td>{data.userLastLogin === null ? 'XX-XX-XXXX' : data.userLastLogin}</td>
                                             </tr>
                                         ))}
                                     </tbody>

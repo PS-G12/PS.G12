@@ -14,27 +14,44 @@ const client = new MongoClient(uri, {
 });
 const database = client.db("Cluster0");
 
-try{
-  cron.schedule("0 0 * * *", async () => {
+try {
+  cron.schedule("10 14 * * *", async () => {
     const sourceCollection = database.collection("objective_records");
     const targetCollection = database.collection("user_history");
 
-    const fieldsToCopy = {userID:1, "objectiveData.kcalConsumed":1, "objectiveData.proteinsConsumed":1, "objectiveData.fatsConsumed":1, "objectiveData.carbsConsumed":1,
-     "objectiveData.waterAmount":1, "objectiveData.kcalOjective":1, "objectiveData.pulseProgression":1, "objectiveData.userLastLogin":1
-    };
+    const sourceData = await sourceCollection.find({}).toArray();
 
-    const sourceData = await sourceCollection.find({}, fieldsToCopy).toArray();
-    await targetCollection.insertMany(sourceData);
+    const filteredData = sourceData.map(doc => {
+      const { userId, objectiveData } = doc;
+      const { kcalConsumed, proteinsConsumed, fatsConsumed, carbsConsumed, waterAmount, pulseProgression, weightProgression, userLastLogin } = objectiveData;
+      
+      return {
+        userId,
+        objectiveData: {
+          kcalConsumed,
+          proteinsConsumed,
+          fatsConsumed,
+          carbsConsumed,
+          waterAmount,
+          pulseProgression,
+          weightProgression,
+          userLastLogin
+        }
+      };
+    });
 
-    if (targetCollection.countDocuments() === sourceData.length){
+    await targetCollection.insertMany(filteredData);
+
+    const insertedData = await targetCollection.countDocuments();
+
+    if (insertedData === sourceData.length) {
       console.log("Data copied successfully");
     }
-    else{
+    else {
       console.log("Could not copy the data");
     }
   });
-}
-catch (error){
+} catch (error) {
   console.error("Error could not copy the data: ", error);
 }
 
