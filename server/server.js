@@ -25,6 +25,7 @@ const {
   updateWeight,
   updateHeight,
   updateAge,
+  deleteFood,
   updateCal,
   updateGender,
   updatePass,
@@ -227,6 +228,28 @@ app.get("/api/food/", async (req, res) => {
     let userId = decodeToken(token);
     if (userId) userId = userId.userId;
     result = await fetchFood(search, userId);
+    return res.json(result);
+  } catch (error) {
+    console.error("Error al buscar alimentos:", error.message);
+    return res.status(500).json({ error: "Error al buscar alimentos" });
+  }
+});
+
+app.post("/api/food/delete", async (req, res) => {
+  const { search } = req.query;
+  const { nombre, tipo } = req.body;
+
+  let token = req.headers.authorization;
+  if (token){
+    token = req.headers.authorization.split(' ')[1];
+  }
+
+  let result;
+  try {
+    let userId = decodeToken(token);
+    if (userId) userId = userId.userId;
+    
+    result = await deleteFood(userId, nombre, tipo);
     return res.json(result);
   } catch (error) {
     console.error("Error al buscar alimentos:", error.message);
