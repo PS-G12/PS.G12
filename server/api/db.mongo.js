@@ -463,6 +463,9 @@ const resetProgress = async (user) => {
         result.objectiveData.carbsConsumed = 0;
         result.objectiveData.fatsConsumed = 0;
         result.objectiveData.waterAmount = 0;       
+
+        result.foodRecords? result.foodRecords = [] || null : null;
+      
       }
     }
     result.objectiveData = {
