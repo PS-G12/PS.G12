@@ -15,6 +15,8 @@ const ChangePassword = () => {
     const [error, setError] = useState(null);
     const [correct, setCorrect] = useState(null);
     const [showMessage, setShowMessage] = useState(false);
+    const [updateTookPlace, setUpdateTookPlace] = useState(false);
+    const [selectedImage, setSelectedImage] = useState("");
 
     const [formData, setFormData] = useState(
         {
@@ -27,6 +29,121 @@ const ChangePassword = () => {
             }
         }
     );
+
+    const [formDataUpdate, setFormDataUpdate] = useState({
+        userData: {
+          pfp: "",
+        },
+    });
+
+    const handleImageChange = async (event) => {
+        const file = event.target.files[0];
+        try {
+          const compressedFile = await compressImage(file, 800, 600, 0.8);
+          const reader = new FileReader();
+          reader.readAsDataURL(compressedFile);
+          reader.onload = function () {
+            setSelectedImage(reader.result);
+          };
+          reader.onerror = function (error) {
+            console.error(
+              "Run into an error converting the image to base64: ",
+              error
+            );
+          };
+        } catch (error) {
+          console.error("Error compressing the image:", error);
+        }
+    };
+
+    const compressImage = (file, maxWidth, maxHeight, quality) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function (event) {
+                const img = new Image();
+                img.src = event.target.result;
+                img.onload = function () {
+                    const canvas = document.createElement("canvas");
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > maxWidth) {
+                        height *= maxWidth / width;
+                        width = maxWidth;
+                    }
+
+                    if (height > maxHeight) {
+                        width *= maxHeight / height;
+                        height = maxHeight;
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+
+                    const ctx = canvas.getContext("2d");
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    canvas.toBlob(
+                    (blob) => {
+                        resolve(blob);
+                    },
+                    "image/jpeg",
+                    quality
+                    );
+                };
+            };
+            reader.onerror = function (error) {
+                reject(error);
+            };
+        });
+    };
+
+    useEffect(() => {
+        if (selectedImage) {
+          setFormDataUpdate((prevState) => ({
+            ...prevState,
+            userData: {
+              ...prevState.userData,
+              pfp: selectedImage,
+            },
+          }));
+        }
+    }, [selectedImage]);
+
+    useEffect(() => {
+        if (formDataUpdate.userData.pfp) {
+          console.log("si entra al if de pfp");
+          changePfp();
+        }
+    }, [formDataUpdate.userData.pfp]);
+    
+    const changePfp = async () => {
+        try {
+            const response = await fetch("/user/data/pfp", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({ formDataUpdate }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data) {
+                console.log("Users profile picture updated");
+                setUpdateTookPlace(true);
+            }
+            else {
+                console.error("Could not update the users profile picture");
+            }
+        }
+        catch (error) {
+            console.error("Run into an error while changing the users profile picture", error);
+            throw error;
+        }
+    };
 
     useEffect(() => {
         const token = sessionStorage.getItem('token');
@@ -93,7 +210,7 @@ const ChangePassword = () => {
 
             getUserData();
         }
-    }, [tokenFetched]);
+    }, [tokenFetched, updateTookPlace]);
 
 
 
@@ -170,10 +287,24 @@ const ChangePassword = () => {
 
             <div className="photo-table">
                 <div className="photo-username-section">
-                    <label htmlFor="upload-photo">
-                        <img src={formData.userData.pfp === '' ? "https://previews.123rf.com/images/amitspro/amitspro1706/amitspro170600016/80099376-mandala-de-flor-abstracta-patr%C3%B3n-decorativo-fondo-azul-imagen-cuadrada-imagen-de-ilusi%C3%B3n-patr%C3%B3n.jpg" : formData.userData.pfp} alt="Descripción de la imagen"></img>
+                    <label htmlFor="upload-photo" className="upload-photo-section-pass">
+                        <img src={formData.userData.pfp === '' 
+                            ? "https://previews.123rf.com/images/amitspro/amitspro1706/amitspro170600016/80099376-mandala-de-flor-abstracta-patr%C3%B3n-decorativo-fondo-azul-imagen-cuadrada-imagen-de-ilusi%C3%B3n-patr%C3%B3n.jpg" 
+                            : formData.userData.pfp} alt="Descripción de la imagen">
+                        </img>
+                        <img
+                            src="edit.png"
+                            alt="Editar"
+                            className="edit-icon-pass"
+                        />
                     </label>
 
+                    <input
+                        type="file"
+                        id="upload-photo"
+                        style={{ display: "none" }}
+                        onChange={handleImageChange}
+                    />
                     <ProfileNavBar/>
                 
                 </div>
