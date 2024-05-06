@@ -1,21 +1,19 @@
 .tutorial-overlay {
-  position: absolute;
-  z-index: 9999999999;
-  background-color: white;
-  border: 3px solid #0066EE;
-  border-radius: 70%;
-  clip-path: circle(70% at center);
+    position: absolute;
+    z-index: 9999999999;
+    background-color: white;
+    border: 3px solid #0066EE;
+    border-radius: 7px;
 }
 
 .tutorial-popup {
-  width: fit-content;
-  padding: 20px;
-  border-radius: 70%;
-  clip-path: circle(70% at center);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+    width: fit-content;
+    padding: 20px;
+    clip-path: circle(70% at center);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
 .flechaAvanzar,
