@@ -25,11 +25,13 @@ const ProfileHistory = () => {
 
     const [history, setHistory] = useState([]);
 
+
+
     
 
     const dataObjects = [
         {
-            date: "01/04/2024",
+            date: "28/01/2024",
             value1: 2000,
             value2: 300,
             value3: 250,
@@ -40,7 +42,18 @@ const ProfileHistory = () => {
             measurement3: 80
         },
         {
-            date: "02/04/2024",
+            date: "29/04/2024",
+            value1: 2500,
+            value2: 300,
+            value3: 250,
+            value4: 100,
+            value5: 80,
+            measurement1: "2L",
+            measurement2: "70kg",
+            measurement3: 80
+        },
+        {
+            date: "30/04/2024",
             value1: 1800,
             value2: 280,
             value3: 220,
@@ -51,7 +64,7 @@ const ProfileHistory = () => {
             measurement3: 75
         },
         {
-            date: "03/04/2024",
+            date: "01/05/2024",
             value1: 2100,
             value2: 320,
             value3: 220,
@@ -62,7 +75,7 @@ const ProfileHistory = () => {
             measurement3: 85
         },
         {
-            date: "04/04/2024",
+            date: "02/05/2024",
             value1: 1900,
             value2: 290,
             value3: 230,
@@ -73,7 +86,7 @@ const ProfileHistory = () => {
             measurement3: 80
         },
         {
-            date: "05/04/2024",
+            date: "03/05/2024",
             value1: 2200,
             value2: 330,
             value3: 280,
@@ -83,7 +96,39 @@ const ProfileHistory = () => {
             measurement2: "75kg",
             measurement3: 90
         },
-        // Agrega más objetos según sea necesario
+        {
+            date: "04/05/2024",
+            value1: 2200,
+            value2: 330,
+            value3: 280,
+            value4: 120,
+            value5: 100,
+            measurement1: "2.5L",
+            measurement2: "75kg",
+            measurement3: 90
+        },
+        {
+            date: "05/05/2024",
+            value1: 2200,
+            value2: 330,
+            value3: 280,
+            value4: 120,
+            value5: 100,
+            measurement1: "2.5L",
+            measurement2: "75kg",
+            measurement3: 90
+        },
+        {
+            date: "06/05/2024",
+            value1: 2200,
+            value2: 330,
+            value3: 280,
+            value4: 120,
+            value5: 100,
+            measurement1: "2.5L",
+            measurement2: "75kg",
+            measurement3: 90
+        },
     ];
 
 
@@ -92,7 +137,14 @@ const ProfileHistory = () => {
     const [classBtn, setClassBtn] = useState("");
     
 
+    const [filteredData, setFilteredData] = useState(dataObjects);
+
+    const handleFilter = (filteredData) => {
+        setFilteredData(filteredData);
+    };
+
     const handleSort = (key) => {
+        console.log(key)
         if (sortBy === key) {
             setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
         } else {
@@ -107,7 +159,6 @@ const ProfileHistory = () => {
 
         setClassBtn("downloaded");
 
-        // Agregar encabezados de columnas y anchos de columna
         worksheet.columns = [
             { header: "Fecha", key: "date", width: 15 },
             { header: "Kcal llegadas", key: "value1", width: 15 },
@@ -120,22 +171,22 @@ const ProfileHistory = () => {
             { header: "Pulsaciones", key: "measurement3", width: 15 }
         ];
 
-        // Agregar datos
+
         dataObjects.forEach(data => {
             worksheet.addRow(data);
         });
 
-        // Aplicar formato estético al encabezado
+
         const headerRow = worksheet.getRow(1);
         headerRow.eachCell((cell) => {
             cell.fill = {
                 type: 'pattern',
                 pattern: 'solid',
-                fgColor: { argb: 'D0D0D0' } // Color de gris 
+                fgColor: { argb: 'D0D0D0' } 
             };
             cell.font = {
                 bold: true,
-                color: { argb: '000000' } // Color de texto negro
+                color: { argb: '000000' } 
             };
             cell.border = {
                 top: { style: 'thin' },
@@ -145,7 +196,6 @@ const ProfileHistory = () => {
             };
         });
 
-        // Aplicar formato estético a los datos
         worksheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
             row.eachCell((cell) => {
                 cell.alignment = { vertical: 'middle', horizontal: 'center' };
@@ -278,7 +328,7 @@ const ProfileHistory = () => {
         }
     }, [history]);
 
-    const sortedDataObjects = [...dataObjects].sort((a, b) => {
+    const sortedDataObjects = [...filteredData].sort((a, b) => {
         const valueA = a[sortBy];
         const valueB = b[sortBy];
         if (valueA < valueB) {
@@ -316,13 +366,14 @@ const ProfileHistory = () => {
                         <div className="basic-info-history information-box-history">
                             <h1>History</h1>
                             <div className="botones-history">
-                                <FilterByTimeHistory />
+                                <FilterByTimeHistory data={dataObjects} onFilter={handleFilter}/>
                                 <div className = {classBtn} id="btn-download" onClick={exportToExcel}>
                                 <svg width="22px" height="16px" viewBox="0 0 22 16">
                                     <path d="M2,10 L6,13 L12.8760559,4.5959317 C14.1180021,3.0779974 16.2457925,2.62289624 18,3.5 L18,3.5 C19.8385982,4.4192991 21,6.29848669 21,8.35410197 L21,10 C21,12.7614237 18.7614237,15 16,15 L1,15" id="check"></path>
                                     <polyline points="4.5 8.5 8 11 11.5 8.5" class="svg-out"></polyline>
                                     <path d="M8,1 L8,11" class="svg-out"></path>
                                 </svg>
+                                
                             </div>
                                 <a class="credit" href="https://dribbble.com/shots/4570587-Download-micro-interaction" target="_blank"><img src="https://cdn.dribbble.com/assets/logo-footer-hd-a05db77841b4b27c0bf23ec1378e97c988190dfe7d26e32e1faea7269f9e001b.png" alt=""></img></a>
                             </div>
@@ -375,6 +426,7 @@ const ProfileHistory = () => {
                                         ))}
                                     </tbody>
                                 </table>
+
                             </div>
 
                         </div>
