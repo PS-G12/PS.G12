@@ -19,6 +19,8 @@ Chart.register(LineElement, CategoryScale, LinearScale, PointElement);
 
 const IndexPage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showTutorial, setShowTutorial] = useState(false); 
+
   const [objectiveData, setObjectiveData] = useState({
     value: 0,
     kcalObjective: 0,
@@ -72,6 +74,11 @@ const IndexPage = () => {
         })
         .then((data) => {
           setLoading(false);
+          if (!data.objectiveData.userLastLogin) {
+            setShowTutorial(true);
+          } else {
+            setShowTutorial(false);
+          }
           setObjectiveData({
             value: data.objectiveData.kcalConsumed,
             kcalObjective: data.objectiveData.kcalObjective,
@@ -348,7 +355,7 @@ const IndexPage = () => {
                   max3={Math.round(parseFloat(macrosData.max3))}
                 />
 
-                <Tutorial></Tutorial>
+                {showTutorial && <Tutorial />}
                 <div className="water-container" onClick={handleWaterSubmit}>
                   <WaterGlass waterCount={waterCount} waterGoal={1500} />
                 </div>

@@ -41,7 +41,25 @@ const Tutorial = ({ onClose }) => {
   };
 
   const skipTutorial = () => {
-    setShowTutorial(false); 
+    setShowTutorial(false);
+
+    const token = sessionStorage.getItem("token");
+    if (token) {
+      fetch("/user/data/tutorial", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ token }),
+      }).then((response) => {
+        if (response.ok) {
+          window.location.reload();
+        } else {
+          console.error("Failed to skip tutorial:", response.statusText);
+        }
+      });
+    }
   };
 
   return (
