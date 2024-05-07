@@ -384,7 +384,6 @@ app.get("/user/data/food", verifyToken, async (req, res) => {
   const userId = req.user;
   try {
     const userData = await getUserData(userId);
-    console.log(userData);
     res.status(200).json(userData.objectiveData.foodRecords);
   } catch (error) {
     console.error("Error al obtener los datos del user:", error);
