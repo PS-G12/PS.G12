@@ -11,3 +11,40 @@
     flex: 1 1;
     min-height: 76.7vh;
 }
+
+
+/*CALORIES*/
+
+#all-components-calories{
+    display: flex;
+    justify-content: space-between;
+}
+
+#card-component-calories{
+    display: flex;
+    justify-content:flex-end;
+    width: 65%; 
+    margin-right: 5%;
+
+}
+
+.add-burned-kcals-container{
+    width: 20%;
+    height: fit-content;
+    padding: 2%;
+    margin-right: 5.5%;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.main-specifications{
+    display: flex;
+    flex-direction: column;
+}
+
+.card-component{
+    flex: 1 1;
+    min-height: 76.7vh;
+}
