@@ -35,9 +35,22 @@ const MacrosSpecification = ({specificationName}) => {
   return (
     <div className="main-specifications">
       <MacrosHeader isAuthenticated={isLoggedIn} />
-      <div className="card-component">
-        <MacrosSpecificationCard specificationName={specificationName}/>
+      
+      <div className="all-components" id={`all-components-${specificationName}`}>
+        <div className="card-component" id={`card-component-${specificationName}`}>
+          <MacrosSpecificationCard specificationName={specificationName}/>
+        </div>
+
+        {specificationName === 'calories' && 
+        
+        <div className="add-burned-kcals-container">
+          <h2>Do you want to add burned calories?</h2>
+          <input type="number" placeholder="Burned Calories" />
+          <button className="add-burned-kcals-button">Add burned calories</button>
+        </div>}
+
       </div>
+
       <Footer />
     </div>
   );
