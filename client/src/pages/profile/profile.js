@@ -126,6 +126,7 @@ const ProfilePrueba = () => {
         .then((response) => {
           if (response.ok) {
             setTokenFetched(true);
+            setIsLoggedIn(true);
           } else {
             console.error("Invalid token");
           }

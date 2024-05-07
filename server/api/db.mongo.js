@@ -15,7 +15,7 @@ const client = new MongoClient(uri, {
 const database = client.db("Cluster0");
 
 try {
-  cron.schedule("20 23 * * *", async () => {
+  cron.schedule("28 11 * * *", async () => {
     const sourceCollection = database.collection("objective_records");
     const targetCollection = database.collection("user_history");
 
@@ -42,13 +42,13 @@ try {
 
     await targetCollection.insertMany(filteredData);
 
-    const insertedData = await targetCollection.countDocuments();
+    const insertedData = filteredData.length;
 
     if (insertedData === sourceData.length) {
       console.log("Data copied successfully");
     }
     else {
-      console.log("Could not copy the data");
+      console.error("Could not copy the data");
     }
   });
 } catch (error) {
@@ -832,6 +832,24 @@ const getHistory = async (user) => {
   }
 };
 
+const getKcalGoal = async (user) => {
+  try{
+    const collection = database.collection("objective_records");
+    const userData = await collection.findOne({ userId: user });
+    if (!userData){
+      console.error('No user found');
+    }
+    else{
+      console.log('User data fetched: ', userData);
+      return userData.objectiveData.kcalObjective;
+    }
+  }
+  catch(error){
+    console.error("Error fetching the users data");
+    throw error;
+  }
+}
+
 module.exports = {
   getUser,
   getQuery,
@@ -859,5 +877,6 @@ module.exports = {
   updatePass,
   updatePfp,
   getHistory, 
-  deleteFood
+  deleteFood,
+  getKcalGoal
 };

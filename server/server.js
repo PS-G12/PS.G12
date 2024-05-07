@@ -30,7 +30,8 @@ const {
   updateGender,
   updatePass,
   updatePfp,
-  getHistory
+  getHistory,
+  getKcalGoal
 } = require("./api/db.mongo");
 const { getUser } = require("./api/db.mongo");
 const jsonData = require("./api/foodData.json");
@@ -325,8 +326,8 @@ app.get("/user/data", verifyToken, async (req, res) => {
     const userData = await getUserData(userId);
     res.status(200).json(userData);
   } catch (error) {
-    console.error("Error al obtener los datos del usuario:", error);
-    res.status(500).json({ error: "Error al obtener los datos del usuario" });
+    console.error("Error obtaining the users data:", error);
+    res.status(500).json({ error: "Error obtaining the users data" });
   }
 });
 
@@ -387,8 +388,8 @@ app.get("/user/data/food", verifyToken, async (req, res) => {
     console.log(userData);
     res.status(200).json(userData.objectiveData.foodRecords);
   } catch (error) {
-    console.error("Error al obtener los datos del user:", error);
-    res.status(500).json({ error: "Error al obtener los datos del user" });
+    console.error("Error obtaining the users data:", error);
+    res.status(500).json({ error: "Error obtaining the users data" });
   }
 });
 
@@ -681,8 +682,20 @@ app.get("/user/data/history", verifyToken, async (req, res) => {
     const userData = await getHistory(user);
     res.status(200).json(userData);
   } catch (error) {
-    console.error("Error al obtener los datos del usuario:", error);
-    res.status(500).json({ error: "Error al obtener los datos del usuario" });
+    console.error("Error obtaining the users data:", error);
+    res.status(500).json({ error: "Error obtaining the users history" });
+  }
+});
+
+app.get("/user/data/kcalGoal", verifyToken, async (req, res) => {
+  const user = req.user;
+  try{
+    const userData = await getKcalGoal(user);
+    res.status(200).json(userData);
+  }
+  catch (error){
+    console.error('Run into an error while getting the user kcal goal: ', error)
+    res.status(500).json({ error: "Error obtaining the users kcal goal" });
   }
 });
 

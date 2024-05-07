@@ -32,16 +32,14 @@ const ProfileHistory = () => {
 
     const [history, setHistory] = useState([]);
     const [objetcLoaded, setObjectLoaded] = useState(false);
-
     const [dataObjects, setDataObjects] = useState([]);
-
+    const [kcalObjective, setKcalObjective] = useState();
 
     const [sortBy, setSortBy] = useState('date');
     const [sortOrder, setSortOrder] = useState('asc');
     const [classBtn, setClassBtn] = useState("");
     const [updateTookPlace, setUpdateTookPlace] = useState(false);
     
-
     const [filteredData, setFilteredData] = useState(dataObjects);
 
     const handleFilter = (filteredData) => {
@@ -338,6 +336,36 @@ const ProfileHistory = () => {
     }, [tokenFetched, updateTookPlace]);
 
     useEffect(() => {
+        if (token){
+          const getUserKcalGoal = async () => {
+            try{
+              const response = await fetch('/user/data/kcalGoal', {
+                method: 'GET',
+                headers: {
+                  'Authorization': `Bearer ${token}`
+                }
+              });
+        
+              const data = await response.json();
+        
+              if (response.ok && data){
+                setKcalObjective(data);
+              }
+              else{
+                console.error('Could not get the users kcal goal');
+              }
+            }
+            catch (error){
+              console.error('The users kcal goal could not be obtained');
+              throw error;
+            }
+          };
+    
+          getUserKcalGoal();
+        }
+      }, [token]);
+
+    useEffect(() => {
         if (history.length > 0){
             //console.log("Aqui esta", history);
             setDataObjects(history);
@@ -404,8 +432,8 @@ const ProfileHistory = () => {
                         <div className="basic-info-history information-box-history">
                             <h1>History</h1>
                             <div className="botones-history">
-                                {objetcLoaded 
-                                    ? <FilterByTimeHistory data={dataObjects} onFilter={handleFilter}/> 
+                                {objetcLoaded && kcalObjective
+                                    ? <FilterByTimeHistory data={dataObjects} kcalObjective={kcalObjective} onFilter={handleFilter}/> 
                                     : <p>Loading...</p>
                                 }
                                 <div className = {classBtn} id="btn-download" onClick={exportToExcel}>
@@ -422,32 +450,32 @@ const ProfileHistory = () => {
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th onClick={() => handleSort('date')}>
-                                                Fecha {renderSortIcon('date')}
+                                            <th onClick={() => handleSort('userLastLogin')}>
+                                                Fecha {renderSortIcon('userLastLogin')}
                                             </th>
-                                            <th onClick={() => handleSort('value1')}>
-                                                Kcal llegadas {renderSortIcon('value1')}
+                                            <th onClick={() => handleSort('kcalConsumed')}>
+                                                Kcal llegadas {renderSortIcon('kcalConsumed')}
                                             </th>
                                             <th onClick={() => handleSort('value2')}>
                                                 Kcal quemadas {renderSortIcon('value2')}
                                             </th>
-                                            <th onClick={() => handleSort('value3')}>
-                                                Carbs llegados {renderSortIcon('value3')}
+                                            <th onClick={() => handleSort('carbsConsumed')}>
+                                                Carbs llegados {renderSortIcon('carbsConsumed')}
                                             </th>
-                                            <th onClick={() => handleSort('value4')}>
-                                                Proteínas llegadas {renderSortIcon('value4')}
+                                            <th onClick={() => handleSort('proteinsConsumed')}>
+                                                Proteínas llegadas {renderSortIcon('proteinsConsumed')}
                                             </th>
-                                            <th onClick={() => handleSort('value5')}>
-                                                Grasas llegadas {renderSortIcon('value5')}
+                                            <th onClick={() => handleSort('fatsConsumed')}>
+                                                Grasas llegadas {renderSortIcon('fatsConsumed')}
                                             </th>
-                                            <th onClick={() => handleSort('measurement1')}>
-                                                Agua {renderSortIcon('measurement1')}
+                                            <th onClick={() => handleSort('waterAmount')}>
+                                                Agua {renderSortIcon('waterAmount')}
                                             </th>
-                                            <th onClick={() => handleSort('measurement2')}>
-                                                Peso {renderSortIcon('measurement2')}
+                                            <th onClick={() => handleSort('weightProgression')}>
+                                                Peso {renderSortIcon('weightProgression')}
                                             </th>
-                                            <th onClick={() => handleSort('measurement3')}>
-                                                Pulsaciones {renderSortIcon('measurement3')}
+                                            <th onClick={() => handleSort('pulseProgression')}>
+                                                Pulsaciones {renderSortIcon('pulseProgression')}
                                             </th>
                                         </tr>
                                     </thead>
