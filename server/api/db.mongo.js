@@ -299,7 +299,7 @@ const deleteFood = async (userId, foodName, meal) => {
       { userId: userId },
       {
         $set: {
-          "objectiveData.ownFood": userData.objectiveData.foodRecords,
+          "objectiveData.foodRecords": userData.objectiveData.foodRecords,
         },
       }
     );

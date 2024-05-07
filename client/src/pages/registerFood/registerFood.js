@@ -15,6 +15,7 @@ const FoodSearch = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
+    console.log("Hola");
     const fetchUserData = async () => {
       try {
         const token = sessionStorage.getItem('token');
@@ -72,6 +73,9 @@ const FoodSearch = () => {
     const aperitivosData = storedAlimentos.filter(
       (alimento) => alimento.typeComida === "snacks"
     );
+
+
+    console.log("ENTRO");
   
     setDesayuno(desayunoData);
     setAlmuerzo(almuerzoData);
@@ -96,6 +100,7 @@ const FoodSearch = () => {
       (alimento) => alimento.typeComida === "snacks"
     );
 
+    console.log("entro aqiu y no debo");
     setDesayuno(desayunoData);
     setAlmuerzo(almuerzoData);
     setCena(cenaData);
@@ -115,23 +120,55 @@ const FoodSearch = () => {
   
   const mostrarComidasEnLista = (tipo, lista) => {
     const handleDelete = (index) => {      
+
+      const token = sessionStorage.getItem("token");
       const updatedList = [...lista.slice(0, index), ...lista.slice(index + 1)];
-      switch (tipo) {
-        case "Breakfast":
-          setDesayuno(updatedList);
-          break;
-        case "Lunch":
-          setAlmuerzo(updatedList);
-          break;
-        case "Dinner":
-          setCena(updatedList);
-          break;
-        case "Snacks":
-          setAperitivos(updatedList);
-          break;
-        default:
-          break;
+      const nameElementToDelete = lista[index].nombre;
+      console.log(nameElementToDelete)
+
+      if (token) {
+        fetch("/api/food/delete", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ nombre: nameElementToDelete, tipo: tipo }),
+        })
+          .then((response) => {
+            if (response.ok) {
+              setIsLoggedIn(true);
+              switch (tipo) {
+                case "Breakfast":
+                  setDesayuno(updatedList);
+                  console.log("este es el desayuno", updatedList);
+                  console.log("este es el desayuno", desayuno);
+                  break;
+                case "Lunch":
+                  setAlmuerzo(updatedList);
+                  break;
+                case "Dinner":
+                  setCena(updatedList);
+                  break;
+                case "Snacks":
+                  setAperitivos(updatedList);
+                  break;
+                default:
+                  break;
+              }
+            } else {
+              setIsLoggedIn(false);
+              console.error("Invalid token");
+            }
+          })
+          .catch((error) => {
+            console.error("Error verifying token:", error);
+          });
+      } else {
+        console.error("Could not find the token, user not authenticated");
       }
+
+
     };
   
     return (
