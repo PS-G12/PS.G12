@@ -15,7 +15,7 @@ const client = new MongoClient(uri, {
 const database = client.db("Cluster0");
 
 try {
-  cron.schedule("08 14 * * *", async () => {
+  cron.schedule("00 23 * * *", async () => {
     const sourceCollection = database.collection("objective_records");
     const targetCollection = database.collection("user_history");
 
