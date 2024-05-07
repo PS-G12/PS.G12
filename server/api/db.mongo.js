@@ -15,7 +15,7 @@ const client = new MongoClient(uri, {
 const database = client.db("Cluster0");
 
 try {
-  cron.schedule("28 11 * * *", async () => {
+  cron.schedule("08 14 * * *", async () => {
     const sourceCollection = database.collection("objective_records");
     const targetCollection = database.collection("user_history");
 
@@ -23,7 +23,7 @@ try {
 
     const filteredData = sourceData.map(doc => {
       const { userId, objectiveData } = doc;
-      const { kcalConsumed, proteinsConsumed, fatsConsumed, carbsConsumed, waterAmount, pulseProgression, weightProgression, userLastLogin } = objectiveData;
+      const { kcalConsumed, proteinsConsumed, fatsConsumed, carbsConsumed, waterAmount, pulseProgression, weightProgression, userLastLogin, kcalBurned } = objectiveData;
       
       return {
         userId,
@@ -35,7 +35,8 @@ try {
           waterAmount,
           pulseProgression,
           weightProgression,
-          userLastLogin
+          userLastLogin,
+          kcalBurned
         }
       };
     });
@@ -848,7 +849,39 @@ const getKcalGoal = async (user) => {
     console.error("Error fetching the users data");
     throw error;
   }
-}
+};
+
+const addBurnedKcals = async (user, burnedKcals) => {
+  try{
+    const collection = database.collection("objective_records");
+    const document = await collection.findOne({userId: user});
+
+    if (!document){
+      console.error("No user found");
+      return false;
+    }
+
+    const kcals = parseFloat(burnedKcals);
+    const update = {
+      $set: {"objectiveData.kcalBurned": kcals}
+    }
+
+    const updateDocument = await collection.updateOne({userId: user}, update);
+
+    if (updateDocument.modifiedCount === 1){
+      console.log("Burned calories updated");
+      return true;
+    }
+    else{
+      console.error("Could not update the burned calories");
+      return false;
+    }
+  }
+  catch (error){
+    console.error("Error adding burned calories: ", error);
+    throw error;
+  }
+};
 
 module.exports = {
   getUser,
@@ -878,5 +911,6 @@ module.exports = {
   updatePfp,
   getHistory, 
   deleteFood,
-  getKcalGoal
+  getKcalGoal,
+  addBurnedKcals
 };

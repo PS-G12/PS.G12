@@ -451,31 +451,31 @@ const ProfileHistory = () => {
                                     <thead>
                                         <tr>
                                             <th onClick={() => handleSort('userLastLogin')}>
-                                                Fecha {renderSortIcon('userLastLogin')}
+                                                Date {renderSortIcon('userLastLogin')}
                                             </th>
                                             <th onClick={() => handleSort('kcalConsumed')}>
-                                                Kcal llegadas {renderSortIcon('kcalConsumed')}
+                                                Kcal consumed {renderSortIcon('kcalConsumed')}
                                             </th>
-                                            <th onClick={() => handleSort('value2')}>
-                                                Kcal quemadas {renderSortIcon('value2')}
+                                            <th onClick={() => handleSort('kcalBurned')}>
+                                                Burned Kcal {renderSortIcon('kcalBurned')}
                                             </th>
                                             <th onClick={() => handleSort('carbsConsumed')}>
-                                                Carbs llegados {renderSortIcon('carbsConsumed')}
+                                                Carbs consumed {renderSortIcon('carbsConsumed')}
                                             </th>
                                             <th onClick={() => handleSort('proteinsConsumed')}>
-                                                Proteínas llegadas {renderSortIcon('proteinsConsumed')}
+                                                Proteins consumed {renderSortIcon('proteinsConsumed')}
                                             </th>
                                             <th onClick={() => handleSort('fatsConsumed')}>
-                                                Grasas llegadas {renderSortIcon('fatsConsumed')}
+                                                Fats consumed {renderSortIcon('fatsConsumed')}
                                             </th>
                                             <th onClick={() => handleSort('waterAmount')}>
-                                                Agua {renderSortIcon('waterAmount')}
+                                                Water drank {renderSortIcon('waterAmount')}
                                             </th>
                                             <th onClick={() => handleSort('weightProgression')}>
-                                                Peso {renderSortIcon('weightProgression')}
+                                                Weight {renderSortIcon('weightProgression')}
                                             </th>
                                             <th onClick={() => handleSort('pulseProgression')}>
-                                                Pulsaciones {renderSortIcon('pulseProgression')}
+                                                Pulse {renderSortIcon('pulseProgression')}
                                             </th>
                                         </tr>
                                     </thead>
@@ -484,7 +484,7 @@ const ProfileHistory = () => {
                                             <tr key={index}>
                                                 <td>{data.userLastLogin === null ? 'XX/XX/XXXX' : new Date(data.userLastLogin).toLocaleDateString()}</td>
                                                 <td>{data.kcalConsumed === null ? 'XX' : data.kcalConsumed}</td>
-                                                <td>{'XX'}</td>
+                                                <td>{data.kcalBurned === undefined ? 0 : data.kcalBurned}</td>
                                                 <td>{data.carbsConsumed === null ? 'XX' : data.carbsConsumed}</td>
                                                 <td>{data.proteinsConsumed === null ? 'XX' : data.proteinsConsumed}</td>
                                                 <td>{data.fatsConsumed === null ? 'XX' : data.fatsConsumed}</td>

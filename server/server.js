@@ -31,7 +31,8 @@ const {
   updatePass,
   updatePfp,
   getHistory,
-  getKcalGoal
+  getKcalGoal,
+  addBurnedKcals
 } = require("./api/db.mongo");
 const { getUser } = require("./api/db.mongo");
 const jsonData = require("./api/foodData.json");
@@ -695,6 +696,22 @@ app.get("/user/data/kcalGoal", verifyToken, async (req, res) => {
   catch (error){
     console.error('Run into an error while getting the user kcal goal: ', error)
     res.status(500).json({ error: "Error obtaining the users kcal goal" });
+  }
+});
+
+app.post('/user/data/add/burned-kcals', verifyToken, async (req, res) => {
+  const user = req.user;
+  const {kcalBurned} = req.body;
+  try{
+    const userData = await addBurnedKcals(user, kcalBurned);
+    if (userData === false){
+      return res.status(401).json({ success: false, message: "No user found" });
+    }
+    return res.status(200).json({success: true, message: "Burned kcal added successfully"});
+  }
+  catch (error){
+    console.error('Run into an error while adding the burned kcal: ', error)
+    res.status(500).json({ error: "Error adding the burned kcal" });
   }
 });
 

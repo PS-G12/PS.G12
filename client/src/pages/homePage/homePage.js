@@ -22,7 +22,7 @@ const IndexPage = () => {
     value: 0,
     kcalObjective: 0,
     food: 0,
-    exercise: 0,
+    kcalBurned: 0,
     remaining: 0,
   });
   const [macrosData, setMacrosData] = useState({
@@ -73,7 +73,7 @@ const IndexPage = () => {
             value: data.objectiveData.kcalConsumed,
             kcalObjective: data.objectiveData.kcalObjective,
             food: data.objectiveData.kcalConsumed,
-            exercise: 0,
+            exercise: data.objectiveData.kcalBurned === undefined ? 0 : data.objectiveData.kcalBurned,
             remaining:
               data.objectiveData.kcalObjective -
               data.objectiveData.kcalConsumed,
