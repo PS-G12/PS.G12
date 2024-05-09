@@ -19,6 +19,7 @@ import API from './pages/footerPages/apis.js';
 import WhoWeAre from './pages/footerPages/whoweare.js';
 import GetInTouchWithUs from './pages/footerPages/getintouchwithus.js';
 import ChangePassword from './pages/profile/changePassword.js';
+import ProfileHistory from './pages/profile/history.js';
 
 
 function App() {
@@ -38,7 +39,7 @@ function App() {
         <Route path="/MacrosCalculation" element={<MacrosCalculator />} />
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/changePassword" element={<ChangePassword />} />
-
+        <Route path="/history" element={<ProfileHistory />} />
         <Route path="/calories" element={<MacrosSpecification specificationName="calories"/>} />
         <Route path="/carbs" element={<MacrosSpecification specificationName="carbs"/>} />
         <Route path="/fats" element={<MacrosSpecification specificationName="fats"/>} />

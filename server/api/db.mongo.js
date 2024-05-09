@@ -1,6 +1,7 @@
 const { ServerApiVersion } = require("mongodb");
 const { MongoClient } = require("mongodb");
 const { use } = require("passport");
+const cron = require("node-cron");
 require("dotenv").config();
 const uri = process.env.MONGO_CLIENT_ID;
 
@@ -12,6 +13,48 @@ const client = new MongoClient(uri, {
   },
 });
 const database = client.db("Cluster0");
+
+try {
+  cron.schedule("00 23 * * *", async () => {
+    const sourceCollection = database.collection("objective_records");
+    const targetCollection = database.collection("user_history");
+
+    const sourceData = await sourceCollection.find({}).toArray();
+
+    const filteredData = sourceData.map(doc => {
+      const { userId, objectiveData } = doc;
+      const { kcalConsumed, proteinsConsumed, fatsConsumed, carbsConsumed, waterAmount, pulseProgression, weightProgression, userLastLogin, kcalBurned } = objectiveData;
+      
+      return {
+        userId,
+        objectiveData: {
+          kcalConsumed,
+          proteinsConsumed,
+          fatsConsumed,
+          carbsConsumed,
+          waterAmount,
+          pulseProgression,
+          weightProgression,
+          userLastLogin,
+          kcalBurned
+        }
+      };
+    });
+
+    await targetCollection.insertMany(filteredData);
+
+    const insertedData = filteredData.length;
+
+    if (insertedData === sourceData.length) {
+      console.log("Data copied successfully");
+    }
+    else {
+      console.error("Could not copy the data");
+    }
+  });
+} catch (error) {
+  console.error("Error could not copy the data: ", error);
+}
 
 const getQuery = async (collection, findQuery) => {
   try {
@@ -233,6 +276,42 @@ const addNewFood = async (userId, food) => {
   }
 };
 
+const deleteFood = async (userId, foodName, meal) => {
+  try {
+    console.log("Este es el nombre de la comida a eliminar ", foodName);
+    console.log("Este es el tipo de comida a eliminar ", meal);
+
+    const collection = database.collection("objective_records");
+    const userData = await collection.findOne({ userId: userId });
+    if (!userData) {
+      console.error("No user records found");
+      return;
+    }
+
+
+
+    userData.objectiveData.foodRecords = userData.objectiveData.foodRecords.filter(
+      (item) => item.nombre !== foodName && item.typeComida !== meal
+    );
+    
+    console.log(userData.objectiveData.foodRecords);
+    
+    await collection.updateOne(
+      { userId: userId },
+      {
+        $set: {
+          "objectiveData.foodRecords": userData.objectiveData.foodRecords,
+        },
+      }
+    );
+
+    return 1;
+  } catch (error) {
+    console.error("Error fetching/updating user data:", error);
+    throw error;
+  }
+}
+
 const searchOwnFood = async (user, query) => {
   const foundItems = [];
   try {
@@ -438,6 +517,9 @@ const resetProgress = async (user) => {
         result.objectiveData.carbsConsumed = 0;
         result.objectiveData.fatsConsumed = 0;
         result.objectiveData.waterAmount = 0;       
+
+        result.foodRecords? result.foodRecords = [] || null : null;
+      
       }
     }
     result.objectiveData = {
@@ -693,13 +775,113 @@ const updatePass = async (user, password) => {
 
     console.error("Could not update the password");
     return false;
-
   } catch (error) {
     console.error("Run into an error updating the password: ", error);
     throw error;
   }
 
 }
+
+const updatePfp = async (user, newPfp) => {
+  try{
+    console.log("hola", user);
+    console.log(newPfp);
+    const collection = database.collection('user_data');
+    const document = await collection.findOne({"userData.username": user});
+    console.log("puta", document)
+
+    if (!document){
+      console.error("No users found");
+      return false;
+    }
+
+    const update = {
+      $set: {"userData.pfp": newPfp}
+    };
+
+    const result = await collection.updateOne({"userData.username": user}, update)
+
+    if (result.modifiedCount === 1){
+      console.log("Profile picture updated");
+      return true;
+    }
+
+    console.error("Could not update the profile picture");
+    return false
+  }
+  catch (error){
+    console.error("Run into an error while updating the users profile picture");
+    throw error;
+  }
+};
+
+const getHistory = async (user) => {
+  try {
+    const collection = database.collection("user_history");
+    const userData = await collection.find({ userId: user }).toArray();
+    if (!userData) {
+      console.error("No user records foundA");
+    }
+    else {
+      console.log('User data successfully fetched:', userData);
+      return userData;
+    }
+  }
+  catch (error) {
+    console.error("Error fetching user data:", error);
+    throw error;
+  }
+};
+
+const getKcalGoal = async (user) => {
+  try{
+    const collection = database.collection("objective_records");
+    const userData = await collection.findOne({ userId: user });
+    if (!userData){
+      console.error('No user found');
+    }
+    else{
+      console.log('User data fetched: ', userData);
+      return userData.objectiveData.kcalObjective;
+    }
+  }
+  catch(error){
+    console.error("Error fetching the users data");
+    throw error;
+  }
+};
+
+const addBurnedKcals = async (user, burnedKcals) => {
+  try{
+    const collection = database.collection("objective_records");
+    const document = await collection.findOne({userId: user});
+
+    if (!document){
+      console.error("No user found");
+      return false;
+    }
+
+    const kcals = parseFloat(burnedKcals);
+    const update = {
+      $set: {"objectiveData.kcalBurned": kcals}
+    }
+
+    const updateDocument = await collection.updateOne({userId: user}, update);
+
+    if (updateDocument.modifiedCount === 1){
+      console.log("Burned calories updated");
+      return true;
+    }
+    else{
+      console.error("Could not update the burned calories");
+      return false;
+    }
+  }
+  catch (error){
+    console.error("Error adding burned calories: ", error);
+    throw error;
+  }
+};
 
 module.exports = {
   getUser,
@@ -725,5 +907,10 @@ module.exports = {
   updateAge,
   updateCal,
   updateGender,
-  updatePass
+  updatePass,
+  updatePfp,
+  getHistory, 
+  deleteFood,
+  getKcalGoal,
+  addBurnedKcals
 };

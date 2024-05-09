@@ -1,0 +1,147 @@
+.photo-table-history{
+  display: flex;
+}
+
+.photo-username-section-history  {
+  text-align: center;
+  width: 30%;
+}
+  
+.photo-username-section-history img {
+  height: 170px;
+  width: 170px;
+  border-radius: 50%;
+  border: 1px solid #000000;
+}
+
+.edit-icon-history {
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  margin-left: -172px;
+}
+
+.upload-photo-section-history:hover .edit-icon-history {
+  opacity: .7;
+}
+
+.tables-history {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.basic-info-history {
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+}
+
+.information-box-history {
+  margin-bottom: 20px;
+}
+
+.table-container-history {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  user-select: none;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+table th {
+  background-color: #f2f2f2;
+}
+
+table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+table tbody tr:hover {
+  background-color: #e9e9e9;
+}
+
+.botones-history{
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+
+  /*BOTON DE DESCARGA*/
+
+  #btn-download {
+    cursor: pointer;
+    display: block;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    -webkit-tap-highlight-color: transparent;
+  }
+  #btn-download:hover {
+    background: rgba(34, 50, 84, 0.03);
+  }
+  #btn-download svg {
+    margin: 16px 0 0 16px;
+    fill: none;
+    transform: translate3d(0, 0, 0);
+  }
+  #btn-download svg polyline,
+  #btn-download svg path {
+    stroke: #0077FF;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: all 0.3s ease;
+    transition-delay: 0.3s;
+  }
+  #btn-download svg path#check {
+    stroke-dasharray: 38;
+    stroke-dashoffset: 114;
+    transition: all 0.4s ease;
+  }
+  #btn-download.downloaded svg .svg-out {
+    opacity: 0;
+    animation: drop 0.3s linear;
+    transition-delay: 0.4s;
+  }
+  #btn-download.downloaded svg path#check {
+    stroke: #20CCA5;
+    stroke-dashoffset: 174;
+    transition-delay: 0.4s;
+  }
+  @keyframes drop {
+    20% {
+      transform: translate(0, -3px);
+    }
+    80% {
+      transform: translate(0, 2px);
+    }
+    95% {
+      transform: translate(0, 0);
+    }
+  }
+  .credit {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    transition: all 0.2s ease;
+    -webkit-user-select: none;
+    user-select: none;
+    opacity: 0.6;
+  }
+  .credit img {
+    width: 72px;
+  }
+  .credit:hover {
+    transform: scale(0.95);
+  }
+  

@@ -14,6 +14,7 @@ const RegisterForm = () => {
       system: "metric",
       age: "",
       gender: "male",
+      pfp: "",
     },
     objectiveData: {
       activityLevel: "sedentary",

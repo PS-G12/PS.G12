@@ -27,7 +27,7 @@ const IndexPage = () => {
     value: 0,
     kcalObjective: 0,
     food: 0,
-    exercise: 0,
+    kcalBurned: 0,
     remaining: 0,
   });
   const [macrosData, setMacrosData] = useState({
@@ -49,8 +49,6 @@ const IndexPage = () => {
     ratio: [],
   });
 
-  const [loading, setLoading] = useState(true);
-
   const [popupData, setPopupData] = useState(null);
 
   const [waterCount, setwaterCount] = useState(0);
@@ -58,7 +56,7 @@ const IndexPage = () => {
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     if (token) {
-      setLoading(true);
+      
       fetch("/user/data", {
         method: "GET",
         headers: {
@@ -66,6 +64,7 @@ const IndexPage = () => {
         },
       })
         .then((response) => {
+          
           if (response.ok) {
             setIsLoggedIn(true);
             return response.json();
@@ -81,11 +80,12 @@ const IndexPage = () => {
           } else {
             setShowTutorial(false);
           }
+
           setObjectiveData({
             value: data.objectiveData.kcalConsumed,
             kcalObjective: data.objectiveData.kcalObjective,
             food: data.objectiveData.kcalConsumed,
-            exercise: 0,
+            exercise: data.objectiveData.kcalBurned === undefined ? 0 : data.objectiveData.kcalBurned,
             remaining:
               data.objectiveData.kcalObjective -
               data.objectiveData.kcalConsumed,
@@ -131,10 +131,10 @@ const IndexPage = () => {
         .catch((error) => {
           console.error("Error fetching user data:", error);
           setIsLoggedIn(false);
-          setLoading(false);
+          
         });
     } else {
-      setLoading(false);
+      
     }
   }, []);
 
@@ -325,7 +325,7 @@ const IndexPage = () => {
   return (
     <div className="index-page">
       <Header isAuthenticated={isLoggedIn} />
-      {loading ? (
+      {false ? (
         <div className="loader-container">
           <span className="loader"></span>
         </div>

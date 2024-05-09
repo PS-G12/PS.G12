@@ -25,9 +25,14 @@ const {
   updateWeight,
   updateHeight,
   updateAge,
+  deleteFood,
   updateCal,
   updateGender,
-  updatePass
+  updatePass,
+  updatePfp,
+  getHistory,
+  getKcalGoal,
+  addBurnedKcals
 } = require("./api/db.mongo");
 const { getUser } = require("./api/db.mongo");
 const jsonData = require("./api/foodData.json");
@@ -232,6 +237,28 @@ app.get("/api/food/", async (req, res) => {
   }
 });
 
+app.post("/api/food/delete", async (req, res) => {
+  const { search } = req.query;
+  const { nombre, tipo } = req.body;
+
+  let token = req.headers.authorization;
+  if (token){
+    token = req.headers.authorization.split(' ')[1];
+  }
+
+  let result;
+  try {
+    let userId = decodeToken(token);
+    if (userId) userId = userId.userId;
+    
+    result = await deleteFood(userId, nombre, tipo);
+    return res.json(result);
+  } catch (error) {
+    console.error("Error al buscar alimentos:", error.message);
+    return res.status(500).json({ error: "Error al buscar alimentos" });
+  }
+});
+
 app.post("/auth/login", async (req, res) => {
   const { signInUsername, signInPassword } = req.body;
   try {
@@ -300,8 +327,8 @@ app.get("/user/data", verifyToken, async (req, res) => {
     const userData = await getUserData(userId);
     res.status(200).json(userData);
   } catch (error) {
-    console.error("Error al obtener los datos del usuario:", error);
-    res.status(500).json({ error: "Error al obtener los datos del usuario" });
+    console.error("Error obtaining the users data:", error);
+    res.status(500).json({ error: "Error obtaining the users data" });
   }
 });
 
@@ -359,11 +386,10 @@ app.get("/user/data/food", verifyToken, async (req, res) => {
   const userId = req.user;
   try {
     const userData = await getUserData(userId);
-    console.log(userData);
     res.status(200).json(userData.objectiveData.foodRecords);
   } catch (error) {
-    console.error("Error al obtener los datos del user:", error);
-    res.status(500).json({ error: "Error al obtener los datos del user" });
+    console.error("Error obtaining the users data:", error);
+    res.status(500).json({ error: "Error obtaining the users data" });
   }
 });
 
@@ -641,6 +667,63 @@ app.post("/user/data/update/info/pass", verifyToken, async (req, res) => {
   }
   catch (error){
     res.status(500).json({ error: "An error ocurred while getting the users data"});
+  }
+});
+
+app.post("/user/data/pfp", verifyToken, async (req, res) => {
+  const user = req.user;
+  const {formDataUpdate} = req.body;
+
+  try{
+    const update = await updatePfp(user, formDataUpdate.userData.pfp);
+    if (!update){
+      return res.status(401).json({ success: false, message: "No user found" });
+    }
+    
+    console.log("Users profile picture updated");
+    return res.status(200).json({success: true, message: "Update sucessfull"});
+  }
+  catch (error){
+    res.status(500).json({ error: "An error ocurred while updating the users profile picture"});
+  }
+});
+
+app.get("/user/data/history", verifyToken, async (req, res) => {
+  const user = req.user;
+  try {
+    const userData = await getHistory(user);
+    res.status(200).json(userData);
+  } catch (error) {
+    console.error("Error obtaining the users data:", error);
+    res.status(500).json({ error: "Error obtaining the users history" });
+  }
+});
+
+app.get("/user/data/kcalGoal", verifyToken, async (req, res) => {
+  const user = req.user;
+  try{
+    const userData = await getKcalGoal(user);
+    res.status(200).json(userData);
+  }
+  catch (error){
+    console.error('Run into an error while getting the user kcal goal: ', error)
+    res.status(500).json({ error: "Error obtaining the users kcal goal" });
+  }
+});
+
+app.post('/user/data/add/burned-kcals', verifyToken, async (req, res) => {
+  const user = req.user;
+  const {kcalBurned} = req.body;
+  try{
+    const userData = await addBurnedKcals(user, kcalBurned);
+    if (userData === false){
+      return res.status(401).json({ success: false, message: "No user found" });
+    }
+    return res.status(200).json({success: true, message: "Burned kcal added successfully"});
+  }
+  catch (error){
+    console.error('Run into an error while adding the burned kcal: ', error)
+    res.status(500).json({ error: "Error adding the burned kcal" });
   }
 });
 
