@@ -14,10 +14,15 @@ import Footer from "../../components/Footer/footer";
 import "./homePage.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDumbbell, faHeart } from "@fortawesome/free-solid-svg-icons";
+import Tutorial from "../../components/Tutorial/tutorial";
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
+
 Chart.register(LineElement, CategoryScale, LinearScale, PointElement);
 
 const IndexPage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showTutorial, setShowTutorial] = useState(false); 
+
   const [objectiveData, setObjectiveData] = useState({
     value: 0,
     kcalObjective: 0,
@@ -69,6 +74,13 @@ const IndexPage = () => {
           }
         })
         .then((data) => {
+          setLoading(false);
+          if (!data.objectiveData.userLastLogin) {
+            setShowTutorial(true);
+          } else {
+            setShowTutorial(false);
+          }
+
           setObjectiveData({
             value: data.objectiveData.kcalConsumed,
             kcalObjective: data.objectiveData.kcalObjective,
@@ -320,7 +332,11 @@ const IndexPage = () => {
       ) : (
         <>
           {isLoggedIn ? (
-            <div className="cards">
+            
+            <div className="cards"> 
+              <button className="floating-button" onClick={() => setShowTutorial(true)}>
+                <FontAwesomeIcon icon={faQuestionCircle} />
+              </button>
               <div className="card-container-top">
                 <ObjectiveCard
                   remaining={Math.round(
@@ -344,6 +360,8 @@ const IndexPage = () => {
                   value3={Math.round(parseFloat(macrosData.value3))}
                   max3={Math.round(parseFloat(macrosData.max3))}
                 />
+
+                {showTutorial && <Tutorial />}
                 <div className="water-container" onClick={handleWaterSubmit}>
                   <WaterGlass waterCount={waterCount} waterGoal={1500} />
                 </div>

@@ -535,6 +535,18 @@ app.post("/user/data/update/info/email", verifyToken, async (req, res) => {
     }
 });
 
+app.post("/user/data/tutorial", verifyToken, async (req, res) => {
+  const token = req.token;
+  const user = jwt.verify(token, "_N0C0mpaRt1r")
+  try {
+    resetProgress(user);
+    res.status(200).json({ success: true, message: "Tutorial marked as skipped for user" });
+  } catch (error) {
+    console.error("Error marking tutorial as skipped:", error);
+    res.status(500).json({ error: "Error marking tutorial as skipped" });
+  }
+});
+
 app.post("/user/data/update/info/weight", verifyToken, async (req, res) => {
   const user = req.user;
   const { formDataUpdate } = req.body;
