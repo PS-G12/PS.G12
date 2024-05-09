@@ -15,6 +15,8 @@ import "./homePage.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDumbbell, faHeart } from "@fortawesome/free-solid-svg-icons";
 import Tutorial from "../../components/Tutorial/tutorial";
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
+
 Chart.register(LineElement, CategoryScale, LinearScale, PointElement);
 
 const IndexPage = () => {
@@ -330,7 +332,11 @@ const IndexPage = () => {
       ) : (
         <>
           {isLoggedIn ? (
-            <div className="cards">
+            
+            <div className="cards"> 
+              <button className="floating-button" onClick={() => setShowTutorial(true)}>
+                <FontAwesomeIcon icon={faQuestionCircle} />
+              </button>
               <div className="card-container-top">
                 <ObjectiveCard
                   remaining={Math.round(
