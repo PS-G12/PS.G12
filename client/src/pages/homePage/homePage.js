@@ -74,7 +74,7 @@ const IndexPage = () => {
           }
         })
         .then((data) => {
-          setLoading(false);
+          //setLoading(false);
           if (!data.objectiveData.userLastLogin) {
             setShowTutorial(true);
           } else {

@@ -544,9 +544,11 @@ const updateUsername = async (user, username) => {
     const collection = database.collection('user_data');
     const document = await collection.findOne({"userData.username": user});
     const collectionToExpand = database.collection('objective_records');
+    const expandToHistory = database.collection('user_history');
     const documentToExpand = await collectionToExpand.findOne({userId: user});
+    const historyDocument = await expandToHistory.findOne({userId: user});
   
-    if (!document || !documentToExpand){
+    if (!document || !documentToExpand || !historyDocument){
       console.error("No user records found");
       return false;
     }
@@ -560,7 +562,8 @@ const updateUsername = async (user, username) => {
     };
   
     const updateExpansion = await collectionToExpand.updateOne({userId: user}, expandUpdate);
-    if (updateExpansion.modifiedCount === 1){
+    const updateExpansionToHistory = await expandToHistory.updateMany({userId: user}, expandUpdate);
+    if (updateExpansion.modifiedCount === 1 && updateExpansionToHistory.modifiedCount >= 1){
       const result = await collection.updateOne({"userData.username":user}, update);
       if (result.modifiedCount === 1){
         console.log("Username updated");
