@@ -43,6 +43,7 @@ const path = require("path");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { error } = require("console");
+const { type } = require("os");
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -159,14 +160,22 @@ app.get("/api/exercises", async (req, res) => {
 
   let filteredExercises = exerciseData;
   const rates = await getRates();
-  rates.forEach((exerciseRate) => {
-    const exerciseIndex = filteredExercises.findIndex((exercise) => exercise.id === exerciseRate.id);
-    if (exerciseIndex !== -1) {
-        const rating = exerciseRate.rating;
-        filteredExercises[exerciseIndex].rating = rating;
-        console.log(rating);
-    }
-});
+      rates.forEach((exerciseRate) => {
+        if (exerciseRate.rating === null || exerciseRate.rating === undefined || isNaN(exerciseRate.rating)) return;
+        filteredExercises.forEach((exercise) => {
+          if (exercise.id === exerciseRate.id) {
+            console.log("exerciseRate simil", exerciseRate);
+            console.log(true);
+          } else {
+          }
+        });
+        const exerciseIndex = filteredExercises.findIndex((exercise) => (exercise.id === exerciseRate.id));
+        //console.log(typeof exerciseIndex + "exerciseIndex ", exerciseIndex);
+        if (exerciseIndex !== -1 && exerciseRate.rating !== null && exerciseRate.rating !== undefined && !isNaN(exerciseRate.rating)) {
+          const rating = exerciseRate.rating;
+          filteredExercises[exerciseIndex].rating = rating;
+        }
+      });
 
 
   if (search) {
@@ -641,11 +650,11 @@ app.get("/user/rate", verifyToken, async (req, res) => {
   const { exerciseId } = req.query;
 
   try {
-    const { userRate, globalRate } = await getUserRates(exerciseId, user); // Obtener tasas del usuario y global
+    const { userRate, globalRate } = await getUserRates(exerciseId, user);
 
     if (userRate !== null && globalRate !== null) {
-      console.log("Exercise rates retrieved successfully for user", user);
-      return res.status(200).json({ success: true, userRate, globalRate }); // Devolver tasas al cliente
+      console.log("userRate", userRate, "globalRate", globalRate);
+      return res.status(200).json({ success: true, userRate, globalRate });
     } else {
       console.log("Failed to retrieve exercise rates for user", user);
       return res.status(500).json({ success: false, message: "Failed to retrieve exercise rates" });
@@ -662,12 +671,12 @@ app.post("/user/rate", verifyToken, async (req, res) => {
   const { exerciseId, rating } = req.body;
 
   try {
-    const success = await setRates(exerciseId, rating, user);
+    console.log("Rating exercise with ID", exerciseId, "by user", user, "with rating", rating);
+    const globalRate = await setRates(exerciseId, rating, user);
 
-    if (success !== undefined) {
-      if (success) {
-        console.log("Exercise rated successfully by user", user);
-        return res.status(200).json({ success: true, message: "Exercise rated successfully" });
+    if (globalRate !== undefined) {
+      if (globalRate) {
+        return res.status(200).json({ success: true, message: "Exercise rated successfully", globalRate });
       } else {
         console.log("User", user, "has already rated exercise with ID", exerciseId);
         return res.status(400).json({ success: false, message: "User has already rated this exercise" });

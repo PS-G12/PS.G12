@@ -37,7 +37,7 @@ const ExerciseCard = ({
         return "#ccc"; //Gray
     }
   };
-
+  console.log("exercise", exercise);
   let filteredExercises = exercise;
   if (!name && !bodyPartList) {
     filteredExercises = exercise

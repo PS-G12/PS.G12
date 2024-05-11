@@ -5,7 +5,6 @@ const StarRatingComponent = ({ rate, globalrate, type }) => {
   const [userRate, setUserRate] = useState(rate);
   const [exerciseId, setExerciseId] = useState(null);
   const [globalRate, setGlobalRate] = useState(globalrate);
-
   const rating = Math.round(parseFloat(userRate) * 4) / 4;
   const globalRating = globalRate ? Math.round(parseFloat(globalRate) * 4) / 4 : 0;
   let ratingClass = "c-rating c-rating--regular";
@@ -16,7 +15,8 @@ const StarRatingComponent = ({ rate, globalrate, type }) => {
     const exerciseIdFromLink = getExerciseIdFromLink(url); 
     setExerciseId(exerciseIdFromLink); 
 
-    if (exerciseId) {
+    if (exerciseIdFromLink) {
+      //console.log("exerciseId " + exerciseId + " type " + type + " rate " + rate + " globalrating " + globalrate);
       const token = sessionStorage.getItem("token");
       if (token && exerciseIdFromLink) {
         fetch(`/user/rate?exerciseId=${exerciseIdFromLink}`, {
@@ -42,13 +42,13 @@ const StarRatingComponent = ({ rate, globalrate, type }) => {
           });
       }
     }
-  }, [userRate]); 
+  }, []); 
 
   const getExerciseIdFromLink = (exerciseId) => {
     const url = new URL(exerciseId);
     const hash = url.hash.substr(1);
     const exercise = hash? JSON.parse(decodeURIComponent(hash)) : null;
-    return exercise.id;
+    return exercise? exercise.id: null;
   };
 
   
@@ -58,11 +58,10 @@ const StarRatingComponent = ({ rate, globalrate, type }) => {
   } else if (type === "big") {
     ratingClass = "c-rating c-rating--big";
   }
-  console.log("exerciseId " + exerciseId + " type " + type + " rate " + rate + " globalrating " + globalRating);
+  //console.log("exerciseId " + exerciseId + " type " + type + " rate " + rate + " globalrating " + globalRating);
 
   
   const handleStarClick = (value) => {
-    console.log("exerciseId2 " + exerciseId);
     if (type === "big") {
       const token = sessionStorage.getItem("token");
       if (token) {
@@ -72,14 +71,18 @@ const StarRatingComponent = ({ rate, globalrate, type }) => {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ exerciseId, rating }),
+          body: JSON.stringify({ exerciseId, rating: value }),
         })
           .then((response) => {
             if (response.ok) {
-              setUserRate(value);
+              return response.json();
             } else {
-              console.error("Failed to add rate");
+              throw new Error("Failed to add rate");
             }
+          })
+          .then((data) => {
+            setUserRate(value);
+            setGlobalRate(data.globalRate);
           })
           .catch((error) => {
             console.error("Error adding rate:", error);
@@ -87,14 +90,15 @@ const StarRatingComponent = ({ rate, globalrate, type }) => {
       }
     }
   };
+  
 
   return (
     <div className={"wrapper" + wrap}>
       {type === "small" ? (
         <div className="rating-holder">
-          <div className={ratingClass} data-rating-value={rating >= 0 && rating <= 5 ? rating : 0}>
+          <div className={ratingClass} data-rating-value={globalRating >= 0 && globalRating <= 5 ? globalRating : 0}>
             {[1, 2, 3, 4, 5].map((val) => (
-              <button key={val} onClick={() => handleStarClick(val)}>
+              <button key={val}>
                 {val}
               </button>
             ))}
@@ -102,22 +106,32 @@ const StarRatingComponent = ({ rate, globalrate, type }) => {
         </div>
       ) : (
         <div className="rating-holder">
-          <div className={"c-rating c-rating--small master"} data-rating-value={globalRating >= 0 && globalRating <= 5 ? globalRating : 0}>
-            {[1, 2, 3, 4, 5].map((val) => (
-              <button key={val} onClick={() => handleStarClick(val)}>
-                {val}
-              </button>
-            ))}
-          </div>
-          <div className={ratingClass} data-rating-value={rating >= 0 && rating <= 5 ? rating : 0}>
-            {/* Botones de estrellas */}
-            {[1, 2, 3, 4, 5].map((val) => (
-              <button key={val} onClick={() => handleStarClick(val)}>
-                {val}
-              </button>
-            ))}
-          </div>
-        </div>
+  {/* Global Rate */}
+  <div>
+    <h3><i className="fas fa-globe"></i> Global Rate</h3>
+    <div className={"c-rating c-rating--small master"} data-rating-value={globalRating >= 0 && globalRating <= 5 ? globalRating : 0}>
+      {[1, 2, 3, 4, 5].map((val) => (
+        <button key={val}>
+          {val}
+        </button>
+      ))}
+    </div>
+  </div>
+  {/* User Rating */}
+  <div className="fas-fa-user">
+    <h3><i className="fas fa-user"></i> User Rating</h3>
+    <div className={ratingClass} data-rating-value={rating >= 0 && rating <= 5 ? rating : 0}>
+      {/* Estrellas de calificación */}
+      {[1, 2, 3, 4, 5].map((val) => (
+        <button key={val} onClick={() => handleStarClick(val)}>
+          {val}
+        </button>
+      ))}
+    </div>
+  </div>
+</div>
+
+
       )}
     </div>
   );
