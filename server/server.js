@@ -536,7 +536,7 @@ app.post("/user/data/update/info/email", verifyToken, async (req, res) => {
 });
 
 app.post("/user/data/tutorial", verifyToken, async (req, res) => {
-  const token = req.token;
+  const token = req.body.token;
   const user = jwt.verify(token, "_N0C0mpaRt1r")
   try {
     resetProgress(user);
