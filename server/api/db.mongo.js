@@ -14,27 +14,45 @@ const client = new MongoClient(uri, {
 });
 const database = client.db("Cluster0");
 
-try{
-  cron.schedule("0 0 * * *", async () => {
+try {
+  cron.schedule("00 23 * * *", async () => {
     const sourceCollection = database.collection("objective_records");
     const targetCollection = database.collection("user_history");
 
-    const fieldsToCopy = {userID:1, "objectiveData.kcalConsumed":1, "objectiveData.proteinsConsumed":1, "objectiveData.fatsConsumed":1, "objectiveData.carbsConsumed":1,
-     "objectiveData.waterAmount":1, "objectiveData.kcalOjective":1, "objectiveData.pulseProgression":1, "objectiveData.userLastLogin":1
-    };
+    const sourceData = await sourceCollection.find({}).toArray();
 
-    const sourceData = await sourceCollection.find({}, fieldsToCopy).toArray();
-    await targetCollection.insertMany(sourceData);
+    const filteredData = sourceData.map(doc => {
+      const { userId, objectiveData } = doc;
+      const { kcalConsumed, proteinsConsumed, fatsConsumed, carbsConsumed, waterAmount, pulseProgression, weightProgression, userLastLogin, kcalBurned } = objectiveData;
+      
+      return {
+        userId,
+        objectiveData: {
+          kcalConsumed,
+          proteinsConsumed,
+          fatsConsumed,
+          carbsConsumed,
+          waterAmount,
+          pulseProgression,
+          weightProgression,
+          userLastLogin,
+          kcalBurned
+        }
+      };
+    });
 
-    if (targetCollection.countDocuments() === sourceData.length){
+    await targetCollection.insertMany(filteredData);
+
+    const insertedData = filteredData.length;
+
+    if (insertedData === sourceData.length) {
       console.log("Data copied successfully");
     }
-    else{
-      console.log("Could not copy the data");
+    else {
+      console.error("Could not copy the data");
     }
   });
-}
-catch (error){
+} catch (error) {
   console.error("Error could not copy the data: ", error);
 }
 
@@ -258,6 +276,42 @@ const addNewFood = async (userId, food) => {
   }
 };
 
+const deleteFood = async (userId, foodName, meal) => {
+  try {
+    console.log("Este es el nombre de la comida a eliminar ", foodName);
+    console.log("Este es el tipo de comida a eliminar ", meal);
+
+    const collection = database.collection("objective_records");
+    const userData = await collection.findOne({ userId: userId });
+    if (!userData) {
+      console.error("No user records found");
+      return;
+    }
+
+
+
+    userData.objectiveData.foodRecords = userData.objectiveData.foodRecords.filter(
+      (item) => item.nombre !== foodName && item.typeComida !== meal
+    );
+    
+    console.log(userData.objectiveData.foodRecords);
+    
+    await collection.updateOne(
+      { userId: userId },
+      {
+        $set: {
+          "objectiveData.foodRecords": userData.objectiveData.foodRecords,
+        },
+      }
+    );
+
+    return 1;
+  } catch (error) {
+    console.error("Error fetching/updating user data:", error);
+    throw error;
+  }
+}
+
 const searchOwnFood = async (user, query) => {
   const foundItems = [];
   try {
@@ -463,6 +517,9 @@ const resetProgress = async (user) => {
         result.objectiveData.carbsConsumed = 0;
         result.objectiveData.fatsConsumed = 0;
         result.objectiveData.waterAmount = 0;       
+
+        result.foodRecords? result.foodRecords = [] || null : null;
+      
       }
     }
     result.objectiveData = {
@@ -487,9 +544,11 @@ const updateUsername = async (user, username) => {
     const collection = database.collection('user_data');
     const document = await collection.findOne({"userData.username": user});
     const collectionToExpand = database.collection('objective_records');
+    const expandToHistory = database.collection('user_history');
     const documentToExpand = await collectionToExpand.findOne({userId: user});
+    const historyDocument = await expandToHistory.findOne({userId: user});
   
-    if (!document || !documentToExpand){
+    if (!document || !documentToExpand || !historyDocument){
       console.error("No user records found");
       return false;
     }
@@ -503,7 +562,8 @@ const updateUsername = async (user, username) => {
     };
   
     const updateExpansion = await collectionToExpand.updateOne({userId: user}, expandUpdate);
-    if (updateExpansion.modifiedCount === 1){
+    const updateExpansionToHistory = await expandToHistory.updateMany({userId: user}, expandUpdate);
+    if (updateExpansion.modifiedCount === 1 && updateExpansionToHistory.modifiedCount >= 1){
       const result = await collection.updateOne({"userData.username":user}, update);
       if (result.modifiedCount === 1){
         console.log("Username updated");
@@ -753,7 +813,7 @@ const updatePfp = async (user, newPfp) => {
     return false
   }
   catch (error){
-    console.error("RUn into an error while updating the users profile picture");
+    console.error("Run into an error while updating the users profile picture");
     throw error;
   }
 };
@@ -761,7 +821,7 @@ const updatePfp = async (user, newPfp) => {
 const getHistory = async (user) => {
   try {
     const collection = database.collection("user_history");
-    const userData = await collection.findOne({ userId: user });
+    const userData = await collection.find({ userId: user }).toArray();
     if (!userData) {
       console.error("No user records foundA");
     }
@@ -878,6 +938,55 @@ const setRates = async (exerciseId, rating, userId) => {
 }
 
 
+const getKcalGoal = async (user) => {
+  try{
+    const collection = database.collection("objective_records");
+    const userData = await collection.findOne({ userId: user });
+    if (!userData){
+      console.error('No user found');
+    }
+    else{
+      console.log('User data fetched: ', userData);
+      return userData.objectiveData.kcalObjective;
+    }
+  }
+  catch(error){
+    console.error("Error fetching the users data");
+    throw error;
+  }
+};
+
+const addBurnedKcals = async (user, burnedKcals) => {
+  try{
+    const collection = database.collection("objective_records");
+    const document = await collection.findOne({userId: user});
+
+    if (!document){
+      console.error("No user found");
+      return false;
+    }
+
+    const kcals = parseFloat(burnedKcals);
+    const update = {
+      $set: {"objectiveData.kcalBurned": kcals}
+    }
+
+    const updateDocument = await collection.updateOne({userId: user}, update);
+
+    if (updateDocument.modifiedCount === 1){
+      console.log("Burned calories updated");
+      return true;
+    }
+    else{
+      console.error("Could not update the burned calories");
+      return false;
+    }
+  }
+  catch (error){
+    console.error("Error adding burned calories: ", error);
+    throw error;
+  }
+};
 
 module.exports = {
   getUser,
@@ -909,4 +1018,7 @@ module.exports = {
   getRates,
   setRates,
   getUserRates,
+  deleteFood,
+  getKcalGoal,
+  addBurnedKcals
 };

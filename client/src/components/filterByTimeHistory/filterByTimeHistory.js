@@ -4,12 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFire } from '@fortawesome/free-solid-svg-icons';
 
 
-const FilterByTimeHistory = ({data, onFilter}) => {
-
-  /*Variable provisional*/
-  const kcalObjective = 2100;
-
-
+const FilterByTimeHistory = ({data, kcalObjective, onFilter}) => {
   const [selectedFilter, setSelectedFilter] = useState('any');
   const [selectedMonth, setSelectedMonth] = useState(null);
   const [selectedYear, setSelectedYear] = useState(null);
@@ -39,36 +34,36 @@ const FilterByTimeHistory = ({data, onFilter}) => {
   
     if (selectedFilter === 'month') {
       filteredData = filteredData.filter(entry => {
-        const dateParts = entry.date.split('/');
+        const formatedDate = new Date(entry.userLastLogin).toLocaleDateString();
+        const dateParts = formatedDate.split('/');
         return parseInt(dateParts[1]) === selectedMonth;
       });
     }
   
     if (selectedFilter === 'year') {
       filteredData = filteredData.filter(entry => {
-        const dateParts = entry.date.split('/');
+        const formatedDate = new Date(entry.userLastLogin).toLocaleDateString();
+        const dateParts = formatedDate.split('/');
         return parseInt(dateParts[2]) === selectedYear;
       });
     }
   
     if (!isFired) {
       filteredData = filteredData.filter(entry => {
-        return entry.value1 > kcalObjective;
+        return entry.kcalConsumed > kcalObjective;
       });
     }
   
     onFilter(filteredData);
   };
-  
-
 
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 5 }, (_, index) => currentYear - index);
 
   function filterEntries(entry, selectedFilter, selectedValue) {
     if (!selectedValue) return true;
-  
-    const dateParts = entry.date.split('/');
+    const formatedDate = new Date(entry.userLastLogin).toLocaleDateString();
+    const dateParts = formatedDate.split('/');
     const entryValue = parseInt(dateParts[selectedFilter === 'year' ? 2 : 1]);
   
     return entryValue === selectedValue;
@@ -87,7 +82,8 @@ const FilterByTimeHistory = ({data, onFilter}) => {
     const filteredData = data.filter(entry => {
       if (filter === 'week') {
         const { start, end } = getWeekStartEndDates();
-        const dateParts = entry.date.split('/');
+        const formatedDate = new Date(entry.userLastLogin).toLocaleDateString();
+        const dateParts = formatedDate.split('/');
         const entryDate = new Date(dateParts[2], dateParts[1] - 1, dateParts[0]);
         return entryDate >= start && entryDate <= end;
       }
