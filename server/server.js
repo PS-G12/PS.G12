@@ -1,4 +1,5 @@
 const express = require("express");
+const nodemailer = require('nodemailer');
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const passport = require("passport");
 const exerciseData = require("./api/exercise_data_en.json");
@@ -152,6 +153,16 @@ function decodeToken(token) {
     return null;
   }
 }
+
+const transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  secure: true,
+  service: 'Gmail', 
+  auth: {
+      user: 'admonfitnesscoach@gmail.com', 
+      pass: 'eeywpnsqdmvikiud'
+  }
+});
 
 app.use("/gifs", express.static(path.join(__dirname, "gifs")));
 
@@ -745,6 +756,26 @@ app.post("/user/data/pfp", verifyToken, async (req, res) => {
   }
   catch (error){
     res.status(500).json({ error: "An error ocurred while updating the users profile picture"});
+  }
+});
+
+app.post("/send-email", async (req, res) => {
+  try {
+    const { email, subject, message } = req.body;
+
+    const mailOptions = {
+      from: "admonfitnesscoach@gmail.com", 
+      to: email, 
+      subject: subject, 
+      text: message, 
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    res.status(200).json({ message: "Correo electrónico enviado con éxito" });
+  } catch (error) {
+    console.error("Error al enviar el correo electrónico:", error);
+    res.status(500).json({ error: "Error al enviar el correo electrónico" });
   }
 });
 

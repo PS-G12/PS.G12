@@ -15,8 +15,13 @@ const ChangePassword = () => {
     const [error, setError] = useState(null);
     const [correct, setCorrect] = useState(null);
     const [showMessage, setShowMessage] = useState(false);
+    const [showMessageEmail, setMessageEmail] = useState(false);
     const [updateTookPlace, setUpdateTookPlace] = useState(false);
     const [selectedImage, setSelectedImage] = useState("");
+    const [validationCode, setValidationCode] = useState("");
+    const [verificationCode, setVerificationCodeGenerated] = useState("");
+    const [showValidationPopup, setShowValidationPopup] = useState(false);
+    
 
     const [formData, setFormData] = useState(
         {
@@ -35,6 +40,12 @@ const ChangePassword = () => {
           pfp: "",
         },
     });
+
+
+    const generateVerificationCode = () => {
+        const code = Math.floor(10000 + Math.random() * 90000);
+        return code.toString(); 
+      };
 
     const handleImageChange = async (event) => {
         const file = event.target.files[0];
@@ -231,52 +242,106 @@ const ChangePassword = () => {
 
     };
 
+    const handleConfirmSave = async() => {
+        setShowValidationPopup(true);
+        try {
+            const token = sessionStorage.getItem('token');
+            const response =  await fetch("/user/data/info", {
+              method: "GET",
+              headers: {
+                "Authorization": `Bearer ${token}`, 
+              },
+            });
+        
+            if (response.ok) {
+              const userData =  await  response.json();
+              const userEmail = userData.userData.email;
+        
+            let code = generateVerificationCode();
+            setVerificationCodeGenerated(code);
+              const emailData = {
+                email: userEmail, 
+                subject: 'Autenticaction code for password change',
+                message: `Your verification code is: ${code}`,
+              };
+        
+              
+              const emailResponse =  await fetch('/send-email', { 
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(emailData),
+              });
+        
+              if (emailResponse.ok) {
+                console.log("Email sent correctly")
+              } else {
+                console.error('Error while sending the email:', emailResponse.statusText);
+              }
+            } else {
+              console.error('Error while obtaining the user´s email:', response.statusText);
+            }
+          } catch (error) {
+            console.error('Error while sending the email:', error);
+          }
+    };
+
+    const handleCancelSave = () => {
+        setShowValidationPopup(false);
+    };
 
     
     const handleSaveClick = () => {
-        setShowMessage(true);
+        setMessageEmail(false);
+        if(verificationCode === validationCode){
 
-        if( previousPassword && newPassword && repeatNewPassword ){
+           
 
-            formData.userData.passwordIn = newPassword;
-            formData.userData.passwordDb = previousPassword;
-            formData.userData.passwordRepeat = repeatNewPassword;
+            if( previousPassword && newPassword && repeatNewPassword ){
 
+                formData.userData.passwordIn = newPassword;
+                formData.userData.passwordDb = previousPassword;
+                formData.userData.passwordRepeat = repeatNewPassword;
 
-            const upDatePassword = async() => {
-                try{
-                    const response = await fetch("/user/data/update/info/pass", {
-                        method: "POST",
-                        headers:{
-                            "Content-Type": "application/json",
-                            "Authorization": `Bearer ${token}`
-                        },
+                setShowMessage(true);
+                setShowValidationPopup(false);
+                const upDatePassword = async() => {
+                    try{
+                        const response = await fetch("/user/data/update/info/pass", {
+                            method: "POST",
+                            headers:{
+                                "Content-Type": "application/json",
+                                "Authorization": `Bearer ${token}`
+                            },
 
-                        body: JSON.stringify({formData})
-                    });
-            
-                    const data = await response.json();
-                    console.log(data);
-            
-                    if (response.ok && data){
-                        console.log("Password updated correctly")
-                        setCorrect("Password updated correctly");
-                        return
+                            body: JSON.stringify({formData})
+                        });
+                
+                        const data = await response.json();
+                        console.log(data);
+                
+                        if (response.ok && data){
+                            console.log("Password updated correctly")
+                            setCorrect("Password updated correctly");
+                            return
+                        }
+                        else{
+                            console.error("Could not fetch the users data");
+                            setError("Password error");
+                        }
                     }
-                    else{
-                        console.error("Could not fetch the users data");
+                    catch (error){
+                        console.error("Run into an error while getting the users data: ", error);
                         setError("Password error");
+                        throw error;
                     }
                 }
-                catch (error){
-                    console.error("Run into an error while getting the users data: ", error);
-                    setError("Password error");
-                    throw error;
-                }
-            }
 
-            upDatePassword();
-
+                upDatePassword();
+            }       
+        } else{
+            setMessageEmail(true);
         }
 
     };
@@ -375,7 +440,7 @@ const ChangePassword = () => {
                             )
                         )}
 
-                        <button className="save-changePassword" onClick={handleSaveClick}>
+                        <button className="save-changePassword" onClick={handleConfirmSave}>
                             <span className="icon-margin">
                                 <FontAwesomeIcon icon={faSave} />
                             </span>
@@ -387,6 +452,28 @@ const ChangePassword = () => {
 
                 </div>
             </div>
+            {showValidationPopup && (
+                <div className="validation-popup">
+                    <div className="validation-popup-content">
+                        <p>A validation code has been sent to your email. Please enter the code below:</p>
+                        <input 
+                            type="text" 
+                            value={validationCode} 
+                            onChange={(e) => setValidationCode(e.target.value)} 
+                        />
+                        <div className="passwordChangeButtons">
+                            <button onClick={handleSaveClick}>Confirm</button>
+                            <button onClick={handleCancelSave}>Cancel</button>
+                        </div>
+                    </div>
+                    {showMessageEmail && (
+                        <p className="error">
+                            <i className="error-icon fas fa-exclamation-circle"></i>
+                            The introduced code does not match the email verification code
+                        </p>
+                    )}
+                </div>
+            )}
         </div>
 
     );
