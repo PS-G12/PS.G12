@@ -31,6 +31,8 @@ const {
   updatePfp,
   getHistory,
   setRates,
+  getRates,
+  getUserRates
 } = require("./api/db.mongo");
 const { getUser } = require("./api/db.mongo");
 const jsonData = require("./api/foodData.json");
@@ -597,6 +599,27 @@ app.post("/user/data/update/info/gender", verifyToken, async (req, res) => {
     res.status(500).json({ error: "An error ocurred while getting the users data"});
   }
 });
+
+app.get("/user/rate", verifyToken, async (req, res) => {
+  const user = req.user;
+  const { exerciseId } = req.query;
+
+  try {
+    const { userRate, globalRate } = await getUserRates(exerciseId, user); // Obtener tasas del usuario y global
+
+    if (userRate !== null && globalRate !== null) {
+      console.log("Exercise rates retrieved successfully for user", user);
+      return res.status(200).json({ success: true, userRate, globalRate }); // Devolver tasas al cliente
+    } else {
+      console.log("Failed to retrieve exercise rates for user", user);
+      return res.status(500).json({ success: false, message: "Failed to retrieve exercise rates" });
+    }
+  } catch (error) {
+    console.error("An error occurred while retrieving exercise rates:", error);
+    return res.status(500).json({ success: false, message: "An error occurred while retrieving exercise rates" });
+  }
+});
+
 
 app.post("/user/rate", verifyToken, async (req, res) => {
   const user = req.user;

@@ -39,7 +39,6 @@ const ExerciseCard = ({
   };
 
   let filteredExercises = exercise;
-  console.log(filteredExercises);
   if (!name && !bodyPartList) {
     filteredExercises = exercise
       .filter((item) => item.bodyPart === bodyPartChoosen)
@@ -90,8 +89,9 @@ const ExerciseCard = ({
               <h2>{exercise.name}</h2>
             </div>
             <StarRatingComponent
-              rate={exercise.rating}
+              globalrate={exercise.rating}
               type={"small"}
+              link={exercise.id}
             ></StarRatingComponent>
           </div>
         </a>

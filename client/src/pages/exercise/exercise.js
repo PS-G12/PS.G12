@@ -15,7 +15,6 @@ const ExercisePage = () => {
   const bodyPart = exercise.bodyPart;
   const [loading, setLoading] = useState(false);
   const [filteredExercises, setFilteredExercises] = useState([]);
-  const [starRating, setStarRating] = useState(3.35);
 
 
   useEffect(() => {
@@ -69,7 +68,7 @@ const ExercisePage = () => {
           <h1><span>{exercise.name.toUpperCase()}</span></h1>
           <img src={`/gifs/${exercise.id}.gif`} alt={exercise.name} />
         </div>
-        <StarRatingComponent rating={starRating} type="big"></StarRatingComponent>
+        <StarRatingComponent rating={0} type="big"></StarRatingComponent>
         <div className="separator"></div>
         <div className="instructions">
           <h2>Instructions:</h2>
