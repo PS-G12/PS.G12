@@ -46,6 +46,7 @@ function SearchResultsPage() {
                 return response.json();
               })
               .then((data) => {
+                console.log(data);
                 cache.put(
                   `/api/exercises?search=${search}&page=${currentPage}&perPage=${exercisesPerPage}&filter=${selectedBodyParts}`,
                   new Response(JSON.stringify(data))

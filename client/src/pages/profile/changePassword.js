@@ -15,6 +15,13 @@ const ChangePassword = () => {
     const [error, setError] = useState(null);
     const [correct, setCorrect] = useState(null);
     const [showMessage, setShowMessage] = useState(false);
+    const [showMessageEmail, setMessageEmail] = useState(false);
+    const [updateTookPlace, setUpdateTookPlace] = useState(false);
+    const [selectedImage, setSelectedImage] = useState("");
+    const [validationCode, setValidationCode] = useState("");
+    const [verificationCode, setVerificationCodeGenerated] = useState("");
+    const [showValidationPopup, setShowValidationPopup] = useState(false);
+    
 
     const [formData, setFormData] = useState(
         {
@@ -27,6 +34,127 @@ const ChangePassword = () => {
             }
         }
     );
+
+    const [formDataUpdate, setFormDataUpdate] = useState({
+        userData: {
+          pfp: "",
+        },
+    });
+
+
+    const generateVerificationCode = () => {
+        const code = Math.floor(10000 + Math.random() * 90000);
+        return code.toString(); 
+      };
+
+    const handleImageChange = async (event) => {
+        const file = event.target.files[0];
+        try {
+          const compressedFile = await compressImage(file, 800, 600, 0.8);
+          const reader = new FileReader();
+          reader.readAsDataURL(compressedFile);
+          reader.onload = function () {
+            setSelectedImage(reader.result);
+          };
+          reader.onerror = function (error) {
+            console.error(
+              "Run into an error converting the image to base64: ",
+              error
+            );
+          };
+        } catch (error) {
+          console.error("Error compressing the image:", error);
+        }
+    };
+
+    const compressImage = (file, maxWidth, maxHeight, quality) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function (event) {
+                const img = new Image();
+                img.src = event.target.result;
+                img.onload = function () {
+                    const canvas = document.createElement("canvas");
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > maxWidth) {
+                        height *= maxWidth / width;
+                        width = maxWidth;
+                    }
+
+                    if (height > maxHeight) {
+                        width *= maxHeight / height;
+                        height = maxHeight;
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+
+                    const ctx = canvas.getContext("2d");
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    canvas.toBlob(
+                    (blob) => {
+                        resolve(blob);
+                    },
+                    "image/jpeg",
+                    quality
+                    );
+                };
+            };
+            reader.onerror = function (error) {
+                reject(error);
+            };
+        });
+    };
+
+    useEffect(() => {
+        if (selectedImage) {
+          setFormDataUpdate((prevState) => ({
+            ...prevState,
+            userData: {
+              ...prevState.userData,
+              pfp: selectedImage,
+            },
+          }));
+        }
+    }, [selectedImage]);
+
+    useEffect(() => {
+        if (formDataUpdate.userData.pfp) {
+          console.log("si entra al if de pfp");
+          changePfp();
+        }
+    }, [formDataUpdate.userData.pfp]);
+    
+    const changePfp = async () => {
+        try {
+            const response = await fetch("/user/data/pfp", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({ formDataUpdate }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data) {
+                console.log("Users profile picture updated");
+                setUpdateTookPlace(true);
+            }
+            else {
+                console.error("Could not update the users profile picture");
+            }
+        }
+        catch (error) {
+            console.error("Run into an error while changing the users profile picture", error);
+            throw error;
+        }
+    };
 
     useEffect(() => {
         const token = sessionStorage.getItem('token');
@@ -93,7 +221,7 @@ const ChangePassword = () => {
 
             getUserData();
         }
-    }, [tokenFetched]);
+    }, [tokenFetched, updateTookPlace]);
 
 
 
@@ -114,52 +242,106 @@ const ChangePassword = () => {
 
     };
 
+    const handleConfirmSave = async() => {
+        setShowValidationPopup(true);
+        try {
+            const token = sessionStorage.getItem('token');
+            const response =  await fetch("/user/data/info", {
+              method: "GET",
+              headers: {
+                "Authorization": `Bearer ${token}`, 
+              },
+            });
+        
+            if (response.ok) {
+              const userData =  await  response.json();
+              const userEmail = userData.userData.email;
+        
+            let code = generateVerificationCode();
+            setVerificationCodeGenerated(code);
+              const emailData = {
+                email: userEmail, 
+                subject: 'Autenticaction code for password change',
+                message: `Your verification code is: ${code}`,
+              };
+        
+              
+              const emailResponse =  await fetch('/send-email', { 
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(emailData),
+              });
+        
+              if (emailResponse.ok) {
+                console.log("Email sent correctly")
+              } else {
+                console.error('Error while sending the email:', emailResponse.statusText);
+              }
+            } else {
+              console.error('Error while obtaining the user´s email:', response.statusText);
+            }
+          } catch (error) {
+            console.error('Error while sending the email:', error);
+          }
+    };
+
+    const handleCancelSave = () => {
+        setShowValidationPopup(false);
+    };
 
     
     const handleSaveClick = () => {
-        setShowMessage(true);
+        setMessageEmail(false);
+        if(verificationCode === validationCode){
 
-        if( previousPassword && newPassword && repeatNewPassword ){
+           
 
-            formData.userData.passwordIn = newPassword;
-            formData.userData.passwordDb = previousPassword;
-            formData.userData.passwordRepeat = repeatNewPassword;
+            if( previousPassword && newPassword && repeatNewPassword ){
 
+                formData.userData.passwordIn = newPassword;
+                formData.userData.passwordDb = previousPassword;
+                formData.userData.passwordRepeat = repeatNewPassword;
 
-            const upDatePassword = async() => {
-                try{
-                    const response = await fetch("/user/data/update/info/pass", {
-                        method: "POST",
-                        headers:{
-                            "Content-Type": "application/json",
-                            "Authorization": `Bearer ${token}`
-                        },
+                setShowMessage(true);
+                setShowValidationPopup(false);
+                const upDatePassword = async() => {
+                    try{
+                        const response = await fetch("/user/data/update/info/pass", {
+                            method: "POST",
+                            headers:{
+                                "Content-Type": "application/json",
+                                "Authorization": `Bearer ${token}`
+                            },
 
-                        body: JSON.stringify({formData})
-                    });
-            
-                    const data = await response.json();
-                    console.log(data);
-            
-                    if (response.ok && data){
-                        console.log("Password updated correctly")
-                        setCorrect("Password updated correctly");
-                        return
+                            body: JSON.stringify({formData})
+                        });
+                
+                        const data = await response.json();
+                        console.log(data);
+                
+                        if (response.ok && data){
+                            console.log("Password updated correctly")
+                            setCorrect("Password updated correctly");
+                            return
+                        }
+                        else{
+                            console.error("Could not fetch the users data");
+                            setError("Password error");
+                        }
                     }
-                    else{
-                        console.error("Could not fetch the users data");
+                    catch (error){
+                        console.error("Run into an error while getting the users data: ", error);
                         setError("Password error");
+                        throw error;
                     }
                 }
-                catch (error){
-                    console.error("Run into an error while getting the users data: ", error);
-                    setError("Password error");
-                    throw error;
-                }
-            }
 
-            upDatePassword();
-
+                upDatePassword();
+            }       
+        } else{
+            setMessageEmail(true);
         }
 
     };
@@ -170,10 +352,24 @@ const ChangePassword = () => {
 
             <div className="photo-table">
                 <div className="photo-username-section">
-                    <label htmlFor="upload-photo">
-                        <img src={formData.userData.pfp === '' ? "https://previews.123rf.com/images/amitspro/amitspro1706/amitspro170600016/80099376-mandala-de-flor-abstracta-patr%C3%B3n-decorativo-fondo-azul-imagen-cuadrada-imagen-de-ilusi%C3%B3n-patr%C3%B3n.jpg" : formData.userData.pfp} alt="Descripción de la imagen"></img>
+                    <label htmlFor="upload-photo" className="upload-photo-section-pass">
+                        <img src={formData.userData.pfp === '' 
+                            ? "https://previews.123rf.com/images/amitspro/amitspro1706/amitspro170600016/80099376-mandala-de-flor-abstracta-patr%C3%B3n-decorativo-fondo-azul-imagen-cuadrada-imagen-de-ilusi%C3%B3n-patr%C3%B3n.jpg" 
+                            : formData.userData.pfp} alt="Descripción de la imagen">
+                        </img>
+                        <img
+                            src="edit.png"
+                            alt="Editar"
+                            className="edit-icon-pass"
+                        />
                     </label>
 
+                    <input
+                        type="file"
+                        id="upload-photo"
+                        style={{ display: "none" }}
+                        onChange={handleImageChange}
+                    />
                     <ProfileNavBar/>
                 
                 </div>
@@ -244,7 +440,7 @@ const ChangePassword = () => {
                             )
                         )}
 
-                        <button className="save-changePassword" onClick={handleSaveClick}>
+                        <button className="save-changePassword" onClick={handleConfirmSave}>
                             <span className="icon-margin">
                                 <FontAwesomeIcon icon={faSave} />
                             </span>
@@ -256,6 +452,28 @@ const ChangePassword = () => {
 
                 </div>
             </div>
+            {showValidationPopup && (
+                <div className="validation-popup">
+                    <div className="validation-popup-content">
+                        <p>A validation code has been sent to your email. Please enter the code below:</p>
+                        <input 
+                            type="text" 
+                            value={validationCode} 
+                            onChange={(e) => setValidationCode(e.target.value)} 
+                        />
+                        <div className="passwordChangeButtons">
+                            <button onClick={handleSaveClick}>Confirm</button>
+                            <button onClick={handleCancelSave}>Cancel</button>
+                        </div>
+                    </div>
+                    {showMessageEmail && (
+                        <p className="error">
+                            <i className="error-icon fas fa-exclamation-circle"></i>
+                            The introduced code does not match the email verification code
+                        </p>
+                    )}
+                </div>
+            )}
         </div>
 
     );

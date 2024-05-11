@@ -14,27 +14,45 @@ const client = new MongoClient(uri, {
 });
 const database = client.db("Cluster0");
 
-try{
-  cron.schedule("0 0 * * *", async () => {
+try {
+  cron.schedule("00 23 * * *", async () => {
     const sourceCollection = database.collection("objective_records");
     const targetCollection = database.collection("user_history");
 
-    const fieldsToCopy = {userID:1, "objectiveData.kcalConsumed":1, "objectiveData.proteinsConsumed":1, "objectiveData.fatsConsumed":1, "objectiveData.carbsConsumed":1,
-     "objectiveData.waterAmount":1, "objectiveData.kcalOjective":1, "objectiveData.pulseProgression":1, "objectiveData.userLastLogin":1
-    };
+    const sourceData = await sourceCollection.find({}).toArray();
 
-    const sourceData = await sourceCollection.find({}, fieldsToCopy).toArray();
-    await targetCollection.insertMany(sourceData);
+    const filteredData = sourceData.map(doc => {
+      const { userId, objectiveData } = doc;
+      const { kcalConsumed, proteinsConsumed, fatsConsumed, carbsConsumed, waterAmount, pulseProgression, weightProgression, userLastLogin, kcalBurned } = objectiveData;
+      
+      return {
+        userId,
+        objectiveData: {
+          kcalConsumed,
+          proteinsConsumed,
+          fatsConsumed,
+          carbsConsumed,
+          waterAmount,
+          pulseProgression,
+          weightProgression,
+          userLastLogin,
+          kcalBurned
+        }
+      };
+    });
 
-    if (targetCollection.countDocuments() === sourceData.length){
-      console.log("Data copied successfully");
+    await targetCollection.insertMany(filteredData);
+
+    const insertedData = filteredData.length;
+
+    if (insertedData === sourceData.length) {
+      //console.log("Data copied successfully");
     }
-    else{
-      console.log("Could not copy the data");
+    else {
+      console.error("Could not copy the data");
     }
   });
-}
-catch (error){
+} catch (error) {
   console.error("Error could not copy the data: ", error);
 }
 
@@ -42,7 +60,7 @@ const getQuery = async (collection, findQuery) => {
   try {
     const cursor = await collection.find(findQuery).sort({ name: 1 });
     await cursor.forEach((recipe) => {
-      //console.log(`${recipe.name} has ${recipe.ingredients.length} ingredients and takes ${recipe.prepTimeInMinutes} minutes to make.`);
+      
     });
   } catch (err) {
     console.error(
@@ -78,14 +96,14 @@ const getUser = async (findQuery) => {
 
 async function checkUser(username, email) {
   const collection_user = database.collection("user_data");
-  //console.log(`Checking ${username} and ${email}`);
+  
   try {
     const existingUser = await collection_user.findOne({
       "userData.username": username,
     });
     if (username) {
       if (existingUser) {
-        //console.log('Username already exists');
+        
         return { success: false, message: "Username already exists" };
       }
     } else if (email) {
@@ -93,7 +111,7 @@ async function checkUser(username, email) {
         "userData.email": email,
       });
       if (existingEmail) {
-        //console.log('Email' + email + 'already exists');
+        
         return { success: false, message: "Email already exists" };
       }
     }
@@ -118,7 +136,7 @@ async function registerUser(formData) {
         userId: formData.userData.username,
         objectiveData: formData.objectiveData,
       });
-      //console.log('User registered successfully');
+      
       return { success: true, message: "User registered successfully" };
     }
   } catch (error) {
@@ -158,8 +176,8 @@ const setUserData = async (userId, food) => {
     if (!userData.objectiveData.foodRecords) {
       userData.objectiveData.foodRecords = [];
     }
-    //console.log(food);
-    //console.log(userData);
+    
+    
 
     const calories = parseFloat(food.calorias);
     const proteins = parseFloat(food.protein);
@@ -171,7 +189,7 @@ const setUserData = async (userId, food) => {
     const validFats = isNaN(fats) || !isFinite(fats) ? 0 : fats;
     const validCarbs = isNaN(carbs) || !isFinite(carbs) ? 0 : carbs;
 
-    //console.log(validCalories, validProteins, validFats, validCarbs);
+    
 
     const kcalConsumed =
       isNaN(userData.objectiveData.kcalConsumed) ||
@@ -240,7 +258,7 @@ const addNewFood = async (userId, food) => {
       userData.objectiveData.ownFood = [];
     }
     userData.objectiveData.ownFood.push(food);
-    //console.log(userData.objectiveData.ownFood);
+    
 
     await collection.updateOne(
       { userId: userId },
@@ -260,8 +278,8 @@ const addNewFood = async (userId, food) => {
 
 const deleteFood = async (userId, foodName, meal) => {
   try {
-    console.log("Este es el nombre de la comida a eliminar ", foodName);
-    console.log("Este es el tipo de comida a eliminar ", meal);
+    //console.log("Este es el nombre de la comida a eliminar ", foodName);
+    //console.log("Este es el tipo de comida a eliminar ", meal);
 
     const collection = database.collection("objective_records");
     const userData = await collection.findOne({ userId: userId });
@@ -276,13 +294,13 @@ const deleteFood = async (userId, foodName, meal) => {
       (item) => item.nombre !== foodName && item.typeComida !== meal
     );
     
-    console.log(userData.objectiveData.foodRecords);
+    //console.log(userData.objectiveData.foodRecords);
     
     await collection.updateOne(
       { userId: userId },
       {
         $set: {
-          "objectiveData.ownFood": userData.objectiveData.foodRecords,
+          "objectiveData.foodRecords": userData.objectiveData.foodRecords,
         },
       }
     );
@@ -414,7 +432,7 @@ const getUserWeightHeight = async (username) => {
       return null;
     }
     const { weight, height } = userResult.userData;
-    //console.log('User data successfully fetched:', userResult);
+    
     return { weight, height };
   } catch (error) {
     console.error("Error fetching user data:", error);
@@ -432,7 +450,7 @@ const getUserMacros = async (username) => {
     }
     const { weight, height, age, gender, activityLevel, fitnessGoal } =
       result.userData;
-    //console.log('User data successfully fetched: ', result);
+    
     return { weight, height, age, gender, activityLevel, fitnessGoal };
   } catch (error) {
     console.error("Error while fetching user macros: ", error);
@@ -448,7 +466,7 @@ const getPrevUserData = async (user) => {
       console.error("No user records foundD");
       return null;
     }
-    //console.log('User data successfully fetched: ', result);
+    
     return result.userData;
   } catch (error) {
     console.error("Error while getting the users data: ", error);
@@ -464,7 +482,7 @@ const getUserInfo = async (user) => {
             console.error("No user records found");
             return null;
         }
-        //console.log("Returning users data...");
+        
         return info;
     }
     catch (error){
@@ -491,9 +509,9 @@ const resetProgress = async (user) => {
         lastLoginDate.getMonth() === currentDate.getMonth() &&
         lastLoginDate.getFullYear() === currentDate.getFullYear()
       ) {
-        //console.log("El último inicio de sesión ocurrió hoy.");
+        
       } else {
-        //console.log("El último inicio de sesión no ocurrió hoy.");
+        
         result.objectiveData.proteinsConsumed = 0;
         result.objectiveData.kcalConsumed = 0;
         result.objectiveData.carbsConsumed = 0;
@@ -508,8 +526,8 @@ const resetProgress = async (user) => {
       ...objectiveData,
       userLastLogin: currentDate.toISOString(),
     };
-    //console.log("result");
-    //console.log(result);
+    
+    
     await collection.updateOne(
       { "userId": user },
       { $set: { "objectiveData": result.objectiveData } }
@@ -526,9 +544,11 @@ const updateUsername = async (user, username) => {
     const collection = database.collection('user_data');
     const document = await collection.findOne({"userData.username": user});
     const collectionToExpand = database.collection('objective_records');
+    const expandToHistory = database.collection('user_history');
     const documentToExpand = await collectionToExpand.findOne({userId: user});
+    const historyDocument = await expandToHistory.findOne({userId: user});
   
-    if (!document || !documentToExpand){
+    if (!document || !documentToExpand || !historyDocument){
       console.error("No user records found");
       return false;
     }
@@ -542,10 +562,11 @@ const updateUsername = async (user, username) => {
     };
   
     const updateExpansion = await collectionToExpand.updateOne({userId: user}, expandUpdate);
-    if (updateExpansion.modifiedCount === 1){
+    const updateExpansionToHistory = await expandToHistory.updateMany({userId: user}, expandUpdate);
+    if (updateExpansion.modifiedCount === 1 && updateExpansionToHistory.modifiedCount >= 1){
       const result = await collection.updateOne({"userData.username":user}, update);
       if (result.modifiedCount === 1){
-        console.log("Username updated");
+        //console.log("Username updated");
         return true;
       }
       else{
@@ -608,7 +629,7 @@ const updateWeight = async (user, weight) => {
   
     const result = await collection.updateOne({"userData.username":user}, update);
     if (result.modifiedCount === 1){
-      console.log("Weight updated");
+      //console.log("Weight updated");
       return true;
     }
     console.error("Could not update the weight");
@@ -636,7 +657,7 @@ const updateHeight = async (user, height) => {
   
     const result = await collection.updateOne({"userData.username":user}, update);
     if (result.modifiedCount === 1){
-      console.log("Height updated");
+      //console.log("Height updated");
       return true;
     }
     console.error("Could not update the height");
@@ -664,7 +685,7 @@ const updateAge = async (user, age) => {
   
     const result = await collection.updateOne({"userData.username":user}, update);
     if (result.modifiedCount === 1){
-      console.log("Age updated");
+      //console.log("Age updated");
       return true;
     }
     console.error("Could not update the age");
@@ -692,7 +713,7 @@ const updateCal = async (user, cal) => {
   
     const result = await collection.updateOne({userId:user}, update);
     if (result.modifiedCount === 1){
-      console.log("Kcal Objective updated");
+      //console.log("Kcal Objective updated");
       return true;
     }
     console.error("Could not update the Kcal Objective");
@@ -720,7 +741,7 @@ const updateGender = async (user, gender) => {
   
     const result = await collection.updateOne({"userData.username":user}, update);
     if (result.modifiedCount === 1){
-      console.log("Gender updated");
+      //console.log("Gender updated");
       return true;
     }
     console.error("Could not update the gender");
@@ -751,7 +772,7 @@ const updatePass = async (user, password) => {
     const result = await collection.updateOne({"userData.username":user}, update);
 
     if (result.modifiedCount === 1){
-      console.log("Password updated");
+      //console.log("Password updated");
       return true;
     }
 
@@ -766,11 +787,8 @@ const updatePass = async (user, password) => {
 
 const updatePfp = async (user, newPfp) => {
   try{
-    console.log("hola", user);
-    console.log(newPfp);
     const collection = database.collection('user_data');
     const document = await collection.findOne({"userData.username": user});
-    console.log("puta", document)
 
     if (!document){
       console.error("No users found");
@@ -792,7 +810,7 @@ const updatePfp = async (user, newPfp) => {
     return false
   }
   catch (error){
-    console.error("RUn into an error while updating the users profile picture");
+    console.error("Run into an error while updating the users profile picture");
     throw error;
   }
 };
@@ -800,7 +818,7 @@ const updatePfp = async (user, newPfp) => {
 const getHistory = async (user) => {
   try {
     const collection = database.collection("user_history");
-    const userData = await collection.findOne({ userId: user });
+    const userData = await collection.find({ userId: user }).toArray();
     if (!userData) {
       console.error("No user records foundA");
     }
@@ -811,6 +829,163 @@ const getHistory = async (user) => {
   }
   catch (error) {
     console.error("Error fetching user data:", error);
+    throw error;
+  }
+};
+
+const getRates = async () => {
+  try {
+    const collection = database.collection('exercise');
+    const documents = await collection.aggregate([
+      {
+        "$match": {
+          "rating": { "$exists": true }
+        }
+      },
+      {
+        "$project": {
+          "_id": 0,
+          "id": 1,
+          "rating": 1,
+          "ratings": 1
+        }
+      }
+    ]).toArray();    
+    
+    if (!documents || documents.length === 0){
+      console.error("No user records found");
+      return false;
+    }
+    //console.log(JSON.stringify(documents));
+    return documents;
+  } catch (error) {
+    console.error("Encountered an error while retrieving user data: ", error);
+    throw error;
+  }
+}
+
+const getUserRates = async (exerciseId, user) => {
+  try {
+    const collection = database.collection('exercise');
+    const documents = await collection.aggregate([
+      {
+        "$match": {
+          "id": exerciseId
+        }
+      },
+      {
+        "$project": {
+          "_id": 0,
+          "id": 1,
+          "rating": 1,
+          "ratings": 1,
+        }
+      }
+    ]).next();
+    //console.log("DOCUMENTS" , JSON.stringify(documents));
+    //console.log("DOCUMENTS RATING", documents.rating);
+    if (!documents || documents.length === 0){
+      console.error("No exercise records found with ID", exerciseId);
+      return { userRate: null, globalRate: null };
+    }
+    const userRating = documents.ratings ? documents.ratings.find((rate) => rate.userId === user) : null;
+    if (userRating) {
+      //console.log("El usuario", user, "ha calificado el ejercicio con ID", exerciseId, "con", rating.rating);
+    }
+    return { userRate: userRating? userRating.rating: 0, globalRate: documents.rating? documents.rating : 0 };
+  } catch (error) {
+    console.error("Encountered an error while retrieving exercise data:", error);
+    throw error;
+  }
+}
+
+
+
+
+const setRates = async (exerciseId, rating, userId) => {
+  try {
+    if (!rating || rating < 0 || rating > 5 || isNaN(rating)) {
+      throw new Error("Invalid rating. Rating must be a number between 0 and 5.");
+    }
+    let newRating = 0;
+    //console.log("Setting rating for exercise with ID", exerciseId, "to", rating, "for user", userId);
+    const collection = database.collection('exercise');
+    const exercise = await collection.findOne({ id: exerciseId });
+
+    if (!exercise) {
+      throw new Error("Exercise with ID " + exerciseId + " not found.");
+    } else {
+      if (exercise.ratings && exercise.ratings.some(r => r.userId === userId)) {
+        //console.log("Updating rating for user", userId, "to", rating, "last rating was", exercise.ratings.find(r => r.userId === userId).rating);
+      }
+
+      const newRatings = exercise.ratings ? [...exercise.ratings.filter(r => r.userId !== userId), { userId, rating }] : [{ userId, rating }];
+
+      const totalRatings = newRatings.length;
+      newRating = newRatings.reduce((acc, cur) => acc + cur.rating, 0) / totalRatings;
+
+      await collection.updateOne(
+        { id: exerciseId },
+        { $set: { ratings: newRatings, rating: newRating } }
+      );
+    }
+
+    //console.log("Rating for exercise with ID", exerciseId, "has been updated/inserted to", newRating, "for user", userId);
+    return newRating;
+  } catch (error) {
+    console.error("Encountered an error while updating/inserting exercise rating: ", error);
+    throw error;
+  }
+}
+
+
+
+const getKcalGoal = async (user) => {
+  try{
+    const collection = database.collection("objective_records");
+    const userData = await collection.findOne({ userId: user });
+    if (!userData){
+      console.error('No user found');
+    }
+    else{
+      //console.log('User data fetched: ', userData);
+      return userData.objectiveData.kcalObjective;
+    }
+  }
+  catch(error){
+    console.error("Error fetching the users data");
+    throw error;
+  }
+};
+
+const addBurnedKcals = async (user, burnedKcals) => {
+  try{
+    const collection = database.collection("objective_records");
+    const document = await collection.findOne({userId: user});
+
+    if (!document){
+      console.error("No user found");
+      return false;
+    }
+
+    const kcals = parseFloat(burnedKcals);
+    const update = {
+      $set: {"objectiveData.kcalBurned": kcals}
+    }
+
+    const updateDocument = await collection.updateOne({userId: user}, update);
+
+    if (updateDocument.modifiedCount === 1){
+      //console.log("Burned calories updated");
+      return true;
+    }
+    else{
+      console.error("Could not update the burned calories");
+      return false;
+    }
+  }
+  catch (error){
+    console.error("Error adding burned calories: ", error);
     throw error;
   }
 };
@@ -841,6 +1016,11 @@ module.exports = {
   updateGender,
   updatePass,
   updatePfp,
-  getHistory, 
-  deleteFood
+  getHistory,
+  getRates,
+  setRates,
+  getUserRates,
+  deleteFood,
+  getKcalGoal,
+  addBurnedKcals
 };

@@ -1,8 +1,9 @@
 const express = require("express");
+const nodemailer = require('nodemailer');
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const passport = require("passport");
-require("dotenv").config();
 const exerciseData = require("./api/exercise_data_en.json");
+require("dotenv").config();
 const {
   registerUser,
   registerUserData,
@@ -30,16 +31,20 @@ const {
   updateGender,
   updatePass,
   updatePfp,
-  getHistory
+  getHistory,
+  setRates,
+  getRates,
+  getUserRates,
+  getKcalGoal,
+  addBurnedKcals
 } = require("./api/db.mongo");
 const { getUser } = require("./api/db.mongo");
 const jsonData = require("./api/foodData.json");
 const path = require("path");
-const NodeCache = require("node-cache");
 const bcrypt = require("bcrypt");
-const cache = new NodeCache();
 const jwt = require("jsonwebtoken");
 const { error } = require("console");
+const { type } = require("os");
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -149,18 +154,40 @@ function decodeToken(token) {
   }
 }
 
+const transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  secure: true,
+  service: 'Gmail', 
+  auth: {
+      user: 'admonfitnesscoach@gmail.com', 
+      pass: 'eeywpnsqdmvikiud'
+  }
+});
+
 app.use("/gifs", express.static(path.join(__dirname, "gifs")));
 
-app.get("/api/exercises", (req, res) => {
+app.get("/api/exercises", async (req, res) => {
   const { search, bodyPart, perPage, page, filter } = req.query;
-  const cacheKey = JSON.stringify(req.query);
-
-  const cachedData = cache.get(cacheKey);
-  if (cachedData) {
-    return res.json(cachedData);
-  }
 
   let filteredExercises = exerciseData;
+  const rates = await getRates();
+      rates.forEach((exerciseRate) => {
+        if (exerciseRate.rating === null || exerciseRate.rating === undefined || isNaN(exerciseRate.rating)) return;
+        filteredExercises.forEach((exercise) => {
+          if (exercise.id === exerciseRate.id) {
+            console.log("exerciseRate simil", exerciseRate);
+            console.log(true);
+          } else {
+          }
+        });
+        const exerciseIndex = filteredExercises.findIndex((exercise) => (exercise.id === exerciseRate.id));
+        //console.log(typeof exerciseIndex + "exerciseIndex ", exerciseIndex);
+        if (exerciseIndex !== -1 && exerciseRate.rating !== null && exerciseRate.rating !== undefined && !isNaN(exerciseRate.rating)) {
+          const rating = exerciseRate.rating;
+          filteredExercises[exerciseIndex].rating = rating;
+        }
+      });
+
 
   if (search) {
     filteredExercises = filteredExercises.filter((exercise) =>
@@ -214,7 +241,6 @@ app.get("/api/exercises", (req, res) => {
   const results = filteredExercises.slice(startIndex, endIndex);
   const totalPages = Math.ceil(filteredExercises.length / perPage_fix);
   const data = { results, totalPages };
-  cache.set(cacheKey, data, 5 * 60);
   res.json(data);
 });
 
@@ -325,8 +351,8 @@ app.get("/user/data", verifyToken, async (req, res) => {
     const userData = await getUserData(userId);
     res.status(200).json(userData);
   } catch (error) {
-    console.error("Error al obtener los datos del usuario:", error);
-    res.status(500).json({ error: "Error al obtener los datos del usuario" });
+    console.error("Error obtaining the users data:", error);
+    res.status(500).json({ error: "Error obtaining the users data" });
   }
 });
 
@@ -384,11 +410,10 @@ app.get("/user/data/food", verifyToken, async (req, res) => {
   const userId = req.user;
   try {
     const userData = await getUserData(userId);
-    console.log(userData);
     res.status(200).json(userData.objectiveData.foodRecords);
   } catch (error) {
-    console.error("Error al obtener los datos del user:", error);
-    res.status(500).json({ error: "Error al obtener los datos del user" });
+    console.error("Error obtaining the users data:", error);
+    res.status(500).json({ error: "Error obtaining the users data" });
   }
 });
 
@@ -534,6 +559,18 @@ app.post("/user/data/update/info/email", verifyToken, async (req, res) => {
     }
 });
 
+app.post("/user/data/tutorial", verifyToken, async (req, res) => {
+  const token = req.token;
+  const user = jwt.verify(token, "_N0C0mpaRt1r")
+  try {
+    resetProgress(user);
+    res.status(200).json({ success: true, message: "Tutorial marked as skipped for user" });
+  } catch (error) {
+    console.error("Error marking tutorial as skipped:", error);
+    res.status(500).json({ error: "Error marking tutorial as skipped" });
+  }
+});
+
 app.post("/user/data/update/info/weight", verifyToken, async (req, res) => {
   const user = req.user;
   const { formDataUpdate } = req.body;
@@ -619,6 +656,53 @@ app.post("/user/data/update/info/gender", verifyToken, async (req, res) => {
   }
 });
 
+app.get("/user/rate", verifyToken, async (req, res) => {
+  const user = req.user;
+  const { exerciseId } = req.query;
+
+  try {
+    const { userRate, globalRate } = await getUserRates(exerciseId, user);
+
+    if (userRate !== null && globalRate !== null) {
+      console.log("userRate", userRate, "globalRate", globalRate);
+      return res.status(200).json({ success: true, userRate, globalRate });
+    } else {
+      console.log("Failed to retrieve exercise rates for user", user);
+      return res.status(500).json({ success: false, message: "Failed to retrieve exercise rates" });
+    }
+  } catch (error) {
+    console.error("An error occurred while retrieving exercise rates:", error);
+    return res.status(500).json({ success: false, message: "An error occurred while retrieving exercise rates" });
+  }
+});
+
+
+app.post("/user/rate", verifyToken, async (req, res) => {
+  const user = req.user;
+  const { exerciseId, rating } = req.body;
+
+  try {
+    console.log("Rating exercise with ID", exerciseId, "by user", user, "with rating", rating);
+    const globalRate = await setRates(exerciseId, rating, user);
+
+    if (globalRate !== undefined) {
+      if (globalRate) {
+        return res.status(200).json({ success: true, message: "Exercise rated successfully", globalRate });
+      } else {
+        console.log("User", user, "has already rated exercise with ID", exerciseId);
+        return res.status(400).json({ success: false, message: "User has already rated this exercise" });
+      }
+    } else {
+      console.log("Failed to rate exercise with ID", exerciseId);
+      return res.status(500).json({ success: false, message: "Failed to rate exercise" });
+    }
+  } catch (error) {
+    console.error("An error occurred while rating exercise:", error);
+    return res.status(500).json({ success: false, message: "An error occurred while rating exercise" });
+  }
+});
+
+
 
 app.post("/user/data/update/info/pass", verifyToken, async (req, res) => {
   const user = req.user;
@@ -675,14 +759,62 @@ app.post("/user/data/pfp", verifyToken, async (req, res) => {
   }
 });
 
+app.post("/send-email", async (req, res) => {
+  try {
+    const { email, subject, message } = req.body;
+
+    const mailOptions = {
+      from: "admonfitnesscoach@gmail.com", 
+      to: email, 
+      subject: subject, 
+      text: message, 
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    res.status(200).json({ message: "Correo electrónico enviado con éxito" });
+  } catch (error) {
+    console.error("Error al enviar el correo electrónico:", error);
+    res.status(500).json({ error: "Error al enviar el correo electrónico" });
+  }
+});
+
 app.get("/user/data/history", verifyToken, async (req, res) => {
   const user = req.user;
   try {
     const userData = await getHistory(user);
     res.status(200).json(userData);
   } catch (error) {
-    console.error("Error al obtener los datos del usuario:", error);
-    res.status(500).json({ error: "Error al obtener los datos del usuario" });
+    console.error("Error obtaining the users data:", error);
+    res.status(500).json({ error: "Error obtaining the users history" });
+  }
+});
+
+app.get("/user/data/kcalGoal", verifyToken, async (req, res) => {
+  const user = req.user;
+  try{
+    const userData = await getKcalGoal(user);
+    res.status(200).json(userData);
+  }
+  catch (error){
+    console.error('Run into an error while getting the user kcal goal: ', error)
+    res.status(500).json({ error: "Error obtaining the users kcal goal" });
+  }
+});
+
+app.post('/user/data/add/burned-kcals', verifyToken, async (req, res) => {
+  const user = req.user;
+  const {kcalBurned} = req.body;
+  try{
+    const userData = await addBurnedKcals(user, kcalBurned);
+    if (userData === false){
+      return res.status(401).json({ success: false, message: "No user found" });
+    }
+    return res.status(200).json({success: true, message: "Burned kcal added successfully"});
+  }
+  catch (error){
+    console.error('Run into an error while adding the burned kcal: ', error)
+    res.status(500).json({ error: "Error adding the burned kcal" });
   }
 });
 
