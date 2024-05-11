@@ -28,6 +28,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 9;
 }
 
 .message-block p {
@@ -49,7 +50,6 @@
   font-size: 4rem;
 }
 
-
 .chart-container {
   width: 35%;
   height: 30%;
@@ -58,17 +58,25 @@
   padding: 20px;
 }
 
+.card-containerobj,
+.macros-container,
+.glass-ctr,
+.chart-container,
+.chart-container2 {
+  cursor: pointer;
+}
 
 .chart-container canvas {
-  width: 100% !important; 
+  width: 100% !important;
   height: auto !important;
 }
 
-.water-popup{
+.water-popup {
   text-align: center;
 }
 
-.chart-container p, .chart-container2 p {
+.chart-container p,
+.chart-container2 p {
   text-align: center;
   font-weight: bold;
 }
@@ -81,13 +89,14 @@
   padding: 20px;
 }
 
-
 .chart-container2 canvas {
-  width: 100% !important; 
+  width: 100% !important;
   height: auto !important;
 }
 
-.weight-popup, .pulse-popup, .water-popup {
+.weight-popup,
+.pulse-popup,
+.water-popup {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -97,13 +106,14 @@
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  z-index: 1000; 
+  z-index: 1000;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.weight-form, .pulse-form {
+.weight-form,
+.pulse-form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -119,15 +129,14 @@ input[type="number"] {
   box-sizing: border-box;
 }
 
-
 .button-space {
   margin-top: 10px;
 }
 
 .submit-button,
 .cancel-button {
-  background-color: #23a6f0; 
-  color: #fff; 
+  background-color: #23a6f0;
+  color: #fff;
   border: none;
   padding: 8px 16px;
   border-radius: 5px;
@@ -135,33 +144,32 @@ input[type="number"] {
   margin-right: 10px;
 }
 
-
 .button-space {
   margin-top: 10px;
 }
 
 .card-container-top {
   display: flex;
-  justify-content:center;
+  justify-content: center;
   align-items: center;
 }
 
-.card-container-top div{
+.card-container-top div {
   margin: 0 20px 0;
 }
 
-.chart-container-main{
+.chart-container-main {
   display: flex;
   justify-content: center;
 }
-.chart-container-main div{
+.chart-container-main div {
   margin: 0 20px 0;
   margin-bottom: 5%;
 }
 
-.blur-content .cards .card-container-top .card-containerobj{
+.blur-content .cards .card-container-top .card-containerobj {
   height: fit-content;
-  padding: 3%;  
+  padding: 3%;
 }
 
 .floating-button {
