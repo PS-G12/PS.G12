@@ -263,7 +263,7 @@ app.get("/api/food/", async (req, res) => {
 
 app.post("/api/food/delete", async (req, res) => {
   const { search } = req.query;
-  const { nombre, tipo } = req.body;
+  const { nombre, tipo, alimento } = req.body;
 
   let token = req.headers.authorization;
   if (token){
@@ -275,7 +275,7 @@ app.post("/api/food/delete", async (req, res) => {
     let userId = decodeToken(token);
     if (userId) userId = userId.userId;
     
-    result = await deleteFood(userId, nombre, tipo);
+    result = await deleteFood(userId, nombre, tipo, alimento);
     return res.json(result);
   } catch (error) {
     console.error("Error al buscar alimentos:", error.message);
