@@ -276,7 +276,7 @@ const addNewFood = async (userId, food) => {
   }
 };
 
-const deleteFood = async (userId, foodName, meal) => {
+const deleteFood = async (userId, foodName, meal, alimento) => {
   try {
     //console.log("Este es el nombre de la comida a eliminar ", foodName);
     //console.log("Este es el tipo de comida a eliminar ", meal);
@@ -293,6 +293,16 @@ const deleteFood = async (userId, foodName, meal) => {
     userData.objectiveData.foodRecords = userData.objectiveData.foodRecords.filter(
       (item) => item.nombre !== foodName && item.typeComida !== meal
     );
+
+    userData.objectiveData.kcalConsumed = userData.objectiveData.kcalConsumed - alimento.calorias;
+    
+    userData.objectiveData.proteinsConsumed = userData.objectiveData.proteinsConsumed - alimento.protein;
+    
+    userData.objectiveData.fatsConsumed = userData.objectiveData.fatsConsumed - alimento.fatTotal;
+    
+    userData.objectiveData.carbsConsumed = userData.objectiveData.carbsConsumed - alimento.carbohydratesTotal;
+    
+
     
     //console.log(userData.objectiveData.foodRecords);
     
@@ -301,6 +311,10 @@ const deleteFood = async (userId, foodName, meal) => {
       {
         $set: {
           "objectiveData.foodRecords": userData.objectiveData.foodRecords,
+          "objectiveData.kcalConsumed": userData.objectiveData.kcalConsumed,
+          "objectiveData.proteinsConsumed": userData.objectiveData.proteinsConsumed,
+          "objectiveData.fatsConsumed": userData.objectiveData.fatsConsumed,
+          "objectiveData.carbsConsumed": userData.objectiveData.carbsConsumed,
         },
       }
     );
