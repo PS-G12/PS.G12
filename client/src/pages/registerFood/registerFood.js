@@ -124,6 +124,7 @@ const FoodSearch = () => {
       const token = sessionStorage.getItem("token");
       const updatedList = [...lista.slice(0, index), ...lista.slice(index + 1)];
       const nameElementToDelete = lista[index].nombre;
+      const elementToDelete = lista[index];
       console.log(nameElementToDelete)
 
       if (token) {
@@ -133,7 +134,7 @@ const FoodSearch = () => {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ nombre: nameElementToDelete, tipo: tipo }),
+          body: JSON.stringify({ nombre: nameElementToDelete, tipo: tipo, alimento: elementToDelete}),
         })
           .then((response) => {
             if (response.ok) {
@@ -177,7 +178,8 @@ const FoodSearch = () => {
         <ul>
           {lista.map((comida, index) => (
             <li key={index}>
-              {capitalizeFirstLetter(comida.nombre)} - {comida.cantidad} grams
+              {
+              capitalizeFirstLetter(comida.nombre)} - {comida.cantidad} grams
               <button onClick={() => handleDelete(index)}><FontAwesomeIcon icon={faTimes} /></button>
             </li>
           ))}
