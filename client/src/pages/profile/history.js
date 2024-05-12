@@ -127,11 +127,11 @@ const ProfileHistory = () => {
 
         worksheet.columns = [
             { header: "Date", key: "userLastLogin", width: 15 },
-            { header: "Kcal consumed", key: "kcalConsumed", width: 15 },
+            { header: "Kcal consumed", key: "kcalConsumed", width: 18 },
             { header: "Burned Kcal", key: "kcalBurned", width: 15 },
-            { header: "Carbs consumed", key: "carbsConsumed", width: 15 },
-            { header: "Proteínas consumed", key: "proteinsConsumed", width: 15 },
-            { header: "Grasas consumed", key: "fatsConsumed", width: 15 },
+            { header: "Carbs consumed", key: "carbsConsumed", width: 18 },
+            { header: "Proteínas consumed", key: "proteinsConsumed", width: 19 },
+            { header: "Grasas consumed", key: "fatsConsumed", width: 18 },
             { header: "Water drank", key: "waterAmount", width: 15 },
             { header: "Weight", key: "weightProgression", width: 15 },
             { header: "Pulse", key: "pulseProgression", width: 15 }
