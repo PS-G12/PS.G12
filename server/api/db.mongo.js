@@ -46,7 +46,7 @@ try {
     const insertedData = filteredData.length;
 
     if (insertedData === sourceData.length) {
-      //console.log("Data copied successfully");
+      console.log("Data copied successfully");
     }
     else {
       console.error("Could not copy the data");

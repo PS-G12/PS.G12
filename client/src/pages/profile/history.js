@@ -126,20 +126,33 @@ const ProfileHistory = () => {
         setClassBtn("downloaded");
 
         worksheet.columns = [
-            { header: "Fecha", key: "date", width: 15 },
-            { header: "Kcal llegadas", key: "value1", width: 15 },
-            { header: "Kcal quemadas", key: "value2", width: 15 },
-            { header: "Carbs llegados", key: "value3", width: 15 },
-            { header: "Proteínas llegadas", key: "value4", width: 15 },
-            { header: "Grasas llegadas", key: "value5", width: 15 },
-            { header: "Agua", key: "measurement1", width: 15 },
-            { header: "Peso", key: "measurement2", width: 15 },
-            { header: "Pulsaciones", key: "measurement3", width: 15 }
+            { header: "Date", key: "userLastLogin", width: 15 },
+            { header: "Kcal consumed", key: "kcalConsumed", width: 15 },
+            { header: "Burned Kcal", key: "kcalBurned", width: 15 },
+            { header: "Carbs consumed", key: "carbsConsumed", width: 15 },
+            { header: "Proteínas consumed", key: "proteinsConsumed", width: 15 },
+            { header: "Grasas consumed", key: "fatsConsumed", width: 15 },
+            { header: "Water drank", key: "waterAmount", width: 15 },
+            { header: "Weight", key: "weightProgression", width: 15 },
+            { header: "Pulse", key: "pulseProgression", width: 15 }
         ];
 
 
         dataObjects.forEach(data => {
-            worksheet.addRow(data);
+            const formattedData = {
+                ...data,
+                userLastLogin: data.userLastLogin === null ? 'XX/XX/XXXX' : new Date(data.userLastLogin).toLocaleDateString(),
+                kcalBurned: data.kcalBurned === undefined ? 0 : data.kcalBurned,
+                weightProgression: Object.keys(data.weightProgression).length === 0 
+                    ? formData.userData.weight 
+                    : data.weightProgression[Object.keys(data.weightProgression).reduce((a, b) => new Date(a) > new Date(b) ? a : b)] 
+                    || 'XX',
+                pulseProgression: Object.keys(data.pulseProgression).length === 0 
+                    ? 'XX' 
+                    : data.pulseProgression[Object.keys(data.pulseProgression).reduce((a, b) => new Date(a) > new Date(b) ? a : b)] 
+                    || 'XX'
+            };
+            worksheet.addRow(formattedData);
         });
 
 
