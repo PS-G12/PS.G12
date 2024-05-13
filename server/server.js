@@ -82,9 +82,8 @@ const generateAccessToken = (userId) => {
   return accessToken;
 };
 
-function getRandomExercises(exercises, count) {
-  const shuffledExercises = exercises.sort(() => Math.random() - 0.5);
-  return shuffledExercises.slice(0, count);
+function getRandomExercises(exercises) {
+  return exercises.sort().slice(0, 5);
 }
 
 async function fetchFood(query, user) {
@@ -225,8 +224,18 @@ app.get("/api/exercises", async (req, res) => {
       const exercisesForBodyPart = filteredExercises.filter(
         (exercise) => exercise.bodyPart === bodyPart
       );
-      samples[bodyPart] = getRandomExercises(exercisesForBodyPart, 5);
+      samples[bodyPart] = getRandomExercises(exercisesForBodyPart);
     });
+
+    function getMostRated() {
+      const sortedExercises = exerciseData
+        .filter((exercise) => exercise.rating !== null && exercise.rating !== undefined && !isNaN(exercise.rating))
+        .sort((a, b) => b.rating - a.rating);
+      console.log(sortedExercises.slice(0, 5));
+      return sortedExercises.slice(0, 5);
+    }
+
+    samples["rates"] = getMostRated();
 
     const data = { samples };
     return res.json(data);

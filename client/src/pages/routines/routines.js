@@ -97,6 +97,16 @@ const ExercisePage = () => {
         </div>
       ) : (
         <div className="exercise-list">
+        <div key={"most-rated"} className={`$most-rated-exercises`}>
+              <h1 className="h1-exercise">MOST RATED EXERCISES</h1>
+              {console.log(exerciseDataState.samples["rates"])}
+              {exerciseDataState.samples["rates"] && (
+                <ExerciseCard
+                  exercise={exerciseDataState.samples["rates"]}
+                  limit={limit}
+                />
+              )}
+            </div>
           {bodyParts.map((part) => (
             <div key={part} className={`${part}-exercises`}>
               <h1 className="h1-exercise">{part.toUpperCase()} EXERCISES</h1>

@@ -57,6 +57,10 @@ const ExerciseCard = ({
     filteredExercises = tempFilteredExercises;
   }
 
+  if (!name && !bodyPartList){
+    filteredExercises = exercise;
+  }
+
   const openExerciseWindow = (exercise) => {
     const serializedExercise = JSON.stringify(exercise);
     navigate({
