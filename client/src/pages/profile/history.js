@@ -376,7 +376,7 @@ const ProfileHistory = () => {
     
           getUserKcalGoal();
         }
-      }, [token]);
+    }, [token]);
 
     useEffect(() => {
         if (history.length > 0){

@@ -36,7 +36,8 @@ const {
   getRates,
   getUserRates,
   getKcalGoal,
-  addBurnedKcals
+  addBurnedKcals,
+  demo
 } = require("./api/db.mongo");
 const { getUser } = require("./api/db.mongo");
 const jsonData = require("./api/foodData.json");
@@ -851,3 +852,4 @@ app
 
 const PORT = 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+demo();

@@ -1004,6 +1004,44 @@ const addBurnedKcals = async (user, burnedKcals) => {
   }
 };
 
+const demo = async () => {
+  const sourceCollection = database.collection("objective_records");
+  const targetCollection = database.collection("user_history");
+
+  const sourceData = await sourceCollection.find({userId:"pruebaDemo"}).toArray();
+
+  const filteredData = sourceData.map(doc => {
+    const { userId, objectiveData } = doc;
+    const { kcalConsumed, proteinsConsumed, fatsConsumed, carbsConsumed, waterAmount, pulseProgression, weightProgression, userLastLogin, kcalBurned } = objectiveData;
+    
+    return {
+      userId,
+      objectiveData: {
+        kcalConsumed,
+        proteinsConsumed,
+        fatsConsumed,
+        carbsConsumed,
+        waterAmount,
+        pulseProgression,
+        weightProgression,
+        userLastLogin,
+        kcalBurned
+      }
+    };
+  });
+
+  await targetCollection.insertMany(filteredData);
+
+  const insertedData = filteredData.length;
+
+  if (insertedData === sourceData.length) {
+    console.log("Data copied successfully");
+  }
+  else {
+    console.error("Could not copy the data");
+  }
+}
+
 module.exports = {
   getUser,
   getQuery,
@@ -1036,5 +1074,6 @@ module.exports = {
   getUserRates,
   deleteFood,
   getKcalGoal,
-  addBurnedKcals
+  addBurnedKcals,
+  demo
 };
