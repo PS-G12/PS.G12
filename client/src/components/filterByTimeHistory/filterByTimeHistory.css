@@ -5,7 +5,7 @@
   }
   
   .filter-button, .fire-button{
-    background-color: #f0f0f0;
+    background-color: #a3a3a3;
     border: none;
     border-radius: 5px;
     padding: 8px 16px;
@@ -52,7 +52,7 @@
   }
   
   .filter-button:hover {
-    background-color: #dcdcdc;
+    background-color: #7c7c7c;
   }
 
   .fire-button:hover {

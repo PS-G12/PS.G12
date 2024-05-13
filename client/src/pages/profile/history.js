@@ -13,6 +13,7 @@ const ProfileHistory = () => {
     const [token, setToken] = useState();
     const [tokenFetched, setTokenFetched] = useState(false);
     const [selectedImage, setSelectedImage] = useState("");
+    const [loading, setLoading] = useState(true);
 
     const [formData, setFormData] = useState(
         {
@@ -201,7 +202,8 @@ const ProfileHistory = () => {
     useEffect(() => {
         const timer = setTimeout(() => {
             setClassBtn("");
-        }, 3000);
+            setLoading(false);
+        }, 1500);
       
         
         return () => clearTimeout(timer);
@@ -345,6 +347,7 @@ const ProfileHistory = () => {
 
             getUserData();
             getHistory();
+            console.log("setloading false");
         }
     }, [tokenFetched, updateTookPlace]);
 
@@ -375,6 +378,7 @@ const ProfileHistory = () => {
           };
     
           getUserKcalGoal();
+          //setLoading(false);
         }
       }, [token]);
 
@@ -414,6 +418,11 @@ const ProfileHistory = () => {
     return (
         <div className="profile-box-history">
             <Header isAuthenticated={isLoggedIn} />
+            {loading ? (
+        <div className="loader-container">
+          <span className="loader"></span>
+        </div>
+      ) : (
             <div className="photo-table-history">
                 <div className="photo-username-section-history">
                     <label htmlFor="upload-photo" className="upload-photo-section-history">
@@ -523,6 +532,7 @@ const ProfileHistory = () => {
                     </div>
                 </div>
             </div>
+      )}
         </div>
     );
 }

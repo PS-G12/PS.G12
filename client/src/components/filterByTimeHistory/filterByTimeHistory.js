@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import './filterByTimeHistory.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFire } from '@fortawesome/free-solid-svg-icons';
@@ -9,11 +9,19 @@ const FilterByTimeHistory = ({data, kcalObjective, onFilter}) => {
   const [selectedMonth, setSelectedMonth] = useState(null);
   const [selectedYear, setSelectedYear] = useState(null);
   const [isFired, setIsFired] = useState(false);
+  const [isFirst, setIsFirst] = useState(true);
 
   const handleFilterChange = (filter) => {
     setSelectedFilter(filter);
     applyFilter(filter);
   };
+
+  useEffect(() => {
+    if (isFirst){
+      applyFilter('any');
+      setIsFirst(false);
+    }
+  });
 
   const handleMonthChange = (e) => {
     const month = parseInt(e.target.value);
