@@ -20,21 +20,21 @@ const Tutorial = ({ onClose }) => {
   const getOverlayPosition = () => {
     switch (step) {
       case 0:
-        return { top: '50%', left: '27%' };
+        return { top: '38%', left: '27%' };
       case 1:
-        return { top: '50%', left: '4%' };
+        return { top: '38%', left: '4%' };
       case 2:
-        return { top: '50%', left: '35%' };
+        return { top: '38%', left: '35%' };
       case 3:
-        return { top: '49%', left: '57.5%' };
+        return { top: '38%', left: '58.5%' };
       case 4:
-        return { top: '35%', left: '28%' };
+        return { top: '20%', left: '28%' };
       case 5:
-        return { top: '15%', left: '25%' };
+        return { top: '12%', left: '25%' };
       case 6:
-        return { top: '14%', left: '56.8%' };
+        return { top: '12%', left: '56.5%' };
       case 7:
-        return { top: '50%', left: '32%' };
+        return { top: '35%', left: '32%' };
       default:
         return { top: '20%', left: '20%' };
     }
