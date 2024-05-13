@@ -765,10 +765,12 @@ app.post("/send-email", async (req, res) => {
     const { email, subject, message } = req.body;
 
     const mailOptions = {
-      from: "admonfitnesscoach@gmail.com", 
+      from: {
+        address: 'admonfitnesscoach@gmail.com',
+      }, 
       to: email, 
       subject: subject, 
-      text: message, 
+      html: message,
     };
 
     await transporter.sendMail(mailOptions);
