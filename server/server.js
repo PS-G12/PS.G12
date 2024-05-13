@@ -561,7 +561,8 @@ app.post("/user/data/update/info/email", verifyToken, async (req, res) => {
 
 app.post("/user/data/tutorial", verifyToken, async (req, res) => {
   const token = req.body.token;
-  const user = jwt.verify(token, "_N0C0mpaRt1r")
+  const user = req.user;
+
   try {
     resetProgress(user);
     res.status(200).json({ success: true, message: "Tutorial marked as skipped for user" });
@@ -764,10 +765,12 @@ app.post("/send-email", async (req, res) => {
     const { email, subject, message } = req.body;
 
     const mailOptions = {
-      from: "admonfitnesscoach@gmail.com", 
+      from: {
+        address: 'admonfitnesscoach@gmail.com',
+      }, 
       to: email, 
       subject: subject, 
-      text: message, 
+      html: message,
     };
 
     await transporter.sendMail(mailOptions);

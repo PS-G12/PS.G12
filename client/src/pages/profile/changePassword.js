@@ -4,6 +4,7 @@ import { faSave } from '@fortawesome/free-solid-svg-icons';
 import Header from "../../components/Header/header.js";
 import "./changePassword.css";
 import ProfileNavBar from "../../components/profileNavBar/profileNavBar.js";
+import iconUser from "../../images/icons/icon-app/icon-2.png"
 
 const ChangePassword = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -259,11 +260,69 @@ const ChangePassword = () => {
         
             let code = generateVerificationCode();
             setVerificationCodeGenerated(code);
-              const emailData = {
-                email: userEmail, 
-                subject: 'Autenticaction code for password change',
-                message: `Your verification code is: ${code}`,
-              };
+            const emailData = {
+              email: userEmail, 
+              subject: 'Autenticaction code for password change',
+              message: `
+              <html lang="en">
+              <head>
+                  <meta charset="UTF-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                  <title>Password Change Verification</title>
+                  <style>
+                      /* Estilos CSS para el correo */
+                      body {
+                          font-family: Arial, sans-serif;
+                          background-color: #f4f4f4;
+                          padding: 20px;
+                      }
+                      .container {
+                          max-width: 800px;
+                          margin: 0 auto;
+                          background-color: #ffffff;
+                          padding: 30px;
+                          border-radius: 10px;
+                          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                      }
+                      .logo {
+                          text-align: center;
+                          margin-bottom: 20px;
+                      }
+                      .logo img {
+                          max-width: 800px; /* Reduzco el ancho del logo */
+                      }
+                      .message {
+                          padding: 20px;
+                          background-color: #f9f9f9;
+                          border-radius: 5px;
+                      }
+                      .verification-code {
+                          text-align: center; /* Centra el código */
+                          font-size: 24px; /* Tamaño grande para el código */
+                          color: #007bff; /* Color azul */
+                          margin-top: 20px; /* Espacio superior */
+                      }
+                  </style>
+              </head>
+              <body>
+                  <div class="container">
+                      <div class="logo">
+                          <img src="https://picjj.com/images/2024/05/12/rxsTQ.png" alt="Logo de tu empresa">
+                      </div>
+                      <div class="message">
+                          <p>Dear User,</p>
+                          <p>Your verification code for password change is:</p>
+                          <p class="verification-code"><strong>${code}</strong></p> <!-- Aplico estilo al código -->
+                          <p>Best regards,</p>
+                          <p>FitnessCoach</p>
+                      </div>
+                  </div>
+              </body>
+              </html>
+            
+              `,
+            };
+            
         
               
               const emailResponse =  await fetch('/send-email', { 
