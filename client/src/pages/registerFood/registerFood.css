@@ -43,8 +43,32 @@
 }
 
 #listado-items ul { 
+    list-style-type: none;
     height: 250px;
     overflow-y: scroll;
+}
+
+#listado-items ul li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding-left: 20px; 
+    position: relative;
+}
+
+#listado-items ul li button{
+    margin-right: 5%;
+    height: 1%;
+    width: 1%;
+    display: flex;
+    justify-content: center;
+}
+
+#listado-items ul li:before {
+    content: "-";
+    margin-right: 5%;
+    color: #0067ee; 
+    font-size: 1.5rem; 
 }
 
 .registro-box button {
